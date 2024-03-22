@@ -147,11 +147,4 @@ public class ProductList {
             Ui.printToScreen(HORIZONTAL_LINE);
         }
     }
-
-    public void printExpectedEarnings(int productIndex, Integer outflowQuantity) {
-        Product outflowProduct = products.get(productIndex);
-        Price productPrice = outflowProduct.getPrice();
-        Double expectedEarnings = productPrice.getPrice() * outflowQuantity;
-        Ui.printToScreen("Expected earnings: " + expectedEarnings);
-    }
 }

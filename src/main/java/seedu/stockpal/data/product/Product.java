@@ -78,8 +78,10 @@ public class Product {
             quantity.updateDecreaseQuantity(amountToChange);
             Ui.printToScreen("Quantity updated. " + quantity.toString());
             printTimestamp();
+            printExpectedEarnings(amountToChange);
         } catch (InsufficientAmountException iae) {
             Ui.printToScreen("Insufficient amount in inventory. No change to quantity. " + quantity.toString());
+            Ui.printToScreen("No expected earnings.");
         }
     }
 
@@ -89,7 +91,12 @@ public class Product {
         String formattedTimestamp = outflowTimestamp.format(formatter);
         Ui.printToScreen("Timestamp: " + formattedTimestamp);
     }
-    
+
+    public void printExpectedEarnings(Integer outflowQuantity) {
+        Double expectedEarnings = price.getPrice() * outflowQuantity;
+        Ui.printToScreen("Expected earnings: $" + expectedEarnings);
+    }
+
     @Override
     public String toString() {
         String separator = "  |  ";

@@ -34,7 +34,6 @@ public class OutflowCommand extends ListActionCommand {
             return;
         }
         productList.decreaseAmount(productIndex, amountToDecrease);
-        productList.printExpectedEarnings(productIndex, amountToDecrease);
         LOGGER.log(Level.INFO, Messages.MESSAGE_OUTFLOW_SUCCESS);
     }
 }
