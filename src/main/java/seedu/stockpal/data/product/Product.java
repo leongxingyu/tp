@@ -82,6 +82,13 @@ public class Product {
             Ui.printToScreen("Insufficient amount in inventory. No change to quantity. " + quantity.toString());
         }
     }
+
+    public void printTimestamp() {
+        LocalDateTime outflowTimestamp = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        String formattedTimestamp = outflowTimestamp.format(formatter);
+        Ui.printToScreen("Timestamp: " + formattedTimestamp);
+    }
     
     @Override
     public String toString() {
