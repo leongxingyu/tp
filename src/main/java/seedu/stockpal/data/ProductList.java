@@ -127,16 +127,18 @@ public class ProductList {
         return currProduct.toSave();
     }
 
-    public void printLowQuantityProducts () {
+    public void printLowQuantityProducts() {
         boolean hasLowQuantity = false;
 
         Ui.printLowQuantityAlert();
         for (Product product : products) {
             Quantity productQuantity = product.getQuantity();
             if (productQuantity.isLowQuantity(product)) {
-                Ui.printToScreen (product.getPid() + " | " + product.getName() + " | " +
-                        productQuantity);
+                Ui.printToScreen (product.getPid() + " | "
+                        + product.getName() + " | "
+                        + productQuantity);
                 Ui.printToScreen(HORIZONTAL_LINE);
+                hasLowQuantity = true;
             }
         }
 
