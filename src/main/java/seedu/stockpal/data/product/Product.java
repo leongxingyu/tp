@@ -4,6 +4,8 @@ import seedu.stockpal.common.Messages;
 import seedu.stockpal.exceptions.InsufficientAmountException;
 import seedu.stockpal.exceptions.InventoryQuantityOverflowException;
 import seedu.stockpal.ui.Ui;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Product {
     private Name name;
@@ -74,6 +76,12 @@ public class Product {
         try {
             quantity.updateDecreaseQuantity(amountToChange);
             Ui.printToScreen("Quantity updated. " + quantity.toString());
+
+            LocalDateTime outflowTimestamp = LocalDateTime.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+            String formattedTimestamp = outflowTimestamp.format(formatter);
+            Ui.printToScreen("Outflow timestamp: " + formattedTimestamp);
+
         } catch (InsufficientAmountException iae) {
             Ui.printToScreen("Insufficient amount in inventory. No change to quantity. " + quantity.toString());
         }
