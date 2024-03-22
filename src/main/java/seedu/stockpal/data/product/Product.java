@@ -66,6 +66,7 @@ public class Product {
         try {
             quantity.updateIncreaseQuantity(amountToChange);
             Ui.printToScreen("Quantity updated. " + quantity.toString());
+            printTimestamp();
         } catch (InventoryQuantityOverflowException iqoe) {
             Ui.printToScreen("Overflow detected. No change to quantity. " + quantity.toString());
         }
@@ -76,17 +77,12 @@ public class Product {
         try {
             quantity.updateDecreaseQuantity(amountToChange);
             Ui.printToScreen("Quantity updated. " + quantity.toString());
-
-            LocalDateTime outflowTimestamp = LocalDateTime.now();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-            String formattedTimestamp = outflowTimestamp.format(formatter);
-            Ui.printToScreen("Outflow timestamp: " + formattedTimestamp);
-
+            printTimestamp();
         } catch (InsufficientAmountException iae) {
             Ui.printToScreen("Insufficient amount in inventory. No change to quantity. " + quantity.toString());
         }
     }
-
+    
     @Override
     public String toString() {
         String separator = "  |  ";
