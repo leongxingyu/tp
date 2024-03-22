@@ -1,6 +1,5 @@
 package seedu.stockpal.data;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -147,5 +146,12 @@ public class ProductList {
             Ui.printNoLowQuantity();
             Ui.printToScreen(HORIZONTAL_LINE);
         }
+    }
+
+    public void printExpectedEarnings(int productIndex, Integer outflowQuantity) {
+        Product outflowProduct = products.get(productIndex);
+        Price productPrice = outflowProduct.getPrice();
+        Double expectedEarnings = productPrice.getPrice() * outflowQuantity;
+        Ui.printToScreen("Expected earnings: " + expectedEarnings);
     }
 }
