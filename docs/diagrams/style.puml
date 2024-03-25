@@ -37,7 +37,7 @@
 
 !define COMMON_COLOR #magenta
 
-!define DATA_COLOR #000000
+!define DATA_COLOR #purple
 
 !define USER_COLOR #000000
 

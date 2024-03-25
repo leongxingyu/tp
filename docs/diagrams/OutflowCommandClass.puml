@@ -1,0 +1,38 @@
+@startuml
+
+package "seedu.stockpal.commands" {
+    class OutflowCommand {
+        - pid: Pid
+        - amountToDecrease: Integer
+        - time: LocalDateTime
+
+        + execute(productList: ProductList): void
+        - createTransaction(pid: Pid, amountToDecrease: Integer, time: LocalDateTime): Transaction
+    }
+}
+
+package "seedu.stockpal.data.product" {
+    class Product {
+        + decreaseQuantity(amount: Integer): void
+        .. Other methods ..
+    }
+
+    class Quantity {
+        + updateDecreaseQuantity(decreaseQuantity: Integer): void
+        .. Other methods ..
+    }
+
+}
+
+package "seedu.stockpal.data" {
+    class ProductList {
+            + decreaseAmount(index: Integer, amount: Integer): void
+            .. Other methods ..
+    }
+}
+
+OutflowCommand -> ProductList: decreaseAmount(index, amountToDecrease)
+ProductList --> Product: decreaseQuantity(amountToDecrease)
+Product -> Quantity: updateDecreaseQuantity(amountToDecrease)
+
+@enduml

@@ -1,0 +1,38 @@
+@startuml
+
+package "seedu.stockpal.commands" {
+    class InflowCommand {
+        - pid: Pid
+        - amountToIncrease: Integer
+        - time: LocalDateTime
+
+        + execute(productList: ProductList): void
+        - createTransaction(pid: Pid, amountToIncrease: Integer, time: LocalDateTime): Transaction
+    }
+}
+
+package "seedu.stockpal.data.product" {
+    class Product {
+        + increaseQuantity(amount: Integer): void
+        .. Other methods ..
+    }
+
+    class Quantity {
+        + updateIncreaseQuantity(increaseQuantity: Integer): void
+        .. Other methods ..
+    }
+
+}
+
+package "seedu.stockpal.data" {
+    class ProductList {
+            + increaseAmount(index: Integer, amount: Integer): void
+            .. Other methods ..
+    }
+}
+
+InflowCommand -> ProductList: increaseAmount(index, amountToIncrease)
+ProductList --> Product: increaseQuantity(amountToIncrease)
+Product -> Quantity: updateIncreaseQuantity(amountToIncrease)
+
+@enduml
