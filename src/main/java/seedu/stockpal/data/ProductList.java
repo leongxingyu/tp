@@ -10,6 +10,8 @@ import seedu.stockpal.data.product.Name;
 import seedu.stockpal.data.product.Quantity;
 import seedu.stockpal.data.product.Description;
 import seedu.stockpal.data.product.Price;
+import seedu.stockpal.exceptions.InsufficientAmountException;
+import seedu.stockpal.exceptions.InventoryQuantityOverflowException;
 import seedu.stockpal.exceptions.PidNotFoundException;
 import seedu.stockpal.ui.Ui;
 import static seedu.stockpal.ui.Ui.printToScreen;
@@ -80,7 +82,13 @@ public class ProductList {
      */
     public void increaseAmount(int productIndex, Integer amountToIncrease) {
         Product updatedProduct = products.get(productIndex);
-        updatedProduct.increaseQuantity(amountToIncrease);
+        Quantity initialQuantity = updatedProduct.getQuantity();
+        try {
+            initialQuantity.updateIncreaseQuantity(initialQuantity, amountToIncrease);
+            Ui.printToScreen("Quantity updated. " + initialQuantity);
+        } catch (InventoryQuantityOverflowException iqoe) {
+            Ui.printToScreen("Overflow detected. No change to quantity. " + initialQuantity);
+        }
     }
 
     /**
@@ -91,7 +99,14 @@ public class ProductList {
      */
     public void decreaseAmount(int productIndex, Integer amountToDecrease) {
         Product updatedProduct = products.get(productIndex);
-        updatedProduct.decreaseQuantity(amountToDecrease);
+        Quantity initialQuantity = updatedProduct.getQuantity();
+        try {
+            initialQuantity.updateDecreaseQuantity(initialQuantity, amountToDecrease);
+            Ui.printToScreen("Quantity updated. " + updatedProduct.getQuantity());
+        } catch (InsufficientAmountException iae) {
+            Ui.printToScreen("Insufficient amount in inventory. No change to quantity. "
+                    + updatedProduct.getQuantity());
+        }
     }
 
     /**
