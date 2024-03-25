@@ -29,11 +29,6 @@ activate commands COMMANDS_COLOR
 commands -[COMMANDS_COLOR]> data : decreaseAmount(pid, decreaseBy)
 activate data DATA_COLOR
 
-data -[DATA_COLOR]> data : decreaseQuantity(decreaseBy)
-activate data DATA_COLOR
-data --[DATA_COLOR]> data
-deactivate data
-
 data -[DATA_COLOR]> data : updateDecreaseQuantity(decreaseBy)
 activate data DATA_COLOR
 data --[DATA_COLOR]> data

@@ -1,5 +1,8 @@
 @startuml
 
+hide circles
+skinparam classAttributeIconSize 0
+
 package "seedu.stockpal.commands" {
     class OutflowCommand {
         - pid: Pid
@@ -12,11 +15,6 @@ package "seedu.stockpal.commands" {
 }
 
 package "seedu.stockpal.data.product" {
-    class Product {
-        + decreaseQuantity(amount: Integer): void
-        .. Other methods ..
-    }
-
     class Quantity {
         + updateDecreaseQuantity(decreaseQuantity: Integer): void
         .. Other methods ..
@@ -32,7 +30,6 @@ package "seedu.stockpal.data" {
 }
 
 OutflowCommand -> ProductList: decreaseAmount(index, amountToDecrease)
-ProductList --> Product: decreaseQuantity(amountToDecrease)
-Product -> Quantity: updateDecreaseQuantity(amountToDecrease)
+ProductList --> Quantity: updateDecreaseQuantity(amountToDecrease)
 
 @enduml

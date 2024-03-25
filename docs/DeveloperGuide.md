@@ -119,19 +119,92 @@ This section describes some noteworthy details on how certain features are imple
 
 #### Design consideration
 
+### InflowCommand Feature
+
+**API** : [`InflowCommand.java`](https://github.com/AY2324S2-CS2113T-T09-3/tp/blob/master/src/main/java/seedu/stockpal/commands/InflowCommand.java)
+
+The `InflowCommand` class is used to increase the quantity of a specific product in the inventory.
+This could represent scenarios like receiving new stock and updating inventory with new quantities.
+
+![Structure of the Storage Component](images/InflowCommandClass.png)
+
+**Implementation of InflowCommand**
+
+The InflowCommand class is called in this format: `InflowCommand(pid, amountToIncrease)`
+When the InflowCommand is called, a new instance of the InflowCommand initialised with pid and
+amountToIncrease would be created.
+
+The execute method will call `increaseAmount` which is a method of the ProductList class.
+In the ProductList class, the `increaseAmount` method will call a `updatedIncreaseQuantity`
+method in the quantity class.
+
+It is implemented this way to adhere to Single Responsibility Principle (SRP), such that the 
+ProductList class will only handle the product involved in quantity increase, whereas the
+Quantity class will be responsible for updating the quantities.
+
+**Attributes**
+* pid: The unique Product ID for each product
+* quantity: The amount of quantity to increase product by
+
+**Methods**
+* `InflowCommand`: Constructor for creating a new instance of the InflowCommand class.
+* `execute`: Method to increase quantity of the specified product.
+  * `execute` calls `increaseAmount` in the ProductList class.
+  * `increaseAmount` will call `updateIncreaseQuantity` in the Quantity class.
+
+The following sequence diagram shows how the InflowCommand works.
+![InflowCommand Class](images/InflowCommandSequence.png)
+
+### OutflowCommand Feature
+
+**API** : [`OutflowCommand.java`](https://github.com/AY2324S2-CS2113T-T09-3/tp/blob/master/src/main/java/seedu/stockpal/commands/OutflowCommand.java)
+
+The `OutflowCommand` class is used to decrease the quantity of a specific product in the inventory.
+This could represent scenarios like selling products and updating inventory with new updated quantities.
+
+![OutflowCommand Class](images/OutflowCommandClass.png)
+
+**Implementation of OutflowCommand**
+
+The OutflowCommand class is called in this format: `OutflowCommand(pid, amountToDecrease)`
+When the OutflowCommand is called, similar to the InflowCommand class, a new instance of the 
+OutflowCommand initialised with pid and amountToDecrease would be created.
+
+The execute method will call `decreaseAmount` which is a method of the ProductList class.
+In the ProductList class, the `decreaseAmount` method will call a `updatedDecreaseQuantity`
+method in the quantity class.
+
+It is implemented this way to adhere to Single Responsibility Principle (SRP), such that the
+ProductList class will only handle the product involved in quantity decrease, whereas the
+Quantity class will be responsible for updating the quantities.
+
+**Attributes**
+* pid: The unique Product ID for each product
+* quantity: The amount of quantity to decrease product by
+
+**Methods**
+* `OutflowCommand`: Constructor for creating a new instance of the InflowCommand class.
+* `execute`: Method to increase quantity of the specified product.
+  * `execute` calls `decreaseAmount` in the ProductList class.
+  * `decreaseAmount` in ProductList class will call `updateDecreaseQuantity` in the Quantity class.
+
+The following sequence diagram shows how the OutflowCommand works.
+![OutflowCommand Class](images/OutflowCommandSequence.png)
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Appendix: Requirements**
 
 ### Product scope
 
-**Target user profile**:
+**Target user profile**: 
+* Small business owners who are looking to keep track of their inventory using CLI
+* Possibly established companies looking to expand our application
 
-{Describe the target user profile}
-
-**Value proposition**:
-
-{Describe the value proposition: what problem does it solve?}
+**Value proposition**: <br>
+Traditional inventory management methods often involve manual data entry, spreadsheets, and paper-based 
+tracking systems. These processes are time-consuming, error-prone, and lack real-time visibility into 
+inventory status. StockPal allows users to quickly update, track, and monitor inventory data through 
+intuitive command-line commands, saving time and improving efficiency.
 
 ## User Stories
 
@@ -142,11 +215,11 @@ This section describes some noteworthy details on how certain features are imple
 
 ## Non-Functional Requirements
 
-{Give non-functional requirements}
+* Users who use mainstream OS and has Java 11 or above installed.
 
 ## Glossary
 
-* *glossary item* - Definition
+* Mainstream OS: Windows, Linux, Unix, MacOS
 
 --------------------------------------------------------------------------------------------------------------------
 

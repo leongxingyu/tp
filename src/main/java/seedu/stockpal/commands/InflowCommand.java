@@ -49,6 +49,7 @@ public class InflowCommand extends ListActionCommand {
         }
         productList.increaseAmount(productIndex, amountToIncrease);
 
+        //@@author EdmundTangg
         this.time = LocalDateTime.now();
         Transaction transaction = createTransaction(pid, amountToIncrease, time);
         transactionList.addTransaction(transaction);
@@ -56,6 +57,7 @@ public class InflowCommand extends ListActionCommand {
     }
 
 
+    //@@author EdmundTangg
     private Transaction createTransaction(Pid pid,
                                       Integer amountToIncrease,
                                       LocalDateTime time) {

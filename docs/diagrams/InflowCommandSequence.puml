@@ -29,11 +29,6 @@ activate commands COMMANDS_COLOR
 commands -[COMMANDS_COLOR]> data : increaseAmount(pid, increaseBy)
 activate data DATA_COLOR
 
-data -[DATA_COLOR]> data : increaseQuantity(increaseBy)
-activate data DATA_COLOR
-data --[DATA_COLOR]> data
-deactivate data
-
 data -[DATA_COLOR]> data : updateIncreaseQuantity(increaseBy)
 activate data DATA_COLOR
 data --[DATA_COLOR]> data

@@ -1,5 +1,8 @@
 @startuml
 
+hide circles
+skinparam classAttributeIconSize 0
+
 package "seedu.stockpal.commands" {
     class InflowCommand {
         - pid: Pid
@@ -12,11 +15,6 @@ package "seedu.stockpal.commands" {
 }
 
 package "seedu.stockpal.data.product" {
-    class Product {
-        + increaseQuantity(amount: Integer): void
-        .. Other methods ..
-    }
-
     class Quantity {
         + updateIncreaseQuantity(increaseQuantity: Integer): void
         .. Other methods ..
@@ -32,7 +30,7 @@ package "seedu.stockpal.data" {
 }
 
 InflowCommand -> ProductList: increaseAmount(index, amountToIncrease)
-ProductList --> Product: increaseQuantity(amountToIncrease)
-Product -> Quantity: updateIncreaseQuantity(amountToIncrease)
+ProductList --> Quantity: updateIncreaseQuantity(amountToIncrease)
+
 
 @enduml
