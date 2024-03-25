@@ -12,8 +12,10 @@ import java.time.LocalDateTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+
 //@@author leongxingyu
-public class InflowCommand extends ListActionCommand {
+public class InflowCommand extends TransactionActionCommand {
+
     public static final String COMMAND_KEYWORD = "inflow";
     public static final String COMMAND_DESCRIPTION = "Increases the quantity of a product from the existing amount.";
     public static final String COMMAND_USAGE = "inflow PID a/INCREMENT_AMOUNT";
@@ -40,8 +42,7 @@ public class InflowCommand extends ListActionCommand {
     }
 
     @Override
-    public void execute(ProductList productList) throws StockPalException {
-        TransactionList transactionList = new TransactionList();
+    public void execute(ProductList productList, TransactionList transactionList) throws StockPalException {
         int productIndex = productList.findProductIndex(this.pid);
         if (productIndex == -1) {
             Ui.printInvalidPidMessage();
@@ -50,17 +51,22 @@ public class InflowCommand extends ListActionCommand {
         productList.increaseAmount(productIndex, amountToIncrease);
 
         //@@author EdmundTangg
-        this.time = LocalDateTime.now();
-        Transaction transaction = createTransaction(pid, amountToIncrease, time);
-        transactionList.addTransaction(transaction);
+        boolean updateSuccessful = productList.increaseAmount(productIndex, amountToIncrease);
         LOGGER.log(Level.INFO, Messages.MESSAGE_INFLOW_SUCCESS);
+
+        if (updateSuccessful) {
+            createTransaction(transactionList);
+        }
     }
 
-
     //@@author EdmundTangg
-    private Transaction createTransaction(Pid pid,
-                                      Integer amountToIncrease,
-                                      LocalDateTime time) {
-        return new Transaction(pid, amountToIncrease, time);
+    /**
+     * Creates a transaction and add to the transaction list.
+     * @param transactionList transactionList object.
+     */
+    public void createTransaction(TransactionList transactionList) {
+        this.time = LocalDateTime.now();
+        Transaction transaction = new Transaction(pid, amountToIncrease, time);
+        transactionList.addTransaction(transaction);
     }
 }

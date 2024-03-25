@@ -1,5 +1,11 @@
 PID;Name;Quantity;Price;Description
+<<<<<<< HEAD
 1;Corn;60;1.00;It's corn!
 2;Parmesan;85;3.00;Made by happy cows!
 3;Banana;55;5.00;A bunch of bananas
+=======
+1;Corn;50;1.00;It's corn!
+2;Parmesan;75;3.00;Made by happy cows!
+3;Banana;445;5.00;A bunch of bananas
+>>>>>>> 9d2e31503436bb303395a9341b77450f4e857a0b
 4;choco;100

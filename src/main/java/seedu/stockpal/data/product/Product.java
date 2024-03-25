@@ -58,20 +58,34 @@ public class Product {
     }
 
 
-
-    /**
-     * Decrease quantity of the product and throw exception when outflow > current amount
-     *
-     * @param amountToChange Quantity to decrease by
+/*
+    public boolean increaseQuantity(Integer amountToChange) {
+        try {
+            quantity.updateIncreaseQuantity(amountToChange);
+            Ui.printToScreen("Quantity updated. " + quantity.toString());
+            return true;
+        } catch (InventoryQuantityOverflowException iqoe) {
+            Ui.printToScreen("Overflow detected. No change to quantity. " + quantity.toString());
+            return false;
+        }
      */
+
+
+
 
     /*
     public void decreaseQuantity(Integer amountToChange) {
+=======
+    public boolean decreaseQuantity(Integer amountToChange) {
+
+>>>>>>> 9d2e31503436bb303395a9341b77450f4e857a0b
         try {
             quantity.updateDecreaseQuantity(amountToChange);
             Ui.printToScreen("Quantity updated. " + quantity.toString());
+            return true;
         } catch (InsufficientAmountException iae) {
             Ui.printToScreen("Insufficient amount in inventory. No change to quantity. " + quantity.toString());
+            return false;
         }
     }
     */

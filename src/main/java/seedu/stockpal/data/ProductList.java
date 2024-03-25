@@ -75,37 +75,47 @@ public class ProductList {
     }
 
     /**
-     * Increases the quantity of the product with a specific PID
+     * Return true if the increase in quantity is successful.
+     * Increases the quantity of the product with a specific PID.
      *
-     * @param productIndex Product PID to update
-     * @param amountToIncrease Quantity of product to decrease
+     * @param productIndex Product PID to update.
+     * @param amountToIncrease Quantity of product to decrease.
      */
-    public void increaseAmount(int productIndex, Integer amountToIncrease) {
+    public boolean increaseAmount(int productIndex, Integer amountToIncrease) {
         Product updatedProduct = products.get(productIndex);
+
         Quantity initialQuantity = updatedProduct.getQuantity();
         try {
             initialQuantity.updateIncreaseQuantity(initialQuantity, amountToIncrease);
             Ui.printToScreen("Quantity updated. " + initialQuantity);
+            return true;
         } catch (InventoryQuantityOverflowException iqoe) {
             Ui.printToScreen("Overflow detected. No change to quantity. " + initialQuantity);
+            return false;
         }
+        //return updatedProduct.increaseQuantity(amountToIncrease);
     }
 
+
     /**
-     * Decreases the quantity of the product with a specific PID
+     * Return true if the decrease of quantity is successful.
+     * Decreases the quantity of the product with a specific PID.
      *
      * @param productIndex Product PID to update
      * @param amountToDecrease Quantity of product to decrease
      */
-    public void decreaseAmount(int productIndex, Integer amountToDecrease) {
+    public boolean decreaseAmount(int productIndex, Integer amountToDecrease) {
+
         Product updatedProduct = products.get(productIndex);
         Quantity initialQuantity = updatedProduct.getQuantity();
         try {
             initialQuantity.updateDecreaseQuantity(initialQuantity, amountToDecrease);
             Ui.printToScreen("Quantity updated. " + updatedProduct.getQuantity());
+            return true;
         } catch (InsufficientAmountException iae) {
             Ui.printToScreen("Insufficient amount in inventory. No change to quantity. "
                     + updatedProduct.getQuantity());
+            return false;
         }
     }
 
