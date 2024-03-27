@@ -1,0 +1,14 @@
+====================================================================================
+Command: edit
+
+Description: Edits an existing product in the inventory at the specific PID.
+
+Usage: edit PID [n/PRODUCT_NAME] [q/QUANTITY] [p/PRICE] [d/DESCRIPTION]
+
+Options:
+PID                   Product ID of product to edit
+PRODUCT_NAME          Updated name of the product
+QUANTITY              Updated quantity of the product
+PRICE                 Updated price of the product. Price must be in 2 decimal places.
+DESCRIPTION           Updated description of the product
+====================================================================================

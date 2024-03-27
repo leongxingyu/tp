@@ -50,6 +50,7 @@ public class Parser {
     public static final Pattern  FIND_COMMAND_PATTERN =
             Pattern.compile("find ([a-zA-Z0-9 `~!@#$%^&*()\\[\\]{}<>\\-_+=,.?\"':;]+)");
     public static final Pattern HISTORY_COMMAND_PATTERN = Pattern.compile("history (\\d+)");
+    public static final Pattern HELP_COMMAND_PATTERN = Pattern.compile("help(?: ([a-z]+))?");
     public static final int NUM_OF_LIST_COMMAND_ARGUMENTS = 1;
     public static final int NUM_OF_NEW_COMMAND_ARGUMENTS = 4;
     public static final int NUM_OF_EDIT_COMMAND_ARGUMENTS = 5;
@@ -58,6 +59,7 @@ public class Parser {
     public static final int NUM_OF_OUTFLOW_COMMAND_ARGUMENTS = 2;
     public static final int NUM_OF_FIND_COMMAND_ARGUMENTS = 1;
     public static final int NUM_OF_HISTORY_COMMAND_ARGUMENTS = 1;
+    public static final int NUM_OF_HELP_COMMAND_ARGUMENTS = 1;
     public static final int START_INDEX = 0;
     private static final Logger LOGGER = Logger.getLogger(Parser.class.getName());
 
@@ -69,7 +71,8 @@ public class Parser {
 
         switch (command) {
         case HelpCommand.COMMAND_KEYWORD:
-            return createHelpCommand();
+            parsed = matchAndParseCommand(input, HELP_COMMAND_PATTERN, NUM_OF_HELP_COMMAND_ARGUMENTS);
+            return validateAndCreateHelpCommand(parsed);
 
         case ListCommand.COMMAND_KEYWORD:
             parsed = matchAndParseCommand(input, LIST_COMMAND_PATTERN, NUM_OF_LIST_COMMAND_ARGUMENTS);
@@ -244,6 +247,14 @@ public class Parser {
             LOGGER.log(Level.WARNING, MESSAGE_ERROR_INPUT_INTEGER_EXCEEDED);
             throw new UnsignedIntegerExceededException(MESSAGE_ERROR_INPUT_INTEGER_EXCEEDED);
         }
+    }
+
+    private HelpCommand validateAndCreateHelpCommand(ArrayList<String> parsed) throws InvalidFormatException {
+        String command = parsed.get(0);
+        if (command == null) {
+            return new HelpCommand();
+        }
+        return new HelpCommand(command);
     }
 
     private static String getCommandFromInput(String input) {

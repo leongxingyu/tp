@@ -1,5 +1,6 @@
 package seedu.stockpal.commands;
 
+import seedu.stockpal.common.FormatUtils;
 import seedu.stockpal.common.Messages;
 import seedu.stockpal.data.ProductList;
 import seedu.stockpal.data.product.Pid;
@@ -35,4 +36,12 @@ public class DeleteCommand extends ListActionCommand {
         Ui.printDeleteSuccessMessage();
         LOGGER.log(Level.INFO, Messages.MESSAGE_DELETE_SUCCESS);
     }
+
+    //@@author Kobot7
+    public static String commandDetails() {
+        String formattedDetails = FormatUtils.formatCommandDetails(COMMAND_KEYWORD, COMMAND_DESCRIPTION
+                , COMMAND_USAGE, COMMAND_FLAGS, COMMAND_FLAG_DESCRIPTIONS);
+        return formattedDetails;
+    }
+    //@@author cheeseong2001
 }
