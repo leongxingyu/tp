@@ -66,6 +66,17 @@ The **API** of this component is specified in [`Ui.java`](https://github.com/AY2
 
 ![Structure of the Parser Component](images/ParserClassDiagram.png)
 
+How the parsing works:
+1. When user inputs, the input is passed to the `Parser`.
+2. `Parser` first extracts the command.
+3. Using the extracted command, `Parser` will perform different validation checks on the arguments supplied in the
+input.
+4. Arguments (mainly the `pid`, `name`, `quantity`, `price`, `description`, `amount` fields) are validated. 
+Exceptions are thrown when the fields do not pass their respective type checks.
+5. Once validation passes, `Parser` uses the validated arguments to creates an instance of that particular command. 
+For example, a `delete` command will cause `Parser` to create a new instance of `DeleteCommand(pid)`.
+6. The created command object is returned back to `main` function for further processing.
+
 ### Commands component
 
 **API** : [`Command.java`](https://github.com/AY2324S2-CS2113T-T09-3/tp/blob/master/src/main/java/seedu/stockpal/commands/Command.java)
@@ -221,7 +232,7 @@ The following sequence diagram shows how the InflowCommand works.
 The `OutflowCommand` class is used to decrease the quantity of a specific product in the inventory.
 This could represent scenarios like selling products and updating inventory with new updated quantities.
 
-![OutflowCommand Class](images/OutflowCommandClass.png)
+![OutflowCommand Class](images/OutflowCommandSequence.png)
 
 **Implementation of OutflowCommand**
 
@@ -249,6 +260,29 @@ Quantity class will be responsible for updating the quantities.
 
 The following sequence diagram shows how the OutflowCommand works.
 ![OutflowCommand Class](images/OutflowCommandSequence.png)
+
+### Delete product feature
+
+#### Implementation
+The delete function is mainly facilitated by `DeleteCommand`. It extends from `Command`.
+
+**Attributes**
+`pid` The unique Product ID for the product to be deleted from the StockPal inventory `productList`
+
+**Methods**
+* `DeleteCommand`: Constructor for creating a new instance of the DeleteCommand class.
+* `execute`: Method to delete `product` with PID `pid` from StockPal's `productList`.
+* `ProductList#deleteProduct`: Method called by `execute` to delete product in `productList`.
+
+Given below is an example usage scenario and how the delete function behaves at each step. The scenario assumes that the
+user has a `product` with `pid` of 2 in `StockPal`'s `productList`.
+
+Step 1. The user executes `delete 2` command to delete a specific `product` with `pid` of 2.
+Step 2. The product is successfully deleted from the inventory list.
+
+The following sequence diagram summarizes what happens when a user inputs a valid `delete` command.
+
+<img src="images/DeleteCommandSequence.png" alt=""/>
 
  --------------------------------------------------------------------------------------------------------------------
 
@@ -293,10 +327,20 @@ intuitive command-line commands, saving time and improving efficiency.
 ### Editing Product Details
 1. Prerequisites: List all products using `list` command. There should be at least multiple products in the list.
 
-3. Test case: `edit 1 n/Updated name d/Updated description`<br> 
+2. Test case: `edit 1 n/Updated name d/Updated description`<br> 
    Expected: The name and description of the product with Product ID (PID) 1 
    will be changed to `Updated name` and `Updated description` respectively.
 
 3. Test case: `edit 1 q/100 p/0.99`<br>
    Expected: The quantity and price of the product with Product ID (PID) 1
    will be changed to `100` and `0.99` respectively.
+
+### Deleting a product
+1. Prerequisites: List all products using `list` command. There should be a particular product with `pid` of 1 and no 
+product with `pid` of 2.
+
+2. Test case 1: `delete 1`. 
+   Expected: `product` with `pid` of 1 is deleted from the list. `"Product has been deleted"` is printed to the user.
+
+   Test case 2: `delete 2`.
+   Expected: `"Product with pid: 2 not found"`
