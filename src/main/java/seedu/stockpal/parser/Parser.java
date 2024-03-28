@@ -104,10 +104,6 @@ public class Parser {
         return new ExitCommand();
     }
 
-    private HelpCommand createHelpCommand() {
-        return new HelpCommand();
-    }
-
     private ListCommand validateAndCreateListCommand(ArrayList<String> parsed) {
         String flag = parsed.get(0);
 
@@ -185,19 +181,13 @@ public class Parser {
         return new HistoryCommand(pid);
     }
             
-   private HelpCommand validateAndCreateHelpCommand(ArrayList<String> parsed) throws InvalidFormatException {
+    private HelpCommand validateAndCreateHelpCommand(ArrayList<String> parsed) throws InvalidFormatException {
         String command = parsed.get(0);
         if (command == null) {
             return new HelpCommand();
         }
         return new HelpCommand(command);
     }
-
-    private static String getCommandFromInput(String input) {
-        if (!input.contains(DIVIDER)) {
-            return input;
-        }
-        return input.substring(START_INDEX, input.indexOf(DIVIDER));
 
     private static ArrayList<String> matchAndParseInput(String input, Pattern pattern, int numOfArgs)
             throws InvalidFormatException {
