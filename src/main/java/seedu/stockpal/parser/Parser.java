@@ -86,6 +86,9 @@ public class Parser {
     }
 
     private Integer validateIntegerInput(String parsedInt) throws UnsignedIntegerExceededException {
+        if (isNull(parsedInt)) {
+            return null;
+        }
         try {
             return Integer.parseUnsignedInt(parsedInt);
         } catch (NumberFormatException nfe) {
