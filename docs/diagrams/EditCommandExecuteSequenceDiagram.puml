@@ -1,0 +1,50 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+Participant ":EditCommand" as command COMMANDS_COLOR
+Participant ":ProductList" as productlist PRODUCTLIST_COLOR
+Participant ":UI" as ui UI_COLOR
+
+activate command COMMANDS_COLOR
+-> command : execute()
+
+command -> command : atLeastOneValidParameter()
+activate command COMMANDS_COLOR
+
+command --> command : hasAtLeastOneValidParameter : Boolean
+deactivate command COMMANDS_COLOR
+
+alt hasAtLeastOneValidParameter == true
+    command -> productlist : findProductIndex(PID)
+    activate productlist PRODUCTLIST_COLOR
+    command <-- productlist : productIndex
+    deactivate productlist
+
+    alt productIndex != -1
+        command -> productlist : updateProduct(productIndex, name, quantity, description, price)
+        activate productlist PRODUCTLIST_COLOR
+        command <-- productlist
+        deactivate productlist
+
+        command -> ui : printEditSuccessMessage()
+        activate ui UI_COLOR
+        command <-- ui
+        deactivate ui
+    else productIndex == -1
+        command -> ui : printInvalidPidMessage()
+        activate ui UI_COLOR
+        command <-- ui
+        deactivate ui
+    end
+else hasAtLeastOneValidParameter == false
+    command -> ui : printMissingParametersMessage()
+    activate ui UI_COLOR
+    command <-- ui
+    deactivate ui
+end
+
+<-- command
+deactivate command
+
+@enduml

@@ -142,36 +142,38 @@ The following sequence diagram shows how an add operation works:
 
 ### Edit product feature
 #### Implementation
+The `edit` command is used to edit product details such as name, quantity, price and description.
+
 The edit product feature is facilitated by `EditCommand` which extends `Command`.
 
-Given below is an example usage scenario and how the edit product mechanism behaves.
-
-Step 1. The user launches the application for the first time. There are no products in the product list.
-
-Step 2. The user executes `add n/Highlihgter q/100 p/2.00 d/Neon highlighter` to add a product to product list.
-
-Step 3. The user realises that he made mistakes in the product name and price. The user executes
-`find Highlihgter` to obtain the `PID` of the product. The `PID` is `1`.
-
-Step 4. The user executes `edit 1 n/Highlighter p/1.00` to edit the product name and price. The product name is 
-successfully updated from `Highlihgter` to `Highlighter`. The price is successfully updated from `2.00` to `1.00`.
-
 The following sequence diagram summarizes what happens when a user inputs a valid `edit` command.
-<img src="images/EditCommandSequenceDiagram.png" alt=""/>
+<img src="images/EditCommandSequenceDiagram.png" alt="EditCommandSequenceDiagram.png"/>
 
 > INFO:
 > The lifeline for EditCommand should end at the destroy marker (X) but due to a limitation of PlantUML, 
 > the lifeline reaches the end of diagram.
 
+Validation of the user input is done in `Parser`, hence `EditCommand` assumes that all fields provided upon creation
+of a `EditCommand` object are properly formatted.
+
+Validation for other criteria are still carried out within `EditCommand`.
+1. Checking if at least 1 field (name, quantity, price or description) is provided.
+2. Checking if the product ID (PID) belongs to an existing product.
+
+Once all validation is completed, updating of product details is done by calling `ProductList#updateProduct()`.
+
+The following sequence diagram details how `EditCommand#execute()` functions.
+<img src="images/EditCommandExecuteSequenceDiagram.png" alt="EditCommandExecuteSequenceDiagram.png"/>
+
 **Aspect: Validating parameters and handling errors**
 
-- Alternative 1 (current choice): Check parameters and handle errors within EditCommand.
+- Alternative 1 (current choice): Check parameters and handle errors within `EditCommand`.
   - Pros: Easy to implement
   - Cons: -
   
-- Alternative 2: Handle validation of errors within to productList#updateProduct().
-    - Pros: Implementing EditCommand#execute() will be very simple. Usage of throw/catch to handle errors.
-    - Cons: productList#updateProduct() will be more lengthy. May require further abstraction.
+- Alternative 2: Handle validation of errors within `productList#updateProduct()`.
+    - Pros: Implementing `EditCommand#execute()` will be very simple. Usage of throw/catch to handle errors.
+    - Cons: `productList#updateProduct()` will be more lengthy. May require further abstraction.
 
 ### List feature
 <img src="images/ListCommandClass.png" alt=""/>
