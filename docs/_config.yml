@@ -1,5 +1,5 @@
 title: "StockPal"
-remote_theme: jekyll/minima@v2.5.1
+remote_theme: pages-themes/slate@v0.2.0
 
 header_pages:
   - UserGuide.md
