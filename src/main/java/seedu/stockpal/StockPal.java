@@ -56,6 +56,7 @@ public class StockPal {
         } while (true); // check if command is exit
     }
 
+    //@@author EdmundTangg
     /**
      * Checks the type of command.
      * @param command Command that the user entered.

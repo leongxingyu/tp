@@ -1,0 +1,71 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+Participant ":AddCommand" as command COMMANDS_COLOR
+Participant ":ProductList" as productlist PRODUCTLIST_COLOR
+Participant ":Product" as product PRODUCT_COLOR
+Participant ":UI" as ui UI_COLOR
+
+
+activate command COMMANDS_COLOR
+-> command : execute()
+
+
+ alt sizeOfArray == 0
+     command -> product: new Product(name, quantity, price, description, 1)
+     activate product PRODUCT_COLOR
+     product --> command: toAdd
+     deactivate product PRODUCT_COLOR
+     command -> ui : printAddSuccessMessage()
+     activate ui UI_COLOR
+     command <-- ui
+     deactivate ui
+
+ else sizeOfArray == productList.get(sizeOfArray - 1).getPid().getPid()
+     command -> productlist: get(sizeOfArray - 1)
+     activate productlist PRODUCTLIST_COLOR
+     productlist --> command: lastProduct
+     deactivate productlist
+
+     command -> product: getPid()
+     activate product PRODUCT_COLOR
+     product --> command: lastPid
+     deactivate product
+
+     command -> product: new Product(name, quantity, price, description, lastPid)
+     activate product PRODUCT_COLOR
+     product --> command: toAdd
+     deactivate product
+     command -> ui : printAddSuccessMessage()
+     activate ui UI_COLOR
+     command <-- ui
+     deactivate ui
+
+ else
+     command -> productlist: get(sizeOfArray - 1)
+     activate productlist PRODUCTLIST_COLOR
+     productlist --> command: lastProduct
+     deactivate productlist
+
+     command -> product: getPid()
+     activate product PRODUCT_COLOR
+     product --> command: lastPid
+     deactivate product
+
+     command -> product: new Product(name, quantity, price, description, lastPid + 1)
+     activate product PRODUCT_COLOR
+     product --> command: toAdd
+     deactivate product
+     command -> ui : printAddSuccessMessage()
+     activate ui UI_COLOR
+     command <-- ui
+     deactivate ui
+ end
+
+
+
+<-- command
+deactivate command
+
+@enduml

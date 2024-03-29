@@ -10,7 +10,7 @@ public class Messages {
             + "\n"
             + "Enter a command to begin.";
     public static final String MESSAGE_GOODBYE = "Exiting program, goodbye!";
-    public static final String MESSAGE_ADDED = "Product added!";
+    public static final String MESSAGE_ADDED = "Product has been added.";
     public static final String MESSAGE_REFER_TO_HELP = "For more information on the commands, use `help`.";
     public static final String MESSAGE_ERROR_INVALID_COMMAND = "Invalid command. " + MESSAGE_REFER_TO_HELP;
     public static final String MESSAGE_ERROR_INVALID_FORMAT = "Invalid format. " + MESSAGE_REFER_TO_HELP;

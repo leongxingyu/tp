@@ -28,9 +28,15 @@ public class Transaction {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
         String formattedDateTime = this.time.format(formatter);
 
+        if (this.changeInQuantity < 0) {
+            return (this.pid + separator
+                    + "Change in quantity: " + this.changeInQuantity + separator
+                    + "Date of outflow: " + formattedDateTime);
+        }
+
         return (this.pid + separator
                 + "Change in quantity: " + this.changeInQuantity + separator
-                + "Date of inflow/outflow: " + formattedDateTime);
+                + "Date of inflow: " + formattedDateTime);
     }
 
     public Pid getPid() {

@@ -120,10 +120,13 @@ Exceptions classes used by multiple components are in the `seedu.stockpal.except
 
 This section describes some noteworthy details on how certain features are implemented.
 
-### Add new product feature
-<img src="images/AddCommandClass.png" alt=""/>
+### Add product feature
 
 The NewCommand class is responsible for adding a new product to the inventory in the StockPal application.
+
+#### Class diagram of NewCommand:
+<img src="images/AddCommandClass.png" alt=""/>
+
 
 **Attributes**
 * name: The name of the product.
@@ -136,8 +139,11 @@ The NewCommand class is responsible for adding a new product to the inventory in
 * `execute`: Method to add the new product to the product list.
 * `createProduct`: Method to create a new product with a unique product ID.
 
-The following sequence diagram shows how an add operation works:
-<img src="images/AddCommandSequence.png" alt=""/>
+The following sequence diagram shows how an add operation works when the user inputs a valid `add` command:
+<img src="images/AddCommandSequence.png" alt="AddCommandSequence.png"/>
+
+The following sequence diagram details how `AddCommand#execute()` functions.
+<img src="images/AddCommandExecuteSequenceDiagram.png" alt="AddCommandExecuteSequenceDiagram.png"/>
 
 
 ### Edit product feature

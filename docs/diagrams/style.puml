@@ -35,6 +35,8 @@
 !define STORAGE_COLOR_T3 #806600
 !define STORAGE_COLOR_T2 #544400
 
+!define PRODUCT_COLOR #00bcd4
+
 !define EXCEPTIONS_COLOR #orange
 
 !define COMMON_COLOR #magenta

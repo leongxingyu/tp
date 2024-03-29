@@ -63,6 +63,13 @@ Not sure where to begin? Start by learning how to utilize this user guide.
 4.  In the command prompt terminal, run StockPal using the command `java
     -jar stockpal.jar`.
 
+# Glossary
+
+PID (Product ID) - a number that we use to keep track of the products.
+
+CLI (Command Line Interface) - a text-based interface used to interact with our program by entering commands into a terminal.
+
+CSV (Comma-Separated Values) - a file format used to store tabular data. Each line represents a row of data, and each field within a row is separated by a comma
 
 ## Features 
 > ## Notes about the command format
@@ -77,6 +84,56 @@ Not sure where to begin? Start by learning how to utilize this user guide.
 List all available commands supported by Stockpal.
 
 Format: `help`
+
+## Adding a new product: `new`
+
+Creates a new product to the inventory and assigns a unique Product ID (PID) to it.
+
+### When to use?
+
+When starting as a new user of StockPal, use this command repeatedly to fill up your inventory to start tracking!
+Subsequently, when your business introduces new products, use this command to add them in too!
+
+
+Format: `new n/PRODUCT_NAME q/INITIAL_QUANTITY [p/PRICE] [d/DESCRIPTION]`
+
+- PRODUCT_NAME is limited to 100 characters.
+- INITIAL_QUANTITY must be an integer more than or equal to 0.
+- PRICE must have an integer more than or equal to 0, and have exactly 2 decimal places.
+- DESCRIPTION is limited to 100 characters.
+
+### Example 1
+Input:
+
+```new n/Drinking Cup q/20 ```
+
+Output:
+
+```Product has been added.```
+
+Explanation:
+
+This command adds your product to the inventory. The product’s details are as follows:
+- name of the product is `Drinking Cup`
+- Quantity of chocolate Milk stock is `20` units
+
+
+### Example 2
+Input:
+
+```new n/Chocolate Milk q/100 p/2.00 d/Marigold HL Milk```
+
+Output:
+
+```Product has been added.```
+
+Explanation:
+
+This command adds your product to the inventory. The product’s details are as follows:
+- name of the product is `Chocolate Milk`
+- Quantity of chocolate Milk stock is `100` units
+- Price of each unit is `$2.00`
+- Description of the Chocolate Milk product is `Marigold HL Milk`, which is the brand
 
 
 ## Editing product details: `edit`
@@ -157,10 +214,3 @@ Output:
 **A**: Install the app on the other computer and overwrite the empty `inventory.csv` file it creates with the file that contains the data of your previous StockPal home folder.
 
 
-# Glossary
-
-PID (Product ID) - a number that we use to keep track of the products.
-
-CLI (Command Line Interface) - a text-based interface used to interact with our program by entering commands into a terminal.
-
-CSV (Comma-Separated Values) - a file format used to store tabular data. Each line represents a row of data, and each field within a row is separated by a comma
