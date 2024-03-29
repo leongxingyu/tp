@@ -8,6 +8,7 @@ import seedu.stockpal.exceptions.StockPalException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
+//@@author EdmundTangg
 public class NewCommandTest {
     public ProductList productList;
 
@@ -22,10 +23,10 @@ public class NewCommandTest {
                 2.00, "ingredient");
         userInput.execute(productList);
 
-        assertEquals("chocolate",productList.getProducts().get(0).getName().getName());
-        assertEquals(100,productList.getProducts().get(0).getQuantity().getQuantity());
-        assertEquals(2.00,productList.getProducts().get(0).getPrice().getPrice());
-        assertEquals("ingredient",productList.getProducts().get(0).getDescription().getDescription());
+        assertEquals("chocolate", productList.getProducts().get(0).getName().getName());
+        assertEquals(100, productList.getProducts().get(0).getQuantity().getQuantity());
+        assertEquals(2.00, productList.getProducts().get(0).getPrice().getPrice());
+        assertEquals("ingredient", productList.getProducts().get(0).getDescription().getDescription());
         assertEquals(1, productList.getProducts().get(0).getPid().getPid());
     }
 
@@ -35,8 +36,8 @@ public class NewCommandTest {
                 100, null, null);
         userInput.execute(productList);
 
-        assertEquals("chocolate",productList.getProducts().get(0).getName().getName());
-        assertEquals(100,productList.getProducts().get(0).getQuantity().getQuantity());
+        assertEquals("chocolate", productList.getProducts().get(0).getName().getName());
+        assertEquals(100, productList.getProducts().get(0).getQuantity().getQuantity());
         assertNull(productList.getProducts().get(0).getPrice().getPrice());
         assertNull(productList.getProducts().get(0).getDescription().getDescription());
         assertEquals(1, productList.getProducts().get(0).getPid().getPid());
@@ -52,11 +53,10 @@ public class NewCommandTest {
                 null, null);
         userInput2.execute(productList);
 
-        assertEquals("chocolate",productList.products.get(0).getName().getName());
+        assertEquals("chocolate", productList.products.get(0).getName().getName());
         assertEquals(1, productList.products.get(0).getPid().getPid());
 
-        assertEquals("strawberry",productList.products.get(1).getName().getName());
+        assertEquals("strawberry", productList.products.get(1).getName().getName());
         assertEquals(2, productList.products.get(1).getPid().getPid());
     }
-
 }

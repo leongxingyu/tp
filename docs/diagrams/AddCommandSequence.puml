@@ -6,7 +6,7 @@ Actor User as user USER_COLOR
 Participant ":UI" as ui UI_COLOR
 Participant ":StockPal" as stockpal STOCKPAL_COLOR
 Participant ":Parser" as parser PARSER_COLOR
-Participant ":Commands" as commands COMMANDS_COLOR
+Participant ":NewCommand" as command COMMANDS_COLOR
 Participant ":Storage" as storage STORAGE_COLOR
 
 activate stockpal STOCKPAL_COLOR
@@ -19,17 +19,29 @@ ui -[UI_COLOR]> stockpal : "new n/Chocolate q/100 p/2.00 d/Tobelerone"
 stockpal -[STOCKPAL_COLOR]> parser : parseCommand("new n/Chocolate q/100 p/2.00 d/Tobelerone")
 activate parser PARSER_COLOR
 
-parser --[PARSER_COLOR]> stockpal : NewCommand(name, quantity, price, description)
+create command
+parser -[PARSER_COLOR]> command : new NewCommand(pid, name, quantity, price, description)
+activate command COMMANDS_COLOR
+parser <--[COMMANDS_COLOR] command
+deactivate command
+
+parser --[PARSER_COLOR]> stockpal : command : NewCommand
 deactivate parser
 
-stockpal -[STOCKPAL_COLOR]> commands : execute(NewCommand(name, quantity, price, description))
-activate commands COMMANDS_COLOR
+stockpal -[STOCKPAL_COLOR]> command : execute()
+activate command COMMANDS_COLOR
 
-commands --[COMMANDS_COLOR]> ui
-deactivate commands
-ui --[UI_COLOR]> user : "added product!"
+note over command
+    Add product details
+end note
 
-stockpal -[STOCKPAL_COLOR]> storage : (productList)
+command -[COMMANDS_COLOR]> ui : printAddSuccessMessage()
+user <-[UI_COLOR] ui : "Product has been added."
+ui [UI_COLOR]--> command
+stockpal <--[COMMANDS_COLOR] command
+deactivate command
+
+stockpal -[STOCKPAL_COLOR]> storage : saveData(productList)
 activate storage STORAGE_COLOR
 
 storage -[STORAGE_COLOR]> storage : Save to file
@@ -40,4 +52,5 @@ deactivate storage
 storage --[STORAGE_COLOR]> stockpal
 deactivate storage
 
+destroy command
 @enduml

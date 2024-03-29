@@ -144,7 +144,7 @@ public class ProductList {
             Product product = products.get(i);
             String productName = product.getName().getName().toLowerCase();
 
-            if (productName.equals(keyword)) {
+            if (productName.contains(keyword)) {
                 findList.addProduct(product);
             }
         }

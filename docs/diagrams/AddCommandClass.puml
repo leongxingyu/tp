@@ -1,5 +1,8 @@
 @startuml
 
+hide circles
+skinparam classAttributeIconSize 0
+
 package "seedu.stockpal.commands" {
     class NewCommand {
         - name: String
