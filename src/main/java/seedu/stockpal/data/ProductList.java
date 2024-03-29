@@ -90,8 +90,8 @@ public class ProductList {
      * Return true if the decrease of quantity is successful.
      * Decreases the quantity of the product with a specific PID.
      *
-     * @param productIndex Product PID to update
-     * @param amountToDecrease Quantity of product to decrease
+     * @param productIndex Product PID to update.
+     * @param amountToDecrease Quantity of product to decrease.
      */
     public boolean decreaseAmount(int productIndex, Integer amountToDecrease) {
 
