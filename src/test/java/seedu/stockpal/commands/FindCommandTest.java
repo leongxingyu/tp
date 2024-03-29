@@ -15,9 +15,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 //@@author EdmundTangg
 public class FindCommandTest {
-    public ProductList productList;
     private static final String LOWERCASE_EXPECTED_OUTPUT = "src/test/data/FindCommandTest/LowerCaseMatch.txt";
     private static final String NO_MATCH_EXPECTED_OUTPUT = "src/test/data/FindCommandTest/NoMatchesFound.txt";
+    public ProductList productList;
+
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 
     @BeforeEach
