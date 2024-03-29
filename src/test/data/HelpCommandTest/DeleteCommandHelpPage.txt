@@ -1,0 +1,10 @@
+====================================================================================
+Command: delete
+
+Description: Deletes an existing product from the inventory.
+
+Usage: Format: delete PID
+
+Options:
+PID                   Product ID of product
+====================================================================================

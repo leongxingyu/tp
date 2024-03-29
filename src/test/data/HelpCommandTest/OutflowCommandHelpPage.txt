@@ -1,0 +1,11 @@
+====================================================================================
+Command: outflow
+
+Description: Decreases the quantity of a product from the existing amount.
+
+Usage: outflow PID a/DECREMENT_AMOUNT
+
+Options:
+PID                   Product ID of product
+DECREMENT_AMOUNT      Quantity of product to remove
+====================================================================================

@@ -52,6 +52,7 @@ public class Parser {
     public static final Pattern  FIND_COMMAND_PATTERN =
             Pattern.compile("find ([a-zA-Z0-9 `~!@#$%^&*()\\[\\]{}<>\\-_+=,.?\"':;]+)");
     public static final Pattern HISTORY_COMMAND_PATTERN = Pattern.compile("history (\\d+)");
+    public static final Pattern HELP_COMMAND_PATTERN = Pattern.compile("help(?: ([a-z]+))?");
     public static final int NUM_OF_LIST_COMMAND_ARGUMENTS = 1;
     public static final int NUM_OF_NEW_COMMAND_ARGUMENTS = 4;
     public static final int NUM_OF_EDIT_COMMAND_ARGUMENTS = 5;
@@ -60,6 +61,7 @@ public class Parser {
     public static final int NUM_OF_OUTFLOW_COMMAND_ARGUMENTS = 2;
     public static final int NUM_OF_FIND_COMMAND_ARGUMENTS = 1;
     public static final int NUM_OF_HISTORY_COMMAND_ARGUMENTS = 1;
+    public static final int NUM_OF_HELP_COMMAND_ARGUMENTS = 1;
     public static final int START_INDEX = 0;
     private static final Logger LOGGER = Logger.getLogger(Parser.class.getName());
 
@@ -70,6 +72,7 @@ public class Parser {
 
         return input.substring(START_INDEX, input.indexOf(DIVIDER));
     }
+  
     private String validateStringInput(String parsedString) {
         if (isNull(parsedString)) { // conditional branch only applicable to description input
             return null;
@@ -83,6 +86,9 @@ public class Parser {
     }
 
     private Integer validateIntegerInput(String parsedInt) throws UnsignedIntegerExceededException {
+        if (isNull(parsedInt)) {
+            return null;
+        }
         try {
             return Integer.parseUnsignedInt(parsedInt);
         } catch (NumberFormatException nfe) {
@@ -99,10 +105,6 @@ public class Parser {
 
     private ExitCommand createExitCommand() {
         return new ExitCommand();
-    }
-
-    private HelpCommand createHelpCommand() {
-        return new HelpCommand();
     }
 
     private ListCommand validateAndCreateListCommand(ArrayList<String> parsed) {
@@ -179,8 +181,15 @@ public class Parser {
     private HistoryCommand validateAndCreateHistoryCommand(ArrayList<String> parsed)
             throws UnsignedIntegerExceededException {
         Integer pid = validateIntegerInput(parsed.get(0));
-
         return new HistoryCommand(pid);
+    }
+            
+    private HelpCommand validateAndCreateHelpCommand(ArrayList<String> parsed) throws InvalidFormatException {
+        String command = parsed.get(0);
+        if (command == null) {
+            return new HelpCommand();
+        }
+        return new HelpCommand(command);
     }
 
     private static ArrayList<String> matchAndParseInput(String input, Pattern pattern, int numOfArgs)
@@ -208,7 +217,8 @@ public class Parser {
 
         switch (command) {
         case HelpCommand.COMMAND_KEYWORD:
-            return createHelpCommand();
+            parsed = matchAndParseInput(input, HELP_COMMAND_PATTERN, NUM_OF_HELP_COMMAND_ARGUMENTS);
+            return validateAndCreateHelpCommand(parsed);
 
         case ListCommand.COMMAND_KEYWORD:
             parsed = matchAndParseInput(input, LIST_COMMAND_PATTERN, NUM_OF_LIST_COMMAND_ARGUMENTS);
