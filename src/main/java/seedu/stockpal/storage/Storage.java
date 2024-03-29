@@ -48,16 +48,6 @@ public class Storage {
     private CsvWriter csvWriter;
 
     /**
-     * Checks if the given file path is of the valid format.
-     *
-     * @param filePath The given file path string.
-     * @return true if the file path is of the correct extension, else false.
-     */
-    private boolean isValidPath(String filePath) {
-        return filePath.endsWith(".csv");
-    }
-
-    /**
      * Constructs a new Storage object with the default storage filepath.
      *
      * @throws InvalidStorageFilePathException If the file path is invalid.
@@ -78,6 +68,16 @@ public class Storage {
         }
         this.path = filePath;
         setupLogger();
+    }
+
+    /**
+     * Checks if the given file path is of the valid format.
+     *
+     * @param filePath The given file path string.
+     * @return true if the file path is of the correct extension, else false.
+     */
+    private boolean isValidPath(String filePath) {
+        return filePath.endsWith(".csv");
     }
 
     /**

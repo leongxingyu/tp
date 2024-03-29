@@ -33,16 +33,6 @@ public class TransactionStorage {
     private final String path;
 
     /**
-     * Checks if the given file path is of the valid format.
-     *
-     * @param filePath The given file path string.
-     * @return true if the file path is of the correct extension, else false.
-     */
-    private boolean isValidPath(String filePath) {
-        return filePath.endsWith(".json");
-    }
-
-    /**
      * Constructs a new TransactionStorage object with the default storage filepath.
      *
      * @throws InvalidStorageFilePathException If the file path is invalid.
@@ -62,6 +52,16 @@ public class TransactionStorage {
             throw new InvalidStorageFilePathException(WARNING_INVALID_FILEPATH);
         }
         this.path = filePath;
+    }
+
+    /**
+     * Checks if the given file path is of the valid format.
+     *
+     * @param filePath The given file path string.
+     * @return true if the file path is of the correct extension, else false.
+     */
+    private boolean isValidPath(String filePath) {
+        return filePath.endsWith(".json");
     }
 
     /**
