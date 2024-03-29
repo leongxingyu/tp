@@ -48,6 +48,16 @@ public class Storage {
     private CsvWriter csvWriter;
 
     /**
+     * Checks if the given file path is of the valid format.
+     *
+     * @param filePath The given file path string.
+     * @return true if the file path is of the correct extension, else false.
+     */
+    private boolean isValidPath(String filePath) {
+        return filePath.endsWith(".csv");
+    }
+
+    /**
      * Constructs a new Storage object with the default storage filepath.
      *
      * @throws InvalidStorageFilePathException If the file path is invalid.
@@ -70,58 +80,43 @@ public class Storage {
         setupLogger();
     }
 
-
     /**
-     * Checks if the given file path is of the valid format.
+     * Creates the new save file with the specified file path.
      *
-     * @param filePath The given file path string.
-     * @return true if the file path is of the correct extension, else false.
-     */
-    private boolean isValidPath(String filePath) {
-        return filePath.endsWith(".csv");
-    }
-
-    /**
-     * Loads the product list from the saved data file and returns the loaded product list.
-     *
-     * @return Loaded product list with the previously saved products.
      * @throws StockPalException If an error occurred while creating the new save file.
-     * @throws StorageIOException If the data file contains any erroneous input.
      */
-    public ProductList load() throws StockPalException, StorageIOException {
-        LOGGER.entering(getClass().getName(), "load");
-        Path filepath = Path.of(this.path);
-        if (!Files.exists(filepath) || !Files.isRegularFile(filepath)) {
-            createSaveFile();
-            LOGGER.info("Creating new save file");
-            return new ProductList();
+    private void createSaveFile() throws StockPalException {
+        LOGGER.entering(getClass().getName(), "createSaveFile");
+        File f = new File(path);
+        f.getParentFile().mkdirs();
+        try {
+            f.createNewFile();
+        } catch (IOException ioe) {
+            LOGGER.log(Level.SEVERE, "Error creating new data file", ioe);
+            throw new StockPalException(ERROR_MESSAGE_GENERAL + ioe.getMessage());
         }
-        CsvReader invReader = new CsvReader(this.path);
-        LOGGER.exiting(getClass().getName(), "load");
-        return parseInventory(invReader.readAllData());
+        LOGGER.exiting(getClass().getName(), "createSaveFile");
     }
 
     /**
-     * Parses the entire data file and returns the data as a product list.
+     * Checks if Price of the Product is empty.
      *
-     * @param csvData The list of String Arrays where each Array contains
-     *                the entire row of data of a product.
-     * @return Loaded product list with the previously saved products.
-     * @throws StorageIOException If the data file contains any erroneous input.
+     * @param productRow Array containing the details of the product.
+     * @return true if price of the product is non-existent, else false.
      */
-    private ProductList parseInventory(List<String[]> csvData) throws StorageIOException {
-        LOGGER.entering(getClass().getName(), "parseInventory");
-        ProductList productList = new ProductList();
-        for (String[] productRow : csvData) {
-            try {
-                productList.addProduct(parseProductFromRow(productRow));
-            } catch (NullPointerException | NumberFormatException e) {
-                LOGGER.log(Level.SEVERE, "Error in data file", e);
-                throw new StorageIOException(WARNING_DATA_ERROR);
-            }
-        }
-        LOGGER.exiting(getClass().getName(), "parseInventory");
-        return productList;
+    private boolean isEmptyPrice(String[] productRow) {
+        return productRow.length < WITH_PRICE_LEN ||
+                productRow[PRICE_INDEX].equalsIgnoreCase(EMPTY_STRING);
+    }
+
+    /**
+     * Checks if Description of the Product is empty.
+     *
+     * @param productRow Array containing the details of the product.
+     * @return true if description of the product is non-existent, else false.
+     */
+    private boolean isEmptyDesc(String[] productRow) {
+        return productRow.length < WITH_DESC_LEN;
     }
 
     /**
@@ -149,24 +144,72 @@ public class Storage {
     }
 
     /**
-     * Checks if Price of the Product is empty.
+     * Parses the entire data file and returns the data as a ProductList.
      *
-     * @param productRow Array containing the details of the product.
-     * @return true if price of the product is non-existent, else false.
+     * @param csvData The List of String Arrays where each Array contains
+     *                the entire row of data of a product.
+     * @return Loaded ProductList with the previously saved products.
+     * @throws StorageIOException If the data file contains any erroneous input.
      */
-    private boolean isEmptyPrice(String[] productRow) {
-        return productRow.length < WITH_PRICE_LEN ||
-                productRow[PRICE_INDEX].equalsIgnoreCase(EMPTY_STRING);
+    private ProductList parseInventory(List<String[]> csvData) throws StorageIOException {
+        LOGGER.entering(getClass().getName(), "parseInventory");
+        ProductList productList = new ProductList();
+        for (String[] productRow : csvData) {
+            try {
+                productList.addProduct(parseProductFromRow(productRow));
+            } catch (NullPointerException | NumberFormatException e) {
+                LOGGER.log(Level.SEVERE, "Error in data file", e);
+                throw new StorageIOException(WARNING_DATA_ERROR);
+            }
+        }
+        LOGGER.exiting(getClass().getName(), "parseInventory");
+        return productList;
     }
 
     /**
-     * Checks if Description of the Product is empty.
+     * Loads the product list from the saved data file and returns the loaded product list.
      *
-     * @param productRow Array containing the details of the product.
-     * @return true if description of the product is non-existent, else false.
+     * @return Loaded ProductList with the previously saved products.
+     * @throws StockPalException If an error occurred while creating the new save file.
+     * @throws StorageIOException If the data file contains any erroneous input.
      */
-    private boolean isEmptyDesc(String[] productRow) {
-        return productRow.length < WITH_DESC_LEN;
+    public ProductList load() throws StockPalException, StorageIOException {
+        LOGGER.entering(getClass().getName(), "load");
+        Path filepath = Path.of(this.path);
+        if (!Files.exists(filepath) || !Files.isRegularFile(filepath)) {
+            createSaveFile();
+            LOGGER.info("Creating new save file");
+            return new ProductList();
+        }
+        CsvReader invReader = new CsvReader(this.path);
+        LOGGER.exiting(getClass().getName(), "load");
+        return parseInventory(invReader.readAllData());
+    }
+
+    /**
+     * Saves the current ProductList to the data file.
+     *
+     * @param productList The ProductList containing the data to be saved.
+     * @throws StockPalException If there is an error saving the data.
+     */
+    private void save(ProductList productList) throws StockPalException {
+        LOGGER.entering(getClass().getName(), "save");
+        csvWriter = new CsvWriter(this.path, !isAppend);
+        csvWriter.saveAllData(productList);
+        LOGGER.exiting(getClass().getName(), "save");
+    }
+
+    /**
+     * Appends the new Product to the next line of the data file.
+     *
+     * @param newProduct The new Product to be appended.
+     * @throws StockPalException If there is an error saving the data.
+     */
+    private void append(Product newProduct) throws StockPalException {
+        LOGGER.entering(getClass().getName(), "append");
+        csvWriter = new CsvWriter(this.path, isAppend);
+        csvWriter.appendProduct(newProduct);
+        LOGGER.exiting(getClass().getName(), "append");
     }
 
     /**
@@ -189,50 +232,6 @@ public class Storage {
             save(productList);
         }
         LOGGER.exiting(getClass().getName(), "saveData");
-    }
-
-    /**
-     * Saves the current ProductList to the data file.
-     *
-     * @param productList The ProductList containing the data to be saved.
-     * @throws StockPalException If there is an error saving the data.
-     */
-    protected void save(ProductList productList) throws StockPalException {
-        LOGGER.entering(getClass().getName(), "save");
-        csvWriter = new CsvWriter(this.path, !isAppend);
-        csvWriter.saveAllData(productList);
-        LOGGER.exiting(getClass().getName(), "save");
-    }
-
-    /**
-     * Appends the new Product to the next line of the data file.
-     *
-     * @param newProduct The new Product to be appended.
-     * @throws StockPalException If there is an error saving the data.
-     */
-    protected void append(Product newProduct) throws StockPalException {
-        LOGGER.entering(getClass().getName(), "append");
-        csvWriter = new CsvWriter(this.path, isAppend);
-        csvWriter.appendProduct(newProduct);
-        LOGGER.exiting(getClass().getName(), "append");
-    }
-
-    /**
-     * Creates the new save file with the specified file path.
-     *
-     * @throws StockPalException If an error occurred while creating the new save file.
-     */
-    private void createSaveFile() throws StockPalException {
-        LOGGER.entering(getClass().getName(), "createSaveFile");
-        File f = new File(path);
-        f.getParentFile().mkdirs();
-        try {
-            f.createNewFile();
-        } catch (IOException ioe) {
-            LOGGER.log(Level.SEVERE, "Error creating new data file", ioe);
-            throw new StockPalException(ERROR_MESSAGE_GENERAL + ioe.getMessage());
-        }
-        LOGGER.exiting(getClass().getName(), "createSaveFile");
     }
 
     /**

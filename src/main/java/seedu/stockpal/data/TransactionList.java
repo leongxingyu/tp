@@ -26,7 +26,7 @@ public class TransactionList {
         for (int i = 0; i < transactionList.getSize(); i ++) {
             List<Transaction> transactions = transactionList.getTransactions();
             Transaction transaction = transactions.get(i);
-            Integer pid = transaction.getPid().getPid();
+            Integer pid = transaction.getPid();
 
             if (pid.equals(inputPid)) {
                 findList.addTransaction(transaction);

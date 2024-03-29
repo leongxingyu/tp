@@ -39,8 +39,15 @@ public class Transaction {
                 + "Date of inflow: " + formattedDateTime);
     }
 
-    public Pid getPid() {
-        return this.pid;
+    public int getPid() {
+        return this.pid.getPid();
     }
 
+    public Integer getChangeInQuantity() {
+        return this.changeInQuantity;
+    }
+
+    public LocalDateTime getTime() {
+        return this.time;
+    }
 }

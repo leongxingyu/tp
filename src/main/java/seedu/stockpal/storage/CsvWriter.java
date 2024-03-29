@@ -32,6 +32,7 @@ public class CsvWriter {
      * into the saved data file in filePath.
      *
      * @param filePath Path to the saved data file.
+     * @throws StockPalException If there is an error with the format of the data file.
      */
     public CsvWriter(String filePath, boolean isAppend) throws StockPalException {
         BufferedWriter bw;

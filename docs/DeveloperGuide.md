@@ -21,7 +21,6 @@ Third-party libraries:
 ## **Design**
 
 <div markdown="span" class="alert alert-primary">
-
 :bulb: **Tip:** The `.puml` files used to create diagrams in this document `docs/diagrams` folder. Refer to the [_PlantUML Tutorial_ at se-edu/guides](https://se-education.org/guides/tutorials/plantUml.html) to learn how to create and edit diagrams.
 </div>
 
@@ -301,7 +300,6 @@ The following sequence diagram summarizes what happens when a user inputs a vali
 **Target user profile**:
 * Small business owners who are looking to keep track of their inventory using CLI
 * Possibly established companies looking to expand our application
-  **Target user profile**:
 
 **Value proposition**: <br>
 Traditional inventory management methods often involve manual data entry, spreadsheets, and paper-based
@@ -311,12 +309,12 @@ intuitive command-line commands, saving time and improving efficiency.
 
 ## User Stories
 
-| Version | As a ... | I want to ...                                            | So that I can ...                                                                                          |
-|---------|----------|----------------------------------------------------------|------------------------------------------------------------------------------------------------------------|
-| v1.0    | new user | see usage instructions                                   | refer to them when I forget how to use the application                                                     |
-| v1.0    | user     | I want to be able to edit details of the products easily | so that I can easily change the name / price / quantity /description of the products, if there is an error |
-| v1.0    | user     | I want to have a small manual page                       | so that I am aware of the commands that I can enter                                                        |
-| v2.0    | user     | find a to-do item by name                                | locate a to-do without having to go through the entire list                                                |
+| Version | As a ... | I want to ...                                            | So that I can ...                                                                            |
+|---------|----------|----------------------------------------------------------|----------------------------------------------------------------------------------------------|
+| v1.0    | new user | see usage instructions                                   | refer to them when I forget how to use the application                                       |
+| v1.0    | user     | I want to be able to edit details of the products easily | easily change the name / price / quantity /description of the products, if there is an error |
+| v1.0    | user     | I want to have a small manual page                       | be aware of the commands that I can enter                                                    |
+| v2.0    | user     | view at past inflow/outflows of a product                | keep track of sales data of the product and know which products are of higher demand         |
 
 ## Non-Functional Requirements
 

@@ -18,5 +18,8 @@ text-ui-test/EXPECTED-UNIX.TXT
 
 StorageLogger.log
 /src/test/data/StorageTest/NonExistentFile.csv
+/src/test/data/TransactionStorageTest/NonExistentFile.json
 /opencsv-5.9.jar
 /data/
+/json-20240303.jar
+/htmlReport/
