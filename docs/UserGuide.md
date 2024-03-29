@@ -46,7 +46,7 @@ Not sure where to begin? Start by learning how to utilize this user guide.
 
     **For MAC users:**
 
-    Open a terminal. You can do so by searching for the `terminal `using the Spotlight icon in the menu bar. Click on the terminal.
+    Open a terminal. You can do so by searching for the `terminal` using the Spotlight icon in the menu bar. Click on the terminal.
 
 
 2.  Determine the file path to the home folder of stockpal.jar. You can
@@ -180,11 +180,11 @@ Output:
 
 ```Product details have been updated.```
 
-### Saving the data
+## Saving the data
 
 StockPal data is saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
-### Editing the data file
+## Editing the data file
 
 StockPal inventory data is saved automatically as a CSV file `[JAR file location]/data/inventory.csv`, while the past transactions data is saved automatically as a JSON file `[JAR file location]/data/transactions.json`. Advanced users are welcome to update data directly by editing these data files, even though it is **highly not recommended**.
 
