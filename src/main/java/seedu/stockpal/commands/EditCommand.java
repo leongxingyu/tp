@@ -1,6 +1,7 @@
 package seedu.stockpal.commands;
 
 import seedu.stockpal.common.CommandParameter;
+import seedu.stockpal.common.FormatUtils;
 import seedu.stockpal.common.Messages;
 import seedu.stockpal.data.ProductList;
 import seedu.stockpal.data.product.Pid;
@@ -76,13 +77,15 @@ public class EditCommand extends ListActionCommand {
             return;
         }
         int productIndex = productList.findProductIndex(this.pid);
-        if (productIndex == -1) {
-            Ui.printInvalidPidMessage();
-            return;
-        }
         assert productList.getSize() > 0;
         productList.updateProduct(productIndex, name, quantity, description, price);
         logger.log(Level.INFO, Messages.MESSAGE_EDIT_SUCCESS);
         Ui.printEditSuccessMessage();
+    }
+
+    public static String commandDetails() {
+        String formattedDetails = FormatUtils.formatCommandDetails(COMMAND_KEYWORD, COMMAND_DESCRIPTION
+                , COMMAND_USAGE, COMMAND_FLAGS, COMMAND_FLAG_DESCRIPTIONS);
+        return formattedDetails;
     }
 }

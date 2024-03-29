@@ -1,0 +1,14 @@
+====================================================================================
+Command: new
+
+Description: Adds a new product to the inventory and assigns a unique Product
+             ID (PID) to it.
+
+Usage: new n/PRODUCT_NAME q/INITIAL_QUANTITY [p/PRICE] [d/DESCRIPTION]
+
+Options:
+PRODUCT_NAME          Name of the product
+INITIAL_QUANTITY      Quantity of the product
+PRICE                 Price of the product. Price must be in 2 decimal places.
+DESCRIPTION           Description of the product
+====================================================================================

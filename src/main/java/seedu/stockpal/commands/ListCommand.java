@@ -1,5 +1,6 @@
 package seedu.stockpal.commands;
 
+import seedu.stockpal.common.FormatUtils;
 import seedu.stockpal.common.Messages;
 import seedu.stockpal.data.ProductList;
 import seedu.stockpal.data.product.Product;
@@ -70,7 +71,7 @@ public class ListCommand extends ListActionCommand {
     /**
      * Creates a comparator that sorts a product by quantity.
      */
-    static class SortByQuantity implements Comparator<Product> {
+    private static class SortByQuantity implements Comparator<Product> {
         @Override
         public int compare(Product a, Product b) {
             return a.getQuantity().getQuantity() - b.getQuantity().getQuantity();
@@ -80,11 +81,18 @@ public class ListCommand extends ListActionCommand {
     /**
      * Creates a comparator that sorts a product by name.
      */
-    static class SortByName implements Comparator<Product> {
+    private static class SortByName implements Comparator<Product> {
         @Override
         public int compare(Product a, Product b) {
             return a.getName().getName().toLowerCase().
                     compareTo(b.getName().getName().toLowerCase());
         }
+    }
+
+    //@@author Kobot7
+    public static String commandDetails() {
+        String formattedDetails = FormatUtils.formatCommandDetails(COMMAND_KEYWORD, COMMAND_DESCRIPTION
+                , COMMAND_USAGE, COMMAND_FLAGS, COMMAND_FLAG_DESCRIPTIONS);
+        return formattedDetails;
     }
 }

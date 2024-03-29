@@ -1,17 +1,16 @@
 package seedu.stockpal.commands;
 
+import seedu.stockpal.common.FormatUtils;
 import seedu.stockpal.common.Messages;
 import seedu.stockpal.data.ProductList;
 import seedu.stockpal.data.Transaction;
 import seedu.stockpal.data.TransactionList;
 import seedu.stockpal.data.product.Pid;
 import seedu.stockpal.exceptions.StockPalException;
-import seedu.stockpal.ui.Ui;
 
 import java.time.LocalDateTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 
 //@@author leongxingyu
 public class InflowCommand extends TransactionActionCommand {
@@ -44,11 +43,7 @@ public class InflowCommand extends TransactionActionCommand {
     @Override
     public void execute(ProductList productList, TransactionList transactionList) throws StockPalException {
         int productIndex = productList.findProductIndex(this.pid);
-        if (productIndex == -1) {
-            Ui.printInvalidPidMessage();
-            return;
-        }
-        boolean updateSuccessful = productList.increaseAmount(productIndex, amountToIncrease);
+        boolean updateSuccessful = productList.increaseAmountCaller(productIndex, amountToIncrease);
         LOGGER.log(Level.INFO, Messages.MESSAGE_INFLOW_SUCCESS);
 
         if (updateSuccessful) {
@@ -56,7 +51,7 @@ public class InflowCommand extends TransactionActionCommand {
         }
     }
 
-
+    //@@author EdmundTangg
     /**
      * Creates a transaction and add to the transaction list.
      * @param transactionList transactionList object.
@@ -66,4 +61,12 @@ public class InflowCommand extends TransactionActionCommand {
         Transaction transaction = new Transaction(pid, amountToIncrease, time);
         transactionList.addTransaction(transaction);
     }
+
+    //@@author Kobot7
+    public static String commandDetails() {
+        String formattedDetails = FormatUtils.formatCommandDetails(COMMAND_KEYWORD, COMMAND_DESCRIPTION
+                , COMMAND_USAGE, COMMAND_FLAGS, COMMAND_FLAG_DESCRIPTIONS);
+        return formattedDetails;
+    }
+    //@@author leongxingyu
 }

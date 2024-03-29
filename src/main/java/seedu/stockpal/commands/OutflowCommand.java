@@ -1,12 +1,12 @@
 package seedu.stockpal.commands;
 
+import seedu.stockpal.common.FormatUtils;
 import seedu.stockpal.common.Messages;
 import seedu.stockpal.data.ProductList;
 import seedu.stockpal.data.Transaction;
 import seedu.stockpal.data.TransactionList;
 import seedu.stockpal.data.product.Pid;
 import seedu.stockpal.exceptions.StockPalException;
-import seedu.stockpal.ui.Ui;
 
 import java.time.LocalDateTime;
 import java.util.logging.Level;
@@ -43,12 +43,8 @@ public class OutflowCommand extends TransactionActionCommand {
     @Override
     public void execute(ProductList productList, TransactionList transactionList) throws StockPalException {
         int productIndex = productList.findProductIndex(this.pid);
-        if (productIndex == -1) {
-            Ui.printInvalidPidMessage();
-            return;
-        }
         assert productList.getSize() > 0;
-        boolean updateSuccessful = productList.decreaseAmount(productIndex, amountToDecrease);
+        boolean updateSuccessful = productList.decreaseAmountCaller(productIndex, amountToDecrease);
 
         LOGGER.log(Level.INFO, Messages.MESSAGE_OUTFLOW_SUCCESS);
 
@@ -57,6 +53,7 @@ public class OutflowCommand extends TransactionActionCommand {
         }
     }
 
+    //@@author EdmundTangg
     /**
      * Creates a transaction and add to the transaction list.
      * @param transactionList transactionList object.
@@ -66,4 +63,12 @@ public class OutflowCommand extends TransactionActionCommand {
         Transaction transaction = new Transaction(pid, -amountToDecrease, time);
         transactionList.addTransaction(transaction);
     }
+
+    //@@author Kobot7
+    public static String commandDetails() {
+        String formattedDetails = FormatUtils.formatCommandDetails(COMMAND_KEYWORD, COMMAND_DESCRIPTION
+                , COMMAND_USAGE, COMMAND_FLAGS, COMMAND_FLAG_DESCRIPTIONS);
+        return formattedDetails;
+    }
+    //@@author leongxingyu
 }

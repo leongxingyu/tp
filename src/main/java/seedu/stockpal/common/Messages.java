@@ -15,14 +15,17 @@ public class Messages {
     public static final String MESSAGE_ERROR_INVALID_COMMAND = "Invalid command. " + MESSAGE_REFER_TO_HELP;
     public static final String MESSAGE_ERROR_INVALID_FORMAT = "Invalid format. " + MESSAGE_REFER_TO_HELP;
     public static final String MESSAGE_ERROR_EMPTY_NAME = "Invalid format. Name cannot be empty when adding product.";
+    public static final String MESSAGE_ERROR_NAME_ONLY_SPACES = "Invalid format. " +
+            "Name cannot be made up of only spaces.";
     public static final String MESSAGE_ERROR_EMPTY_QUANTITY = "Invalid format. " +
             "Quantity cannot be empty when adding product.";
+
     public static final String MESSAGE_ERROR_MISSING_PARAMETERS = "Please ensure that there is " +
             "at least 1 parameter provided.";
     public static final String MESSAGE_ERROR_INPUT_INTEGER_EXCEEDED = "Integer input exceeds largest integer " +
             "allowed. Max integer is " + Integer.MAX_VALUE;
 
-    public static final String MESSAGE_ERROR_INVALID_PID = "Invalid Product ID.";
+    public static final String MESSAGE_ERROR_PID_NOT_FOUND = "Product with the following PID is not found: ";
     public static final String MESSAGE_EDIT_SUCCESS = "Product details have been updated.";
 
     public static final String ERROR_MESSAGE_GENERAL = "OOPS!!! Error Occurred: ";

@@ -1,0 +1,10 @@
+====================================================================================
+Command: help
+
+Description: Provides command details for all or specific commands.
+
+Usage: help [COMMAND_KEYWORD]
+
+Options:
+COMMAND_KEYWORD       Command to display details for
+====================================================================================

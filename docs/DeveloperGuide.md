@@ -66,6 +66,17 @@ The **API** of this component is specified in [`Ui.java`](https://github.com/AY2
 
 ![Structure of the Parser Component](images/ParserClassDiagram.png)
 
+How the parsing works:
+1. When user inputs, the input is passed to the `Parser`.
+2. `Parser` first extracts the command.
+3. Using the extracted command, `Parser` will perform different validation checks on the arguments supplied in the
+input.
+4. Arguments (mainly the `pid`, `name`, `quantity`, `price`, `description`, `amount` fields) are validated. 
+Exceptions are thrown when the fields do not pass their respective type checks.
+5. Once validation passes, `Parser` uses the validated arguments to creates an instance of that particular command. 
+For example, a `delete` command will cause `Parser` to create a new instance of `DeleteCommand(pid)`.
+6. The created command object is returned back to `main` function for further processing.
+
 ### Commands component
 
 **API** : [`Command.java`](https://github.com/AY2324S2-CS2113T-T09-3/tp/blob/master/src/main/java/seedu/stockpal/commands/Command.java)
@@ -77,7 +88,9 @@ The **API** of this component is specified in [`Ui.java`](https://github.com/AY2
 
 **API** : [`Data`](https://github.com/AY2324S2-CS2113T-T09-3/tp/blob/master/src/main/java/seedu/stockpal/data)
 
+The following is a class diagram of the `data` component.
 ![Structure of the Data Component](images/DataClassDiagram.png)
+
 
 ### Storage component
 
@@ -127,45 +140,209 @@ The following sequence diagram shows how an add operation works:
 <img src="images/AddCommandSequence.png" alt=""/>
 
 
-
 ### Edit product feature
+#### Implementation
+The `edit` command is used to edit product details such as name, quantity, price and description.
+
+The edit product feature is facilitated by `EditCommand` which extends `Command`.
+
+The following sequence diagram summarizes what happens when a user inputs a valid `edit` command.
+<img src="images/EditCommandSequenceDiagram.png" alt="EditCommandSequenceDiagram.png"/>
+
+> INFO:
+> The lifeline for EditCommand should end at the destroy marker (X) but due to a limitation of PlantUML, 
+> the lifeline reaches the end of diagram.
+
+Validation of the user input is done in `Parser`, hence `EditCommand` assumes that all fields provided upon creation
+of a `EditCommand` object are properly formatted.
+
+Validation for other criteria are still carried out within `EditCommand`.
+1. Checking if at least 1 field (name, quantity, price or description) is provided.
+2. Checking if the product ID (PID) belongs to an existing product.
+
+Once all validation is completed, updating of product details is done by calling `ProductList#updateProduct()`.
+
+The following sequence diagram details how `EditCommand#execute()` functions.
+<img src="images/EditCommandExecuteSequenceDiagram.png" alt="EditCommandExecuteSequenceDiagram.png"/>
+
+**Aspect: Validating parameters and handling errors**
+
+- Alternative 1 (current choice): Check parameters and handle errors within `EditCommand`.
+  - Pros: Easy to implement
+  - Cons: -
+  
+- Alternative 2: Handle validation of errors within `productList#updateProduct()`.
+    - Pros: Implementing `EditCommand#execute()` will be very simple. Usage of throw/catch to handle errors.
+    - Cons: `productList#updateProduct()` will be more lengthy. May require further abstraction.
+
+### List feature
+<img src="images/ListCommandClass.png" alt=""/>
+
+The ListCommand class is responsible for sorting and printing out the products in the list. 
+
+**Attributes**
+* sortType: Additional optional flags the user can set to sort the products in the list.
+
+**Methods**
+* `ListCommand`: Constructor for creating a new instance of the ListCommand class.
+* `execute`: Method to list out the products in the product list.
+* `sortListAccordingly`: Method to sort the list according to the products' PID, products' name or products' quantity.
+
+The following sequence diagram shows how a list operation works, by calling `list`.
+<img src="images/ListCommandSequence.png" alt=""/>
+
+### InflowCommand Feature
+
+**API** : [`InflowCommand.java`](https://github.com/AY2324S2-CS2113T-T09-3/tp/blob/master/src/main/java/seedu/stockpal/commands/InflowCommand.java)
+
+The `InflowCommand` class is used to increase the quantity of a specific product in the inventory.
+This could represent scenarios like receiving new stock and updating inventory with new quantities.
+
+![Structure of the Storage Component](images/InflowCommandClass.png)
+
+**Implementation of InflowCommand**
+
+The InflowCommand class is called in this format: `InflowCommand(pid, amountToIncrease)`
+When the InflowCommand is called, a new instance of the InflowCommand initialised with pid and
+amountToIncrease would be created.
+
+The execute method will call `increaseAmount` which is a method of the ProductList class.
+In the ProductList class, the `increaseAmount` method will call a `updatedIncreaseQuantity`
+method in the quantity class.
+
+It is implemented this way to adhere to Single Responsibility Principle (SRP), such that the
+ProductList class will only handle the product involved in quantity increase, whereas the
+Quantity class will be responsible for updating the quantities.
+
+**Attributes**
+* pid: The unique Product ID for each product
+* quantity: The amount of quantity to increase product by
+
+**Methods**
+* `InflowCommand`: Constructor for creating a new instance of the InflowCommand class.
+* `execute`: Method to increase quantity of the specified product.
+  * `execute` calls `increaseAmount` in the ProductList class.
+  * `increaseAmount` will call `updateIncreaseQuantity` in the Quantity class.
+
+The following sequence diagram shows how the InflowCommand works.
+![InflowCommand Class](images/InflowCommandSequence.png)
+
+### OutflowCommand Feature
+
+**API** : [`OutflowCommand.java`](https://github.com/AY2324S2-CS2113T-T09-3/tp/blob/master/src/main/java/seedu/stockpal/commands/OutflowCommand.java)
+
+The `OutflowCommand` class is used to decrease the quantity of a specific product in the inventory.
+This could represent scenarios like selling products and updating inventory with new updated quantities.
+
+![OutflowCommand Class](images/OutflowCommandSequence.png)
+
+**Implementation of OutflowCommand**
+
+The OutflowCommand class is called in this format: `OutflowCommand(pid, amountToDecrease)`
+When the OutflowCommand is called, similar to the InflowCommand class, a new instance of the
+OutflowCommand initialised with pid and amountToDecrease would be created.
+
+The execute method will call `decreaseAmount` which is a method of the ProductList class.
+In the ProductList class, the `decreaseAmount` method will call a `updatedDecreaseQuantity`
+method in the quantity class.
+
+It is implemented this way to adhere to Single Responsibility Principle (SRP), such that the
+ProductList class will only handle the product involved in quantity increase, whereas the
+Quantity class will be responsible for updating the quantities.
+
+**Attributes**
+* pid: The unique Product ID for each product
+* quantity: The amount of quantity to decrease product by
+
+**Methods**
+* `OutflowCommand`: Constructor for creating a new instance of the InflowCommand class.
+* `execute`: Method to increase quantity of the specified product.
+  * `execute` calls `decreaseAmount` in the ProductList class.
+  * `decreaseAmount` in ProductList class will call `updateDecreaseQuantity` in the Quantity class.
+
+The following sequence diagram shows how the OutflowCommand works.
+![OutflowCommand Class](images/OutflowCommandSequence.png)
+
+### Delete product feature
 
 #### Implementation
+The delete function is mainly facilitated by `DeleteCommand`. It extends from `Command`.
 
-#### Design consideration
+**Attributes**
+`pid` The unique Product ID for the product to be deleted from the StockPal inventory `productList`
 
---------------------------------------------------------------------------------------------------------------------
+**Methods**
+* `DeleteCommand`: Constructor for creating a new instance of the DeleteCommand class.
+* `execute`: Method to delete `product` with PID `pid` from StockPal's `productList`.
+* `ProductList#deleteProduct`: Method called by `execute` to delete product in `productList`.
+
+Given below is an example usage scenario and how the delete function behaves at each step. The scenario assumes that the
+user has a `product` with `pid` of 2 in `StockPal`'s `productList`.
+
+Step 1. The user executes `delete 2` command to delete a specific `product` with `pid` of 2.
+Step 2. The product is successfully deleted from the inventory list.
+
+The following sequence diagram summarizes what happens when a user inputs a valid `delete` command.
+
+<img src="images/DeleteCommandSequence.png" alt=""/>
+
+ --------------------------------------------------------------------------------------------------------------------
 
 ## **Appendix: Requirements**
 
 ### Product scope
 
 **Target user profile**:
+* Small business owners who are looking to keep track of their inventory using CLI
+* Possibly established companies looking to expand our application
+  **Target user profile**:
 
-
-
-**Value proposition**:
-
-{Describe the value proposition: what problem does it solve?}
+**Value proposition**: <br>
+Traditional inventory management methods often involve manual data entry, spreadsheets, and paper-based
+tracking systems. These processes are time-consuming, error-prone, and lack real-time visibility into
+inventory status. StockPal allows users to quickly update, track, and monitor inventory data through
+intuitive command-line commands, saving time and improving efficiency.
 
 ## User Stories
 
-|Version| As a ... | I want to ... | So that I can ...|
-|--------|----------|---------------|------------------|
-|v1.0|new user|see usage instructions|refer to them when I forget how to use the application|
-|v2.0|user|find a to-do item by name|locate a to-do without having to go through the entire list|
+| Version | As a ... | I want to ...                                            | So that I can ...                                                                                          |
+|---------|----------|----------------------------------------------------------|------------------------------------------------------------------------------------------------------------|
+| v1.0    | new user | see usage instructions                                   | refer to them when I forget how to use the application                                                     |
+| v1.0    | user     | I want to be able to edit details of the products easily | so that I can easily change the name / price / quantity /description of the products, if there is an error |
+| v1.0    | user     | I want to have a small manual page                       | so that I am aware of the commands that I can enter                                                        |
+| v2.0    | user     | find a to-do item by name                                | locate a to-do without having to go through the entire list                                                |
 
 ## Non-Functional Requirements
 
-{Give non-functional requirements}
+* Any mainstream OS with Java `11` installed
 
 ## Glossary
 
-* *glossary item* - Definition
+* *PID (Product ID)* - A unique number assigned to each product for identification purposes.
+* Mainstream OS: Windows, Linux, Unix, MacOS
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Appendix: Instructions for manual testing**
 
-{Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
 
+### Editing Product Details
+1. Prerequisites: List all products using `list` command. There should be at least multiple products in the list.
+
+2. Test case: `edit 1 n/Updated name d/Updated description`<br> 
+   Expected: The name and description of the product with Product ID (PID) 1 
+   will be changed to `Updated name` and `Updated description` respectively.
+
+3. Test case: `edit 1 q/100 p/0.99`<br>
+   Expected: The quantity and price of the product with Product ID (PID) 1
+   will be changed to `100` and `0.99` respectively.
+
+### Deleting a product
+1. Prerequisites: List all products using `list` command. There should be a particular product with `pid` of 1 and no 
+product with `pid` of 2.
+
+2. Test case 1: `delete 1`. 
+   Expected: `product` with `pid` of 1 is deleted from the list. `"Product has been deleted"` is printed to the user.
+
+   Test case 2: `delete 2`.
+   Expected: `"Product with pid: 2 not found"`
