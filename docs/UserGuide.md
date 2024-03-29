@@ -72,7 +72,7 @@ CLI (Command Line Interface) - a text-based interface used to interact with our 
 CSV (Comma-Separated Values) - a file format used to store tabular data. Each line represents a row of data, and each field within a row is separated by a comma
 
 ## Features 
-> ## Notes about the command format
+> ## :information-source:Notes about the command format
 >
 > - Words in UPPER_CASE are the parameters to be supplied by the user.
 > - Items in square brackets are optional.
