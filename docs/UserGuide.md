@@ -188,7 +188,7 @@ StockPal data is saved in the hard disk automatically after any command that cha
 
 StockPal inventory data is saved automatically as a CSV file `[JAR file location]/data/inventory.csv`, while the past transactions data is saved automatically as a JSON file `[JAR file location]/data/transactions.json`. Advanced users are welcome to update data directly by editing these data files, even though it is **highly not recommended**.
 
-<div class="alert alert-warning">:exclamation: **Caution:**
+<div class="alert-warning">:exclamation: **Caution:**
 If your changes to the data file makes its format invalid, StockPal will not discard the data, but instead display an error that the data has erroneous input, and close the app thereafter. <br>
 Furthermore, certain edits can cause StockPal to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file <b>only if</b> you are confident that you can update it correctly, and it is <b>recommended</b> to make a backup of the file before editing it.
 </div>
