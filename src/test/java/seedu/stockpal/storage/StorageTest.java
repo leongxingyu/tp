@@ -1,9 +1,5 @@
 package seedu.stockpal.storage;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -11,9 +7,14 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
+import seedu.stockpal.commands.DeleteCommand;
+import seedu.stockpal.commands.NewCommand;
 import seedu.stockpal.data.ProductList;
 import seedu.stockpal.data.product.Product;
 import seedu.stockpal.storage.exception.InvalidStorageFilePathException;
@@ -23,6 +24,7 @@ public class StorageTest {
     @TempDir
     private static Path testDir;
 
+    private static final String DEFAULT_STORAGE_FILEPATH = "data/inventory.csv";
     private static final String TEST_STORAGE_DIR = "src/test/data/StorageTest/";
     private static final String VALID_DATA_FILE_NAME = "ValidData.csv";
     private static final String INVALID_DATA_FILE_NAME = "InvalidData.csv";
@@ -56,6 +58,16 @@ public class StorageTest {
     private static final String PRODUCT4_DESC = "Organic eggs";
     private static final Integer PRODUCT4_PID = 4;
 
+    /**
+     * Tests if the constructor sets the path with the correct filepath.
+     *
+     * @throws Exception If the file path is invalid.
+     */
+    @Test
+    public void constructor_correctFilepath() throws Exception {
+        Storage storage = new Storage();
+        assertEquals(storage.getPath(), DEFAULT_STORAGE_FILEPATH);
+    }
 
     /**
      * Tests if the constructor throws a NullPointerException if null is passed in as the file path.
@@ -89,17 +101,18 @@ public class StorageTest {
     }
 
     /**
-     * Tests if the load method loads a data file with valid data formats properly,
-     * and checks if the loaded ProductList matches the expected ProductList.
+     * Asserts that the Product in the loaded ProductList
+     * is the same as the Product in the expected ProductList.
      *
-     * @throws Exception If the data file name is of an invalid format.
+     * @param actual Product in the loaded ProductList.
+     * @param expected Product in the expected ProductList.
      */
-    @Test
-    public void load_validProductList() throws Exception {
-        Storage testStorage = getStorage(VALID_DATA_FILE_NAME);
-        ProductList pl = testStorage.load();
-        ProductList testPL = getTestProductList();
-        assertListsEquals(pl, testPL);
+    private void assertProductEquals(Product actual, Product expected) {
+        assertEquals(actual.getName().toString(), expected.getName().toString());
+        assertEquals(actual.getQuantity().toString(), expected.getQuantity().toString());
+        assertEquals(actual.getPrice().toString(), expected.getPrice().toString());
+        assertEquals(actual.getDescription().toString(), expected.getDescription().toString());
+        assertEquals(actual.getPid().toString(), expected.getPid().toString());
     }
 
     /**
@@ -118,18 +131,26 @@ public class StorageTest {
     }
 
     /**
-     * Asserts that the Product in the loaded ProductList
-     * is the same as the Product in the expected ProductList.
+     * Tests if the load method loads a data file with valid data formats properly,
+     * and checks if the loaded ProductList matches the expected ProductList.
      *
-     * @param actual Product in the loaded ProductList.
-     * @param expected Product in the expected ProductList.
+     * @throws Exception If the data file name is of an invalid format.
      */
-    private void assertProductEquals(Product actual, Product expected) {
-        assertEquals(actual.getName().toString(), expected.getName().toString());
-        assertEquals(actual.getQuantity().toString(), expected.getQuantity().toString());
-        assertEquals(actual.getPrice().toString(), expected.getPrice().toString());
-        assertEquals(actual.getDescription().toString(), expected.getDescription().toString());
-        assertEquals(actual.getPid().toString(), expected.getPid().toString());
+    @Test
+    public void load_validProductList() throws Exception {
+        Storage testStorage = getStorage(VALID_DATA_FILE_NAME);
+        ProductList pl = testStorage.load();
+        ProductList testPL = getTestProductList();
+        assertListsEquals(pl, testPL);
+    }
+
+    /**
+     * Asserts that the created file exists in the desired file path.
+     *
+     * @param filePath The desired file path that the file should be at.
+     */
+    private void assertFileExist(String filePath) {
+        assertTrue(Files.exists(Paths.get(filePath)));
     }
 
     /**
@@ -150,44 +171,17 @@ public class StorageTest {
     }
 
     /**
-     * Asserts that the created file exists in the desired file path.
+     * Asserts that the text in the two given files are the same. Ignores any
+     * differences in line endings.
      *
-     * @param filePath The desired file path that the file should be at.
+     * @param path1 Path of the first Storage file to compare.
+     * @param path2 Path of the second Storage file to compare.
+     * @throws IOException If there is error reading from the files.
      */
-    private void assertFileExist(String filePath) {
-        assertTrue(Files.exists(Paths.get(filePath)));
-    }
-
-    /**
-     * Tests if a new ProductList gets saved in the same format as the ValidData.csv file.
-     *
-     * @throws Exception If there is error reading from the file.
-     */
-    @Test
-    public void save_validProductList() throws Exception {
-        ProductList pl = getTestProductList();
-        Storage storage = getTempStorage();
-        storage.save(pl);
-
-        assertStorageFilesEqual(storage, getStorage(VALID_DATA_FILE_NAME));
-    }
-
-    /**
-     * Tests if a new Product gets appended in the correct format.
-     *
-     * @throws Exception If there is error reading from the file.
-     */
-    @Test
-    public void append_validProduct() throws Exception {
-        ProductList pl = getTestProductList();
-        Storage storage = getTempStorage();
-        storage.save(pl);
-
-        Product toAdd =  new Product(PRODUCT4_NAME, PRODUCT4_QTY, PRODUCT4_PRICE,
-                PRODUCT4_DESC, PRODUCT4_PID);
-        storage.append(toAdd);
-
-        assertStorageFilesEqual(storage, getStorage(APPENDED_DATA_FILE_NAME));
+    public static void assertCsvFilesEqual(Path path1, Path path2) throws IOException {
+        List<String> list1 = Files.readAllLines(path1, Charset.defaultCharset());
+        List<String> list2 = Files.readAllLines(path2, Charset.defaultCharset());
+        assertEquals(String.join(LINE_END, list1), String.join(LINE_END, list2));
     }
 
     /**
@@ -202,17 +196,36 @@ public class StorageTest {
     }
 
     /**
-     * Asserts that the text in the two given files are the same. Ignores any
-     * differences in line endings.
+     * Tests if a new ProductList gets saved in the same format as the ValidData.csv file.
      *
-     * @param path1 Path of the first Storage file to compare.
-     * @param path2 Path of the second Storage file to compare.
-     * @throws IOException If there is error reading from the files.
+     * @throws Exception If there is error reading from the file.
      */
-    public static void assertCsvFilesEqual(Path path1, Path path2) throws IOException {
-        List<String> list1 = Files.readAllLines(path1, Charset.defaultCharset());
-        List<String> list2 = Files.readAllLines(path2, Charset.defaultCharset());
-        assertEquals(String.join(LINE_END, list1), String.join(LINE_END, list2));
+    @Test
+    public void saveData_validProductList() throws Exception {
+        ProductList pl = getTestProductList();
+        Storage storage = getTempStorage();
+        storage.saveData(new DeleteCommand(PRODUCT1_PID), pl);
+
+        assertStorageFilesEqual(storage, getStorage(VALID_DATA_FILE_NAME));
+    }
+
+    /**
+     * Tests if a new Product gets appended in the correct format.
+     *
+     * @throws Exception If there is error reading from the file.
+     */
+    @Test
+    public void saveData_validProduct() throws Exception {
+        ProductList pl = getTestProductList();
+        Storage storage = getTempStorage();
+        storage.saveData(new DeleteCommand(PRODUCT1_PID), pl);
+
+        Product toAdd =  new Product(PRODUCT4_NAME, PRODUCT4_QTY, PRODUCT4_PRICE,
+                PRODUCT4_DESC, PRODUCT4_PID);
+        pl.addProduct(toAdd);
+        storage.saveData(new NewCommand(PRODUCT4_NAME, PRODUCT4_QTY, PRODUCT4_PRICE, PRODUCT4_DESC), pl);
+
+        assertStorageFilesEqual(storage, getStorage(APPENDED_DATA_FILE_NAME));
     }
 
     private Storage getStorage(String fileName) throws Exception {

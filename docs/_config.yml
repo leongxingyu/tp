@@ -1,0 +1,16 @@
+title: "StockPal"
+remote_theme: pages-themes/slate@v0.2.0
+
+header_pages:
+  - UserGuide.md
+  - DeveloperGuide.md
+  - AboutUs.md
+
+markdown: kramdown
+
+repository: "AY2324S2-CS2113T-T09-3/tp"
+github_icon: "images/github-icon.png"
+
+plugins:
+  - jemoji
+  - jekyll-remote-theme

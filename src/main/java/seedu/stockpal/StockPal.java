@@ -8,13 +8,15 @@ import seedu.stockpal.data.TransactionList;
 import seedu.stockpal.exceptions.StockPalException;
 import seedu.stockpal.parser.Parser;
 import seedu.stockpal.storage.Storage;
+import seedu.stockpal.storage.transaction.TransactionStorage;
 import seedu.stockpal.ui.Ui;
 
 public class StockPal {
     private static Storage storage;
+    private static TransactionStorage transactionStorage;
     private static Parser parser;
     private static ProductList productList;
-    private static TransactionList transactionList =  new TransactionList();
+    private static TransactionList transactionList;
 
     /**
      * Main entry-point for the java.stockpal.StockPal application.
@@ -29,6 +31,8 @@ public class StockPal {
         try {
             storage = new Storage();
             productList = storage.load();
+            transactionStorage = new TransactionStorage();
+            transactionList = transactionStorage.load();
             parser = new Parser();
         } catch (StockPalException spe) {
             Ui.printExceptionMessage(spe);
@@ -71,7 +75,7 @@ public class StockPal {
             TransactionActionCommand actionCommand = (TransactionActionCommand) command;
             actionCommand.execute(productList, transactionList);
             storage.saveData(command, productList);
-            //incomplete, save here for transactionList
+            transactionStorage.saveTransactions(command, transactionList);
         } else {
             command.execute();
         }
