@@ -87,10 +87,12 @@ CSV (Comma-Separated Values) - a file format used to store tabular data. Each li
 <div style="padding: 15px; border: 1px solid transparent; margin-bottom: 20px; border-radius: 4px; color: #31708f; background-color: #d9edf7;">
 :information_source:<strong>Notes about the command format</strong>
 
-- Words in UPPER_CASE are the parameters to be supplied by the user.
-- Items in square brackets are optional.
-- Parameters must be in the specified order.
-- Commands are case-sensitive and must strictly follow case specified.
+<ul>
+    <li>Words in UPPER_CASE are the parameters to be supplied by the user.</li>
+    <li>Items in square brackets are optional.</li>
+    <li>Parameters must be in the specified order.</li>
+    <li>Commands are case-sensitive and must strictly follow case specified.</li>
+</ul>
 </div>
 
 ## Viewing help: `help`
