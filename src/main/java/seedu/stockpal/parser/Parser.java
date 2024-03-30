@@ -89,6 +89,7 @@ public class Parser {
         if (isNull(parsedInt)) {
             return null;
         }
+
         try {
             return Integer.parseUnsignedInt(parsedInt);
         } catch (NumberFormatException nfe) {
@@ -148,15 +149,6 @@ public class Parser {
 
     private NewCommand validateAndCreateNewCommand(ArrayList<String> parsed)
             throws UnsignedIntegerExceededException, InvalidFormatException {
-
-        if (isNull(parsed.get(0))) { // name group not matched
-            throw new InvalidFormatException(MESSAGE_ERROR_EMPTY_NAME);
-        }
-
-        if (isNull(parsed.get(1))) { // quantity group not matched
-            throw new InvalidFormatException(MESSAGE_ERROR_EMPTY_QUANTITY);
-        }
-
         String name = validateStringInput(parsed.get(0));
         if (isNull(name)) {
             throw new InvalidFormatException(MESSAGE_ERROR_NAME_ONLY_SPACES);
