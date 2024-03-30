@@ -75,7 +75,7 @@ public class StockPal {
             TransactionActionCommand actionCommand = (TransactionActionCommand) command;
             actionCommand.execute(productList, transactionList);
             storage.saveData(command, productList);
-            transactionStorage.saveTransactions(command, transactionList);
+            transactionStorage.save(command, transactionList);
         } else {
             command.execute();
         }

@@ -30,14 +30,20 @@ import static seedu.stockpal.common.Messages.WARNING_INVALID_FILEPATH;
 public class TransactionStorage {
 
     private static final String DEFAULT_STORAGE_FILEPATH = "data/transactions.json";
+    private static final String JSON_EXTENSION = ".json";
+    private static final String PID_HEADER = "PID";
+    private static final String CHANGE_HEADER = "Change In Quantity";
+    private static final String TIME_HEADER = "Time";
+
     private final String path;
 
     /**
      * Constructs a new TransactionStorage object with the default storage filepath.
      *
-     * @throws InvalidStorageFilePathException If the file path is invalid.
+     * @throws StockPalException If the file path is invalid,
+     *     or if there is an error with the format of the data file.
      */
-    public TransactionStorage() throws InvalidStorageFilePathException {
+    public TransactionStorage() throws StockPalException {
         this(DEFAULT_STORAGE_FILEPATH);
     }
 
@@ -45,9 +51,10 @@ public class TransactionStorage {
      * Constructs a new Storage object with the specified filepath.
      *
      * @param filePath The filepath of the saved JSON file containing the transactions.
-     * @throws InvalidStorageFilePathException If the file path is invalid.
+     * @throws StockPalException If the file path is invalid,
+     *     or if there is an error with the format of the data file.
      */
-    public TransactionStorage(String filePath) throws InvalidStorageFilePathException {
+    public TransactionStorage(String filePath) throws StockPalException {
         if (!isValidPath(filePath)) {
             throw new InvalidStorageFilePathException(WARNING_INVALID_FILEPATH);
         }
@@ -61,7 +68,7 @@ public class TransactionStorage {
      * @return true if the file path is of the correct extension, else false.
      */
     private boolean isValidPath(String filePath) {
-        return filePath.endsWith(".json");
+        return filePath.endsWith(JSON_EXTENSION);
     }
 
     /**
@@ -89,9 +96,9 @@ public class TransactionStorage {
      */
     private Transaction parseTransactionFromJsonObject(JSONObject transactionObj)
             throws JSONException, DateTimeParseException {
-        Pid pid = new Pid(transactionObj.getInt("PID"));
-        Integer changeToQuantity = transactionObj.getInt("Change In Quantity");
-        LocalDateTime time = LocalDateTime.parse(transactionObj.getString("Time"));
+        Pid pid = new Pid(transactionObj.getInt(PID_HEADER));
+        Integer changeToQuantity = transactionObj.getInt(CHANGE_HEADER);
+        LocalDateTime time = LocalDateTime.parse(transactionObj.getString(TIME_HEADER));
         return new Transaction(pid, changeToQuantity, time);
     }
 
@@ -127,7 +134,10 @@ public class TransactionStorage {
         Path filepath = Path.of(this.path);
         if (!Files.exists(filepath) || !Files.isRegularFile(filepath)) {
             createSaveFile();
-            return new TransactionList();
+            TransactionList transactionList = new TransactionList();
+            JsonWriter jsonWriter = new JsonWriter(this.path);
+            jsonWriter.saveTransactions(transactionList);
+            return transactionList;
         }
         JsonReader jsonReader = new JsonReader();
         return parseTransactions(jsonReader.readTransactions(filepath));
@@ -140,12 +150,12 @@ public class TransactionStorage {
      * @param transactionList The updated TransactionList.
      * @throws StockPalException If there is an error saving the data.
      */
-    public void saveTransactions(Command command, TransactionList transactionList)
+    public void save(Command command, TransactionList transactionList)
             throws StockPalException {
         if (command instanceof HistoryCommand) {
             return;
         }
-        JsonWriter jsonWriter = new JsonWriter(path);
+        JsonWriter jsonWriter = new JsonWriter(this.path);
         jsonWriter.saveTransactions(transactionList);
     }
 

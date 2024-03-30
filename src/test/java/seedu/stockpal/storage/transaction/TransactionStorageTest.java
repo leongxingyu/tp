@@ -196,7 +196,7 @@ public class TransactionStorageTest {
     public void saveTransactions_validTransactionList() throws Exception {
         TransactionList tl = getTestTransactionList();
         TransactionStorage tempStorage = getTempStorage();
-        tempStorage.saveTransactions(new InflowCommand(TEST_PID, TEST_AMT), tl);
+        tempStorage.save(new InflowCommand(TEST_PID, TEST_AMT), tl);
 
         assertStorageFilesEqual(tempStorage, getTransactionStorage(VALID_DATA_FILE_NAME));
     }
@@ -211,9 +211,9 @@ public class TransactionStorageTest {
     public void saveTransactions_historyCommand_returnNull() throws Exception {
         TransactionList tl = getTestTransactionList();
         TransactionStorage tempStorage = getTempStorage();
-        tempStorage.saveTransactions(new InflowCommand(TEST_PID, TEST_AMT), tl);
+        tempStorage.save(new InflowCommand(TEST_PID, TEST_AMT), tl);
         tl.addTransaction(new Transaction(TRANS4_PID, TRANS4_CHANGE, TRANS4_TIME));
-        tempStorage.saveTransactions(new HistoryCommand(TEST_PID), tl);
+        tempStorage.save(new HistoryCommand(TEST_PID), tl);
 
         assertStorageFilesEqual(tempStorage, getTransactionStorage(VALID_DATA_FILE_NAME));
     }

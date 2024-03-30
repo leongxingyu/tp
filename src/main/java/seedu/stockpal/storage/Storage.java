@@ -32,6 +32,7 @@ public class Storage {
 
     private static final Logger LOGGER = Logger.getLogger(Storage.class.getName());
     private static final String DEFAULT_STORAGE_FILEPATH = "data/inventory.csv";
+    private static final String CSV_EXTENSION = ".csv";
     private static final String EMPTY_STRING = "";
     private static final Double EMPTY_PRICE = -0.1;
 
@@ -77,7 +78,7 @@ public class Storage {
      * @return true if the file path is of the correct extension, else false.
      */
     private boolean isValidPath(String filePath) {
-        return filePath.endsWith(".csv");
+        return filePath.endsWith(CSV_EXTENSION);
     }
 
     /**
