@@ -84,12 +84,14 @@ CLI (Command Line Interface) - a text-based interface used to interact with our 
 CSV (Comma-Separated Values) - a file format used to store tabular data. Each line represents a row of data, and each field within a row is separated by a comma
 
 ## Features
-> ## :information_source:Notes about the command format
->
-> - Words in UPPER_CASE are the parameters to be supplied by the user.
-> - Items in square brackets are optional.
-> - Parameters must be in the specified order.
-> - Commands are case-sensitive and must strictly follow case specified.
+<div style="padding: 15px; border: 1px solid transparent; margin-bottom: 20px; border-radius: 4px; color: #31708f; background-color: #d9edf7;">
+:information_source:<strong>Notes about the command format</strong>
+
+- Words in UPPER_CASE are the parameters to be supplied by the user.
+- Items in square brackets are optional.
+- Parameters must be in the specified order.
+- Commands are case-sensitive and must strictly follow case specified.
+</div>
 
 ## Viewing help: `help`
 
@@ -202,11 +204,11 @@ StockPal data is saved in the hard disk automatically after any command that cha
 
 StockPal inventory data is saved automatically as a CSV file `[JAR file location]/data/inventory.csv`, while the past transactions data is saved automatically as a JSON file `[JAR file location]/data/transactions.json`. Advanced users are welcome to update data directly by editing these data files, even though it is **highly not recommended**.
 
-<mark>
-:exclamation:**Caution:**<br>
+<div style="padding: 15px; border: 1px solid transparent; margin-bottom: 20px; border-radius: 4px; color: #a94442; background-color: #f2dede;">
+:exclamation:<strong>Caution:</strong><br>
 If your changes to the data file makes its format invalid, StockPal will not discard the data, but instead display an error that the data has erroneous input, and close the app thereafter. <br>
 Furthermore, certain edits can cause StockPal to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file **only if** you are confident that you can update it correctly, and it is **recommended** to make a backup of the file before editing it.
-</mark>
+</div>
 
 # Command Summary
 This section provides a quick overview of all the commands. For more detailed information on the command format, click on the `command` to be redirected to the command’s details under the [Features](#features) section.
