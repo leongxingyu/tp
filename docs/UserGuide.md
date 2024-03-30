@@ -180,6 +180,30 @@ Output:
 
 ```Product details have been updated.```
 
+## Deleting a product
+
+Deletes an existing product from the inventory.
+
+Format: `delete PID`
+- PID must be a valid Product ID of an existing product currently in the inventory.
+
+### Example 1
+Input:
+`delete 1`
+
+Output:
+`Product has been deleted.`
+
+### Example 2
+Suppose the product with PID 3 is not in the inventory. As such you should not be able to delete anything.
+
+Input:
+`delete 3`
+
+Output:
+`Product with the following PID is not found: 3`
+
+
 ### Saving the data
 
 StockPal data is saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
