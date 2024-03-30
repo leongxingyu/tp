@@ -196,7 +196,7 @@ Output:
 
 ```Product details have been updated.```
 
-## Deleting a product
+## Deleting a product and its details: `delete`
 
 Deletes an existing product from the inventory.
 
