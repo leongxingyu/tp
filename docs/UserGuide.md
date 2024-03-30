@@ -5,17 +5,18 @@ just starting up to manage their stock-taking effectively. Users would mostly in
 
 StockPal is compatible for usage on Windows, Mac and Linux systems.
 
-Not sure where to begin? Start by learning how to utilize this user guide.
+Not sure where to begin? Start by learning [how to utilize this user guide](#using-this-guide).
 
 # Table of Contents
 
 - [Introduction](#introduction)
+- [Using This Guide](#using-this-guide)
 - [Quick Start](#quick-start)
     - [Downloading StockPal](#downloading-stockpal)
     - [Running StockPal](#running-stockpal)
 - [Features](#features)
     - [Viewing help: `help`](#viewing-help-help)
-    - [Adding new product: `new`](#adding-new-product-new)
+    - [Adding new product: `new`](#adding-a-new-product-new)
     - [Editing product details: `edit`](#editing-product-details-edit)
     - [Deleting a product and its details: `delete`](#deleting-a-product-and-its-details-delete)
     - [Increasing quantity of existing product: `inflow`](#increasing-quantity-of-existing-product-inflow)
@@ -23,8 +24,19 @@ Not sure where to begin? Start by learning how to utilize this user guide.
     - [Find keywords in all products: `find`](#find-keywords-in-all-products-find)
     - [Listing all products: `list`](#listing-all-products-list)
     - [Exiting the program: `exit`](#exiting-the-program-exit)
+    - [Saving the data](#saving-the-data)
     - [Editing the data file](#editing-the-data-file)
 - [Command Summary](#command-summary)
+
+# Using This Guide
+Below are the symbols used in this guide and the meaning of these symbols.
+
+| **Symbol**           | **Meaning**                                                                                      |
+|----------------------|--------------------------------------------------------------------------------------------------|
+| :exclamation:        | The exclamation mark symbol indicates actions that you should be _cautious_ about.               |
+| :information_source: | The **i** symbol indicates notes that are important for you when using the application.          |
+| :bulb:               | The lightbulb symbol indicates tips that hold useful information or advice that you should know. |
+
 
 # Quick Start
 
@@ -71,7 +83,7 @@ CLI (Command Line Interface) - a text-based interface used to interact with our 
 
 CSV (Comma-Separated Values) - a file format used to store tabular data. Each line represents a row of data, and each field within a row is separated by a comma
 
-## Features 
+## Features
 > ## :information_source:Notes about the command format
 >
 > - Words in UPPER_CASE are the parameters to be supplied by the user.
@@ -190,35 +202,20 @@ StockPal data is saved in the hard disk automatically after any command that cha
 
 StockPal inventory data is saved automatically as a CSV file `[JAR file location]/data/inventory.csv`, while the past transactions data is saved automatically as a JSON file `[JAR file location]/data/transactions.json`. Advanced users are welcome to update data directly by editing these data files, even though it is **highly not recommended**.
 
-> :exclamation:**Caution:**<br>
-> If your changes to the data file makes its format invalid, StockPal will not discard the data, but instead display an error that the data has erroneous input, and close the app thereafter. <br>
-> Furthermore, certain edits can cause StockPal to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file **only if** you are confident that you can update it correctly, and it is **recommended** to make a backup of the file before editing it.
-
+<mark>
+:exclamation:**Caution:**<br>
+If your changes to the data file makes its format invalid, StockPal will not discard the data, but instead display an error that the data has erroneous input, and close the app thereafter. <br>
+Furthermore, certain edits can cause StockPal to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file **only if** you are confident that you can update it correctly, and it is **recommended** to make a backup of the file before editing it.
+</mark>
 
 # Command Summary
+This section provides a quick overview of all the commands. For more detailed information on the command format, click on the `command` to be redirected to the command’s details under the [Features](#features) section.
 
-<table>
-  <tr>
-   <td><strong>Command</strong>
-   </td>
-   <td><strong>Description</strong>
-   </td>
-  </tr>
-
-  <tr>
-   <td><code>help</code>
-   </td>
-   <td>List all available commands supported by Stockpal
-   </td>
-  </tr>
-
-  <tr>
-   <td><code>edit PID [n/PRODUCT_NAME] [q/QUANTITY] [d/DESCRIPTION] [p/PRICE]</code>
-   </td>
-   <td>Edit an existing product’s field
-   </td>
-  </tr>
-</table>
+| **Command**                                                                                         | **Description**                                   |
+|-----------------------------------------------------------------------------------------------------|---------------------------------------------------|
+| [`help`](#viewing-help-help)                                                                        | List all available commands supported by Stockpal |
+| [`new n/PRODUCT_NAME q/INITIAL_QUANTITY [p/PRICE] [d/DESCRIPTION]`](#adding-a-new-product-new)      | Creates a new product                             |
+| [`edit PID [n/PRODUCT_NAME] [q/QUANTITY] [d/DESCRIPTION] [p/PRICE]`](#editing-product-details-edit) | Edit an existing product’s field                  |
 
 
 # FAQ
