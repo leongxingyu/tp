@@ -14,11 +14,8 @@ public class Messages {
     public static final String MESSAGE_REFER_TO_HELP = "For more information on the commands, use `help`.";
     public static final String MESSAGE_ERROR_INVALID_COMMAND = "Invalid command. " + MESSAGE_REFER_TO_HELP;
     public static final String MESSAGE_ERROR_INVALID_FORMAT = "Invalid format. " + MESSAGE_REFER_TO_HELP;
-    public static final String MESSAGE_ERROR_EMPTY_NAME = "Invalid format. Name cannot be empty when adding product.";
     public static final String MESSAGE_ERROR_NAME_ONLY_SPACES = "Invalid format. " +
             "Name cannot be made up of only spaces.";
-    public static final String MESSAGE_ERROR_EMPTY_QUANTITY = "Invalid format. " +
-            "Quantity cannot be empty when adding product.";
 
     public static final String MESSAGE_ERROR_MISSING_PARAMETERS = "Please ensure that there is " +
             "at least 1 parameter provided.";

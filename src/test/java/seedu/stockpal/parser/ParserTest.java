@@ -166,13 +166,13 @@ public class ParserTest {
     }
 
     @Test
-    public void parseInput_editCommandWithoutPid_InvalidFormatExceptionThrown() {
+    public void parseInput_editCommandWithoutPid_invalidFormatExceptionThrown() {
         testInput = "edit n/new test name q/100 p/1.23 d/new test description";
         assertThrows(InvalidFormatException.class, () -> testParser.parseInput(testInput));
     }
 
     @Test
-    public void parseInput_editCommandWithPidExceed_UnsignedIntegerExceededExceptionThrown() {
+    public void parseInput_editCommandWithPidExceed_unsignedIntegerExceededExceptionThrown() {
         testInput = "edit 100000000000 n/new test name q/100 p/1.23 d/new test description";
         assertThrows(UnsignedIntegerExceededException.class, () -> testParser.parseInput(testInput));
     }
@@ -190,7 +190,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parseInput_deleteCommandWithPidExceed_UnsignedIntegerExceedExceptionThrown() {
+    public void parseInput_deleteCommandWithPidExceed_unsignedIntegerExceedExceptionThrown() {
         testInput = "delete 100000000000000";
         assertThrows(UnsignedIntegerExceededException.class, () -> testParser.parseInput(testInput));
     }
@@ -208,13 +208,13 @@ public class ParserTest {
     }
 
     @Test
-    public void parseInput_inflowCommandWithLargePidAndValidAmount_UnsignedIntegerExceedExceptionThrown() {
+    public void parseInput_inflowCommandWithLargePidAndValidAmount_unsignedIntegerExceedExceptionThrown() {
         testInput = "inflow 100000000000 a/1";
         assertThrows(UnsignedIntegerExceededException.class, () -> testParser.parseInput(testInput));
     }
 
     @Test
-    public void parseInput_inflowCommandWithValidPidAndLargeAmount_UnsignedIntegerExceedExceptionThrown() {
+    public void parseInput_inflowCommandWithValidPidAndLargeAmount_unsignedIntegerExceedExceptionThrown() {
         testInput = "inflow 1 a/1000000000000";
         assertThrows(UnsignedIntegerExceededException.class, () -> testParser.parseInput(testInput));
     }
@@ -232,13 +232,13 @@ public class ParserTest {
     }
 
     @Test
-    public void parseInput_outflowCommandWithLargePidAndValidAmount_UnsignedIntegerExceedExceptionThrown() {
+    public void parseInput_outflowCommandWithLargePidAndValidAmount_unsignedIntegerExceedExceptionThrown() {
         testInput = "outflow 100000000000 a/1";
         assertThrows(UnsignedIntegerExceededException.class, () -> testParser.parseInput(testInput));
     }
 
     @Test
-    public void parseInput_outflowCommandWithValidPidAndLargeAmount_UnsignedIntegerExceedExceptionThrown() {
+    public void parseInput_outflowCommandWithValidPidAndLargeAmount_unsignedIntegerExceedExceptionThrown() {
         testInput = "outflow 1 a/1000000000000";
         assertThrows(UnsignedIntegerExceededException.class, () -> testParser.parseInput(testInput));
     }
@@ -256,7 +256,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parseInput_findCommandWithEmptyKeyword_InvalidFormatExceptionThrown() {
+    public void parseInput_findCommandWithEmptyKeyword_invalidFormatExceptionThrown() {
         testInput = "find     ";
         assertThrows(InvalidFormatException.class, () -> testParser.parseInput(testInput));
     }
@@ -274,9 +274,8 @@ public class ParserTest {
     }
 
     @Test
-    public void parseInput_historyCommandWithPidExceed_UnsignedIntegerExceedExceptionThrown() {
+    public void parseInput_historyCommandWithPidExceed_unsignedIntegerExceedExceptionThrown() {
         testInput = "delete 100000000000000";
         assertThrows(UnsignedIntegerExceededException.class, () -> testParser.parseInput(testInput));
     }
-
 }
