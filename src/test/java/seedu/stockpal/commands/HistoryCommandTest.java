@@ -16,7 +16,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 //@@author EdmundTangg
 public class HistoryCommandTest {
-    private static final String NO_TRANSACTION_EXPECTED_OUTPUT = "src/test/data/HistoryCommandTest/NoTransactionFound.txt";
+    private static final String NO_TRANSACTION_EXPECTED_OUTPUT =
+            "src/test/data/HistoryCommandTest/NoTransactionFound.txt";
 
     public ProductList productList;
     public TransactionList transactionList;
@@ -40,7 +41,7 @@ public class HistoryCommandTest {
     }
 
     @Test
-    public void historyCommand_noTransaction_NoTransactionsPrinted() throws StockPalException, IOException {
+    public void historyCommand_noTransaction_noTransactionsPrinted() throws StockPalException, IOException {
         HistoryCommand command = new HistoryCommand(1);
         command.execute(productList, transactionList);
         String expectedOutput = new String(Files.readAllBytes(Paths.get(NO_TRANSACTION_EXPECTED_OUTPUT)));
