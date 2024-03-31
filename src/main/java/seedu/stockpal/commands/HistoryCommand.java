@@ -28,7 +28,8 @@ public class HistoryCommand extends TransactionActionCommand {
 
     @Override
     public void execute(ProductList productList, TransactionList transactionList) throws StockPalException {
-        TransactionList.findTransactions(transactionList, pid.getPid());
+        int productIndex = productList.findProductIndex(pid);
+        TransactionList.findTransactions(transactionList, productIndex + 1);
     }
 
     //@@author Kobot7
