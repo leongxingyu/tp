@@ -20,6 +20,10 @@ import static seedu.stockpal.common.Messages.WARNING_DATA_FILE_FORMAT_ERROR;
  */
 public class JsonWriter {
 
+    private static final String TRANSACTIONS_HEADER = "Transactions";
+    private static final String PID_HEADER = "PID";
+    private static final String CHANGE_HEADER = "Change In Quantity";
+    private static final String TIME_HEADER = "Time";
     private static final int INDENT_FACTOR = 4;
 
     private final JSONObject transactionsData;
@@ -52,9 +56,9 @@ public class JsonWriter {
      */
     private JSONObject convertTransactionToJson(Transaction transaction) throws JSONException {
         JSONObject transactionObj = new JSONObject();
-        transactionObj.put("PID", transaction.getPid());
-        transactionObj.put("Change In Quantity", transaction.getChangeInQuantity());
-        transactionObj.put("Time", transaction.getTime());
+        transactionObj.put(PID_HEADER, transaction.getPid());
+        transactionObj.put(CHANGE_HEADER, transaction.getChangeInQuantity());
+        transactionObj.put(TIME_HEADER, transaction.getTime());
         return transactionObj;
     }
 
@@ -71,7 +75,7 @@ public class JsonWriter {
                 Transaction currTransaction = transactionList.get(i);
                 transactions.put(convertTransactionToJson(currTransaction));
             }
-            transactionsData.put("Transactions", transactions);
+            transactionsData.put(TRANSACTIONS_HEADER, transactions);
             bw.write(transactionsData.toString(INDENT_FACTOR));
             bw.flush();
             bw.close();
