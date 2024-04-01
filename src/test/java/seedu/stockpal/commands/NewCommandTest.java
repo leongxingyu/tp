@@ -60,3 +60,5 @@ public class NewCommandTest {
         assertEquals(2, productList.products.get(1).getPid().getPid());
     }
 }
+
+

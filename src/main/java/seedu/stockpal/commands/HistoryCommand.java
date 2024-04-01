@@ -1,10 +1,15 @@
 package seedu.stockpal.commands;
 
 import seedu.stockpal.common.FormatUtils;
+import seedu.stockpal.common.Messages;
 import seedu.stockpal.data.ProductList;
 import seedu.stockpal.data.TransactionList;
 import seedu.stockpal.data.product.Pid;
 import seedu.stockpal.exceptions.StockPalException;
+
+import java.util.logging.Level;
+
+import static seedu.stockpal.commands.EditCommand.logger;
 
 //@@author EdmundTangg
 public class HistoryCommand extends TransactionActionCommand {
@@ -28,7 +33,10 @@ public class HistoryCommand extends TransactionActionCommand {
 
     @Override
     public void execute(ProductList productList, TransactionList transactionList) throws StockPalException {
-        TransactionList.findTransactions(transactionList, pid.getPid());
+        int productIndex = productList.findProductIndex(pid);
+        TransactionList.findTransactions(transactionList, productIndex + 1);
+
+        logger.log(Level.INFO, Messages.MESSAGE_HISTORY);
     }
 
     //@@author Kobot7
