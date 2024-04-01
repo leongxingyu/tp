@@ -211,8 +211,8 @@ Format: `inflow PID a/QUANTITY`
 - PID must be a valid Product ID of an existing product.
 - QUANTITY must be an integer more than or equals to 0.
 
-:bulb: Use this command instead of `edit` if you already have an existing product
-and just want to *increase* the quantity when you have new stocks.
+:bulb: Use this command instead of [edit](#editing-product-details-edit) if you already have an existing product
+and just want to *increase* the quantity when you have new stocks. 
 
 ### Example 1
 Context: 
@@ -239,7 +239,7 @@ Format: `outflow PID a/QUANTITY`
 - PID must be a valid Product ID of an existing product.
 - QUANTITY must be an integer more than or equals to 0.
 
-:bulb: Use this command instead of `edit` if you already have an existing product
+:bulb: Use this command instead of [edit](#editing-product-details-edit) if you already have an existing product
 and just want to *decrease* the quantity when you sell your stocks.
 
 ### Example 1
