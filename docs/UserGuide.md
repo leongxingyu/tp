@@ -99,6 +99,12 @@ CSV (Comma-Separated Values) - a file format used to store tabular data. Each li
 
 List all available commands supported by Stockpal.
 
+### When to use?
+
+When starting as a new user of StockPal, you might be unfamiliar with the commands. Use this command to find
+out what commands there are, and how to use it. 
+
+
 Format: `help`
 
 ## Adding a new product: `new`
@@ -195,6 +201,82 @@ Input:
 Output:
 
 ```Product details have been updated.```
+
+## Increasing a product quantity: `inflow`
+
+Increase the quantity of an existing product in the inventory at the specific PID.
+
+Format: `inflow PID a/QUANTITY`
+
+- PID must be a valid Product ID of an existing product.
+- QUANTITY must be an integer more than or equals to 0.
+
+:bulb: Use this command instead of [edit](#editing-product-details-edit) if you already have an existing product
+and just want to *increase* the quantity when you have new stocks. 
+
+### Example 1
+Context: 
+- Product `Sticky note`'s Product ID (PID) is 1.
+- Current QUANTITY of `Sticky note` is 20.
+- Now, you have 10 new stocks for `Sticky note` and you wish to update the quantity.
+
+Input:
+```inflow 1 a/10```
+
+Output:
+```Quantity updated. Quantity: 30```
+
+Explanation:
+The `inflow` command will update the quantity of the product by performing addition
+of the current quantity and the inflow quantity.
+
+## Decreasing a product quantity: `outflow`
+
+Decrease the quantity of an existing product in the inventory at the specific PID.
+
+Format: `outflow PID a/QUANTITY`
+
+- PID must be a valid Product ID of an existing product.
+- QUANTITY must be an integer more than or equals to 0.
+
+:bulb: Use this command instead of [edit](#editing-product-details-edit) if you already have an existing product
+and just want to *decrease* the quantity when you sell your stocks.
+
+### Example 1
+Context: 
+- Product `Sticky note`'s Product ID (PID) is 1.
+- Current QUANTITY of `Sticky note` is 20.
+- Now, you sold 10 `Sticky note` and you wish to update the quantity.
+
+Input:
+```outflow 1 a/10```
+
+Output: 
+```Warning! This product is low in quantity.```
+```Quantity updated. Quantity: 10```
+
+:bulb: Note that the warning will only appear once when the quantity first dips
+below quantity of 20. All low quantity products will be displayed when you exit 
+the program
+
+### Example 2
+Context:
+- Product `Highlighter`'s Product ID (PID) is 23.
+- Current QUANTITY of `Highlighter` is 50.
+- Now, you sold 11 `Highlighter` and you wish to update the quantity.
+
+Input:
+```outflow 23 a/11```
+
+Output:
+```Quantity updated. Quantity: 39```
+
+:bulb: Since the new quantity does not dip below 20, no warning is given. 
+
+Explanation:
+The `outflow` command will update the quantity of the product by performing subtraction
+of the outflow quantity from the current quantity.
+
 
 ## Deleting a product and its details: `delete`
 
