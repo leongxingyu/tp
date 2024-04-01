@@ -1,8 +1,13 @@
 package seedu.stockpal.commands;
 
 import seedu.stockpal.common.FormatUtils;
+import seedu.stockpal.common.Messages;
 import seedu.stockpal.data.ProductList;
 import seedu.stockpal.exceptions.StockPalException;
+
+import java.util.logging.Level;
+
+import static seedu.stockpal.commands.EditCommand.logger;
 
 //@@author EdmundTangg
 public class FindCommand extends ListActionCommand{
@@ -24,6 +29,8 @@ public class FindCommand extends ListActionCommand{
     @Override
     public void execute(ProductList productList) throws StockPalException {
         ProductList.findKeyword(productList, keyword);
+
+        logger.log(Level.INFO, Messages.MESSAGE_FIND);
     }
 
     //@@author Kobot7
