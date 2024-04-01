@@ -97,15 +97,36 @@ CSV (Comma-Separated Values) - a file format used to store tabular data. Each li
 
 ## Viewing help: `help`
 
-List all available commands supported by Stockpal.
+Provides command details for all or specific commands.
 
 ### When to use?
+This is a useful command to start with if you are new to StockPal!
 
-When starting as a new user of StockPal, you might be unfamiliar with the commands. Use this command to find
-out what commands there are, and how to use it. 
+Format: `help [COMMAND]`
+- COMMAND is the command for which you wish to display the help page.
+- COMMAND must be a valid command keyword.
+- List of valid command keywords: help, new, list, edit, delete, inflow, outflow, history, find, exit
+- If COMMAND is left empty, command details for all commands will be displayed.
 
+### Example 1
+Input:
 
-Format: `help`
+```help inflow ```
+
+Output:
+```
+====================================================================================
+Command: inflow
+
+Description: Increases the quantity of a product from the existing amount.
+
+Usage: inflow PID a/INCREMENT_AMOUNT
+
+Options:
+PID                   Product ID of product
+INCREMENT_AMOUNT      Quantity of product to add
+====================================================================================
+```
 
 ## Adding a new product: `new`
 
@@ -167,7 +188,7 @@ Format: `edit PID [n/PRODUCT_NAME] [q/QUANTITY] [d/DESCRIPTION] [p/PRICE]`
 - At least one optional field must be provided.
 - PID must be a valid Product ID of an existing product.
 - QUANTITY must be an integer more than or equals to 0.
-- PRICE must have an integer more than or equals to 0, and have exactly 2 decimal places.
+- PRICE must have a numeric value more than or equals to 0, and have exactly 2 decimal places.
 - DESCRIPTION is limited to 100 characters.
 
 ### Example 1
@@ -321,7 +342,7 @@ This section provides a quick overview of all the commands. For more detailed in
 
 | **Command**                                                                                         | **Description**                                   |
 |-----------------------------------------------------------------------------------------------------|---------------------------------------------------|
-| [`help`](#viewing-help-help)                                                                        | List all available commands supported by Stockpal |
+| [`help [COMMAND]`](#viewing-help-help)                                                              | Provides command details for all or specific commands |
 | [`new n/PRODUCT_NAME q/INITIAL_QUANTITY [p/PRICE] [d/DESCRIPTION]`](#adding-a-new-product-new)      | Creates a new product                             |
 | [`edit PID [n/PRODUCT_NAME] [q/QUANTITY] [d/DESCRIPTION] [p/PRICE]`](#editing-product-details-edit) | Edit an existing product’s field                  |
 
