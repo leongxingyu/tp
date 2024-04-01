@@ -223,7 +223,7 @@ Context:
 Input:
 ```inflow 1 a/10```
 
-output:
+Output:
 ```Quantity updated. Quantity: 30```
 
 Explanation:
@@ -240,7 +240,7 @@ Format: `outflow PID a/QUANTITY`
 - QUANTITY must be an integer more than or equals to 0.
 
 :bulb: Use this command instead of `edit` if you already have an existing product
-and just want to *decrease* the quantity when you have new stocks.
+and just want to *decrease* the quantity when you sell your stocks.
 
 ### Example 1
 Context: 
@@ -259,8 +259,6 @@ Output:
 below quantity of 20. All low quantity products will be displayed when you exit 
 the program
 
-
-
 ### Example 2
 Context:
 - Product `Highlighter`'s Product ID (PID) is 23.
@@ -277,7 +275,7 @@ Output:
 
 Explanation:
 The `outflow` command will update the quantity of the product by performing subtraction
-of the inflow quantity from the current quantity.
+of the outflow quantity from the current quantity.
 
 
 ## Deleting a product and its details: `delete`
