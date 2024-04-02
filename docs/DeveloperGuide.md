@@ -291,6 +291,51 @@ The following sequence diagram summarizes what happens when a user inputs a vali
 
 <img src="images/DeleteCommandSequence.png" alt=""/>
 
+### Find product feature
+
+The FindCommand class is responsible for finding a new product to the inventory in the StockPal application.
+
+#### Class diagram of FindCommand:
+<img src="images/FindCommandClass.png" alt=""/>
+
+
+**Attributes**
+* keyword: The name of the product to look for.
+
+**Methods**
+* `FindCommand`: Constructor for creating a new instance of the FindCommand class.
+* `execute`: Method to find the keyword in the productList
+
+
+The following sequence diagram shows how a find operation works when the user inputs a valid `find` command:
+<img src="images/FindCommandSequence.png" alt="FindCommandSequence.png"/>
+
+The following sequence diagram details how `FindCommand#execute()` functions.
+<img src="images/FindCommandExecuteSequenceDiagram.png" alt="FindCommandExecuteSequenceDiagram.png"/>
+
+
+### History product feature
+
+The HistoryCommand class is responsible for finding any inflows or outflows for a particular
+PID in the StockPal application.
+
+#### Class diagram of HistoryCommand:
+<img src="images/HistoryCommandClass.png" alt=""/>
+
+
+**Attributes**
+* pid: The pid of the product to look for.
+
+**Methods**
+* `HistoryCommand`: Constructor for creating a new instance of the HistoryCommand class.
+* `execute`: Method to find the list of transactions for the particular pid
+
+
+The following sequence diagram shows how a find operation works when the user inputs a valid `history` command:
+<img src="images/HistoryCommandSequence.png" alt="HistoryCommandSequence.png"/>
+
+The following sequence diagram details how `HistoryCommand#execute()` functions.
+<img src="images/HistoryCommandExecuteSequenceDiagram.png" alt="HistoryCommandExecuteSequenceDiagram.png"/>
  --------------------------------------------------------------------------------------------------------------------
 
 ## **Appendix: Requirements**
@@ -309,12 +354,16 @@ intuitive command-line commands, saving time and improving efficiency.
 
 ## User Stories
 
-| Version | As a ... | I want to ...                                            | So that I can ...                                                                            |
-|---------|----------|----------------------------------------------------------|----------------------------------------------------------------------------------------------|
-| v1.0    | new user | see usage instructions                                   | refer to them when I forget how to use the application                                       |
-| v1.0    | user     | I want to be able to edit details of the products easily | easily change the name / price / quantity /description of the products, if there is an error |
-| v1.0    | user     | I want to have a small manual page                       | be aware of the commands that I can enter                                                    |
-| v2.0    | user     | view at past inflow/outflows of a product                | keep track of sales data of the product and know which products are of higher demand         |
+| Version | As a ... | I want to ...                                  | So that I can ...                                                                             |
+|---------|----------|------------------------------------------------|-----------------------------------------------------------------------------------------------|
+| v1.0    | new user | see usage instructions                         | refer to them when I forget how to use the application                                        |
+| v1.0    | new user | add details of products easily                 | track my products' stock                                                                      |
+| v1.0    | new user | entered data to be saved                       | track all the products that I have entered                                                    |
+| v1.0    | user     | be able to edit details of the products easily | easily change the name / price / quantity /description of the products, if there is an error  |
+| v1.0    | user     | have a small manual page                       | be aware of the commands that I can enter                                                     |
+| v2.0    | user     | view at past inflow/outflows of a product      | keep track of sales data of the product and know which products are of higher demand          |
+| v2.0    | user     | find products' name that contain the keyword   | find my product, or want to get the product's PID in a long list of products                  |
+| v2.0    | user     | find my products' past transactions            | keep track of the changes in my products' quantity                                            |
 
 ## Non-Functional Requirements
 
@@ -329,6 +378,18 @@ intuitive command-line commands, saving time and improving efficiency.
 
 ## **Appendix: Instructions for manual testing**
 
+### Adding a Product
+1. No prerequisites needed.
+
+2. Test case: `new n/Drinking Cup q/20`<br>
+   Expected: The product will be added. Name of the product is `Drinking Cup`, 
+   Quantity of chocolate Milk stock is `20` units.
+
+3. Test case: `new n/Chocolate Milk q/100 p/2.00 d/Marigold HL Milk`<br>
+   Expected: The product will be added. Name of the product is `Chocolate Milk`,
+   Quantity of chocolate Milk stock is `100 ` units
+   Price of each unit is $`2.00`
+   Description of the Chocolate Milk product is `Marigold HL Milk`, which is the brand.
 
 ### Editing Product Details
 1. Prerequisites: List all products using `list` command. There should be at least multiple products in the list.
@@ -350,3 +411,20 @@ product with `pid` of 2.
 
    Test case 2: `delete 2`.
    Expected: `"Product with pid: 2 not found"`
+
+
+### Finding a keyword in the Product list 
+1. No prerequisites needed.
+
+2. Test case: `find Cor`<br>
+   Expected: A list of products will be printed out if there is a match, 
+   otherwise `No match found.` will be printed out. 
+
+
+### Finding all past transactions for a particular product in the Product list
+1. Prerequisites: List all products using `list` command. There should be at least multiple products in the list.
+
+2. Test case: `history 1`<br>
+   Expected:
+   A list of transactions will be printed out if there is a match,
+   otherwise `No match found.` will be printed out.

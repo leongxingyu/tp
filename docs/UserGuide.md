@@ -21,8 +21,9 @@ Not sure where to begin? Start by learning [how to utilize this user guide](#usi
     - [Deleting a product and its details: `delete`](#deleting-a-product-and-its-details-delete)
     - [Increasing quantity of existing product: `inflow`](#increasing-quantity-of-existing-product-inflow)
     - [Decreasing quantity of existing product: `outflow`](#decreasing-quantity-of-existing-product-outflow)
-    - [Find keywords in all products: `find`](#find-keywords-in-all-products-find)
+    - [Find keywords in all products: `find`](#find-keyword-in-all-products-find)
     - [Listing all products: `list`](#listing-all-products-list)
+    - [Viewing past inflow/outflow of existing product: `history`](#finding-transactions-in-product-history)
     - [Exiting the program: `exit`](#exiting-the-program-exit)
     - [Saving the data](#saving-the-data)
     - [Editing the data file](#editing-the-data-file)
@@ -138,7 +139,10 @@ When starting as a new user of StockPal, use this command repeatedly to fill up 
 Subsequently, when your business introduces new products, use this command to add them in too!
 
 
-Format: `new n/PRODUCT_NAME q/INITIAL_QUANTITY [p/PRICE] [d/DESCRIPTION]`
+Format:
+```
+new n/PRODUCT_NAME q/INITIAL_QUANTITY [p/PRICE] [d/DESCRIPTION]
+```
 
 - PRODUCT_NAME is limited to 100 characters.
 - INITIAL_QUANTITY must be an integer more than or equal to 0.
@@ -148,11 +152,15 @@ Format: `new n/PRODUCT_NAME q/INITIAL_QUANTITY [p/PRICE] [d/DESCRIPTION]`
 ### Example 1
 Input:
 
-```new n/Drinking Cup q/20 ```
+```
+new n/Drinking Cup q/20 
+```
 
 Output:
 
-```Product has been added.```
+```
+Product has been added.
+```
 
 Explanation:
 
@@ -164,11 +172,15 @@ This command adds your product to the inventory. The product’s details are as 
 ### Example 2
 Input:
 
-```new n/Chocolate Milk q/100 p/2.00 d/Marigold HL Milk```
+```
+new n/Chocolate Milk q/100 p/2.00 d/Marigold HL Milk
+```
 
 Output:
 
-```Product has been added.```
+```
+Product has been added.
+```
 
 Explanation:
 
@@ -183,7 +195,10 @@ This command adds your product to the inventory. The product’s details are as 
 
 Edits an existing product in the inventory at the specific PID by the input value(s).
 
-Format: `edit PID [n/PRODUCT_NAME] [q/QUANTITY] [d/DESCRIPTION] [p/PRICE]`
+Format: 
+```
+edit PID [n/PRODUCT_NAME] [q/QUANTITY] [d/DESCRIPTION] [p/PRICE]
+```
 
 - At least one optional field must be provided.
 - PID must be a valid Product ID of an existing product.
@@ -200,11 +215,15 @@ Context:
 
 Input:
 
-```edit 1 p/2.00 d/100 pieces per stack```
+```
+edit 1 p/2.00 d/100 pieces per stack
+```
 
 Output: 
 
-```Product details have been updated.```
+```
+Product details have been updated.
+```
 
 ### Example 2
 Context
@@ -217,17 +236,24 @@ Context
 
 Input:
 
-```edit 23 n/Neon highlighter q/200 p/1.50 d/Erasable```
+```
+edit 23 n/Neon highlighter q/200 p/1.50 d/Erasable
+```
 
 Output:
 
-```Product details have been updated.```
+```
+Product details have been updated.
+```
 
 ## Increasing a product quantity: `inflow`
 
 Increase the quantity of an existing product in the inventory at the specific PID.
 
-Format: `inflow PID a/QUANTITY`
+Format: 
+```
+inflow PID a/QUANTITY
+```
 
 - PID must be a valid Product ID of an existing product.
 - QUANTITY must be an integer more than or equals to 0.
@@ -242,10 +268,14 @@ Context:
 - Now, you have 10 new stocks for `Sticky note` and you wish to update the quantity.
 
 Input:
-```inflow 1 a/10```
+```
+inflow 1 a/10
+```
 
 Output:
-```Quantity updated. Quantity: 30```
+```
+Quantity updated. Quantity: 30
+```
 
 Explanation:
 The `inflow` command will update the quantity of the product by performing addition
@@ -255,7 +285,10 @@ of the current quantity and the inflow quantity.
 
 Decrease the quantity of an existing product in the inventory at the specific PID.
 
-Format: `outflow PID a/QUANTITY`
+Format:
+```
+outflow PID a/QUANTITY
+```
 
 - PID must be a valid Product ID of an existing product.
 - QUANTITY must be an integer more than or equals to 0.
@@ -270,7 +303,9 @@ Context:
 - Now, you sold 10 `Sticky note` and you wish to update the quantity.
 
 Input:
-```outflow 1 a/10```
+```
+outflow 1 a/10
+```
 
 Output: 
 ```Warning! This product is low in quantity.```
@@ -287,10 +322,14 @@ Context:
 - Now, you sold 11 `Highlighter` and you wish to update the quantity.
 
 Input:
-```outflow 23 a/11```
+```
+outflow 23 a/11
+```
 
 Output:
-```Quantity updated. Quantity: 39```
+```
+Quantity updated. Quantity: 39
+```
 
 :bulb: Since the new quantity does not dip below 20, no warning is given. 
 
@@ -308,10 +347,14 @@ Format: `delete PID`
 
 ### Example 1
 Input:
-`delete 1`
+```
+delete 1
+```
 
 Output:
-`Product has been deleted.`
+```
+Product has been deleted.
+```
 
 ### Example 2
 Suppose the product with PID 3 is not in the inventory. As such you should not be able to delete anything.
@@ -321,6 +364,132 @@ Input:
 
 Output:
 `Product with the following PID is not found: 3`
+
+
+## Find a keyword in the Product list: `find`
+### When to use?
+This is a useful command for when you want to know if there is already an existing product that matches your keyword. 
+Or when you just want to get the product’s PID in a long list of products.
+
+
+Format: `find KEYWORD`
+- Only the product name is searched. 
+- The search is case-insensitive. e.g “find apple” will match “Apple”. 
+- Partial or full words will be matched e.g. “find Appl” will match “Apples”.
+
+### Example 1
+Input:
+```
+find Cor
+```
+
+Output:
+```
+   ======================================================================
+   PID: 1  |  Name: Corn  |  Quantity: 50  |  Price: $1.00
+   Description: It's corn!
+   ======================================================================
+   PID: 5  |  Name: Corn Cup |  Quantity: 100
+   ======================================================================
+   PID: 10  |  Name: coriander |  Quantity: 1000
+   ====================================================================== 
+```
+
+**Explanation:** <br>
+This command will find any product name that contains Cor in the product’s name,
+regardless of case sensitivity.
+
+### Example 2
+Input:
+```
+find THISISASUPERLONGSTRINGANDTHEREISNOMATCH
+```
+
+Output:
+```
+   No matches found.
+```
+
+**Explanation:** <br>
+This command will find any product name that contains `THISISASUPERLONGSTRINGANDTHEREISNOMATCH` in the product’s name, regardless of case sensitivity.
+There is however no match in any of the product’s names in the product list.
+
+
+## Viewing past inflow / outflow of existing product: `history`
+
+### When to use?
+When you want to check on the previous inflow or outflow of a product, use this command!
+
+
+Format:
+```
+history PID
+```
+
+- PID must be a valid PID of an existing product.
+
+
+### Example 1
+Input:
+```
+history 1
+```
+
+Output:
+```
+   ==========================================================================
+   PID: 1  |  Change in quantity: 200  |  Date of inflow: 29-03-2024 16:47:31
+   PID: 1  |  Change in quantity: 100  |  Date of outflow: 05-04-2024 10:00:00
+```
+
+**Explanation:** <br>
+This command will find any inflow or outflow quantities of your product which has PID 1. <br>
+As seen, you tried to: <br>
+Increase the quantity of the product by 200 on 29th March 2024, at 16:47:31 hours <br>
+Decrease the quantity of the product by 100 on 5th April 2024, at 10:00:00 hours <br>
+
+### Example 2
+Input:
+```
+history 3
+```
+
+Output:
+```
+   ==========================================================================
+   PID: 3  |  Change in quantity: 200  |  Date of outflow: 18-03-2024 08:00:31
+   PID: 3  |  Change in quantity:  40 |  Date of inflow: 18-03-2024 10:00:00
+```
+
+**Explanation:** <br>
+This command will find any inflow or outflow quantities of your product which has PID 3. <br>
+As seen, you tried to: <br>
+Decrease the quantity of the product by 200 on 18th March 2024, at 08:00:31 hours <br>
+Increase the quantity of the product by 400 on 18th March 2024, at 10:00:00 hours <br>
+
+## Exiting the program: `exit`
+Exits the program.
+
+Format:
+```
+exit
+```
+
+### Example 1
+
+Input:
+```
+exit
+```
+
+Output:
+```
+Exiting program, goodbye!
+```
+
+Explanation:
+This command will exit the program. Our program will print a statement to bid you goodbye!
+
 
 ## Saving the data
 
@@ -340,12 +509,16 @@ Furthermore, certain edits can cause StockPal to behave in unexpected ways (e.g.
 # Command Summary
 This section provides a quick overview of all the commands. For more detailed information on the command format, click on the `command` to be redirected to the command’s details under the [Features](#features) section.
 
-| **Command**                                                                                         | **Description**                                   |
-|-----------------------------------------------------------------------------------------------------|---------------------------------------------------|
-| [`help [COMMAND]`](#viewing-help-help)                                                              | Provides command details for all or specific commands |
-| [`new n/PRODUCT_NAME q/INITIAL_QUANTITY [p/PRICE] [d/DESCRIPTION]`](#adding-a-new-product-new)      | Creates a new product                             |
-| [`edit PID [n/PRODUCT_NAME] [q/QUANTITY] [d/DESCRIPTION] [p/PRICE]`](#editing-product-details-edit) | Edit an existing product’s field                  |
-
+| **Command**                                                                                            | **Description**                                                                    |
+|--------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------|
+| [`help [COMMAND]`](#viewing-help-help)                                                                 | Provides command details for all or specific commands                              |
+| [`new n/PRODUCT_NAME q/INITIAL_QUANTITY [p/PRICE] [d/DESCRIPTION]`](#adding-a-new-product-new)         | Creates a new product                                                              |
+| [`edit PID [n/PRODUCT_NAME] [q/QUANTITY] [d/DESCRIPTION] [p/PRICE]`](#editing-product-details-edit)    | Edit an existing product’s field                                                   |
+| [`inflow PID a/QUANTITY`](#increasing-a-product-quantity-inflow)                                       | Increase the quantity of an existing product in the inventory at the specific PID. |
+| [`outflow PID a/QUANTITY`](#decreasing-a-product-quantity-outflow)                                     | Decrease the quantity of an existing product in the inventory at the specific PID. |
+| [`list [-sn] [-sq]`](#listing-all-products-list)                                                       | Lists all products in the inventory                                                |
+| [`find KEYWORD`](#find-keyword-in-all-products-find)                                                   | Finds the list of products that contains the keyword in their name                 |
+| [`history PID`](#finding-transactions-in-product-history)                                              | Finds the list of transactions for a particular product based on its PID           |
 
 # FAQ
 

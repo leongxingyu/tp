@@ -1,0 +1,15 @@
+@startuml
+
+hide circles
+skinparam classAttributeIconSize 0
+
+package "seedu.stockpal.commands" {
+    class HistoryCommand {
+        - pid: Pid
+
+        + HistoryCommand(Integer pidValue)
+        + execute(productList: ProductList, transactionList: TransactionList): void
+    }
+}
+
+@enduml
