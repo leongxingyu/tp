@@ -322,6 +322,61 @@ Input:
 Output:
 `Product with the following PID is not found: 3`
 
+## Listing all products: `list`
+Lists all products in inventory.
+
+Format: `list [-sn] [-sq]`
+
+Sorting:
+- By default, products are sorted according to their PID.
+- To sort according to their names, use the `-sn` field.
+- To sort according to their quantity, use the `-sq` field.
+
+:bulb Some of the commands may require PID as a compulsory field. Use `list` to obtain
+the required PID of the particular product you want to access.
+
+### Example 1
+
+Context:
+- View a list sorted by product PID.
+
+Input: `list`
+
+Output:
+```
+====================================================================================
+1. PID: 1  |  Name: Milk  |  Quantity: 40  |  Price: $8.00
+Description: Made by happy cows!
+====================================================================================
+2. PID: 2  |  Name: Banana  |  Quantity: 50  |  Price: $5.00
+Description: A bunch of bananas.
+====================================================================================
+3. PID: 3  |  Name: Corn  |  Quantity: 30  |  Price: $1.00
+Description: It's corn!
+====================================================================================
+```
+
+### Example 2
+
+Context:
+- Sort a list according to the quantity of the products.
+
+Input: `list -sq`
+
+Output:
+```
+====================================================================================
+1. PID: 3  |  Name: Corn  |  Quantity: 30  |  Price: $1.00
+Description: It's corn!
+====================================================================================
+2. PID: 1  |  Name: Milk  |  Quantity: 40  |  Price: $8.00
+Description: Made by happy cows!
+====================================================================================
+3. PID: 2  |  Name: Banana  |  Quantity: 50  |  Price: $5.00
+Description: A bunch of bananas.
+====================================================================================
+```
+
 ## Saving the data
 
 StockPal data is saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
