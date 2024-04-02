@@ -395,11 +395,12 @@ Furthermore, certain edits can cause StockPal to behave in unexpected ways (e.g.
 # Command Summary
 This section provides a quick overview of all the commands. For more detailed information on the command format, click on the `command` to be redirected to the command’s details under the [Features](#features) section.
 
-| **Command**                                                                                         | **Description**                                   |
-|-----------------------------------------------------------------------------------------------------|---------------------------------------------------|
+| **Command**                                                                                         | **Description**                                       |
+|-----------------------------------------------------------------------------------------------------|-------------------------------------------------------|
 | [`help [COMMAND]`](#viewing-help-help)                                                              | Provides command details for all or specific commands |
-| [`new n/PRODUCT_NAME q/INITIAL_QUANTITY [p/PRICE] [d/DESCRIPTION]`](#adding-a-new-product-new)      | Creates a new product                             |
-| [`edit PID [n/PRODUCT_NAME] [q/QUANTITY] [d/DESCRIPTION] [p/PRICE]`](#editing-product-details-edit) | Edit an existing product’s field                  |
+| [`new n/PRODUCT_NAME q/INITIAL_QUANTITY [p/PRICE] [d/DESCRIPTION]`](#adding-a-new-product-new)      | Creates a new product                                 |
+| [`edit PID [n/PRODUCT_NAME] [q/QUANTITY] [d/DESCRIPTION] [p/PRICE]`](#editing-product-details-edit) | Edit an existing product’s field                      |
+| [`list [-sn] [-sq]`](#listing-all-products-list)                                                    | Lists all products in the inventory                   |
 
 
 # FAQ
