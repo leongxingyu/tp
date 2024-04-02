@@ -19,8 +19,8 @@ Not sure where to begin? Start by learning [how to utilize this user guide](#usi
     - [Adding new product: `new`](#adding-a-new-product-new)
     - [Editing product details: `edit`](#editing-product-details-edit)
     - [Deleting a product and its details: `delete`](#deleting-a-product-and-its-details-delete)
-    - [Increasing quantity of existing product: `inflow`](#increasing-quantity-of-existing-product-inflow)
-    - [Decreasing quantity of existing product: `outflow`](#decreasing-quantity-of-existing-product-outflow)
+    - [Increasing quantity of existing product: `inflow`](#increasing-a-product-quantity-inflow)
+    - [Decreasing quantity of existing product: `outflow`](#decreasing-a-product-quantity-outflow)
     - [Find keywords in all products: `find`](#find-keywords-in-all-products-find)
     - [Listing all products: `list`](#listing-all-products-list)
     - [Exiting the program: `exit`](#exiting-the-program-exit)
@@ -395,12 +395,14 @@ Furthermore, certain edits can cause StockPal to behave in unexpected ways (e.g.
 # Command Summary
 This section provides a quick overview of all the commands. For more detailed information on the command format, click on the `command` to be redirected to the command’s details under the [Features](#features) section.
 
-| **Command**                                                                                         | **Description**                                       |
-|-----------------------------------------------------------------------------------------------------|-------------------------------------------------------|
-| [`help [COMMAND]`](#viewing-help-help)                                                              | Provides command details for all or specific commands |
-| [`new n/PRODUCT_NAME q/INITIAL_QUANTITY [p/PRICE] [d/DESCRIPTION]`](#adding-a-new-product-new)      | Creates a new product                                 |
-| [`edit PID [n/PRODUCT_NAME] [q/QUANTITY] [d/DESCRIPTION] [p/PRICE]`](#editing-product-details-edit) | Edit an existing product’s field                      |
-| [`list [-sn] [-sq]`](#listing-all-products-list)                                                    | Lists all products in the inventory                   |
+| **Command**                                                                                         | **Description**                                                                    |
+|-----------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------|
+| [`help [COMMAND]`](#viewing-help-help)                                                              | Provides command details for all or specific commands                              |
+| [`new n/PRODUCT_NAME q/INITIAL_QUANTITY [p/PRICE] [d/DESCRIPTION]`](#adding-a-new-product-new)      | Creates a new product                                                              |
+| [`edit PID [n/PRODUCT_NAME] [q/QUANTITY] [d/DESCRIPTION] [p/PRICE]`](#editing-product-details-edit) | Edit an existing product’s field                                                   |
+| [`inflow PID a/QUANTITY`](#increasing-a-product-quantity-inflow)                                    | Increase the quantity of an existing product in the inventory at the specific PID. |
+| [`outflow PID a/QUANTITY`](#decreasing-a-product-quantity-outflow)                                  | Decrease the quantity of an existing product in the inventory at the specific PID. |
+| [`list [-sn] [-sq]`](#listing-all-products-list)                                                    | Lists all products in the inventory                                                |
 
 
 # FAQ
