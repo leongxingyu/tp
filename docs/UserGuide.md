@@ -332,7 +332,7 @@ Sorting:
 - To sort according to their names, use the `-sn` field.
 - To sort according to their quantity, use the `-sq` field.
 
-:bulb Some of the commands may require PID as a compulsory field. Use `list` to obtain
+:bulb: Some of the commands may require PID as a compulsory field. Use `list` to obtain
 the required PID of the particular product you want to access.
 
 ### Example 1
