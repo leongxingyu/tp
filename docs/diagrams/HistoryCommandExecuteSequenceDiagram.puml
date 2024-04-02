@@ -1,0 +1,20 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+Participant ":HistoryCommand" as command COMMANDS_COLOR
+Participant ":TransactionList" as transactionlist PRODUCTLIST_COLOR
+Participant ":UI" as ui UI_COLOR
+
+activate command COMMANDS_COLOR
+-> command : execute()
+
+command -> transactionlist : findTransactions(transactionList, productIndex);
+activate transactionlist PRODUCTLIST_COLOR
+transactionlist --> transactionlist: PastTransactions
+
+
+transactionlist -> ui : printListTasks(PastTransactions)
+deactivate transactionlist
+
+@enduml

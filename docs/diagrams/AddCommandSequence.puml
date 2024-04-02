@@ -19,7 +19,8 @@ ui -[UI_COLOR]> stockpal : "new n/Chocolate q/100 p/2.00 d/Tobelerone"
 stockpal -[STOCKPAL_COLOR]> parser : parseCommand("new n/Chocolate q/100 p/2.00 d/Tobelerone")
 activate parser PARSER_COLOR
 
-create command
+
+
 parser -[PARSER_COLOR]> command : new NewCommand(pid, name, quantity, price, description)
 activate command COMMANDS_COLOR
 parser <--[COMMANDS_COLOR] command

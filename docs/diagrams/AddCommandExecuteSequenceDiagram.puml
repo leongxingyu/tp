@@ -15,48 +15,56 @@ activate command COMMANDS_COLOR
  alt sizeOfArray == 0
      command -> product: new Product(name, quantity, price, description, 1)
      activate product PRODUCT_COLOR
-     product --> command: toAdd
+     product --> command: newProduct
      deactivate product PRODUCT_COLOR
+
+     command -> productlist : addProduct(newProduct)
+     activate productlist PRODUCTLIST_COLOR
+     command <-- productlist
+     deactivate productlist
+
      command -> ui : printAddSuccessMessage()
      activate ui UI_COLOR
      command <-- ui
      deactivate ui
 
  else sizeOfArray == productList.get(sizeOfArray - 1).getPid().getPid()
-     command -> productlist: get(sizeOfArray - 1)
-     activate productlist PRODUCTLIST_COLOR
-     productlist --> command: lastProduct
-     deactivate productlist
-
-     command -> product: getPid()
+     command -> product: getPidOfLastElement()
      activate product PRODUCT_COLOR
      product --> command: lastPid
      deactivate product
 
      command -> product: new Product(name, quantity, price, description, lastPid)
      activate product PRODUCT_COLOR
-     product --> command: toAdd
+     product --> command: newProduct
      deactivate product
+
+     command -> productlist : addProduct(newProduct)
+     activate productlist PRODUCTLIST_COLOR
+     command <-- productlist
+     deactivate productlist
+
      command -> ui : printAddSuccessMessage()
      activate ui UI_COLOR
      command <-- ui
      deactivate ui
 
  else
-     command -> productlist: get(sizeOfArray - 1)
-     activate productlist PRODUCTLIST_COLOR
-     productlist --> command: lastProduct
-     deactivate productlist
-
-     command -> product: getPid()
+     command -> product: getPidOfLastElement()
      activate product PRODUCT_COLOR
      product --> command: lastPid
      deactivate product
 
      command -> product: new Product(name, quantity, price, description, lastPid + 1)
      activate product PRODUCT_COLOR
-     product --> command: toAdd
+     product --> command: newProduct
      deactivate product
+
+     command -> productlist : addProduct(newProduct)
+     activate productlist PRODUCTLIST_COLOR
+     command <-- productlist
+     deactivate productlist
+
      command -> ui : printAddSuccessMessage()
      activate ui UI_COLOR
      command <-- ui
