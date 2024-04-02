@@ -19,11 +19,11 @@ Not sure where to begin? Start by learning [how to utilize this user guide](#usi
     - [Adding new product: `new`](#adding-a-new-product-new)
     - [Editing product details: `edit`](#editing-product-details-edit)
     - [Deleting a product and its details: `delete`](#deleting-a-product-and-its-details-delete)
-    - [Increasing quantity of existing product: `inflow`](#increasing-quantity-of-existing-product-inflow)
-    - [Decreasing quantity of existing product: `outflow`](#decreasing-quantity-of-existing-product-outflow)
-    - [Find keywords in all products: `find`](#find-keyword-in-all-products-find)
+    - [Increasing quantity of existing product: `inflow`](#increasing-a-product-quantity-inflow)
+    - [Decreasing quantity of existing product: `outflow`](#decreasing-a-product-quantity-outflow)
+    - [Find a keyword in the Product list: `find`](#find-a-keyword-in-the-product-list-find)
     - [Listing all products: `list`](#listing-all-products-list)
-    - [Viewing past inflow/outflow of existing product: `history`](#finding-transactions-in-product-history)
+    - [Viewing past inflow/outflow of existing product: `history`](#viewing-past-inflow--outflow-of-existing-product-history)
     - [Exiting the program: `exit`](#exiting-the-program-exit)
     - [Saving the data](#saving-the-data)
     - [Editing the data file](#editing-the-data-file)
@@ -112,7 +112,9 @@ Format: `help [COMMAND]`
 ### Example 1
 Input:
 
-```help inflow ```
+```
+help inflow 
+```
 
 Output:
 ```
@@ -366,7 +368,7 @@ Output:
 `Product with the following PID is not found: 3`
 
 
-## Find a keyword in the Product list: `find`
+## Find a keyword in the product list: `find`
 ### When to use?
 This is a useful command for when you want to know if there is already an existing product that matches your keyword. 
 Or when you just want to get the product’s PID in a long list of products.
@@ -491,6 +493,62 @@ Explanation:
 This command will exit the program. Our program will print a statement to bid you goodbye!
 
 
+=======
+## Listing all products: `list`
+Lists all products in inventory.
+
+Format: `list [-sn] [-sq]`
+
+Sorting:
+- By default, products are sorted according to their PID.
+- To sort according to their names, use the `-sn` field.
+- To sort according to their quantity, use the `-sq` field.
+
+:bulb: Some of the commands may require PID as a compulsory field. Use `list` to obtain
+the required PID of the particular product you want to access.
+
+### Example 1
+
+Context:
+- View a list sorted by product PID.
+
+Input: `list`
+
+Output:
+```
+====================================================================================
+1. PID: 1  |  Name: Milk  |  Quantity: 40  |  Price: $8.00
+Description: Made by happy cows!
+====================================================================================
+2. PID: 2  |  Name: Banana  |  Quantity: 50  |  Price: $5.00
+Description: A bunch of bananas.
+====================================================================================
+3. PID: 3  |  Name: Corn  |  Quantity: 30  |  Price: $1.00
+Description: It's corn!
+====================================================================================
+```
+
+### Example 2
+
+Context:
+- Sort a list according to the quantity of the products.
+
+Input: `list -sq`
+
+Output:
+```
+====================================================================================
+1. PID: 3  |  Name: Corn  |  Quantity: 30  |  Price: $1.00
+Description: It's corn!
+====================================================================================
+2. PID: 1  |  Name: Milk  |  Quantity: 40  |  Price: $8.00
+Description: Made by happy cows!
+====================================================================================
+3. PID: 2  |  Name: Banana  |  Quantity: 50  |  Price: $5.00
+Description: A bunch of bananas.
+====================================================================================
+```
+
 ## Saving the data
 
 StockPal data is saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
@@ -509,16 +567,18 @@ Furthermore, certain edits can cause StockPal to behave in unexpected ways (e.g.
 # Command Summary
 This section provides a quick overview of all the commands. For more detailed information on the command format, click on the `command` to be redirected to the command’s details under the [Features](#features) section.
 
-| **Command**                                                                                            | **Description**                                                                    |
-|--------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------|
-| [`help [COMMAND]`](#viewing-help-help)                                                                 | Provides command details for all or specific commands                              |
-| [`new n/PRODUCT_NAME q/INITIAL_QUANTITY [p/PRICE] [d/DESCRIPTION]`](#adding-a-new-product-new)         | Creates a new product                                                              |
-| [`edit PID [n/PRODUCT_NAME] [q/QUANTITY] [d/DESCRIPTION] [p/PRICE]`](#editing-product-details-edit)    | Edit an existing product’s field                                                   |
-| [`inflow PID a/QUANTITY`](#increasing-a-product-quantity-inflow)                                       | Increase the quantity of an existing product in the inventory at the specific PID. |
-| [`outflow PID a/QUANTITY`](#decreasing-a-product-quantity-outflow)                                     | Decrease the quantity of an existing product in the inventory at the specific PID. |
-| [`list [-sn] [-sq]`](#listing-all-products-list)                                                       | Lists all products in the inventory                                                |
-| [`find KEYWORD`](#find-keyword-in-all-products-find)                                                   | Finds the list of products that contains the keyword in their name                 |
-| [`history PID`](#finding-transactions-in-product-history)                                              | Finds the list of transactions for a particular product based on its PID           |
+
+| **Command**                                                                                            | **Description**                                                                     |
+|--------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------|
+| [`help [COMMAND]`](#viewing-help-help)                                                                 | Provides command details for all or specific commands                               |
+| [`new n/PRODUCT_NAME q/INITIAL_QUANTITY [p/PRICE] [d/DESCRIPTION]`](#adding-a-new-product-new)         | Creates a new product                                                               |
+| [`edit PID [n/PRODUCT_NAME] [q/QUANTITY] [d/DESCRIPTION] [p/PRICE]`](#editing-product-details-edit)    | Edits an existing product’s field                                                   |
+| [`inflow PID a/QUANTITY`](#increasing-a-product-quantity-inflow)                                       | Increases the quantity of an existing product in the inventory at the specific PID. |
+| [`outflow PID a/QUANTITY`](#decreasing-a-product-quantity-outflow)                                     | Decreases the quantity of an existing product in the inventory at the specific PID. |
+| [`list [-sn] [-sq]`](#listing-all-products-list)                                                       | Lists all products in the inventory                                                 |
+| [`find KEYWORD`](#find-keyword-in-all-products-find)                                                   | Finds the list of products that contains the keyword in their name                  |
+| [`history PID`](#finding-transactions-in-product-history)                                              | Finds the list of transactions for a particular product based on its PID            |
+
 
 # FAQ
 
