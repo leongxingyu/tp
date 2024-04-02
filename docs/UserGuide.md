@@ -17,18 +17,19 @@ Not sure where to begin? Start by learning [how to utilize this user guide](#usi
 - [Features](#features)
     - [Viewing help: `help`](#viewing-help-help)
     - [Adding new product: `new`](#adding-a-new-product-new)
+    - [Listing all products: `list`](#listing-all-products-list)
     - [Editing product details: `edit`](#editing-product-details-edit)
     - [Deleting a product and its details: `delete`](#deleting-a-product-and-its-details-delete)
     - [Increasing quantity of existing product: `inflow`](#increasing-a-product-quantity-inflow)
     - [Decreasing quantity of existing product: `outflow`](#decreasing-a-product-quantity-outflow)
-    - [Find a keyword in the Product list: `find`](#find-a-keyword-in-the-product-list-find)
-    - [Listing all products: `list`](#listing-all-products-list)
     - [Viewing past inflow/outflow of existing product: `history`](#viewing-past-inflow--outflow-of-existing-product-history)
+    - [Find a keyword in the Product list: `find`](#find-a-keyword-in-the-product-list-find)
     - [Exiting the program: `exit`](#exiting-the-program-exit)
     - [Saving the data](#saving-the-data)
     - [Editing the data file](#editing-the-data-file)
 - [Command Summary](#command-summary)
 
+<!--- @@author NgYaoDong --->
 # Using This Guide
 Below are the symbols used in this guide and the meaning of these symbols.
 
@@ -38,7 +39,7 @@ Below are the symbols used in this guide and the meaning of these symbols.
 | :information_source: | The **i** symbol indicates notes that are important for you when using the application.          |
 | :bulb:               | The lightbulb symbol indicates tips that hold useful information or advice that you should know. |
 
-
+<!--- @@author Kobot7 --->
 # Quick Start
 
 ## Downloading StockPal
@@ -84,6 +85,7 @@ CLI (Command Line Interface) - a text-based interface used to interact with our 
 
 CSV (Comma-Separated Values) - a file format used to store tabular data. Each line represents a row of data, and each field within a row is separated by a comma
 
+<!--- @@author NgYaoDong --->
 ## Features
 <div style="padding: 15px; border: 1px solid transparent; margin-bottom: 20px; border-radius: 4px; color: #31708f; background-color: #d9edf7;">
 :information_source:<strong>Notes about the command format</strong>
@@ -96,6 +98,7 @@ CSV (Comma-Separated Values) - a file format used to store tabular data. Each li
 </ul>
 </div>
 
+<!--- @@author Kobot7 --->
 ## Viewing help: `help`
 
 Provides command details for all or specific commands.
@@ -131,6 +134,8 @@ INCREMENT_AMOUNT      Quantity of product to add
 ====================================================================================
 ```
 
+
+<!--- @@author EdmundTangg --->
 ## Adding a new product: `new`
 
 Creates a new product to the inventory and assigns a unique Product ID (PID) to it.
@@ -193,6 +198,64 @@ This command adds your product to the inventory. The product’s details are as 
 - Description of the Chocolate Milk product is `Marigold HL Milk`, which is the brand
 
 
+<!--- @@author wjunjie01 --->
+## Listing all products: `list`
+Lists all products in inventory.
+
+Format: `list [-sn] [-sq]`
+
+Sorting:
+- By default, products are sorted according to their PID.
+- To sort according to their names, use the `-sn` field.
+- To sort according to their quantity, use the `-sq` field.
+
+:bulb: Some of the commands may require PID as a compulsory field. Use `list` to obtain
+the required PID of the particular product you want to access.
+
+### Example 1
+
+Context:
+- View a list sorted by product PID.
+
+Input: `list`
+
+Output:
+```
+====================================================================================
+1. PID: 1  |  Name: Milk  |  Quantity: 40  |  Price: $8.00
+Description: Made by happy cows!
+====================================================================================
+2. PID: 2  |  Name: Banana  |  Quantity: 50  |  Price: $5.00
+Description: A bunch of bananas.
+====================================================================================
+3. PID: 3  |  Name: Corn  |  Quantity: 30  |  Price: $1.00
+Description: It's corn!
+====================================================================================
+```
+
+### Example 2
+
+Context:
+- Sort a list according to the quantity of the products.
+
+Input: `list -sq`
+
+Output:
+```
+====================================================================================
+1. PID: 3  |  Name: Corn  |  Quantity: 30  |  Price: $1.00
+Description: It's corn!
+====================================================================================
+2. PID: 1  |  Name: Milk  |  Quantity: 40  |  Price: $8.00
+Description: Made by happy cows!
+====================================================================================
+3. PID: 2  |  Name: Banana  |  Quantity: 50  |  Price: $5.00
+Description: A bunch of bananas.
+====================================================================================
+```
+
+
+<!--- @@author Kobot7 --->
 ## Editing product details: `edit`
 
 Edits an existing product in the inventory at the specific PID by the input value(s).
@@ -248,6 +311,37 @@ Output:
 Product details have been updated.
 ```
 
+
+<!--- @@author cheeseong2001 --->
+## Deleting a product and its details: `delete`
+
+Deletes an existing product from the inventory.
+
+Format: `delete PID`
+- PID must be a valid Product ID of an existing product currently in the inventory.
+
+### Example 1
+Input:
+```
+delete 1
+```
+
+Output:
+```
+Product has been deleted.
+```
+
+### Example 2
+Suppose the product with PID 3 is not in the inventory. As such you should not be able to delete anything.
+
+Input:
+`delete 3`
+
+Output:
+`Product with the following PID is not found: 3`
+
+
+<!--- @@author leongxingyu --->
 ## Increasing a product quantity: `inflow`
 
 Increase the quantity of an existing product in the inventory at the specific PID.
@@ -340,83 +434,6 @@ The `outflow` command will update the quantity of the product by performing subt
 of the outflow quantity from the current quantity.
 
 
-## Deleting a product and its details: `delete`
-
-Deletes an existing product from the inventory.
-
-Format: `delete PID`
-- PID must be a valid Product ID of an existing product currently in the inventory.
-
-### Example 1
-Input:
-```
-delete 1
-```
-
-Output:
-```
-Product has been deleted.
-```
-
-### Example 2
-Suppose the product with PID 3 is not in the inventory. As such you should not be able to delete anything.
-
-Input:
-`delete 3`
-
-Output:
-`Product with the following PID is not found: 3`
-
-
-## Find a keyword in the product list: `find`
-### When to use?
-This is a useful command for when you want to know if there is already an existing product that matches your keyword. 
-Or when you just want to get the product’s PID in a long list of products.
-
-
-Format: `find KEYWORD`
-- Only the product name is searched. 
-- The search is case-insensitive. e.g “find apple” will match “Apple”. 
-- Partial or full words will be matched e.g. “find Appl” will match “Apples”.
-
-### Example 1
-Input:
-```
-find Cor
-```
-
-Output:
-```
-   ======================================================================
-   PID: 1  |  Name: Corn  |  Quantity: 50  |  Price: $1.00
-   Description: It's corn!
-   ======================================================================
-   PID: 5  |  Name: Corn Cup |  Quantity: 100
-   ======================================================================
-   PID: 10  |  Name: coriander |  Quantity: 1000
-   ====================================================================== 
-```
-
-**Explanation:** <br>
-This command will find any product name that contains Cor in the product’s name,
-regardless of case sensitivity.
-
-### Example 2
-Input:
-```
-find THISISASUPERLONGSTRINGANDTHEREISNOMATCH
-```
-
-Output:
-```
-   No matches found.
-```
-
-**Explanation:** <br>
-This command will find any product name that contains `THISISASUPERLONGSTRINGANDTHEREISNOMATCH` in the product’s name, regardless of case sensitivity.
-There is however no match in any of the product’s names in the product list.
-
-
 ## Viewing past inflow / outflow of existing product: `history`
 
 ### When to use?
@@ -469,6 +486,58 @@ As seen, you tried to: <br>
 Decrease the quantity of the product by 200 on 18th March 2024, at 08:00:31 hours <br>
 Increase the quantity of the product by 400 on 18th March 2024, at 10:00:00 hours <br>
 
+
+<!--- @@author EdmundTangg --->
+## Find a keyword in the product list: `find`
+### When to use?
+This is a useful command for when you want to know if there is already an existing product that matches your keyword. 
+Or when you just want to get the product’s PID in a long list of products.
+
+
+Format: `find KEYWORD`
+- Only the product name is searched. 
+- The search is case-insensitive. e.g “find apple” will match “Apple”. 
+- Partial or full words will be matched e.g. “find Appl” will match “Apples”.
+
+### Example 1
+Input:
+```
+find Cor
+```
+
+Output:
+```
+   ======================================================================
+   PID: 1  |  Name: Corn  |  Quantity: 50  |  Price: $1.00
+   Description: It's corn!
+   ======================================================================
+   PID: 5  |  Name: Corn Cup |  Quantity: 100
+   ======================================================================
+   PID: 10  |  Name: coriander |  Quantity: 1000
+   ====================================================================== 
+```
+
+**Explanation:** <br>
+This command will find any product name that contains Cor in the product’s name,
+regardless of case sensitivity.
+
+### Example 2
+Input:
+```
+find THISISASUPERLONGSTRINGANDTHEREISNOMATCH
+```
+
+Output:
+```
+   No matches found.
+```
+
+**Explanation:** <br>
+This command will find any product name that contains `THISISASUPERLONGSTRINGANDTHEREISNOMATCH` in the product’s name, regardless of case sensitivity.
+There is however no match in any of the product’s names in the product list.
+
+
+<!--- @@author cheeseong2001 --->
 ## Exiting the program: `exit`
 Exits the program.
 
@@ -493,62 +562,7 @@ Explanation:
 This command will exit the program. Our program will print a statement to bid you goodbye!
 
 
-=======
-## Listing all products: `list`
-Lists all products in inventory.
-
-Format: `list [-sn] [-sq]`
-
-Sorting:
-- By default, products are sorted according to their PID.
-- To sort according to their names, use the `-sn` field.
-- To sort according to their quantity, use the `-sq` field.
-
-:bulb: Some of the commands may require PID as a compulsory field. Use `list` to obtain
-the required PID of the particular product you want to access.
-
-### Example 1
-
-Context:
-- View a list sorted by product PID.
-
-Input: `list`
-
-Output:
-```
-====================================================================================
-1. PID: 1  |  Name: Milk  |  Quantity: 40  |  Price: $8.00
-Description: Made by happy cows!
-====================================================================================
-2. PID: 2  |  Name: Banana  |  Quantity: 50  |  Price: $5.00
-Description: A bunch of bananas.
-====================================================================================
-3. PID: 3  |  Name: Corn  |  Quantity: 30  |  Price: $1.00
-Description: It's corn!
-====================================================================================
-```
-
-### Example 2
-
-Context:
-- Sort a list according to the quantity of the products.
-
-Input: `list -sq`
-
-Output:
-```
-====================================================================================
-1. PID: 3  |  Name: Corn  |  Quantity: 30  |  Price: $1.00
-Description: It's corn!
-====================================================================================
-2. PID: 1  |  Name: Milk  |  Quantity: 40  |  Price: $8.00
-Description: Made by happy cows!
-====================================================================================
-3. PID: 2  |  Name: Banana  |  Quantity: 50  |  Price: $5.00
-Description: A bunch of bananas.
-====================================================================================
-```
-
+<!--- @@author NgYaoDong --->
 ## Saving the data
 
 StockPal data is saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
@@ -568,17 +582,18 @@ Furthermore, certain edits can cause StockPal to behave in unexpected ways (e.g.
 This section provides a quick overview of all the commands. For more detailed information on the command format, click on the `command` to be redirected to the command’s details under the [Features](#features) section.
 
 
-| **Command**                                                                                            | **Description**                                                                     |
-|--------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------|
-| [`help [COMMAND]`](#viewing-help-help)                                                                 | Provides command details for all or specific commands                               |
-| [`new n/PRODUCT_NAME q/INITIAL_QUANTITY [p/PRICE] [d/DESCRIPTION]`](#adding-a-new-product-new)         | Creates a new product                                                               |
-| [`edit PID [n/PRODUCT_NAME] [q/QUANTITY] [d/DESCRIPTION] [p/PRICE]`](#editing-product-details-edit)    | Edits an existing product’s field                                                   |
-| [`inflow PID a/QUANTITY`](#increasing-a-product-quantity-inflow)                                       | Increases the quantity of an existing product in the inventory at the specific PID. |
-| [`outflow PID a/QUANTITY`](#decreasing-a-product-quantity-outflow)                                     | Decreases the quantity of an existing product in the inventory at the specific PID. |
-| [`list [-sn] [-sq]`](#listing-all-products-list)                                                       | Lists all products in the inventory                                                 |
-| [`find KEYWORD`](#find-keyword-in-all-products-find)                                                   | Finds the list of products that contains the keyword in their name                  |
-| [`history PID`](#finding-transactions-in-product-history)                                              | Finds the list of transactions for a particular product based on its PID            |
-
+| **Command**                                                                                         | **Description**                                                                      |
+|-----------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------|
+| [`help [COMMAND]`](#viewing-help-help)                                                              | Provides command details for all or specific commands                                |
+| [`new n/PRODUCT_NAME q/INITIAL_QUANTITY [p/PRICE] [d/DESCRIPTION]`](#adding-a-new-product-new)      | Creates a new product                                                                |
+| [`list [-sn] [-sq]`](#listing-all-products-list)                                                    | Lists all products in the inventory                                                  |
+| [`edit PID [n/PRODUCT_NAME] [q/QUANTITY] [d/DESCRIPTION] [p/PRICE]`](#editing-product-details-edit) | Edits an existing product’s field                                                    |
+| [`delete PID`](#deleting-a-product-and-its-details-delete)                                          | Deletes a product                                                                    |
+| [`inflow PID a/QUANTITY`](#increasing-a-product-quantity-inflow)                                    | Increases the quantity of an existing product in the inventory at the specific PID   |
+| [`outflow PID a/QUANTITY`](#decreasing-a-product-quantity-outflow)                                  | Decreases the quantity of an existing product in the inventory at the specific PID   |
+| [`history PID`](#finding-transactions-in-product-history)                                           | Finds the list of transactions for a particular product based on its PID             |
+| [`find KEYWORD`](#find-keyword-in-all-products-find)                                                | Finds the list of products that contains the keyword in their name                   |
+| [`exit`](#exiting-the-program-exit)                                                                 | Exits the program                                                                    |
 
 # FAQ
 
