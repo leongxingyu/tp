@@ -88,7 +88,8 @@ CSV (Comma-Separated Values) - a file format used to store tabular data. Each li
 <!--- @@author NgYaoDong --->
 ## Features
 <div style="padding: 15px; border: 1px solid transparent; margin-bottom: 20px; border-radius: 4px; color: #31708f; background-color: #d9edf7;">
-:information_source: <strong style="margin: 10px 0px;">Notes about the command format</strong>
+:information_source: 
+<span style="margin: 10px 0px;"><strong>Notes about the command format</strong></span>
 
 <ul>
     <li>Words in UPPER_CASE are the parameters to be supplied by the user.</li>
@@ -573,7 +574,7 @@ StockPal data is saved in the hard disk automatically after any command that cha
 StockPal inventory data is saved automatically as a CSV file `[JAR file location]/data/inventory.csv`, while the past transactions data is saved automatically as a JSON file `[JAR file location]/data/transactions.json`. Advanced users are welcome to update data directly by editing these data files, even though it is **highly not recommended**.
 
 <div style="padding: 15px; border: 1px solid transparent; margin-bottom: 20px; border-radius: 4px; color: #a94442; background-color: #f2dede;">
-:exclamation:<strong style="margin: 10px 0px;">Caution</strong><br>
+:exclamation:<span style="margin: 10px 0px;"><strong style="margin: 10px 0px;">Caution</strong></span><br>
 If your changes to the data file makes its format invalid, StockPal will not discard the data, but instead display an error that the data has erroneous input, and close the app thereafter. <br>
 Furthermore, certain edits can cause StockPal to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file <strong>only if</strong> you are confident that you can update it correctly, and it is <strong>recommended</strong> to make a backup of the file before editing it.
 </div>
