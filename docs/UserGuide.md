@@ -1,4 +1,7 @@
-# User Guide
+---
+title: User Guide
+---
+
 # Introduction
 StockPal is a command line interface (CLI) application designed to help small E-commerce business owners who are 
 just starting up to manage their stock-taking effectively. Users would mostly interact with StockPal via text commands.
@@ -46,7 +49,7 @@ Below are the symbols used in this guide and the meaning of these symbols.
 
 1.  Ensure you have [Java 11](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html) or above installed in your computer.
 
-2.  Download the latest stockpal.jar from [here](https://github.com/AY2324S2-CS2113T-T09-3/tp/releases).
+2.  Download the latest `stockpal.jar` from [here](https://github.com/AY2324S2-CS2113T-T09-3/tp/releases).
 
 3.  Copy the file to the folder you want to use as the home folder for
     the application. For example,`C:\Users\setupuser\Documents\StockPal\stockpal.jar`.
@@ -56,26 +59,36 @@ Below are the symbols used in this guide and the meaning of these symbols.
 1.  **For Windows users:**
 
     Open a command prompt terminal. You can do so by searching for `command
-    prompt` in the Windows search bar. <br><br>
+    prompt` in the Windows search bar.<br>
 
+    <img src="images/Windows-find-cmd.png" alt="images/Windows-find-cmd.png" width="450px"/>
+    <br><br>
+    <!--- @@author leongxingyu --->
+    
     **For MAC users:**
 
-    Open a terminal. You can do so by searching for the `terminal` using the Spotlight icon in the menu bar. Click on the terminal.
+    Open a terminal. You can do so by searching for the `terminal` using the Spotlight icon in the menu bar. Click on the terminal.<br>
 
-
-2.  Determine the file path to the home folder of stockpal.jar. You can
-    do so by navigating to stockpal.jar in File Explorer. For example,
+    <img src="images/Mac-find-cmd.png" alt="images/Mac-find-cmd.png" width="450px"/>
+    <br><br>
+<!--- @@author Kobot7 --->
+2.  Determine the file path to the home folder of `stockpal.jar`. You can
+    do so by navigating to `stockpal.jar` in File Explorer (Windows) or Finder (MAC). For example,
     the image below shows that the file path to the home folder of
-    stockpal.jar is `C:\Users\setupuser\Documents\StockPal`
+    `stockpal.jar` is `C:\Users\setupuser\Documents\StockPal`.<br>
 
+    <img src="images/Windows-home-folder.png" alt="images/Windows-home-folder.png" width="600px"/>
+    <br><br>
 
 3.  In the command prompt terminal, navigate to the home folder using
     the command `cd <file path to the home folder>`. For example, `cd
-    C:\Users\setupuser\Documents\StockPal`.
+    C:\Users\setupuser\Documents\StockPal`.<br>
 
+    <img src="images/cmd-navigate-to-home-folder.png" alt="images/cmd-navigate-to-home-folder.png" width="700px"/>
+    <br><br>
 
 4.  In the command prompt terminal, run StockPal using the command `java
-    -jar stockpal.jar`.
+    -jar ./stockpal.jar`.
 
 # Glossary
 
@@ -88,7 +101,7 @@ CSV (Comma-Separated Values) - a file format used to store tabular data. Each li
 <!--- @@author NgYaoDong --->
 ## Features
 <div style="padding: 15px; border: 1px solid transparent; margin-bottom: 20px; border-radius: 4px; color: #31708f; background-color: #d9edf7;">
-:information_source:<strong>Notes about the command format</strong>
+:information_source: <strong>Notes about the command format</strong>
 
 <ul>
     <li>Words in UPPER_CASE are the parameters to be supplied by the user.</li>
@@ -153,7 +166,7 @@ new n/PRODUCT_NAME q/INITIAL_QUANTITY [p/PRICE] [d/DESCRIPTION]
 
 - PRODUCT_NAME is limited to 100 characters.
 - INITIAL_QUANTITY must be an integer more than or equal to 0.
-- PRICE must have an integer more than or equal to 0, and have exactly 2 decimal places.
+- PRICE must be a numeric value more than or equal to 0, and have exactly 2 decimal places.
 - DESCRIPTION is limited to 100 characters.
 
 ### Example 1
@@ -172,7 +185,7 @@ Product has been added.
 Explanation:
 
 This command adds your product to the inventory. The product’s details are as follows:
-- name of the product is `Drinking Cup`
+- Name of the product is `Drinking Cup`
 - Quantity of chocolate Milk stock is `20` units
 
 
@@ -192,7 +205,7 @@ Product has been added.
 Explanation:
 
 This command adds your product to the inventory. The product’s details are as follows:
-- name of the product is `Chocolate Milk`
+- Name of the product is `Chocolate Milk`
 - Quantity of chocolate Milk stock is `100` units
 - Price of each unit is `$2.00`
 - Description of the Chocolate Milk product is `Marigold HL Milk`, which is the brand
@@ -268,7 +281,7 @@ edit PID [n/PRODUCT_NAME] [q/QUANTITY] [d/DESCRIPTION] [p/PRICE]
 - At least one optional field must be provided.
 - PID must be a valid Product ID of an existing product.
 - QUANTITY must be an integer more than or equals to 0.
-- PRICE must have a numeric value more than or equals to 0, and have exactly 2 decimal places.
+- PRICE must be a numeric value more than or equals to 0, and have exactly 2 decimal places.
 - DESCRIPTION is limited to 100 characters.
 
 ### Example 1
@@ -409,7 +422,7 @@ Output:
 
 :bulb: Note that the warning will only appear once when the quantity first dips
 below quantity of 20. All low quantity products will be displayed when you exit 
-the program
+the program.
 
 ### Example 2
 Context:
@@ -573,7 +586,7 @@ StockPal data is saved in the hard disk automatically after any command that cha
 StockPal inventory data is saved automatically as a CSV file `[JAR file location]/data/inventory.csv`, while the past transactions data is saved automatically as a JSON file `[JAR file location]/data/transactions.json`. Advanced users are welcome to update data directly by editing these data files, even though it is **highly not recommended**.
 
 <div style="padding: 15px; border: 1px solid transparent; margin-bottom: 20px; border-radius: 4px; color: #a94442; background-color: #f2dede;">
-:exclamation:<strong>Caution:</strong><br>
+:exclamation:<strong>Caution</strong><br>
 If your changes to the data file makes its format invalid, StockPal will not discard the data, but instead display an error that the data has erroneous input, and close the app thereafter. <br>
 Furthermore, certain edits can cause StockPal to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file <strong>only if</strong> you are confident that you can update it correctly, and it is <strong>recommended</strong> to make a backup of the file before editing it.
 </div>
@@ -582,18 +595,18 @@ Furthermore, certain edits can cause StockPal to behave in unexpected ways (e.g.
 This section provides a quick overview of all the commands. For more detailed information on the command format, click on the `command` to be redirected to the command’s details under the [Features](#features) section.
 
 
-| **Command**                                                                                         | **Description**                                                                      |
-|-----------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------|
-| [`help [COMMAND]`](#viewing-help-help)                                                              | Provides command details for all or specific commands                                |
-| [`new n/PRODUCT_NAME q/INITIAL_QUANTITY [p/PRICE] [d/DESCRIPTION]`](#adding-a-new-product-new)      | Creates a new product                                                                |
-| [`list [-sn] [-sq]`](#listing-all-products-list)                                                    | Lists all products in the inventory                                                  |
-| [`edit PID [n/PRODUCT_NAME] [q/QUANTITY] [d/DESCRIPTION] [p/PRICE]`](#editing-product-details-edit) | Edits an existing product’s field                                                    |
-| [`delete PID`](#deleting-a-product-and-its-details-delete)                                          | Deletes a product                                                                    |
-| [`inflow PID a/QUANTITY`](#increasing-a-product-quantity-inflow)                                    | Increases the quantity of an existing product in the inventory at the specific PID   |
-| [`outflow PID a/QUANTITY`](#decreasing-a-product-quantity-outflow)                                  | Decreases the quantity of an existing product in the inventory at the specific PID   |
-| [`history PID`](#finding-transactions-in-product-history)                                           | Finds the list of transactions for a particular product based on its PID             |
-| [`find KEYWORD`](#find-keyword-in-all-products-find)                                                | Finds the list of products that contains the keyword in their name                   |
-| [`exit`](#exiting-the-program-exit)                                                                 | Exits the program                                                                    |
+| **Command**                                                                                         | **Description**                                                                    |
+|-----------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------|
+| [`help [COMMAND]`](#viewing-help-help)                                                              | Provides command details for all or specific commands                              |
+| [`new n/PRODUCT_NAME q/INITIAL_QUANTITY [p/PRICE] [d/DESCRIPTION]`](#adding-a-new-product-new)      | Creates a new product                                                              |
+| [`list [-sn] [-sq]`](#listing-all-products-list)                                                    | Lists all products in the inventory                                                |
+| [`edit PID [n/PRODUCT_NAME] [q/QUANTITY] [d/DESCRIPTION] [p/PRICE]`](#editing-product-details-edit) | Edits an existing product’s field                                                  |
+| [`delete PID`](#deleting-a-product-and-its-details-delete)                                          | Deletes a product                                                                  |
+| [`inflow PID a/QUANTITY`](#increasing-a-product-quantity-inflow)                                    | Increases the quantity of an existing product in the inventory at the specific PID |
+| [`outflow PID a/QUANTITY`](#decreasing-a-product-quantity-outflow)                                  | Decreases the quantity of an existing product in the inventory at the specific PID |
+| [`history PID`](#viewing-past-inflow--outflow-of-existing-product-history)                          | Finds the list of transactions for a particular product based on its PID           |
+| [`find KEYWORD`](#find-a-keyword-in-the-product-list-find)                                          | Finds the list of products that contains the keyword in their name                 |
+| [`exit`](#exiting-the-program-exit)                                                                 | Exits the program                                                                  |
 
 # FAQ
 
