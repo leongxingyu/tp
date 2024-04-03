@@ -1,4 +1,7 @@
-# User Guide
+---
+title: User Guide
+---
+
 # Introduction
 StockPal is a command line interface (CLI) application designed to help small E-commerce business owners who are 
 just starting up to manage their stock-taking effectively. Users would mostly interact with StockPal via text commands.

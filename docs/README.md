@@ -1,6 +1,4 @@
-# Duke
-
-{Give product intro here}
+# StockPal
 
 Useful links:
 * [User Guide](UserGuide.md)
