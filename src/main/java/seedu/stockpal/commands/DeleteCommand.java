@@ -5,7 +5,6 @@ import seedu.stockpal.common.Messages;
 import seedu.stockpal.data.ProductList;
 import seedu.stockpal.data.product.Pid;
 import seedu.stockpal.exceptions.PidNotFoundException;
-import seedu.stockpal.exceptions.StockPalException;
 import seedu.stockpal.ui.Ui;
 
 import java.util.logging.Level;
