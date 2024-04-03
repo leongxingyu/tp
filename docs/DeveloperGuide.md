@@ -1,6 +1,43 @@
 ---
 title: Developer Guide
 ---
+<!-- TOC -->
+  * [**Acknowledgements**](#acknowledgements)
+  * [**Design**](#design)
+    * [Architecture](#architecture)
+    * [UI component](#ui-component)
+    * [Parser component](#parser-component)
+    * [Commands component](#commands-component)
+    * [Data component](#data-component)
+    * [Storage component](#storage-component)
+    * [Common classes](#common-classes)
+    * [Exception classes](#exception-classes)
+  * [**Implementation**](#implementation)
+    * [Add product feature](#add-product-feature)
+      * [Class diagram of NewCommand:](#class-diagram-of-newcommand)
+    * [Edit product feature](#edit-product-feature)
+      * [Implementation](#implementation-1)
+    * [List feature](#list-feature)
+    * [InflowCommand Feature](#inflowcommand-feature)
+    * [OutflowCommand Feature](#outflowcommand-feature)
+    * [Delete product feature](#delete-product-feature)
+      * [Implementation](#implementation-2)
+    * [Find product feature](#find-product-feature)
+      * [Class diagram of FindCommand:](#class-diagram-of-findcommand)
+    * [History product feature](#history-product-feature)
+      * [Class diagram of HistoryCommand:](#class-diagram-of-historycommand)
+  * [**Appendix: Requirements**](#appendix-requirements)
+    * [Product scope](#product-scope)
+  * [User Stories](#user-stories)
+  * [Non-Functional Requirements](#non-functional-requirements)
+  * [Glossary](#glossary)
+  * [**Appendix: Instructions for manual testing**](#appendix-instructions-for-manual-testing)
+    * [Adding a Product](#adding-a-product)
+    * [Editing Product Details](#editing-product-details)
+    * [Deleting a product](#deleting-a-product)
+    * [Finding a keyword in the Product list](#finding-a-keyword-in-the-product-list-)
+    * [Finding all past transactions for a particular product in the Product list](#finding-all-past-transactions-for-a-particular-product-in-the-product-list)
+<!-- TOC -->
 
 ## **Acknowledgements**
 

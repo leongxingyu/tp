@@ -11,12 +11,12 @@ StockPal is compatible for usage on Windows, Mac and Linux systems.
 Not sure where to begin? Start by learning [how to utilize this user guide](#using-this-guide).
 
 # Table of Contents
-
 - [Introduction](#introduction)
 - [Using This Guide](#using-this-guide)
 - [Quick Start](#quick-start)
     - [Downloading StockPal](#downloading-stockpal)
     - [Running StockPal](#running-stockpal)
+- [Glossary](#glossary)
 - [Features](#features)
     - [Viewing help: `help`](#viewing-help-help)
     - [Adding new product: `new`](#adding-a-new-product-new)
@@ -31,16 +31,21 @@ Not sure where to begin? Start by learning [how to utilize this user guide](#usi
     - [Saving the data](#saving-the-data)
     - [Editing the data file](#editing-the-data-file)
 - [Command Summary](#command-summary)
+- [FAQ](#faq)
+
+<div style="page-break-after: always;"></div>
 
 <!--- @@author NgYaoDong --->
 # Using This Guide
 Below are the symbols used in this guide and the meaning of these symbols.
 
-| **Symbol**           | **Meaning**                                                                                      |
-|----------------------|--------------------------------------------------------------------------------------------------|
-| :exclamation:        | The exclamation mark symbol indicates actions that you should be _cautious_ about.               |
-| :information_source: | The **i** symbol indicates notes that are important for you when using the application.          |
-| :bulb:               | The lightbulb symbol indicates tips that hold useful information or advice that you should know. |
+| **Symbol**           | **Meaning**                                                                                               |
+|----------------------|-----------------------------------------------------------------------------------------------------------|
+| :exclamation:        | The exclamation mark symbol indicates actions that you should be _cautious_ about.                        |
+| :information_source: | The **i** symbol indicates notes that are important for you when using the application.                   |
+| :bulb:               | The lightbulb symbol indicates tips that hold useful information or advice that might be helpful for you. |
+
+<div style="page-break-after: always;"></div>
 
 <!--- @@author Kobot7 --->
 # Quick Start
@@ -90,24 +95,33 @@ Below are the symbols used in this guide and the meaning of these symbols.
 4.  In the command prompt terminal, run StockPal using the command `java
     -jar ./stockpal.jar`.
 
+<div style="page-break-after: always;"></div>
+    
 # Glossary
 
 PID (Product ID) - a number that we use to keep track of the products.
 
 CLI (Command Line Interface) - a text-based interface used to interact with our program by entering commands into a terminal.
 
-CSV (Comma-Separated Values) - a file format used to store tabular data. Each line represents a row of data, and each field within a row is separated by a comma
+CSV (Comma-Separated Values) - a file format used to store tabular data. Each line represents a row of data, and each field within a row is usually separated by a comma.
+
+JSON (JavaScript Object Notation) - a file format for storing and transporting data.
+
+<div style="page-break-after: always;"></div>
 
 <!--- @@author NgYaoDong --->
-## Features
+# Features
 <div style="padding: 15px; border: 1px solid transparent; margin-bottom: 20px; border-radius: 4px; color: #31708f; background-color: #d9edf7;">
-:information_source: <strong>Notes about the command format</strong>
-
+:information_source: <strong>Notes about the command format:</strong><br>
 <ul>
-    <li>Words in UPPER_CASE are the parameters to be supplied by the user.</li>
-    <li>Items in square brackets are optional.</li>
-    <li>Parameters must be in the specified order.</li>
-    <li>Commands are case-sensitive and must strictly follow case specified.</li>
+    <li>Words in <code>UPPER_CASE</code> are the parameters to be supplied by the user.<br>
+        e.g. in <code>new n/PRODUCT_NAME q/INITIAL_QUANTITY</code>, <code>PRODUCT_NAME</code> and <code>INITIAL_QUANTITY</code> are parameters which can be used as <code>new n/Math Textbook q/100</code>.</li>
+    <li>Items in square brackets are optional.<br>
+        e.g. <code>n/PRODUCT_NAME q/INITIAL_QUANTITY [p/PRICE]</code> can be used as <code>n/Math Textbook q/100 p/20.00</code> or as <code>n/Math Textbook q/100</code>.</li>
+    <li>Parameters must be in the specified order.<br>
+        e.g. if the command specifies <code>n/PRODUCT_NAME q/INITIAL_QUANTITY</code>, <code>q/INITIAL_QUANTITY n/PRODUCT_NAME</code> is <strong>not</strong> acceptable.</li>
+    <li>Commands are case-sensitive and must strictly follow case specified.<br>
+        e.b. <code>HELP</code> would trigger an invalid command warning, as <code>help</code> is the proper command to be used.</li>
 </ul>
 </div>
 
@@ -120,10 +134,10 @@ Provides command details for all or specific commands.
 This is a useful command to start with if you are new to StockPal!
 
 Format: `help [COMMAND]`
-- COMMAND is the command for which you wish to display the help page.
-- COMMAND must be a valid command keyword.
-- List of valid command keywords: help, new, list, edit, delete, inflow, outflow, history, find, exit
-- If COMMAND is left empty, command details for all commands will be displayed.
+
+| Parameter | Representation                                          | Constraints                                                                                                                                                                                                                      |
+|-----------|---------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `COMMAND` | The command for which you wish to display the help page | - Must be a valid command keyword<br/>- List of valid command keywords: help, new, list, edit, delete, inflow, outflow, history, find, exit<br/>- If `COMMAND` is left empty, command details for all commands will be displayed |
 
 ### Example 1
 Input:
@@ -147,6 +161,7 @@ INCREMENT_AMOUNT      Quantity of product to add
 ====================================================================================
 ```
 
+<div style="page-break-after: always;"></div>
 
 <!--- @@author EdmundTangg --->
 ## Adding a new product: `new`
@@ -164,10 +179,12 @@ Format:
 new n/PRODUCT_NAME q/INITIAL_QUANTITY [p/PRICE] [d/DESCRIPTION]
 ```
 
-- PRODUCT_NAME is limited to 100 characters.
-- INITIAL_QUANTITY must be an integer more than or equal to 0.
-- PRICE must be a numeric value more than or equal to 0, and have exactly 2 decimal places.
-- DESCRIPTION is limited to 100 characters.
+| Parameter          | Representation                             | Constraints                                                                             |
+|--------------------|--------------------------------------------|-----------------------------------------------------------------------------------------|
+| `PRODUCT_NAME`     | Name of new product to be added            | Limited to 100 characters                                                               |
+| `INITIAL_QUANTITY` | Quantity of the new product to be added    | Must be an integer more than or equal to 0                                              |
+| `PRICE`            | Price of the new product to be added       | - Must be a numeric value more than equal to 0<br/>- Must have exactly 2 decimal places |
+| `DESCRIPTION`      | Description of the new product to be added | Limited to 100 characters                                                               |
 
 ### Example 1
 Input:
@@ -185,8 +202,8 @@ Product has been added.
 Explanation:
 
 This command adds your product to the inventory. The product’s details are as follows:
-- Name of the product is `Drinking Cup`
-- Quantity of chocolate Milk stock is `20` units
+- Name of the product is `Drinking Cup`.
+- Quantity of Drinking Cup stock is `20` units.
 
 
 ### Example 2
@@ -205,11 +222,12 @@ Product has been added.
 Explanation:
 
 This command adds your product to the inventory. The product’s details are as follows:
-- Name of the product is `Chocolate Milk`
-- Quantity of chocolate Milk stock is `100` units
-- Price of each unit is `$2.00`
-- Description of the Chocolate Milk product is `Marigold HL Milk`, which is the brand
+- Name of the product is `Chocolate Milk`.
+- Quantity of Chocolate Milk stock is `100` units.
+- Price of each unit is `$2.00`.
+- Description of the Chocolate Milk product is `Marigold HL Milk`, which is the brand.
 
+<div style="page-break-after: always;"></div>
 
 <!--- @@author wjunjie01 --->
 ## Listing all products: `list`
@@ -222,8 +240,10 @@ Sorting:
 - To sort according to their names, use the `-sn` field.
 - To sort according to their quantity, use the `-sq` field.
 
-:bulb: Some of the commands may require PID as a compulsory field. Use `list` to obtain
+<div style="padding: 15px; border: 1px solid transparent; margin-bottom: 20px; border-radius: 4px; color: #8a6d3b; background-color: #fcf8e3;">
+:bulb: <strong>Tip:</strong> Some of the commands may require PID as a compulsory field. Use <code>list</code> to obtain
 the required PID of the particular product you want to access.
+</div>
 
 ### Example 1
 
@@ -267,6 +287,7 @@ Description: A bunch of bananas.
 ====================================================================================
 ```
 
+<div style="page-break-after: always;"></div>
 
 <!--- @@author Kobot7 --->
 ## Editing product details: `edit`
@@ -275,14 +296,20 @@ Edits an existing product in the inventory at the specific PID by the input valu
 
 Format: 
 ```
-edit PID [n/PRODUCT_NAME] [q/QUANTITY] [d/DESCRIPTION] [p/PRICE]
+edit PID [n/PRODUCT_NAME] [q/QUANTITY] [p/PRICE] [d/DESCRIPTION]
 ```
 
-- At least one optional field must be provided.
-- PID must be a valid Product ID of an existing product.
-- QUANTITY must be an integer more than or equals to 0.
-- PRICE must be a numeric value more than or equals to 0, and have exactly 2 decimal places.
-- DESCRIPTION is limited to 100 characters.
+| Parameter      | Representation                               | Constraints                                                                             |
+|----------------|----------------------------------------------|-----------------------------------------------------------------------------------------|
+| `PID`          | Product ID of the existing product           | Must be a valid Product ID of an existing product                                       |
+| `PRODUCT_NAME` | New product name of the product to be edited | Limited to 100 characters                                                               |
+| `QUANTITY`     | New quantity of the product to be edited     | Must be an integer more than or equals to 0                                             |
+| `PRICE`        | New price of the product to be edited        | - Must be a numeric value more than equal to 0<br/>- Must have exactly 2 decimal places |
+| `DESCRIPTION`  | New description of the product to be edited  | Limited to 100 characters                                                               |
+
+<div style="padding: 15px; border: 1px solid transparent; margin-bottom: 20px; border-radius: 4px; color: #31708f; background-color: #d9edf7;">
+:information_source: <strong>Note:</strong> At least one optional field must be provided.
+</div>
 
 ### Example 1
 Context:
@@ -324,6 +351,7 @@ Output:
 Product details have been updated.
 ```
 
+<div style="page-break-after: always;"></div>
 
 <!--- @@author cheeseong2001 --->
 ## Deleting a product and its details: `delete`
@@ -331,7 +359,11 @@ Product details have been updated.
 Deletes an existing product from the inventory.
 
 Format: `delete PID`
-- PID must be a valid Product ID of an existing product currently in the inventory.
+
+| Parameter      | Representation                               | Constraints                                                                             |
+|----------------|----------------------------------------------|-----------------------------------------------------------------------------------------|
+| `PID`          | Product ID of the existing product           | Must be a valid Product ID of an existing product                                       |
+
 
 ### Example 1
 Input:
@@ -353,6 +385,7 @@ Input:
 Output:
 `Product with the following PID is not found: 3`
 
+<div style="page-break-after: always;"></div>
 
 <!--- @@author leongxingyu --->
 ## Increasing a product quantity: `inflow`
@@ -364,11 +397,15 @@ Format:
 inflow PID a/QUANTITY
 ```
 
-- PID must be a valid Product ID of an existing product.
-- QUANTITY must be an integer more than or equals to 0.
+| Parameter  | Representation                           | Constraints                                       |
+|------------|------------------------------------------|---------------------------------------------------|
+| `PID`      | Product ID of the existing product       | Must be a valid Product ID of an existing product |
+| `QUANTITY` | New quantity of the product to be edited | Must be an integer more than or equals to 0       |
 
-:bulb: Use this command instead of [edit](#editing-product-details-edit) if you already have an existing product
-and just want to *increase* the quantity when you have new stocks. 
+<div style="padding: 15px; border: 1px solid transparent; margin-bottom: 20px; border-radius: 4px; color: #8a6d3b; background-color: #fcf8e3;">
+:bulb: <strong>Tip:</strong> Use this command instead of <a href="https://ay2324s2-cs2113t-t09-3.github.io/tp/UserGuide.html#editing-product-details-edit">edit</a> 
+if you already have an existing product and just want to <i>increase</i> the quantity when you have new stocks. 
+</div>
 
 ### Example 1
 Context: 
@@ -399,11 +436,15 @@ Format:
 outflow PID a/QUANTITY
 ```
 
-- PID must be a valid Product ID of an existing product.
-- QUANTITY must be an integer more than or equals to 0.
+| Parameter  | Representation                           | Constraints                                       |
+|------------|------------------------------------------|---------------------------------------------------|
+| `PID`      | Product ID of the existing product       | Must be a valid Product ID of an existing product |
+| `QUANTITY` | New quantity of the product to be edited | Must be an integer more than or equals to 0       |
 
-:bulb: Use this command instead of [edit](#editing-product-details-edit) if you already have an existing product
-and just want to *decrease* the quantity when you sell your stocks.
+<div style="padding: 15px; border: 1px solid transparent; margin-bottom: 20px; border-radius: 4px; color: #8a6d3b; background-color: #fcf8e3;">
+:bulb: <strong>Tip:</strong> Use this command instead of <a href="https://ay2324s2-cs2113t-t09-3.github.io/tp/UserGuide.html#editing-product-details-edit">edit</a> 
+if you already have an existing product and just want to <i>decrease</i> the quantity when you sell your stocks. 
+</div>
 
 ### Example 1
 Context: 
@@ -417,12 +458,15 @@ outflow 1 a/10
 ```
 
 Output: 
-```Warning! This product is low in quantity.```
-```Quantity updated. Quantity: 10```
+```
+Warning! This product is low in quantity.
+Quantity updated. Quantity: 10
+```
 
-:bulb: Note that the warning will only appear once when the quantity first dips
-below quantity of 20. All low quantity products will be displayed when you exit 
-the program.
+<div style="padding: 15px; border: 1px solid transparent; margin-bottom: 20px; border-radius: 4px; color: #8a6d3b; background-color: #fcf8e3;">
+:bulb: <strong>Tip:</strong> Note that the warning will only appear once when the quantity first falls
+below quantity of 20. All low quantity products will be displayed when you exit the program.
+</div>
 
 ### Example 2
 Context:
@@ -440,12 +484,15 @@ Output:
 Quantity updated. Quantity: 39
 ```
 
-:bulb: Since the new quantity does not dip below 20, no warning is given. 
+<div style="padding: 15px; border: 1px solid transparent; margin-bottom: 20px; border-radius: 4px; color: #8a6d3b; background-color: #fcf8e3;">
+:bulb: <strong>Tip:</strong> Since the new quantity does not fall below 20, no warning is given. 
+</div>
 
 Explanation:
 The `outflow` command will update the quantity of the product by performing subtraction
 of the outflow quantity from the current quantity.
 
+<div style="page-break-after: always;"></div>
 
 ## Viewing past inflow / outflow of existing product: `history`
 
@@ -458,7 +505,9 @@ Format:
 history PID
 ```
 
-- PID must be a valid PID of an existing product.
+| Parameter  | Representation                           | Constraints                                       |
+|------------|------------------------------------------|---------------------------------------------------|
+| `PID`      | Product ID of the existing product       | Must be a valid Product ID of an existing product |
 
 
 ### Example 1
@@ -469,9 +518,9 @@ history 1
 
 Output:
 ```
-   ==========================================================================
-   PID: 1  |  Change in quantity: 200  |  Date of inflow: 29-03-2024 16:47:31
-   PID: 1  |  Change in quantity: 100  |  Date of outflow: 05-04-2024 10:00:00
+====================================================================================
+PID: 1  |  Change in quantity: 200  |  Date of inflow: 29-03-2024 16:47:31
+PID: 1  |  Change in quantity: -100  |  Date of outflow: 05-04-2024 10:00:00
 ```
 
 **Explanation:** <br>
@@ -488,17 +537,18 @@ history 3
 
 Output:
 ```
-   ==========================================================================
-   PID: 3  |  Change in quantity: 200  |  Date of outflow: 18-03-2024 08:00:31
-   PID: 3  |  Change in quantity:  40 |  Date of inflow: 18-03-2024 10:00:00
+====================================================================================
+PID: 3  |  Change in quantity: -200  |  Date of outflow: 18-03-2024 08:00:31
+PID: 3  |  Change in quantity:  40 |  Date of inflow: 18-03-2024 10:00:00
 ```
 
 **Explanation:** <br>
 This command will find any inflow or outflow quantities of your product which has PID 3. <br>
 As seen, you tried to: <br>
 Decrease the quantity of the product by 200 on 18th March 2024, at 08:00:31 hours <br>
-Increase the quantity of the product by 400 on 18th March 2024, at 10:00:00 hours <br>
+Increase the quantity of the product by 40 on 18th March 2024, at 10:00:00 hours <br>
 
+<div style="page-break-after: always;"></div>
 
 <!--- @@author EdmundTangg --->
 ## Find a keyword in the product list: `find`
@@ -508,9 +558,14 @@ Or when you just want to get the product’s PID in a long list of products.
 
 
 Format: `find KEYWORD`
-- Only the product name is searched. 
-- The search is case-insensitive. e.g “find apple” will match “Apple”. 
-- Partial or full words will be matched e.g. “find Appl” will match “Apples”.
+<div style="padding: 15px; border: 1px solid transparent; margin-bottom: 20px; border-radius: 4px; color: #31708f; background-color: #d9edf7;">
+:information_source: <strong>Note:</strong><br>
+<ul>
+    <li>Only the product name is searched.</li>
+    <li>The search is case-insensitive. e.g “find apple” will match “Apple”.</li>
+    <li>Partial or full words will be matched e.g. “find Appl” will match “Apples”.</li>
+</ul>
+</div>
 
 ### Example 1
 Input:
@@ -520,14 +575,14 @@ find Cor
 
 Output:
 ```
-   ======================================================================
-   PID: 1  |  Name: Corn  |  Quantity: 50  |  Price: $1.00
-   Description: It's corn!
-   ======================================================================
-   PID: 5  |  Name: Corn Cup |  Quantity: 100
-   ======================================================================
-   PID: 10  |  Name: coriander |  Quantity: 1000
-   ====================================================================== 
+====================================================================================
+PID: 1  |  Name: Corn  |  Quantity: 50  |  Price: $1.00
+Description: It's corn!
+====================================================================================
+PID: 5  |  Name: Corn Cup |  Quantity: 100
+====================================================================================
+PID: 10  |  Name: coriander |  Quantity: 1000
+====================================================================================
 ```
 
 **Explanation:** <br>
@@ -542,13 +597,14 @@ find THISISASUPERLONGSTRINGANDTHEREISNOMATCH
 
 Output:
 ```
-   No matches found.
+No matches found.
 ```
 
 **Explanation:** <br>
 This command will find any product name that contains `THISISASUPERLONGSTRINGANDTHEREISNOMATCH` in the product’s name, regardless of case sensitivity.
 There is however no match in any of the product’s names in the product list.
 
+<div style="page-break-after: always;"></div>
 
 <!--- @@author cheeseong2001 --->
 ## Exiting the program: `exit`
@@ -574,6 +630,7 @@ Exiting program, goodbye!
 Explanation:
 This command will exit the program. Our program will print a statement to bid you goodbye!
 
+<div style="page-break-after: always;"></div>
 
 <!--- @@author NgYaoDong --->
 ## Saving the data
@@ -586,10 +643,12 @@ StockPal data is saved in the hard disk automatically after any command that cha
 StockPal inventory data is saved automatically as a CSV file `[JAR file location]/data/inventory.csv`, while the past transactions data is saved automatically as a JSON file `[JAR file location]/data/transactions.json`. Advanced users are welcome to update data directly by editing these data files, even though it is **highly not recommended**.
 
 <div style="padding: 15px; border: 1px solid transparent; margin-bottom: 20px; border-radius: 4px; color: #a94442; background-color: #f2dede;">
-:exclamation:<strong>Caution</strong><br>
+:exclamation:<strong>Caution:</strong>
 If your changes to the data file makes its format invalid, StockPal will not discard the data, but instead display an error that the data has erroneous input, and close the app thereafter. <br>
 Furthermore, certain edits can cause StockPal to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file <strong>only if</strong> you are confident that you can update it correctly, and it is <strong>recommended</strong> to make a backup of the file before editing it.
 </div>
+
+<div style="page-break-after: always;"></div>
 
 # Command Summary
 This section provides a quick overview of all the commands. For more detailed information on the command format, click on the `command` to be redirected to the command’s details under the [Features](#features) section.
@@ -608,10 +667,12 @@ This section provides a quick overview of all the commands. For more detailed in
 | [`find KEYWORD`](#find-a-keyword-in-the-product-list-find)                                          | Finds the list of products that contains the keyword in their name                 |
 | [`exit`](#exiting-the-program-exit)                                                                 | Exits the program                                                                  |
 
+<div style="page-break-after: always;"></div>
+
 # FAQ
 
 **Q**: How do I transfer my data to another computer?
 
-**A**: Install the app on the other computer and overwrite the empty `inventory.csv` and `transactions.json` file it creates with the file that contains the data of your previous StockPal home folder.
+**A**: Install the app on the other computer and overwrite the empty `inventory.csv` and `transactions.json` files it creates with the files that contains the data of your previous StockPal home folder.
 
 
