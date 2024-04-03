@@ -1,6 +1,4 @@
----
-title: StockPal
----
+# StockPal
 
 Useful links:
 * [User Guide](UserGuide.md)
