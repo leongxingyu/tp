@@ -29,7 +29,9 @@ import static seedu.stockpal.common.Messages.MESSAGE_ERROR_INVALID_COMMAND;
 import static seedu.stockpal.common.Messages.MESSAGE_ERROR_INVALID_FORMAT;
 import static seedu.stockpal.common.Messages.MESSAGE_ERROR_NAME_ONLY_SPACES;
 
-
+/**
+ * The Parser class is responsible for parsing user input into its respective command's relevant fields.
+ */
 public class Parser {
     public static final String DIVIDER = " ";
     public static final Pattern NEW_COMMAND_PATTERN =
@@ -199,8 +201,17 @@ public class Parser {
         return parsed;
     }
 
+    /**
+     * Parses the input string supplied by the user to the UI of StockPal into its respective command fields.
+     *
+     * @param input The input string to be parsed
+     * @return A specific Command object containing parsed components of input
+     * @throws InvalidFormatException If input string is not matched with its respective command regex pattern.
+     * @throws UnsignedIntegerExceededException If parsed PID or quantity exceeds Integer.MAX_VALUE
+     * @throws InvalidCommandException If input's first word (which is command word) is not a legal command word
+     */
     public Command parseInput(String input)
-            throws InvalidFormatException, InvalidCommandException, UnsignedIntegerExceededException {
+            throws InvalidCommandException, InvalidFormatException, UnsignedIntegerExceededException {
         ArrayList<String> parsed;
         input = input.stripLeading();
         String command = getCommandFromInput(input);
