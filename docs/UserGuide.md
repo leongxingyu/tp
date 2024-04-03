@@ -46,7 +46,7 @@ Below are the symbols used in this guide and the meaning of these symbols.
 
 1.  Ensure you have [Java 11](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html) or above installed in your computer.
 
-2.  Download the latest stockpal.jar from [here](https://github.com/AY2324S2-CS2113T-T09-3/tp/releases).
+2.  Download the latest `stockpal.jar` from [here](https://github.com/AY2324S2-CS2113T-T09-3/tp/releases).
 
 3.  Copy the file to the folder you want to use as the home folder for
     the application. For example,`C:\Users\setupuser\Documents\StockPal\stockpal.jar`.
@@ -63,8 +63,8 @@ Below are the symbols used in this guide and the meaning of these symbols.
     Open a terminal. You can do so by searching for the `terminal` using the Spotlight icon in the menu bar. Click on the terminal.
 
 
-2.  Determine the file path to the home folder of stockpal.jar. You can
-    do so by navigating to stockpal.jar in File Explorer. For example,
+2.  Determine the file path to the home folder of `stockpal.jar`. You can
+    do so by navigating to `stockpal.jar` in File Explorer. For example,
     the image below shows that the file path to the home folder of
     stockpal.jar is `C:\Users\setupuser\Documents\StockPal`
 
@@ -75,7 +75,7 @@ Below are the symbols used in this guide and the meaning of these symbols.
 
 
 4.  In the command prompt terminal, run StockPal using the command `java
-    -jar stockpal.jar`.
+    -jar ./stockpal.jar`.
 
 # Glossary
 
@@ -88,7 +88,7 @@ CSV (Comma-Separated Values) - a file format used to store tabular data. Each li
 <!--- @@author NgYaoDong --->
 ## Features
 <div style="padding: 15px; border: 1px solid transparent; margin-bottom: 20px; border-radius: 4px; color: #31708f; background-color: #d9edf7;">
-:information_source:<strong>Notes about the command format</strong>
+:information_source: <strong>Notes about the command format</strong>
 
 <ul>
     <li>Words in UPPER_CASE are the parameters to be supplied by the user.</li>
@@ -409,7 +409,7 @@ Output:
 
 :bulb: Note that the warning will only appear once when the quantity first dips
 below quantity of 20. All low quantity products will be displayed when you exit 
-the program
+the program.
 
 ### Example 2
 Context:
