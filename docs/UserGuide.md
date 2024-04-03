@@ -88,7 +88,7 @@ CSV (Comma-Separated Values) - a file format used to store tabular data. Each li
 <!--- @@author NgYaoDong --->
 ## Features
 <div style="padding: 15px; border: 1px solid transparent; margin-bottom: 20px; border-radius: 4px; color: #31708f; background-color: #d9edf7;">
-:information_source:<strong>Notes about the command format</strong>
+:information_source: <strong style="margin: 10px 0px;">Notes about the command format</strong>
 
 <ul>
     <li>Words in UPPER_CASE are the parameters to be supplied by the user.</li>
@@ -153,7 +153,7 @@ new n/PRODUCT_NAME q/INITIAL_QUANTITY [p/PRICE] [d/DESCRIPTION]
 
 - PRODUCT_NAME is limited to 100 characters.
 - INITIAL_QUANTITY must be an integer more than or equal to 0.
-- PRICE must have an integer more than or equal to 0, and have exactly 2 decimal places.
+- PRICE must be a numeric value more than or equal to 0, and have exactly 2 decimal places.
 - DESCRIPTION is limited to 100 characters.
 
 ### Example 1
@@ -172,7 +172,7 @@ Product has been added.
 Explanation:
 
 This command adds your product to the inventory. The product’s details are as follows:
-- name of the product is `Drinking Cup`
+- Name of the product is `Drinking Cup`
 - Quantity of chocolate Milk stock is `20` units
 
 
@@ -192,7 +192,7 @@ Product has been added.
 Explanation:
 
 This command adds your product to the inventory. The product’s details are as follows:
-- name of the product is `Chocolate Milk`
+- Name of the product is `Chocolate Milk`
 - Quantity of chocolate Milk stock is `100` units
 - Price of each unit is `$2.00`
 - Description of the Chocolate Milk product is `Marigold HL Milk`, which is the brand
@@ -268,7 +268,7 @@ edit PID [n/PRODUCT_NAME] [q/QUANTITY] [d/DESCRIPTION] [p/PRICE]
 - At least one optional field must be provided.
 - PID must be a valid Product ID of an existing product.
 - QUANTITY must be an integer more than or equals to 0.
-- PRICE must have a numeric value more than or equals to 0, and have exactly 2 decimal places.
+- PRICE must be a numeric value more than or equals to 0, and have exactly 2 decimal places.
 - DESCRIPTION is limited to 100 characters.
 
 ### Example 1
@@ -573,7 +573,7 @@ StockPal data is saved in the hard disk automatically after any command that cha
 StockPal inventory data is saved automatically as a CSV file `[JAR file location]/data/inventory.csv`, while the past transactions data is saved automatically as a JSON file `[JAR file location]/data/transactions.json`. Advanced users are welcome to update data directly by editing these data files, even though it is **highly not recommended**.
 
 <div style="padding: 15px; border: 1px solid transparent; margin-bottom: 20px; border-radius: 4px; color: #a94442; background-color: #f2dede;">
-:exclamation:<strong>Caution:</strong><br>
+:exclamation:<strong style="margin: 10px 0px;">Caution</strong><br>
 If your changes to the data file makes its format invalid, StockPal will not discard the data, but instead display an error that the data has erroneous input, and close the app thereafter. <br>
 Furthermore, certain edits can cause StockPal to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file <strong>only if</strong> you are confident that you can update it correctly, and it is <strong>recommended</strong> to make a backup of the file before editing it.
 </div>
