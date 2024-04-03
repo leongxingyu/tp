@@ -4,12 +4,16 @@ import seedu.stockpal.common.FormatUtils;
 import seedu.stockpal.common.Messages;
 import seedu.stockpal.data.ProductList;
 import seedu.stockpal.data.product.Pid;
-import seedu.stockpal.exceptions.StockPalException;
+import seedu.stockpal.exceptions.PidNotFoundException;
 import seedu.stockpal.ui.Ui;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * DeleteCommand class is responsible for setting up and executing the delete feature to delete a particular product
+ * of a specific PID from the product list of StockPal.
+ */
 public class DeleteCommand extends ListActionCommand {
 
     public static final String COMMAND_KEYWORD = "delete";
@@ -30,8 +34,13 @@ public class DeleteCommand extends ListActionCommand {
         this.pid = new Pid(pid);
     }
 
+    /**
+     * Deletes a product with specific PID from the product list of StockPal.
+     * @param productList The product list that StockPal is mainly using to store product details.
+     * @throws PidNotFoundException If product with PID that user specified cannot be found in productList
+     */
     @Override
-    public void execute(ProductList productList) throws StockPalException {
+    public void execute(ProductList productList) throws PidNotFoundException {
         productList.deleteProduct(pid);
         Ui.printDeleteSuccessMessage();
         LOGGER.log(Level.INFO, Messages.MESSAGE_DELETE_SUCCESS);
