@@ -60,6 +60,7 @@ Below are the symbols used in this guide and the meaning of these symbols.
 
     <img src="images/Windows-find-cmd.png" alt="images/Windows-find-cmd.png" width="450px"/>
     <br><br>
+    <!--- @@author leongxingyu --->
     
     **For MAC users:**
 
@@ -67,7 +68,7 @@ Below are the symbols used in this guide and the meaning of these symbols.
 
     <img src="images/Mac-find-cmd.png" alt="images/Mac-find-cmd.png" width="450px"/>
     <br><br>
-
+<!--- @@author Kobot7 --->
 2.  Determine the file path to the home folder of `stockpal.jar`. You can
     do so by navigating to `stockpal.jar` in File Explorer (Windows) or Finder (MAC). For example,
     the image below shows that the file path to the home folder of
@@ -591,18 +592,18 @@ Furthermore, certain edits can cause StockPal to behave in unexpected ways (e.g.
 This section provides a quick overview of all the commands. For more detailed information on the command format, click on the `command` to be redirected to the command’s details under the [Features](#features) section.
 
 
-| **Command**                                                                                         | **Description**                                                                      |
-|-----------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------|
-| [`help [COMMAND]`](#viewing-help-help)                                                              | Provides command details for all or specific commands                                |
-| [`new n/PRODUCT_NAME q/INITIAL_QUANTITY [p/PRICE] [d/DESCRIPTION]`](#adding-a-new-product-new)      | Creates a new product                                                                |
-| [`list [-sn] [-sq]`](#listing-all-products-list)                                                    | Lists all products in the inventory                                                  |
-| [`edit PID [n/PRODUCT_NAME] [q/QUANTITY] [d/DESCRIPTION] [p/PRICE]`](#editing-product-details-edit) | Edits an existing product’s field                                                    |
-| [`delete PID`](#deleting-a-product-and-its-details-delete)                                          | Deletes a product                                                                    |
-| [`inflow PID a/QUANTITY`](#increasing-a-product-quantity-inflow)                                    | Increases the quantity of an existing product in the inventory at the specific PID   |
-| [`outflow PID a/QUANTITY`](#decreasing-a-product-quantity-outflow)                                  | Decreases the quantity of an existing product in the inventory at the specific PID   |
-| [`history PID`](#finding-transactions-in-product-history)                                           | Finds the list of transactions for a particular product based on its PID             |
-| [`find KEYWORD`](#find-keyword-in-all-products-find)                                                | Finds the list of products that contains the keyword in their name                   |
-| [`exit`](#exiting-the-program-exit)                                                                 | Exits the program                                                                    |
+| **Command**                                                                                         | **Description**                                                                    |
+|-----------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------|
+| [`help [COMMAND]`](#viewing-help-help)                                                              | Provides command details for all or specific commands                              |
+| [`new n/PRODUCT_NAME q/INITIAL_QUANTITY [p/PRICE] [d/DESCRIPTION]`](#adding-a-new-product-new)      | Creates a new product                                                              |
+| [`list [-sn] [-sq]`](#listing-all-products-list)                                                    | Lists all products in the inventory                                                |
+| [`edit PID [n/PRODUCT_NAME] [q/QUANTITY] [d/DESCRIPTION] [p/PRICE]`](#editing-product-details-edit) | Edits an existing product’s field                                                  |
+| [`delete PID`](#deleting-a-product-and-its-details-delete)                                          | Deletes a product                                                                  |
+| [`inflow PID a/QUANTITY`](#increasing-a-product-quantity-inflow)                                    | Increases the quantity of an existing product in the inventory at the specific PID |
+| [`outflow PID a/QUANTITY`](#decreasing-a-product-quantity-outflow)                                  | Decreases the quantity of an existing product in the inventory at the specific PID |
+| [`history PID`](#viewing-past-inflow--outflow-of-existing-product-history)                          | Finds the list of transactions for a particular product based on its PID           |
+| [`find KEYWORD`](#find-a-keyword-in-the-product-list-find)                                          | Finds the list of products that contains the keyword in their name                 |
+| [`exit`](#exiting-the-program-exit)                                                                 | Exits the program                                                                  |
 
 # FAQ
 
