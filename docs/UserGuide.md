@@ -56,31 +56,31 @@ Below are the symbols used in this guide and the meaning of these symbols.
 1.  **For Windows users:**
 
     Open a command prompt terminal. You can do so by searching for `command
-    prompt` in the Windows search bar.<br><br>
+    prompt` in the Windows search bar.<br>
 
-    <img src="images/Windows-find-cmd.png" alt=""/>
+    <img src="images/Windows-find-cmd.png" alt="images/Windows-find-cmd.png" width="450px"/>
     <br><br>
     
     **For MAC users:**
 
-    Open a terminal. You can do so by searching for the `terminal` using the Spotlight icon in the menu bar. Click on the terminal.<br><br>
+    Open a terminal. You can do so by searching for the `terminal` using the Spotlight icon in the menu bar. Click on the terminal.<br>
 
-    <img src="images/Mac-find-cmd.png" alt=""/>
+    <img src="images/Mac-find-cmd.png" alt="images/Mac-find-cmd.png" width="450px"/>
     <br><br>
 
 2.  Determine the file path to the home folder of `stockpal.jar`. You can
     do so by navigating to `stockpal.jar` in File Explorer (Windows) or Finder (MAC). For example,
     the image below shows that the file path to the home folder of
-    `stockpal.jar` is `C:\Users\setupuser\Documents\StockPal`.<br><br>
+    `stockpal.jar` is `C:\Users\setupuser\Documents\StockPal`.<br>
 
-    <img src="images/Windows-home-folder.png" alt=""/>
+    <img src="images/Windows-home-folder.png" alt="images/Windows-home-folder.png" width="600px"/>
     <br><br>
 
 3.  In the command prompt terminal, navigate to the home folder using
     the command `cd <file path to the home folder>`. For example, `cd
-    C:\Users\setupuser\Documents\StockPal`.<br><br>
+    C:\Users\setupuser\Documents\StockPal`.<br>
 
-    <img src="images/cmd-navigate-to-home-folder.png" alt=""/>
+    <img src="images/cmd-navigate-to-home-folder.png" alt="images/cmd-navigate-to-home-folder.png" width="700px"/>
     <br><br>
 
 4.  In the command prompt terminal, run StockPal using the command `java
