@@ -78,6 +78,13 @@ public class EditCommand extends ListActionCommand {
         }
         int productIndex = productList.findProductIndex(this.pid);
         assert productList.getSize() > 0;
+
+        boolean repeated = productList.checkForRepeated(productList, name.getName());
+
+        if (repeated) {
+            throw new StockPalException("Duplicate item.");
+        }
+
         productList.updateProduct(productIndex, name, quantity, description, price);
         logger.log(Level.INFO, Messages.MESSAGE_EDIT_SUCCESS);
         Ui.printEditSuccessMessage();

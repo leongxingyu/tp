@@ -154,20 +154,6 @@ This section describes some noteworthy details on how certain features are imple
 
 The NewCommand class is responsible for adding a new product to the inventory in the StockPal application.
 
-#### Class diagram of NewCommand:
-<img src="images/AddCommandClass.png" alt=""/>
-
-
-**Attributes**
-* name: The name of the product.
-* quantity: The initial quantity of the product.
-* price: The price of the product.
-* description: The description of the product.
-
-**Methods**
-* `NewCommand`: Constructor for creating a new instance of the NewCommand class.
-* `execute`: Method to add the new product to the product list.
-* `createProduct`: Method to create a new product with a unique product ID.
 
 The following sequence diagram shows how an add operation works when the user inputs a valid `add` command:
 <img src="images/AddCommandSequence.png" alt="AddCommandSequence.png"/>
@@ -324,16 +310,7 @@ The following sequence diagram summarizes what happens when a user inputs a vali
 
 The FindCommand class is responsible for finding a new product to the inventory in the StockPal application.
 
-#### Class diagram of FindCommand:
-<img src="images/FindCommandClass.png" alt=""/>
 
-
-**Attributes**
-* keyword: The name of the product to look for.
-
-**Methods**
-* `FindCommand`: Constructor for creating a new instance of the FindCommand class.
-* `execute`: Method to find the keyword in the productList
 
 
 The following sequence diagram shows how a find operation works when the user inputs a valid `find` command:
@@ -347,17 +324,6 @@ The following sequence diagram details how `FindCommand#execute()` functions.
 
 The HistoryCommand class is responsible for finding any inflows or outflows for a particular
 PID in the StockPal application.
-
-#### Class diagram of HistoryCommand:
-<img src="images/HistoryCommandClass.png" alt=""/>
-
-
-**Attributes**
-* pid: The pid of the product to look for.
-
-**Methods**
-* `HistoryCommand`: Constructor for creating a new instance of the HistoryCommand class.
-* `execute`: Method to find the list of transactions for the particular pid
 
 
 The following sequence diagram shows how a find operation works when the user inputs a valid `history` command:

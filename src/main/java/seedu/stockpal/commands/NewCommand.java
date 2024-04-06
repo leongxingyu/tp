@@ -51,7 +51,13 @@ public class NewCommand extends ListActionCommand {
 
     @Override
     public void execute(ProductList productList) throws StockPalException {
-        Product toAdd = createProduct(productList, this.name, this.quantity, this.price, this.description);
+        boolean repeated = productList.checkForRepeated(productList, name);
+
+        if (repeated) {
+            throw new StockPalException("Duplicate item.");
+        }
+
+        Product toAdd = createProduct(productList, name, quantity, price, description);
         productList.addProduct(toAdd);
         printToScreen(Messages.MESSAGE_ADDED);
 

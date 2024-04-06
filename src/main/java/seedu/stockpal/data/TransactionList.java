@@ -23,6 +23,7 @@ public class TransactionList {
      */
     public static void findTransactions(TransactionList transactionList, Integer inputPid) {
         TransactionList findList = new TransactionList();
+
         for (int i = 0; i < transactionList.getSize(); i ++) {
             List<Transaction> transactions = transactionList.getTransactions();
             Transaction transaction = transactions.get(i);
