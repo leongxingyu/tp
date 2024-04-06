@@ -18,6 +18,7 @@ Not sure where to begin? Start by learning [how to utilize this user guide](#usi
     - [Running StockPal](#running-stockpal)
 - [Glossary](#glossary)
 - [Features](#features)
+    - [Notes about the Command Format](#commandFormat)
     - [Viewing help: `help`](#viewing-help-help)
     - [Adding new product: `new`](#adding-a-new-product-new)
     - [Listing all products: `list`](#listing-all-products-list)
@@ -111,7 +112,7 @@ JSON (JavaScript Object Notation) - a file format for storing and transporting d
 
 <!--- @@author NgYaoDong --->
 # Features
-<div style="padding: 15px; border: 1px solid transparent; margin-bottom: 20px; border-radius: 4px; color: #31708f; background-color: #d9edf7;">
+<div id="commandFormat" style="padding: 15px; border: 1px solid transparent; margin-bottom: 20px; border-radius: 4px; color: #31708f; background-color: #d9edf7;">
 :information_source: <strong>Notes about the command format:</strong><br>
 <ul>
     <li>Words in <code>UPPER_CASE</code> are the parameters to be supplied by the user.<br>
