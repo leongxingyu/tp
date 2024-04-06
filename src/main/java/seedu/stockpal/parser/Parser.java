@@ -49,7 +49,9 @@ public class Parser {
                     "(?: q/(\\d+))?" + BLANK_SPACING_REGEX +
                     "(?: p/(\\d+\\.\\d{2}))?" + BLANK_SPACING_REGEX +
                     "(?: d/([a-zA-Z0-9 ()\\[\\],.\\-_]+))?");
-    public static final Pattern LIST_COMMAND_PATTERN = Pattern.compile("list( -sn| -sq)?" + BLANK_SPACING_REGEX);
+    public static final Pattern LIST_COMMAND_PATTERN =
+            Pattern.compile("list" + BLANK_SPACING_REGEX +
+            "( -sn| -sq)?" + BLANK_SPACING_REGEX);
     public static final Pattern DELETE_COMMAND_PATTERN =
             Pattern.compile("delete" + BLANK_SPACING_REGEX +
                     "(\\d+)" + BLANK_SPACING_REGEX);
@@ -62,7 +64,8 @@ public class Parser {
                     "(\\d+)" + BLANK_SPACING_REGEX +
                     "a/(\\d+)" + BLANK_SPACING_REGEX);
     public static final Pattern FIND_COMMAND_PATTERN =
-            Pattern.compile("find ([a-zA-Z0-9 `~!@#$%^&*()\\[\\]{}<>\\-_+=,.?\"':;]+)");
+            Pattern.compile("find" + BLANK_SPACING_REGEX +
+                    "([a-zA-Z0-9 `~!@#$%^&*()\\[\\]{}<>\\-_+=,.?\"':;]+)");
     public static final Pattern HISTORY_COMMAND_PATTERN =
             Pattern.compile("history" + BLANK_SPACING_REGEX +
                     "(\\d+)" + BLANK_SPACING_REGEX);
