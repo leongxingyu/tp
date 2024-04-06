@@ -34,25 +34,41 @@ import static seedu.stockpal.common.Messages.MESSAGE_ERROR_NAME_ONLY_SPACES;
  */
 public class Parser {
     public static final String DIVIDER = " ";
+    public static final String BLANK_SPACING_REGEX = "(?:\\s*)?";
     public static final Pattern NEW_COMMAND_PATTERN =
-            Pattern.compile("new n/([a-zA-Z0-9 `~!@#$%^&*()\\[\\]{}<>\\-_+=,.?\"':;]{1,50})" +
-                    " q/(\\d+)" +
-                    "(?: p/(\\d+\\.\\d{2}))?" +
-                    "(?: d/([a-zA-Z0-9 `~!@#$%^&*()\\[\\]{}<>\\-_+=,.?\"':;]+))?");
+            Pattern.compile("new " + BLANK_SPACING_REGEX +
+                    "n/([a-zA-Z0-9 ()\\[\\],.\\-_]{1,50})" + BLANK_SPACING_REGEX +
+                    " q/(\\d+)" + BLANK_SPACING_REGEX +
+                    "(?: p/(\\d+\\.\\d{2}))?" + BLANK_SPACING_REGEX +
+                    "(?: d/([a-zA-Z0-9 ()\\[\\],.\\-_]+))?");
     public static final Pattern EDIT_COMMAND_PATTERN =
-            Pattern.compile("edit (\\d+)" +
-                    "(?: n/([a-zA-Z0-9 `~!@#$%^&*()\\[\\]{}<>\\-_+=,.?\"':;]{1,50}))?" +
-                    "(?: q/(\\d+))?" +
-                    "(?: p/(\\d+\\.\\d{2}))?" +
-                    "(?: d/([a-zA-Z0-9 `~!@#$%^&*()\\[\\]{}<>\\-_+=,.?\"':;]+))?");
-    public static final Pattern LIST_COMMAND_PATTERN = Pattern.compile("list( -sn| -sq)?");
-    public static final Pattern DELETE_COMMAND_PATTERN = Pattern.compile("delete (\\d+)");
-    public static final Pattern INFLOW_COMMAND_PATTERN = Pattern.compile("inflow (\\d+) a/(\\d+)");
-    public static final Pattern OUTFLOW_COMMAND_PATTERN = Pattern.compile("outflow (\\d+) a/(\\d+)");
-    public static final Pattern  FIND_COMMAND_PATTERN =
+            Pattern.compile("edit " + BLANK_SPACING_REGEX +
+                    "(\\d+)" + BLANK_SPACING_REGEX +
+                    "(?: n/([a-zA-Z0-9 ()\\[\\],.\\-_]{1,50}))?" + BLANK_SPACING_REGEX +
+                    "(?: q/(\\d+))?" + BLANK_SPACING_REGEX +
+                    "(?: p/(\\d+\\.\\d{2}))?" + BLANK_SPACING_REGEX +
+                    "(?: d/([a-zA-Z0-9 ()\\[\\],.\\-_]+))?");
+    public static final Pattern LIST_COMMAND_PATTERN = Pattern.compile("list( -sn| -sq)?" + BLANK_SPACING_REGEX);
+    public static final Pattern DELETE_COMMAND_PATTERN =
+            Pattern.compile("delete" + BLANK_SPACING_REGEX +
+                    "(\\d+)" + BLANK_SPACING_REGEX);
+    public static final Pattern INFLOW_COMMAND_PATTERN =
+            Pattern.compile("inflow" + BLANK_SPACING_REGEX +
+                    "(\\d+)" + BLANK_SPACING_REGEX +
+                    "a/(\\d+)" + BLANK_SPACING_REGEX);
+    public static final Pattern OUTFLOW_COMMAND_PATTERN =
+            Pattern.compile("outflow" + BLANK_SPACING_REGEX +
+                    "(\\d+)" + BLANK_SPACING_REGEX +
+                    "a/(\\d+)" + BLANK_SPACING_REGEX);
+    public static final Pattern FIND_COMMAND_PATTERN =
             Pattern.compile("find ([a-zA-Z0-9 `~!@#$%^&*()\\[\\]{}<>\\-_+=,.?\"':;]+)");
-    public static final Pattern HISTORY_COMMAND_PATTERN = Pattern.compile("history (\\d+)");
-    public static final Pattern HELP_COMMAND_PATTERN = Pattern.compile("help(?: ([a-z]+))?");
+    public static final Pattern HISTORY_COMMAND_PATTERN =
+            Pattern.compile("history" + BLANK_SPACING_REGEX +
+                    "(\\d+)" + BLANK_SPACING_REGEX);
+    public static final Pattern HELP_COMMAND_PATTERN =
+            Pattern.compile("help" + BLANK_SPACING_REGEX +
+                    "(?: ([a-z]+))?" + BLANK_SPACING_REGEX);
+    public static final Pattern EXIT_COMMAND_PATTERN = Pattern.compile("exit(.*)?");
     public static final int NUM_OF_LIST_COMMAND_ARGUMENTS = 1;
     public static final int NUM_OF_NEW_COMMAND_ARGUMENTS = 4;
     public static final int NUM_OF_EDIT_COMMAND_ARGUMENTS = 5;
@@ -74,15 +90,15 @@ public class Parser {
     }
   
     private String validateStringInput(String parsedString) {
-        if (isNull(parsedString)) { // conditional branch only applicable to description input
+        if (isNull(parsedString)) { // conditional branch only applicable to optional description input
             return null;
         }
 
-        String strippedName = parsedString.strip();
-        if (strippedName.isEmpty()) {
+        String strippedString = parsedString.strip();
+        if (strippedString.isEmpty()) {
             return null;
         }
-        return strippedName;
+        return strippedString;
     }
 
     private Integer validateIntegerInput(String parsedInt) throws UnsignedIntegerExceededException {
@@ -104,8 +120,13 @@ public class Parser {
         return Double.parseDouble(parsedDouble);
     }
 
-    private ExitCommand createExitCommand() {
-        return new ExitCommand();
+    private ExitCommand validateAndCreateExitCommand(String input) throws InvalidFormatException {
+        input = input.strip();
+        Matcher matcher = EXIT_COMMAND_PATTERN.matcher(input.strip());
+        if (matcher.matches() && matcher.group(1).isBlank()) {
+            return new ExitCommand();
+        }
+        throw new InvalidFormatException("Exit Command does not take in any extra arguments!");
     }
 
     private ListCommand validateAndCreateListCommand(ArrayList<String> parsed) {
@@ -178,7 +199,7 @@ public class Parser {
             
     private HelpCommand validateAndCreateHelpCommand(ArrayList<String> parsed) throws InvalidFormatException {
         String command = parsed.get(0);
-        if (command == null) {
+        if (isNull(command)) {
             return new HelpCommand();
         }
         return new HelpCommand(command);
@@ -213,6 +234,7 @@ public class Parser {
     public Command parseInput(String input)
             throws InvalidCommandException, InvalidFormatException, UnsignedIntegerExceededException {
         ArrayList<String> parsed;
+        input = input.replaceAll("\\s", " ");
         input = input.stripLeading();
         String command = getCommandFromInput(input);
 
@@ -223,11 +245,10 @@ public class Parser {
 
         case ListCommand.COMMAND_KEYWORD:
             parsed = matchAndParseInput(input, LIST_COMMAND_PATTERN, NUM_OF_LIST_COMMAND_ARGUMENTS);
-
             return validateAndCreateListCommand(parsed);
 
         case ExitCommand.COMMAND_KEYWORD:
-            return createExitCommand();
+            return validateAndCreateExitCommand(input);
 
         case NewCommand.COMMAND_KEYWORD:
             parsed = matchAndParseInput(input, NEW_COMMAND_PATTERN, NUM_OF_NEW_COMMAND_ARGUMENTS);
