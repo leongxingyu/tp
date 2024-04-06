@@ -185,10 +185,10 @@ new n/PRODUCT_NAME q/INITIAL_QUANTITY [p/PRICE] [d/DESCRIPTION]
 
 | Parameter          | Representation                             | Constraints                                                                             |
 |--------------------|--------------------------------------------|-----------------------------------------------------------------------------------------|
-| `PRODUCT_NAME`     | Name of new product to be added            | Limited to 100 characters                                                               |
+| `PRODUCT_NAME`     | Name of new product to be added            | Limited to 50 characters.<br/>Allowed characters:<br/>`a-zA-Z0-9 ()[],.-_`                                       |
 | `INITIAL_QUANTITY` | Quantity of the new product to be added    | Must be an integer more than or equal to 0                                              |
 | `PRICE`            | Price of the new product to be added       | - Must be a numeric value more than equal to 0<br/>- Must have exactly 2 decimal places |
-| `DESCRIPTION`      | Description of the new product to be added | Limited to 100 characters                                                               |
+| `DESCRIPTION`      | Description of the new product to be added | Limited to 100 characters<br/>Allowed characters:<br/>`a-zA-Z0-9 ()[],.-_`                                                               |
 
 ### Example 1
 Input:
@@ -309,10 +309,10 @@ edit PID [n/PRODUCT_NAME] [q/QUANTITY] [p/PRICE] [d/DESCRIPTION]
 | Parameter      | Representation                               | Constraints                                                                             |
 |----------------|----------------------------------------------|-----------------------------------------------------------------------------------------|
 | `PID`          | Product ID of the existing product           | Must be a valid Product ID of an existing product                                       |
-| `PRODUCT_NAME` | New product name of the product to be edited | Limited to 100 characters                                                               |
+| `PRODUCT_NAME` | New product name of the product to be edited | Limited to 50 characters<br/>Allowed characters:<br/>`a-zA-Z0-9 ()[],.-_`                                                                |
 | `QUANTITY`     | New quantity of the product to be edited     | Must be an integer more than or equals to 0                                             |
 | `PRICE`        | New price of the product to be edited        | - Must be a numeric value more than equal to 0<br/>- Must have exactly 2 decimal places |
-| `DESCRIPTION`  | New description of the product to be edited  | Limited to 100 characters                                                               |
+| `DESCRIPTION`  | New description of the product to be edited  | Limited to 100 characters<br/>Allowed characters:<br/>`a-zA-Z0-9 ()[],.-_`                                                               |
 
 <div style="padding: 15px; border: 1px solid transparent; margin-bottom: 20px; border-radius: 4px; color: #8a6d3b; background-color: #fcf8e3;">
 :bulb: <strong>Tip:</strong> If you are looking to increase or decrease the amount of stock of a particular product,
@@ -643,6 +643,20 @@ Exiting program, goodbye!
 
 Explanation:
 This command will exit the program. Our program will print a statement to bid you goodbye!
+
+### Example 2
+
+Input:
+```
+exit with some extra arguments
+```
+Output:
+```
+Exit Command does not take in any extra arguments!
+```
+Explanation:
+To address possible typo issues caused by typing "exit" when you want to type "edit", ensure that no arguments should be
+passed to the Exit command.
 
 <div style="page-break-after: always;"></div>
 
