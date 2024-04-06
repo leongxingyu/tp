@@ -212,8 +212,6 @@ The following sequence diagram details how `EditCommand#execute()` functions.
     - Cons: `productList#updateProduct()` will be more lengthy. May require further abstraction.
 
 ### List feature
-<img src="images/ListCommandClass.png" alt=""/>
-
 The ListCommand class is responsible for sorting and printing out the products in the list. 
 
 **Attributes**
