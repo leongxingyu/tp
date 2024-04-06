@@ -122,7 +122,7 @@ JSON (JavaScript Object Notation) - a file format for storing and transporting d
         e.g. if the command specifies <code>n/PRODUCT_NAME q/INITIAL_QUANTITY</code>, <code>q/INITIAL_QUANTITY n/PRODUCT_NAME</code> is <strong>not</strong> acceptable.</li>
     <li>Commands are case-sensitive and must strictly follow case specified.<br>
         e.g. <code>HELP</code> would trigger an invalid command warning, as <code>help</code> is the proper command to be used.</li>
-    <li>Commands must strictly adhere to the correct format. Extra inputs (including whitespaces) are not allowed.
+    <li>Commands must strictly adhere to the correct format. Extra inputs (including whitespaces) are not allowed. <br>
         e.g. <code>list     </code> would trigger an invalid command warning due to the extra whitespaces at the end. 
         <code>list</code> should be the correct command to use.</li>
 </ul>
