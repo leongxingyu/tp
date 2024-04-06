@@ -28,6 +28,7 @@ import static seedu.stockpal.common.Messages.MESSAGE_ERROR_INPUT_INTEGER_EXCEEDE
 import static seedu.stockpal.common.Messages.MESSAGE_ERROR_INVALID_COMMAND;
 import static seedu.stockpal.common.Messages.MESSAGE_ERROR_INVALID_FORMAT;
 import static seedu.stockpal.common.Messages.MESSAGE_ERROR_NAME_ONLY_SPACES;
+import static seedu.stockpal.common.Messages.MESSAGE_ERROR_INVALID_EXIT_USAGE;
 
 /**
  * The Parser class is responsible for parsing user input into its respective command's relevant fields.
@@ -126,7 +127,7 @@ public class Parser {
         if (matcher.matches() && matcher.group(1).isBlank()) {
             return new ExitCommand();
         }
-        throw new InvalidFormatException("Exit Command does not take in any extra arguments!");
+        throw new InvalidFormatException(MESSAGE_ERROR_INVALID_EXIT_USAGE);
     }
 
     private ListCommand validateAndCreateListCommand(ArrayList<String> parsed) {

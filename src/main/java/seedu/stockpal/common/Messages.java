@@ -16,7 +16,7 @@ public class Messages {
     public static final String MESSAGE_ERROR_INVALID_FORMAT = "Invalid format. " + MESSAGE_REFER_TO_HELP;
     public static final String MESSAGE_ERROR_NAME_ONLY_SPACES = "Invalid format. " +
             "Name cannot be made up of only spaces.";
-
+    public static final String MESSAGE_ERROR_INVALID_EXIT_USAGE = "Exit Command does not take in any extra arguments!";
     public static final String MESSAGE_ERROR_MISSING_PARAMETERS = "Please ensure that there is " +
             "at least 1 parameter provided.";
     public static final String MESSAGE_ERROR_INPUT_INTEGER_EXCEEDED = "Integer input exceeds largest integer " +
