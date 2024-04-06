@@ -6,7 +6,7 @@ Participant ":StockPal" as stockpal STOCKPAL_COLOR
 Participant ":UI" as ui UI_COLOR
 Actor User as user USER_COLOR
 Participant ":Parser" as parser PARSER_COLOR
-Participant ":Command" as command COMMANDS_COLOR
+Participant ":XYZCommand" as command COMMANDS_COLOR
 Participant ":Storage" as storage STORAGE_COLOR
 
 activate stockpal STOCKPAL_COLOR
@@ -23,18 +23,29 @@ deactivate ui
 stockpal -[STOCKPAL_COLOR]> parser : parseCommand(userInput)
 activate parser PARSER_COLOR
 
+note over of command
+    XYZ is a placeholder for
+    the specific command name.
+    e.g. NewCommand
+end note
+
 create command
-parser -[PARSER_COLOR]> command : new Command()
+parser -[PARSER_COLOR]> command : XYZCommand()
 activate command COMMANDS_COLOR
 
-command --[COMMANDS_COLOR]> parser : command : Command
+command --[COMMANDS_COLOR]> parser : command : XYZCommand
 deactivate command
 
-parser --[PARSER_COLOR]> stockpal : command : Command
+parser --[PARSER_COLOR]> stockpal : command : XYZCommand
 deactivate parser
 
 stockpal -[STOCKPAL_COLOR]> command : execute()
 activate command COMMANDS_COLOR
+
+note over command
+   Execute XYZ command
+end note
+
 stockpal <--[COMMANDS_COLOR] command
 deactivate command
 

@@ -13,6 +13,12 @@ command -> productlist : findKeyword(productList, keyword)
 activate productlist PRODUCTLIST_COLOR
 
 productlist -> ui : printListTasks(MatchingProductList)
+activate ui UI_COLOR
+ui --[UI_COLOR]> productlist
+deactivate ui UI_COLOR
+
+
+productlist --[PRODUCTLIST_COLOR]> command
 deactivate productlist
 
 @enduml

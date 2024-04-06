@@ -14,6 +14,13 @@ command -> transactionlist : findTransactions(transactionList, productIndex);
 activate transactionlist PRODUCTLIST_COLOR
 
 transactionlist -> ui : printListTasks(PastTransactions)
-deactivate transactionlist
+activate ui UI_COLOR
+ui --[UI_COLOR]> transactionlist
+deactivate ui UI_COLOR
+
+
+transactionlist --[PRODUCTLIST_COLOR]> command
+
+
 
 @enduml
