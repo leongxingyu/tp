@@ -11,7 +11,11 @@ command -> productlist : increaseAmountCaller(pid, increaseAmt)
 activate productlist PRODUCTLIST_COLOR
 
 productlist -> ui : printToScreen
-deactivate productlist
 activate ui UI_COLOR
+ui --[UI_COLOR]> productlist
+deactivate ui UI_COLOR
+
+productlist --[PRODUCTLIST_COLOR]> command
+deactivate productlist
 
 @enduml
