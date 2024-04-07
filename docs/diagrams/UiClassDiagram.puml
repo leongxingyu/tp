@@ -1,0 +1,20 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor UI_COLOR
+skinparam classBackgroundColor UI_COLOR
+
+package UI as UiPackage {
+    Class "UI" as UI
+}
+
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> UI
+
+Class StockPal STOCKPAL_COLOR
+UI -left.> StockPal
+
+Class Command COMMANDS_COLOR
+UI -right..> Command
+
+@enduml

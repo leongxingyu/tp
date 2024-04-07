@@ -41,7 +41,9 @@ public class StockPal {
     }
 
     public static void exit() {
-        productList.printLowQuantityProducts();
+        if (productList != null) {
+            productList.printLowQuantityProducts();
+        }
         Ui.printGoodbyeMessage();
         System.exit(0);
     }

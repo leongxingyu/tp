@@ -316,12 +316,12 @@ edit PID [n/PRODUCT_NAME] [q/QUANTITY] [p/PRICE] [d/DESCRIPTION]
 
 <div style="padding: 15px; border: 1px solid transparent; margin-bottom: 20px; border-radius: 4px; color: #8a6d3b; background-color: #fcf8e3;">
 :bulb: <strong>Tip:</strong> If you are looking to increase or decrease the amount of stock of a particular product,
-use <a href="https://ay2324s2-cs2113t-t09-3.github.io/tp/UserGuide.html#increasing-a-product-quantity-inflow">inflow</a>
-or <a href="https://ay2324s2-cs2113t-t09-3.github.io/tp/UserGuide.html#decreasing-a-product-quantity-outflow">outflow</a> instead.
+use <code><a href="https://ay2324s2-cs2113t-t09-3.github.io/tp/UserGuide.html#increasing-a-product-quantity-inflow">inflow</a></code>
+or <code><a href="https://ay2324s2-cs2113t-t09-3.github.io/tp/UserGuide.html#decreasing-a-product-quantity-outflow">outflow</a></code> instead.
 
-It is strongly not recommended to use `edit` for incoming or outgoing stocks. Unlike `inflow` and `outflow`, the change
-in product quantity using the `edit` feature <i>will not be tracked</i> and hence will not appear under
-<a href="https://ay2324s2-cs2113t-t09-3.github.io/tp/UserGuide.html#viewing-past-inflow--outflow-of-existing-product-history">history</a>.
+It is strongly <strong>not recommended</strong> to use <code>edit</code> for incoming or outgoing stocks. Unlike <code>inflow</code> and <code>outflow</code>, the change
+in product quantity using the <code>edit</code> feature <i>will not be tracked</i> and hence will not appear under
+<code><a href="https://ay2324s2-cs2113t-t09-3.github.io/tp/UserGuide.html#viewing-past-inflow--outflow-of-existing-product-history">history</a></code>.
 
 </div>
 
@@ -374,9 +374,9 @@ Deletes an existing product from the inventory.
 
 Format: `delete PID`
 
-| Parameter      | Representation                               | Constraints                                                                             |
-|----------------|----------------------------------------------|-----------------------------------------------------------------------------------------|
-| `PID`          | Product ID of the existing product           | Must be a valid Product ID of an existing product                                       |
+| Parameter | Representation                     | Constraints                                       |
+|-----------|------------------------------------|---------------------------------------------------|
+| `PID`     | Product ID of the existing product | Must be a valid Product ID of an existing product |
 
 
 ### Example 1
@@ -411,10 +411,10 @@ Format:
 inflow PID a/QUANTITY
 ```
 
-| Parameter  | Representation                           | Constraints                                       |
-|------------|------------------------------------------|---------------------------------------------------|
-| `PID`      | Product ID of the existing product       | Must be a valid Product ID of an existing product |
-| `QUANTITY` | New quantity of the product to be edited | Must be an integer more than or equals to 0       |
+| Parameter  | Representation                      | Constraints                                       |
+|------------|-------------------------------------|---------------------------------------------------|
+| `PID`      | Product ID of the existing product  | Must be a valid Product ID of an existing product |
+| `QUANTITY` | Quantity of the product to be added | Must be an integer more than or equals to 0       |
 
 <div style="padding: 15px; border: 1px solid transparent; margin-bottom: 20px; border-radius: 4px; color: #8a6d3b; background-color: #fcf8e3;">
 :bulb: <strong>Tip:</strong> Use this command instead of <a href="https://ay2324s2-cs2113t-t09-3.github.io/tp/UserGuide.html#editing-product-details-edit">edit</a> 
@@ -450,10 +450,10 @@ Format:
 outflow PID a/QUANTITY
 ```
 
-| Parameter  | Representation                           | Constraints                                       |
-|------------|------------------------------------------|---------------------------------------------------|
-| `PID`      | Product ID of the existing product       | Must be a valid Product ID of an existing product |
-| `QUANTITY` | New quantity of the product to be edited | Must be an integer more than or equals to 0       |
+| Parameter  | Representation                        | Constraints                                       |
+|------------|---------------------------------------|---------------------------------------------------|
+| `PID`      | Product ID of the existing product    | Must be a valid Product ID of an existing product |
+| `QUANTITY` | Quantity of the product to be removed | Must be an integer more than or equals to 0       |
 
 <div style="padding: 15px; border: 1px solid transparent; margin-bottom: 20px; border-radius: 4px; color: #8a6d3b; background-color: #fcf8e3;">
 :bulb: <strong>Tip:</strong> Use this command instead of <a href="https://ay2324s2-cs2113t-t09-3.github.io/tp/UserGuide.html#editing-product-details-edit">edit</a> 

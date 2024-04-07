@@ -1,3 +1,6 @@
+---
+title: StockPal
+---
 
 [![Java CI](https://github.com/AY2324S2-CS2113T-T09-3/tp/actions/workflows/gradle.yml/badge.svg?branch=master)](https://github.com/AY2324S2-CS2113T-T09-3/tp/actions/workflows/gradle.yml)
 
@@ -14,6 +17,7 @@ Provides a user-friendly and cost-effective solution for small business owners t
 Project Repository:<br>
 [![Project Repository](images/github-icon.png)](https://github.com/AY2324S2-CS2113T-T09-3/tp)
 
+[About the team](AboutUs.md)
 
 **Acknowledgements**
 

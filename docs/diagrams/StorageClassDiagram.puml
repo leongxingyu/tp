@@ -5,6 +5,11 @@ skinparam arrowColor STORAGE_COLOR
 skinparam classBackgroundColor STORAGE_COLOR
 
 package Storage as StoragePackage {
+    package TransactionStorage as TransactionStoragePackage {
+        Class "JsonWriter" as JsonWriter
+        Class "JsonReader" as JsonReader
+        Class "TransactionStorage" as TransactionStorage
+    }
     Class "CsvWriter" as CsvWriter
 
     Class "Storage" as Storage
@@ -13,9 +18,15 @@ package Storage as StoragePackage {
 }
 
 Class HiddenOutside #FFFFFF
+Class HiddenOuts #FFFFFF
 HiddenOutside ..> Storage
+HiddenOuts .> TransactionStorage
+HiddenOuts -[hidden].> Storage
 
-Storage -left..> CsvWriter
-Storage -right..> CsvReader
+Storage -down..> CsvWriter
+Storage -down..> CsvReader
+
+TransactionStorage -down..> JsonWriter
+TransactionStorage -down..> JsonReader
 
 @enduml

@@ -37,11 +37,11 @@
 
 !define PRODUCT_COLOR #333333
 
-!define EXCEPTIONS_COLOR #orange
+!define EXCEPTIONS_COLOR #purple
 
 !define COMMON_COLOR #magenta
 
-!define DATA_COLOR #000000
+!define DATA_COLOR #906f7a
 
 !define USER_COLOR #000000
 
