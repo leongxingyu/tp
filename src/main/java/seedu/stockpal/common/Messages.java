@@ -30,12 +30,12 @@ public class Messages {
     public static final String MESSAGE_ERROR_INVALID_DESCRIPTION_LENGTH = "Length of description is more than 100!" +
             " Ensure that name entered is only at most 100 characters long.";
 
-    public static final String MESSAGE_ERROR_INVALID_INFLOW_USAGE = "Inflow Command does not take in any more arguments " +
+    public static final String MESSAGE_ERROR_INVALID_INFLOW_USAGE = "Inflow Command does not take in any more " +
             "other than PID and Amount to increase by!";
     public static final String MESSAGE_ERROR_INVALID_OUTFLOW_USAGE = "Outflow Command does not take in any more " +
             "arguments other than PID and Amount to decrease by!";
-    public static final String MESSAGE_ERROR_INVALID_DELETE_USAGE = "Delete Command does not take in any more arguments " +
-            "other than PID!";
+    public static final String MESSAGE_ERROR_INVALID_DELETE_USAGE = "Delete Command does not take in any more " +
+            "arguments other than PID!";
     public static final String MESSAGE_ERROR_INVALID_EXIT_USAGE = "Exit Command does not take in any extra arguments!";
     public static final String MESSAGE_ERROR_MISSING_PARAMETERS = "Please ensure that there is " +
             "at least 1 parameter provided.";

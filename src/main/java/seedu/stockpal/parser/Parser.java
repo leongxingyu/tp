@@ -367,9 +367,9 @@ public class Parser {
      *
      * @param input The input string to be parsed
      * @return A specific Command object containing parsed components of input
-     * @throws InvalidFormatException           If input string is not matched with its respective command regex pattern.
-     * @throws UnsignedIntegerExceededException If parsed PID or quantity exceeds Integer.MAX_VALUE
-     * @throws InvalidCommandException          If input's first word (which is command word) is not a legal command word
+     * @throws InvalidFormatException If input string is not matched with its respective argument's regexes.
+     * @throws UnsignedIntegerExceededException If parsed PID, quantity or dollars in price exceeds Integer.MAX_VALUE
+     * @throws InvalidCommandException If input's first word (which is command word) is not a legal command word
      */
     public Command parseInput(String input)
             throws InvalidCommandException, InvalidFormatException, UnsignedIntegerExceededException {
