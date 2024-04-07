@@ -156,12 +156,12 @@ In addition to saving products, the `Storage` component has a subcomponent `Tran
     * `JsonWriter` is responsible for handling the writing of transaction data to the JSON data file.
     * `JsonReader` is responsible for handling the reading of transaction data from the JSON data file.
 
-### Common classes
+### Common Classes
 
 Classes used by multiple components are in the `seedu.stockpal.common` package.
 The `common` package consists of 2 useful utility classes that are mainly used for printing of output to screen, as well as output messages.
 
-### Exception classes
+### Exception Classes
 
 Exceptions classes used by multiple components are in the `seedu.stockpal.exceptions` package.
 
@@ -170,7 +170,7 @@ Exceptions classes used by multiple components are in the `seedu.stockpal.except
 ## **Implementation**
 This section describes some noteworthy details on how certain features are implemented.
 
-### Command feature
+### Command Feature
 The following sequence diagram summarizes what happens when a user inputs a valid command.
 <img src="images/CommandSequenceDiagram.png" alt="images/CommandSequenceDiagram.png"/>
 
@@ -178,7 +178,7 @@ The following sequence diagram summarizes what happens when a user inputs a vali
 Validation of the user input is done in `Parser`, hence `XYZCommand` assumes that all fields provided upon creation
 of a `XYZCommand` object are properly formatted.
 
-### Add product feature
+### Add Product Feature
 
 The NewCommand class is responsible for adding a new product to the inventory in the StockPal application.
 
@@ -194,7 +194,7 @@ The following sequence diagram details how `AddCommand#execute()` functions.
 <img src="images/AddCommandExecuteSequenceDiagram.png" alt="AddCommandExecuteSequenceDiagram.png"/>
 
 
-### Edit product feature
+### Edit Product Feature
 #### Implementation
 The `edit` command is used to edit product details such as name, quantity, price and description.
 
@@ -220,7 +220,7 @@ The following sequence diagram details how `EditCommand#execute()` functions.
     - Pros: Implementing `EditCommand#execute()` will be very simple. Usage of throw/catch to handle errors.
     - Cons: `productList#updateProduct()` will be more lengthy. May require further abstraction.
 
-### List feature
+### List Feature
 The ListCommand class is responsible for sorting and printing out the products in the list. 
 
 **Attributes**
@@ -234,71 +234,41 @@ The ListCommand class is responsible for sorting and printing out the products i
 
 ### InflowCommand Feature
 
-**API** : [`InflowCommand.java`](https://github.com/AY2324S2-CS2113T-T09-3/tp/blob/master/src/main/java/seedu/stockpal/commands/InflowCommand.java)
-
 The `InflowCommand` class is used to increase the quantity of a specific product in the inventory.
 This could represent scenarios like receiving new stock and updating inventory with new quantities.
 
-![Structure of Inflow Command](images/InflowCommandClass.png)
+### Implementation
+The inflow product feature is facilitated by `InflowCommand` which extends `Command`.
 
-**Implementation of InflowCommand**
+Specific validations are still carried out within the `InflowCommand`.
+1. Checking if the product ID (PID) belongs to an existing product.
+2. Checking if the addition of inflow quantity and existing quantity will result in an integer overflow.
 
-The InflowCommand class is called in this format: `InflowCommand(pid, amountToIncrease)`
-When the InflowCommand is called, a new instance of the InflowCommand initialised with pid and
-amountToIncrease would be created.
+Once all validations are completed, increasing a product quantity is done by calling `ProductList#increaseAmountCaller()`.
 
-The execute method will call `increaseAmount` which is a method of the ProductList class.
-In the ProductList class, the `increaseAmount` method will call a `updatedIncreaseQuantity`
-method in the quantity class.
-
-It is implemented this way to adhere to Single Responsibility Principle (SRP), such that the
-ProductList class will only handle the product involved in quantity increase, whereas the
-Quantity class will be responsible for updating the quantities.
-
-**Attributes**
-* pid: The unique Product ID for each product
-* quantity: The amount of quantity to increase product by
-
-**Methods**
-* `InflowCommand`: Constructor for creating a new instance of the InflowCommand class.
-* `execute`: Method to increase quantity of the specified product.
-  * `execute` calls `increaseAmount` in the ProductList class.
-  * `increaseAmount` will call `updateIncreaseQuantity` in the Quantity class.
+The following sequence diagram shows how the InflowCommand works. <br><br>
+![InflowCommand Class](images/InflowCommandSequence.png)
 
 
 
 ### OutflowCommand Feature
 
-**API** : [`OutflowCommand.java`](https://github.com/AY2324S2-CS2113T-T09-3/tp/blob/master/src/main/java/seedu/stockpal/commands/OutflowCommand.java)
-
 The `OutflowCommand` class is used to decrease the quantity of a specific product in the inventory.
 This could represent scenarios like selling products and updating inventory with new updated quantities.
 
+### Implementation
+The outflow product feature is facilitated by `OutflowCommand` which extends `Command`.
+
+Specific validations are still carried out within the `OutflowCommand`.
+1. Checking if the product ID (PID) belongs to an existing product.
+2. Checking if the outflow quantity is larger than the existing quantity.
+
+Once all validations are completed, decreasing a product quantity is done by calling `ProductList#decreaseAmountCaller()`.
+
+The following sequence diagram shows how the InflowCommand works. <br><br>
+![OutflowCommand Class](images/OutflowCommandSequence.png)
 
 
-**Implementation of OutflowCommand**
-
-The OutflowCommand class is called in this format: `OutflowCommand(pid, amountToDecrease)`
-When the OutflowCommand is called, similar to the InflowCommand class, a new instance of the
-OutflowCommand initialised with pid and amountToDecrease would be created.
-
-The execute method will call `decreaseAmount` which is a method of the ProductList class.
-In the ProductList class, the `decreaseAmount` method will call a `updatedDecreaseQuantity`
-method in the quantity class.
-
-It is implemented this way to adhere to Single Responsibility Principle (SRP), such that the
-ProductList class will only handle the product involved in quantity increase, whereas the
-Quantity class will be responsible for updating the quantities.
-
-**Attributes**
-* pid: The unique Product ID for each product
-* quantity: The amount of quantity to decrease product by
-
-**Methods**
-* `OutflowCommand`: Constructor for creating a new instance of the InflowCommand class.
-* `execute`: Method to increase quantity of the specified product.
-  * `execute` calls `decreaseAmount` in the ProductList class.
-  * `decreaseAmount` in ProductList class will call `updateDecreaseQuantity` in the Quantity class.
 
 
 
