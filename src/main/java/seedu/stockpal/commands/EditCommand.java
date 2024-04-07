@@ -1,6 +1,6 @@
 package seedu.stockpal.commands;
 
-import seedu.stockpal.common.CommandParameter;
+import seedu.stockpal.data.CommandParameter;
 import seedu.stockpal.common.FormatUtils;
 import seedu.stockpal.common.Messages;
 import seedu.stockpal.data.ProductList;

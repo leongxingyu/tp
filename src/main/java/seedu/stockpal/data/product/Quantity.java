@@ -1,6 +1,6 @@
 package seedu.stockpal.data.product;
 
-import seedu.stockpal.common.CommandParameter;
+import seedu.stockpal.data.CommandParameter;
 import seedu.stockpal.exceptions.InsufficientAmountException;
 import seedu.stockpal.exceptions.InventoryQuantityOverflowException;
 import seedu.stockpal.ui.Ui;

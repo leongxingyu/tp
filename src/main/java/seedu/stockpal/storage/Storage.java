@@ -242,7 +242,7 @@ public class Storage {
         LogManager.getLogManager().reset();
         LOGGER.setLevel(Level.ALL);
         ConsoleHandler consoleHandler = new ConsoleHandler();
-        consoleHandler.setLevel(Level.SEVERE);
+        consoleHandler.setLevel(Level.OFF);
         LOGGER.addHandler(consoleHandler);
         try {
             FileHandler fileHandler = new FileHandler("StorageLogger.log");

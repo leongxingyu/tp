@@ -6,7 +6,7 @@ Actor User as user USER_COLOR
 Participant ":UI" as ui UI_COLOR
 Participant ":StockPal" as stockpal STOCKPAL_COLOR
 Participant ":Parser" as parser PARSER_COLOR
-Participant ":Commands" as commands COMMANDS_COLOR
+Participant ":Command" as command COMMANDS_COLOR
 Participant ":Storage" as storage STORAGE_COLOR
 
 activate stockpal STOCKPAL_COLOR
@@ -19,17 +19,24 @@ ui -[UI_COLOR]> stockpal : "delete 1"
 stockpal -[STOCKPAL_COLOR]> parser : parseCommand("delete 1")
 activate parser PARSER_COLOR
 
+create command
+parser -[PARSER_COLOR]> command : new DeleteCommand(1)
+activate command COMMANDS_COLOR
+
+command --[COMMANDS_COLOR]> parser : DeleteCommand(1)
+deactivate command
+
 parser --[PARSER_COLOR]> stockpal : DeleteCommand(1)
 deactivate parser
 
-stockpal -[STOCKPAL_COLOR]> commands : execute(DeleteCommand(1))
-activate commands COMMANDS_COLOR
+stockpal -[STOCKPAL_COLOR]> command : execute(DeleteCommand(1))
+activate command COMMANDS_COLOR
 
-commands --[COMMANDS_COLOR]> ui
-deactivate commands
+command --[COMMANDS_COLOR]> ui
+deactivate command
 ui --[UI_COLOR]> user : "Product has been deleted."
 
-stockpal -[STOCKPAL_COLOR]> storage : (productList)
+stockpal -[STOCKPAL_COLOR]> storage : save(productList)
 activate storage STORAGE_COLOR
 
 storage -[STORAGE_COLOR]> storage : Save to file

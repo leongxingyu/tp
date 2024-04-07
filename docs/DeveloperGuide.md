@@ -7,14 +7,14 @@ title: Developer Guide
     * [Architecture](#architecture)
     * [UI component](#ui-component)
     * [Parser component](#parser-component)
-    * [Commands component](#commands-component)
+    * [Command component](#command-component)
     * [Data component](#data-component)
     * [Storage component](#storage-component)
     * [Common classes](#common-classes)
     * [Exception classes](#exception-classes)
   * [**Implementation**](#implementation)
+    * [Command feature](#command-feature)
     * [Add product feature](#add-product-feature)
-      * [Class diagram of NewCommand:](#class-diagram-of-newcommand)
     * [Edit product feature](#edit-product-feature)
       * [Implementation](#implementation-1)
     * [List feature](#list-feature)
@@ -23,9 +23,7 @@ title: Developer Guide
     * [Delete product feature](#delete-product-feature)
       * [Implementation](#implementation-2)
     * [Find product feature](#find-product-feature)
-      * [Class diagram of FindCommand:](#class-diagram-of-findcommand)
     * [History product feature](#history-product-feature)
-      * [Class diagram of HistoryCommand:](#class-diagram-of-historycommand)
   * [**Appendix: Requirements**](#appendix-requirements)
     * [Product scope](#product-scope)
   * [User Stories](#user-stories)
@@ -45,18 +43,19 @@ title: Developer Guide
 
 Third-party libraries:
 * [OpenCSV](https://opencsv.sourceforge.net/) - This package is licensed under [Apache2](https://opencsv.sourceforge.net/licenses.html), which is a business-friendly open-source software license.
+* [JSON-Java](https://github.com/stleary/JSON-java) - This package is licensed under [Public Domain](https://creativecommons.org/public-domain/), which is free to be used by anyone.
 
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Design**
 
-<div markdown="span" class="alert alert-primary">
-:bulb: **Tip:** The `.puml` files used to create diagrams in this document `docs/diagrams` folder. Refer to the [_PlantUML Tutorial_ at se-edu/guides](https://se-education.org/guides/tutorials/plantUml.html) to learn how to create and edit diagrams.
+<div style="padding: 15px; border: 1px solid transparent; margin-bottom: 20px; border-radius: 4px; color: #8a6d3b; background-color: #fcf8e3;">
+:bulb: <strong>Tip:</strong> The <code>.puml</code> files used to create diagrams in this document are in the <code>docs/diagrams</code> folder. Refer to the <a href="https://se-education.org/guides/tutorials/plantUml.html" target="_blank"><i>PlantUML Tutorial</i> at se-edu/guides</a> to learn how to create and edit diagrams.
 </div>
 
 ### Architecture
-<img src="images/ArchitectureDiagram.png" alt=""/>
+![Architecture Diagram](images/ArchitectureDiagram.png)
 
 The ***Architecture Diagram*** given above explains the high-level design of the App.
 
@@ -70,7 +69,7 @@ The bulk of the app's work is done by the following five components:
 
 * [**`UI`**](#ui-component): The UI of the App.
 * [**`Parser`**](#parser-component): Parses user input into respective commands.
-* [**`Commands`**](#commands-component): The command executor.
+* [**`Command`**](#command-component): The command executor.
 * [**`Data`**](#data-component): Holds the data of the App in memory.
 * [**`Storage`**](#storage-component): Reads data from, and writes data to, the hard disk.
 
@@ -81,7 +80,7 @@ The bulk of the app's work is done by the following five components:
 
 The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
 
-<img src="images/ArchitectureSequenceDiagram.png" alt=""/>
+![Architecture Sequence Diagram](images/ArchitectureSequenceDiagram.png)
 
 The sections below give more details of each component.
 
@@ -89,6 +88,11 @@ The sections below give more details of each component.
 The **API** of this component is specified in [`Ui.java`](https://github.com/AY2324S2-CS2113T-T09-3/tp/tree/master/src/main/java/seedu/stockpal/ui/Ui.java)
 
 ![Structure of the UI Component](images/UiClassDiagram.png)
+
+The UI component,
+* gets user input from the user, and returns it to `StockPal` component for parsing and execution of respective commands.
+* waits on the `Command` component as the commands will be calling the UI to print messages.
+* depends on the `Command` component, as it is required by the respective commands to output specified messages.
 
 ### Parser component
 
@@ -107,24 +111,32 @@ Exceptions are thrown when the fields do not pass their respective type checks.
 For example, a `delete` command will cause `Parser` to create a new instance of `DeleteCommand(pid)`.
 6. The created command object is returned back to `main` function for further processing.
 
-### Commands component
+### Command component
 
 **API** : [`Command.java`](https://github.com/AY2324S2-CS2113T-T09-3/tp/blob/master/src/main/java/seedu/stockpal/commands/Command.java)
 
+![Structure of the Command Component](images/CommandClassDiagram.png)
 
-![Structure of the Commands Component](images/CommandsClassDiagram.png)
+How the `Command` component works:
+1. `Parser` first creates the respective `Command` after parsing user input. Then, the `Command` is passed to `StockPal`, awaiting execution.
+2. `StockPal` then executes the respective `Command`.
+3. After execution, be it successful or unsuccessful, `Command` calls on the `UI` component to output the results to screen.
 
 ### Data component
 
 **API** : [`Data`](https://github.com/AY2324S2-CS2113T-T09-3/tp/blob/master/src/main/java/seedu/stockpal/data)
 
-The following is a class diagram of the `data` component.
+The following is a class diagram of the `Data` component.
+
 ![Structure of the Data Component](images/DataClassDiagram.png)
 
+The `Data` component,
+* stores StockPal's data i.e., all `Product` objects (which are contained in a `ProductList` object) and all `Transaction` objects (which are contained in a `TransactionList` object).
+* does not depend on any of the other components (as the `Data` represents data entities of the domain, they should make sense on their own without depending on other components).
 
 ### Storage component
 
-**API** : [`Storage.java`](https://github.com/AY2324S2-CS2113T-T09-3/tp/blob/master/src/main/java/seedu/stockpal/storage/Storage.java)
+**API** : [`Storage`](https://github.com/AY2324S2-CS2113T-T09-3/tp/blob/master/src/main/java/seedu/stockpal/storage/)
 
 ![Structure of the Storage Component](images/StorageClassDiagram.png)
 
@@ -132,13 +144,22 @@ The `Storage` component,
 * can save product list data in CSV format, and load them back into corresponding Products.
 * depends on the `StockPal` component (because the `Storage` component's job is to save/load objects that belong to `StockPal`)
 * consists of the classes `Storage`, `CsvWriter` and `CsvReader`.
-  * `Storage` defines methods that loads and saves data.
-  * `CsvWriter` is responsible for handling the writing of data to the CSV data file.
-  * `CsvReader` is responsible for handling the reading of data from the CSV data file.
+  * `Storage` defines methods that loads and saves product data.
+  * `CsvWriter` is responsible for handling the writing of product data to the CSV data file.
+  * `CsvReader` is responsible for handling the reading of product data from the CSV data file.
+
+In addition to saving products, the `Storage` component has a subcomponent `TransactionStorage`, which
+* can save transaction list data in JSON format, and load them back into corresponding Transactions.
+* also depends on the `StockPal` component
+* consists of the `TransactionStorage`, `JsonWriter` and `JsonReader`.
+    * `TransactionStorage` defines methods that loads and saves transaction data.
+    * `JsonWriter` is responsible for handling the writing of transaction data to the JSON data file.
+    * `JsonReader` is responsible for handling the reading of transaction data from the JSON data file.
 
 ### Common classes
 
 Classes used by multiple components are in the `seedu.stockpal.common` package.
+The `common` package consists of 2 useful utility classes that are mainly used for printing of output to screen, as well as output messages.
 
 ### Exception classes
 
@@ -218,7 +239,7 @@ The ListCommand class is responsible for sorting and printing out the products i
 The `InflowCommand` class is used to increase the quantity of a specific product in the inventory.
 This could represent scenarios like receiving new stock and updating inventory with new quantities.
 
-![Structure of the Storage Component](images/InflowCommandClass.png)
+![Structure of Inflow Command](images/InflowCommandClass.png)
 
 **Implementation of InflowCommand**
 
@@ -337,16 +358,17 @@ intuitive command-line commands, saving time and improving efficiency.
 
 ## User Stories
 
-| Version | As a ... | I want to ...                                  | So that I can ...                                                                             |
-|---------|----------|------------------------------------------------|-----------------------------------------------------------------------------------------------|
-| v1.0    | new user | see usage instructions                         | refer to them when I forget how to use the application                                        |
-| v1.0    | new user | add details of products easily                 | track my products' stock                                                                      |
-| v1.0    | new user | entered data to be saved                       | track all the products that I have entered                                                    |
-| v1.0    | user     | be able to edit details of the products easily | easily change the name / price / quantity /description of the products, if there is an error  |
-| v1.0    | user     | have a small manual page                       | be aware of the commands that I can enter                                                     |
-| v2.0    | user     | view at past inflow/outflows of a product      | keep track of sales data of the product and know which products are of higher demand          |
-| v2.0    | user     | find products' name that contain the keyword   | find my product, or want to get the product's PID in a long list of products                  |
-| v2.0    | user     | find my products' past transactions            | keep track of the changes in my products' quantity                                            |
+| Version | As a ...                              | I want to ...                                     | So that I can ...                                                                            |
+|---------|---------------------------------------|---------------------------------------------------|----------------------------------------------------------------------------------------------|
+| v1.0    | beginner user                         | have a small manual page                          | aware of the commands that I can enter                                                       |
+| v1.0    | forgetful user of StockPal            | see usage instructions                            | refer to them when I forget how to use the application                                       |
+| v1.0    | small business owner                  | add details of products easily                    | track my products' stock                                                                     |
+| v1.0    | user that makes mistakes              | be able to edit details of the products easily    | easily change the name / price / quantity /description of the products, if there is an error |
+| v1.0    | continuous user of StockPal           | have my entered data to be saved                  | track all the products that I have entered from past uses of the app                         |
+| v2.0    | business owner                        | view at past inflow/outflows of a product         | keep track of sales data of the product and know which products are of higher demand         |
+| v2.0    | user that owns a lot of products      | find products' name that contain the keyword      | find my product, or want to get the product's PID in a long list of products                 |
+| v2.0    | business owner doing a sales analysis | find my products' past transactions               | keep track of the changes in my products' quantity                                           |
+| v2.0    | business owner that is forgetful      | have a warning when my products have low quantity | restock them before they go out of stock.                                                    |
 
 ## Non-Functional Requirements
 

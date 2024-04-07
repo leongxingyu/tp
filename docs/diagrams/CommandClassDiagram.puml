@@ -1,0 +1,47 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor COMMANDS_COLOR
+skinparam classBackgroundColor COMMANDS_COLOR
+
+package Commands as CommandPackage {
+    Class "{abstract}\nCommand" as command
+    Class "DeleteCommand" as delete
+    Class "EditCommand" as edit
+    Class "ExitCommand" as exit
+    Class "FindCommand" as find
+    Class "HelpCommand" as help
+    Class "HistoryCommand" as history
+    Class "InflowCommand" as inflow
+    Class "{abstract}\nListActionCommand" as action
+    Class "ListCommand" as list
+    Class "NewCommand" as new
+    Class "OutflowCommand" as outflow
+    Class "{abstract}\nTransactionActionCommand" as transaction
+}
+
+StockPal -.> command : executes >
+Parser -.> command : creates >
+command -up.> UI : prints output >
+
+action -right-|> command
+transaction -left-|> command
+exit -up-|> command
+help -up-|> command
+help -down[hidden]-> new
+find -right[hidden]-> list
+find -up[hidden]-> delete
+delete -right[hidden]-> edit
+
+delete -up-|> action
+new -up-|> action
+edit -up-|> action
+find -up-|> action
+list -up-|> action
+
+inflow -up-|> transaction
+outflow -up-|> transaction
+history -up-|> transaction
+history -up[hidden]-> outflow
+
+@enduml
