@@ -381,7 +381,7 @@ intuitive command-line commands, saving time and improving efficiency.
 1. Prerequisites: List all products using `list` command. There should be a particular product with `pid` 1.  <br><br>
 
 2. Test case 1 : `inflow 1 a/Amount to increase`
-   Expected: The quantity of the product with Product ID (PID) 1 will increase by `Amount to increae`
+   Expected: The quantity of the product with Product ID (PID) 1 will increase by `Amount to increase`
     - Do note that `Amount to increase` must be less than INT_MAX.  <br><br>
 
    Test case 2: `inflow 1 a/Amount to increase`
