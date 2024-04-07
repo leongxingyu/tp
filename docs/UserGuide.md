@@ -18,6 +18,7 @@ Not sure where to begin? Start by learning [how to utilize this user guide](#usi
     - [Running StockPal](#running-stockpal)
 - [Glossary](#glossary)
 - [Features](#features)
+    - [Notes about the Command Format](#commandFormat)
     - [Viewing help: `help`](#viewing-help-help)
     - [Adding new product: `new`](#adding-a-new-product-new)
     - [Listing all products: `list`](#listing-all-products-list)
@@ -111,7 +112,7 @@ JSON (JavaScript Object Notation) - a file format for storing and transporting d
 
 <!--- @@author NgYaoDong --->
 # Features
-<div style="padding: 15px; border: 1px solid transparent; margin-bottom: 20px; border-radius: 4px; color: #31708f; background-color: #d9edf7;">
+<div id="commandFormat" style="padding: 15px; border: 1px solid transparent; margin-bottom: 20px; border-radius: 4px; color: #31708f; background-color: #d9edf7;">
 :information_source: <strong>Notes about the command format:</strong><br>
 <ul>
     <li>Words in <code>UPPER_CASE</code> are the parameters to be supplied by the user.<br>
@@ -301,6 +302,9 @@ Format:
 ```
 edit PID [n/PRODUCT_NAME] [q/QUANTITY] [p/PRICE] [d/DESCRIPTION]
 ```
+<div style="padding: 15px; border: 1px solid transparent; margin-bottom: 20px; border-radius: 4px; color: #31708f; background-color: #d9edf7;">
+:information_source: <strong>Note:</strong> At least one paramter must be provided.
+</div>
 
 | Parameter      | Representation                               | Constraints                                                                             |
 |----------------|----------------------------------------------|-----------------------------------------------------------------------------------------|
@@ -310,8 +314,15 @@ edit PID [n/PRODUCT_NAME] [q/QUANTITY] [p/PRICE] [d/DESCRIPTION]
 | `PRICE`        | New price of the product to be edited        | - Must be a numeric value more than equal to 0<br/>- Must have exactly 2 decimal places |
 | `DESCRIPTION`  | New description of the product to be edited  | Limited to 100 characters                                                               |
 
-<div style="padding: 15px; border: 1px solid transparent; margin-bottom: 20px; border-radius: 4px; color: #31708f; background-color: #d9edf7;">
-:information_source: <strong>Note:</strong> At least one optional field must be provided.
+<div style="padding: 15px; border: 1px solid transparent; margin-bottom: 20px; border-radius: 4px; color: #8a6d3b; background-color: #fcf8e3;">
+:bulb: <strong>Tip:</strong> If you are looking to increase or decrease the amount of stock of a particular product,
+use <a href="https://ay2324s2-cs2113t-t09-3.github.io/tp/UserGuide.html#increasing-a-product-quantity-inflow">inflow</a>
+or <a href="https://ay2324s2-cs2113t-t09-3.github.io/tp/UserGuide.html#decreasing-a-product-quantity-outflow">outflow</a> instead.
+
+It is strongly not recommended to use `edit` for incoming or outgoing stocks. Unlike `inflow` and `outflow`, the change
+in product quantity using the `edit` feature <i>will not be tracked</i> and hence will not appear under
+<a href="https://ay2324s2-cs2113t-t09-3.github.io/tp/UserGuide.html#viewing-past-inflow--outflow-of-existing-product-history">history</a>.
+
 </div>
 
 ### Example 1

@@ -22,7 +22,8 @@ import static seedu.stockpal.common.Messages.DUPLICATE_MESSAGE;
 public class EditCommand extends ListActionCommand {
     public static final String COMMAND_KEYWORD = "edit";
 
-    public static final String COMMAND_DESCRIPTION = "Edits an existing product in the inventory at the specific PID.";
+    public static final String COMMAND_DESCRIPTION = "Edits an existing product in the inventory at the " +
+            "specific PID.\nNote that at least 1 flag is required when using the edit command.";
     public static final String COMMAND_USAGE = "edit PID [n/PRODUCT_NAME] [q/QUANTITY] [p/PRICE] [d/DESCRIPTION]";
 
     public static final String[] COMMAND_FLAGS = {

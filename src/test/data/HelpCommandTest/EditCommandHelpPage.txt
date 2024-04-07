@@ -2,6 +2,7 @@
 Command: edit
 
 Description: Edits an existing product in the inventory at the specific PID.
+             Note that at least 1 flag is required when using the edit command.
 
 Usage: edit PID [n/PRODUCT_NAME] [q/QUANTITY] [p/PRICE] [d/DESCRIPTION]
 
