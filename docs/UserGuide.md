@@ -310,7 +310,7 @@ edit PID [n/PRODUCT_NAME] [q/QUANTITY] [p/PRICE] [d/DESCRIPTION]
 |----------------|----------------------------------------------|-----------------------------------------------------------------------------------------|
 | `PID`          | Product ID of the existing product           | Must be a valid Product ID of an existing product                                       |
 | `PRODUCT_NAME` | New product name of the product to be edited | Limited to 100 characters                                                               |
-| `QUANTITY`     | New quantity of the product to be edited     | Must be an integer more than or equals to 0                                             |
+| `QUANTITY`     | Quantity of product to be added              | Must be an integer more than or equals to 0                                             |
 | `PRICE`        | New price of the product to be edited        | - Must be a numeric value more than equal to 0<br/>- Must have exactly 2 decimal places |
 | `DESCRIPTION`  | New description of the product to be edited  | Limited to 100 characters                                                               |
 
@@ -411,10 +411,10 @@ Format:
 inflow PID a/QUANTITY
 ```
 
-| Parameter  | Representation                           | Constraints                                       |
-|------------|------------------------------------------|---------------------------------------------------|
-| `PID`      | Product ID of the existing product       | Must be a valid Product ID of an existing product |
-| `QUANTITY` | New quantity of the product to be edited | Must be an integer more than or equals to 0       |
+| Parameter  | Representation                     | Constraints                                       |
+|------------|------------------------------------|---------------------------------------------------|
+| `PID`      | Product ID of the existing product | Must be a valid Product ID of an existing product |
+| `QUANTITY` | Quantity of product to be added    | Must be an integer more than or equals to 0       |
 
 <div style="padding: 15px; border: 1px solid transparent; margin-bottom: 20px; border-radius: 4px; color: #8a6d3b; background-color: #fcf8e3;">
 :bulb: <strong>Tip:</strong> Use this command instead of <a href="https://ay2324s2-cs2113t-t09-3.github.io/tp/UserGuide.html#editing-product-details-edit">edit</a> 
@@ -450,10 +450,10 @@ Format:
 outflow PID a/QUANTITY
 ```
 
-| Parameter  | Representation                           | Constraints                                       |
-|------------|------------------------------------------|---------------------------------------------------|
-| `PID`      | Product ID of the existing product       | Must be a valid Product ID of an existing product |
-| `QUANTITY` | New quantity of the product to be edited | Must be an integer more than or equals to 0       |
+| Parameter  | Representation                     | Constraints                                       |
+|------------|------------------------------------|---------------------------------------------------|
+| `PID`      | Product ID of the existing product | Must be a valid Product ID of an existing product |
+| `QUANTITY` | Quantity of product to be sold     | Must be an integer more than or equals to 0       |
 
 <div style="padding: 15px; border: 1px solid transparent; margin-bottom: 20px; border-radius: 4px; color: #8a6d3b; background-color: #fcf8e3;">
 :bulb: <strong>Tip:</strong> Use this command instead of <a href="https://ay2324s2-cs2113t-t09-3.github.io/tp/UserGuide.html#editing-product-details-edit">edit</a> 
