@@ -375,52 +375,74 @@ intuitive command-line commands, saving time and improving efficiency.
 ## **Appendix: Instructions for manual testing**
 
 ### Adding a Product
-1. No prerequisites needed.
+1. No prerequisites needed.  <br><br>
 
-2. Test case: `new n/Drinking Cup q/20`<br>
+2. Test case 1: `new n/Drinking Cup q/20`<br>
    Expected: The product will be added. Name of the product is `Drinking Cup`, 
-   Quantity of chocolate Milk stock is `20` units.
+   Quantity of chocolate Milk stock is `20` units.  <br><br>
 
-3. Test case: `new n/Chocolate Milk q/100 p/2.00 d/Marigold HL Milk`<br>
+   Test case 2: `new n/Chocolate Milk q/100 p/2.00 d/Marigold HL Milk`<br>
    Expected: The product will be added. Name of the product is `Chocolate Milk`,
    Quantity of chocolate Milk stock is `100 ` units
    Price of each unit is $`2.00`
    Description of the Chocolate Milk product is `Marigold HL Milk`, which is the brand.
 
 ### Editing Product Details
-1. Prerequisites: List all products using `list` command. There should be at least multiple products in the list.
+1. Prerequisites: List all products using `list` command. There should be at least multiple products in the list.  <br><br>
 
-2. Test case: `edit 1 n/Updated name d/Updated description`<br> 
+   Test case 1: `edit 1 n/Updated name d/Updated description`
    Expected: The name and description of the product with Product ID (PID) 1 
-   will be changed to `Updated name` and `Updated description` respectively.
+   will be changed to `Updated name` and `Updated description` respectively.  <br><br>
 
-3. Test case: `edit 1 q/100 p/0.99`<br>
+   Test case 2: `edit 1 q/100 p/0.99`
    Expected: The quantity and price of the product with Product ID (PID) 1
    will be changed to `100` and `0.99` respectively.
 
-### Deleting a product
+### Increase Product Quantity
+1. Prerequisites: List all products using `list` command. There should be a particular product with `pid` 1.  <br><br>
+
+2. Test case 1 : `inflow 1 a/Amount to increase` 
+   Expected: The quantity of the product with Product ID (PID) 1 will increase by `Amount to increae`
+   - Do note that `Amount to increase` must be less than INT_MAX.  <br><br>
+   
+   Test case 2: `inflow 1 a/Amount to increase` 
+   Expected: `Integer input exceeds largest integer allowed. Max integer is 2147483647` will be printed out.
+
+### Decrease Product Quantity
+1. Prerequisites: List all products using `list` command. There should be a particular product with `pid` 1 and `pid` 2. 
+The product with `pid` 1 should have quantity 30 and `pid` 2 should have quantity 100.  <br><br>
+
+2. Test case 1 : `outflow 1 a/20` 
+   Expected: `Warning! This product is low in quantity.
+   Quantity updated. Quantity: 10`  <br><br>
+
+   Test case 2: `outflow 2 a/20`
+   Expected: `Quantity updated. Quantity: 80` will be printed out.
+
+
+### Deleting a Product
 1. Prerequisites: List all products using `list` command. There should be a particular product with `pid` of 1 and no 
-product with `pid` of 2.
+product with `pid` of 2.  <br><br>
 
 2. Test case 1: `delete 1`. 
-   Expected: `product` with `pid` of 1 is deleted from the list. `"Product has been deleted"` is printed to the user.
+   Expected: `product` with `pid` of 1 is deleted from the list. `"Product has been deleted"` is printed to the user. <br><br>
 
    Test case 2: `delete 2`.
    Expected: `"Product with pid: 2 not found"`
 
 
 ### Finding a keyword in the Product list 
-1. No prerequisites needed.
+1. No prerequisites needed.  <br><br>
 
-2. Test case: `find Cor`<br>
+2. Test case: `find Cor`
    Expected: A list of products will be printed out if there is a match, 
    otherwise `No match found.` will be printed out. 
 
 
 ### Finding all past transactions for a particular product in the Product list
-1. Prerequisites: List all products using `list` command. There should be at least multiple products in the list.
+1. Prerequisites: List all products using `list` command. There should be at least multiple products in the list.  <br><br>
 
-2. Test case: `history 1`<br>
+2. Test case: `history 1`
    Expected:
    A list of transactions will be printed out if there is a match,
    otherwise `No match found.` will be printed out.
