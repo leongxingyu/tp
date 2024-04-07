@@ -356,11 +356,11 @@ intuitive command-line commands, saving time and improving efficiency.
 ### Adding a Product
 1. No prerequisites needed. <br><br>
 
-2. Test case: `new n/Drinking Cup q/20`
+2. Test case 1: `new n/Drinking Cup q/20`
    Expected: The product will be added. Name of the product is `Drinking Cup`, 
    Quantity of chocolate Milk stock is `20` units. <br><br>
 
-3. Test case: `new n/Chocolate Milk q/100 p/2.00 d/Marigold HL Milk`
+   Test case 2: `new n/Chocolate Milk q/100 p/2.00 d/Marigold HL Milk`
    Expected: The product will be added. Name of the product is `Chocolate Milk`,
    Quantity of chocolate Milk stock is `100 ` units
    Price of each unit is $`2.00`
@@ -369,22 +369,23 @@ intuitive command-line commands, saving time and improving efficiency.
 ### Editing Product Details
 1. Prerequisites: List all products using `list` command. There should be at least multiple products in the list. <br><br>
 
-2. Test case: `edit 1 n/Updated name d/Updated description` 
+2. Test case 1: `edit 1 n/Updated name d/Updated description` 
    Expected: The name and description of the product with Product ID (PID) 1 
    will be changed to `Updated name` and `Updated description` respectively. <br><br>
 
-3. Test case: `edit 1 q/100 p/0.99`
+   Test case 2: `edit 1 q/100 p/0.99`
    Expected: The quantity and price of the product with Product ID (PID) 1
    will be changed to `100` and `0.99` respectively.
 
 ### Increase Product Quantity
-1. Prerequisites: List all products using `list` command. There should be a particular product with `pid` 1.  <br><br>
+1. Prerequisites: List all products using `list` command. There should be a particular product with `pid` 1 and `pid` 2.  
+   The product with `pid` 1 should have quantity 30 and `pid` 2 should have quantity 100. <br><br>
 
-2. Test case 1 : `inflow 1 a/Amount to increase`
-   Expected: The quantity of the product with Product ID (PID) 1 will increase by `Amount to increase`
-    - Do note that `Amount to increase` must be less than INT_MAX.  <br><br>
+2. Test case 1 : `inflow 1 a/20`
+   Expected: The quantity of the product with Product ID (PID) 1 will increase by 20.
+    - Do note that the Amount to increase must be less than INT_MAX.  <br><br>
 
-   Test case 2: `inflow 1 a/Amount to increase`
+   Test case 2: `inflow 1 a/2147483650`
    Expected: `Integer input exceeds largest integer allowed. Max integer is 2147483647` will be printed out.
 
 ### Decrease Product Quantity
@@ -393,7 +394,7 @@ intuitive command-line commands, saving time and improving efficiency.
 
 2. Test case 1 : `outflow 1 a/20`
    Expected: `Warning! This product is low in quantity.
-   Quantity updated. Quantity: 10`  <br><br>
+              Quantity updated. Quantity: 10`  <br><br>
 
    Test case 2: `outflow 2 a/20`
    Expected: `Quantity updated. Quantity: 80` will be printed out.
