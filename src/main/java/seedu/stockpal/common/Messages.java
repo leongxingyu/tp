@@ -67,4 +67,6 @@ public class Messages {
     public static final String LOG_PRINT_HELP_PAGE = "Help page has been printed.";
     public static final String MESSAGE_HISTORY = "History command has ran.";
     public static final String MESSAGE_FIND = "Find command has ran.";
+
+    public static final String DUPLICATE_MESSAGE = "Duplicate item.";
 }

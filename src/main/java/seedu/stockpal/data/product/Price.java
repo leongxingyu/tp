@@ -1,6 +1,6 @@
 package seedu.stockpal.data.product;
 
-import seedu.stockpal.common.CommandParameter;
+import seedu.stockpal.data.CommandParameter;
 
 public class Price implements CommandParameter {
     private static final String EMPTY_STRING = "";

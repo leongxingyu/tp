@@ -10,7 +10,7 @@ Package " "<<Rectangle>>{
     Class UI UI_COLOR
     Class Parser PARSER_COLOR
     Class Storage STORAGE_COLOR
-    Class Commands COMMANDS_COLOR
+    Class Command COMMANDS_COLOR
     Class StockPal STOCKPAL_COLOR
     Class Common COMMON_COLOR
 }
@@ -19,16 +19,15 @@ Class "<$user>" as User COMMANDS_COLOR_T2
 Class "<$documents>" as File UI_COLOR_T1
 
 
-UI -[#green]> Parser
-Parser -down[#blue]-> Commands
-StockPal -up[#grey]-> UI
-StockPal <-[#skyblue]-> Parser
-StockPal -[#grey]-> Storage
-StockPal -up[#grey]-> Commands
-StockPal -left[hidden]> Common
-Commands -[COMMANDS_COLOR]> UI
+UI -right[UI_COLOR]-> StockPal
+StockPal -down[STOCKPAL_COLOR]-> Command
+StockPal -right[STOCKPAL_COLOR]-> Parser
+Parser .up[PARSER_COLOR]-> StockPal
+Parser -right[hidden]-> Command
+Command .down[hidden]-> Parser
+Command -[COMMANDS_COLOR]> Data
+StockPal -right[STOCKPAL_COLOR]-> Storage
 Exceptions -up[hidden]-> Common
-Commands -left[COMMANDS_COLOR]> Data
 
 Storage .right[STORAGE_COLOR].>File
 User ..> UI

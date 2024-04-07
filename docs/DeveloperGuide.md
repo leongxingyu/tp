@@ -7,14 +7,14 @@ title: Developer Guide
     * [Architecture](#architecture)
     * [UI component](#ui-component)
     * [Parser component](#parser-component)
-    * [Commands component](#commands-component)
+    * [Command component](#command-component)
     * [Data component](#data-component)
     * [Storage component](#storage-component)
     * [Common classes](#common-classes)
     * [Exception classes](#exception-classes)
   * [**Implementation**](#implementation)
+    * [Command feature](#command-feature)
     * [Add product feature](#add-product-feature)
-      * [Class diagram of NewCommand:](#class-diagram-of-newcommand)
     * [Edit product feature](#edit-product-feature)
       * [Implementation](#implementation-1)
     * [List feature](#list-feature)
@@ -23,9 +23,7 @@ title: Developer Guide
     * [Delete product feature](#delete-product-feature)
       * [Implementation](#implementation-2)
     * [Find product feature](#find-product-feature)
-      * [Class diagram of FindCommand:](#class-diagram-of-findcommand)
     * [History product feature](#history-product-feature)
-      * [Class diagram of HistoryCommand:](#class-diagram-of-historycommand)
   * [**Appendix: Requirements**](#appendix-requirements)
     * [Product scope](#product-scope)
   * [User Stories](#user-stories)
@@ -45,18 +43,19 @@ title: Developer Guide
 
 Third-party libraries:
 * [OpenCSV](https://opencsv.sourceforge.net/) - This package is licensed under [Apache2](https://opencsv.sourceforge.net/licenses.html), which is a business-friendly open-source software license.
+* [JSON-Java](https://github.com/stleary/JSON-java) - This package is licensed under [Public Domain](https://creativecommons.org/public-domain/), which is free to be used by anyone.
 
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Design**
 
-<div markdown="span" class="alert alert-primary">
-:bulb: **Tip:** The `.puml` files used to create diagrams in this document `docs/diagrams` folder. Refer to the [_PlantUML Tutorial_ at se-edu/guides](https://se-education.org/guides/tutorials/plantUml.html) to learn how to create and edit diagrams.
+<div style="padding: 15px; border: 1px solid transparent; margin-bottom: 20px; border-radius: 4px; color: #8a6d3b; background-color: #fcf8e3;">
+:bulb: <strong>Tip:</strong> The <code>.puml</code> files used to create diagrams in this document are in the <code>docs/diagrams</code> folder. Refer to the <a href="https://se-education.org/guides/tutorials/plantUml.html" target="_blank"><i>PlantUML Tutorial</i> at se-edu/guides</a> to learn how to create and edit diagrams.
 </div>
 
 ### Architecture
-<img src="images/ArchitectureDiagram.png" alt=""/>
+![Architecture Diagram](images/ArchitectureDiagram.png)
 
 The ***Architecture Diagram*** given above explains the high-level design of the App.
 
@@ -70,7 +69,7 @@ The bulk of the app's work is done by the following five components:
 
 * [**`UI`**](#ui-component): The UI of the App.
 * [**`Parser`**](#parser-component): Parses user input into respective commands.
-* [**`Commands`**](#commands-component): The command executor.
+* [**`Command`**](#command-component): The command executor.
 * [**`Data`**](#data-component): Holds the data of the App in memory.
 * [**`Storage`**](#storage-component): Reads data from, and writes data to, the hard disk.
 
@@ -81,7 +80,7 @@ The bulk of the app's work is done by the following five components:
 
 The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
 
-<img src="images/ArchitectureSequenceDiagram.png" alt=""/>
+![Architecture Sequence Diagram](images/ArchitectureSequenceDiagram.png)
 
 The sections below give more details of each component.
 
@@ -89,6 +88,11 @@ The sections below give more details of each component.
 The **API** of this component is specified in [`Ui.java`](https://github.com/AY2324S2-CS2113T-T09-3/tp/tree/master/src/main/java/seedu/stockpal/ui/Ui.java)
 
 ![Structure of the UI Component](images/UiClassDiagram.png)
+
+The UI component,
+* gets user input from the user, and returns it to `StockPal` component for parsing and execution of respective commands.
+* waits on the `Command` component as the commands will be calling the UI to print messages.
+* depends on the `Command` component, as it is required by the respective commands to output specified messages.
 
 ### Parser component
 
@@ -107,24 +111,32 @@ Exceptions are thrown when the fields do not pass their respective type checks.
 For example, a `delete` command will cause `Parser` to create a new instance of `DeleteCommand(pid)`.
 6. The created command object is returned back to `main` function for further processing.
 
-### Commands component
+### Command component
 
 **API** : [`Command.java`](https://github.com/AY2324S2-CS2113T-T09-3/tp/blob/master/src/main/java/seedu/stockpal/commands/Command.java)
 
+![Structure of the Command Component](images/CommandClassDiagram.png)
 
-![Structure of the Commands Component](images/CommandsClassDiagram.png)
+How the `Command` component works:
+1. `Parser` first creates the respective `Command` after parsing user input. Then, the `Command` is passed to `StockPal`, awaiting execution.
+2. `StockPal` then executes the respective `Command`.
+3. After execution, be it successful or unsuccessful, `Command` calls on the `UI` component to output the results to screen.
 
 ### Data component
 
 **API** : [`Data`](https://github.com/AY2324S2-CS2113T-T09-3/tp/blob/master/src/main/java/seedu/stockpal/data)
 
-The following is a class diagram of the `data` component.
+The following is a class diagram of the `Data` component.
+
 ![Structure of the Data Component](images/DataClassDiagram.png)
 
+The `Data` component,
+* stores StockPal's data i.e., all `Product` objects (which are contained in a `ProductList` object) and all `Transaction` objects (which are contained in a `TransactionList` object).
+* does not depend on any of the other components (as the `Data` represents data entities of the domain, they should make sense on their own without depending on other components).
 
 ### Storage component
 
-**API** : [`Storage.java`](https://github.com/AY2324S2-CS2113T-T09-3/tp/blob/master/src/main/java/seedu/stockpal/storage/Storage.java)
+**API** : [`Storage`](https://github.com/AY2324S2-CS2113T-T09-3/tp/blob/master/src/main/java/seedu/stockpal/storage/)
 
 ![Structure of the Storage Component](images/StorageClassDiagram.png)
 
@@ -132,69 +144,66 @@ The `Storage` component,
 * can save product list data in CSV format, and load them back into corresponding Products.
 * depends on the `StockPal` component (because the `Storage` component's job is to save/load objects that belong to `StockPal`)
 * consists of the classes `Storage`, `CsvWriter` and `CsvReader`.
-  * `Storage` defines methods that loads and saves data.
-  * `CsvWriter` is responsible for handling the writing of data to the CSV data file.
-  * `CsvReader` is responsible for handling the reading of data from the CSV data file.
+  * `Storage` defines methods that loads and saves product data.
+  * `CsvWriter` is responsible for handling the writing of product data to the CSV data file.
+  * `CsvReader` is responsible for handling the reading of product data from the CSV data file.
 
-### Common classes
+In addition to saving products, the `Storage` component has a subcomponent `TransactionStorage`, which
+* can save transaction list data in JSON format, and load them back into corresponding Transactions.
+* also depends on the `StockPal` component
+* consists of the `TransactionStorage`, `JsonWriter` and `JsonReader`.
+    * `TransactionStorage` defines methods that loads and saves transaction data.
+    * `JsonWriter` is responsible for handling the writing of transaction data to the JSON data file.
+    * `JsonReader` is responsible for handling the reading of transaction data from the JSON data file.
+
+### Common Classes
 
 Classes used by multiple components are in the `seedu.stockpal.common` package.
+The `common` package consists of 2 useful utility classes that are mainly used for printing of output to screen, as well as output messages.
 
-### Exception classes
+### Exception Classes
 
 Exceptions classes used by multiple components are in the `seedu.stockpal.exceptions` package.
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Implementation**
-
 This section describes some noteworthy details on how certain features are implemented.
 
-### Add product feature
+### Command Feature
+The following sequence diagram summarizes what happens when a user inputs a valid command.
+<img src="images/CommandSequenceDiagram.png" alt="images/CommandSequenceDiagram.png"/>
+
+
+Validation of the user input is done in `Parser`, hence `XYZCommand` assumes that all fields provided upon creation
+of a `XYZCommand` object are properly formatted.
+
+### Add Product Feature
 
 The NewCommand class is responsible for adding a new product to the inventory in the StockPal application.
 
-#### Class diagram of NewCommand:
-<img src="images/AddCommandClass.png" alt=""/>
+The add product feature is facilitated by `NewCommand` which extends `Command`.
 
+Specific validations are still carried out within `NewCommand`.
+1. Checking if the edited product name is the same as an existing product name
 
-**Attributes**
-* name: The name of the product.
-* quantity: The initial quantity of the product.
-* price: The price of the product.
-* description: The description of the product.
-
-**Methods**
-* `NewCommand`: Constructor for creating a new instance of the NewCommand class.
-* `execute`: Method to add the new product to the product list.
-* `createProduct`: Method to create a new product with a unique product ID.
-
-The following sequence diagram shows how an add operation works when the user inputs a valid `add` command:
-<img src="images/AddCommandSequence.png" alt="AddCommandSequence.png"/>
+Once all validation is completed, adding of product is done by calling `ProductList#addProduct()`.
 
 The following sequence diagram details how `AddCommand#execute()` functions.
+
 <img src="images/AddCommandExecuteSequenceDiagram.png" alt="AddCommandExecuteSequenceDiagram.png"/>
 
 
-### Edit product feature
+### Edit Product Feature
 #### Implementation
 The `edit` command is used to edit product details such as name, quantity, price and description.
 
 The edit product feature is facilitated by `EditCommand` which extends `Command`.
 
-The following sequence diagram summarizes what happens when a user inputs a valid `edit` command.
-<img src="images/EditCommandSequenceDiagram.png" alt="EditCommandSequenceDiagram.png"/>
-
-> INFO:
-> The lifeline for EditCommand should end at the destroy marker (X) but due to a limitation of PlantUML, 
-> the lifeline reaches the end of diagram.
-
-Validation of the user input is done in `Parser`, hence `EditCommand` assumes that all fields provided upon creation
-of a `EditCommand` object are properly formatted.
-
-Validation for other criteria are still carried out within `EditCommand`.
+Specific validations are still carried out within `EditCommand`.
 1. Checking if at least 1 field (name, quantity, price or description) is provided.
 2. Checking if the product ID (PID) belongs to an existing product.
+3. Checking if the edited product name is the same as an existing product name
 
 Once all validation is completed, updating of product details is done by calling `ProductList#updateProduct()`.
 
@@ -211,7 +220,7 @@ The following sequence diagram details how `EditCommand#execute()` functions.
     - Pros: Implementing `EditCommand#execute()` will be very simple. Usage of throw/catch to handle errors.
     - Cons: `productList#updateProduct()` will be more lengthy. May require further abstraction.
 
-### List feature
+### List Feature
 The ListCommand class is responsible for sorting and printing out the products in the list. 
 
 **Attributes**
@@ -222,80 +231,46 @@ The ListCommand class is responsible for sorting and printing out the products i
 * `execute`: Method to list out the products in the product list.
 * `sortListAccordingly`: Method to sort the list according to the products' PID, products' name or products' quantity.
 
-The following sequence diagram shows how a list operation works, by calling `list`.
-<img src="images/ListCommandSequence.png" alt=""/>
 
 ### InflowCommand Feature
-
-**API** : [`InflowCommand.java`](https://github.com/AY2324S2-CS2113T-T09-3/tp/blob/master/src/main/java/seedu/stockpal/commands/InflowCommand.java)
 
 The `InflowCommand` class is used to increase the quantity of a specific product in the inventory.
 This could represent scenarios like receiving new stock and updating inventory with new quantities.
 
-![Structure of the Storage Component](images/InflowCommandClass.png)
+### Implementation
+The inflow product feature is facilitated by `InflowCommand` which extends `Command`.
 
-**Implementation of InflowCommand**
+Specific validations are still carried out within the `InflowCommand`.
+1. Checking if the product ID (PID) belongs to an existing product.
+2. Checking if the addition of inflow quantity and existing quantity will result in an integer overflow.
 
-The InflowCommand class is called in this format: `InflowCommand(pid, amountToIncrease)`
-When the InflowCommand is called, a new instance of the InflowCommand initialised with pid and
-amountToIncrease would be created.
+Once all validations are completed, increasing a product quantity is done by calling `ProductList#increaseAmountCaller()`.
 
-The execute method will call `increaseAmount` which is a method of the ProductList class.
-In the ProductList class, the `increaseAmount` method will call a `updatedIncreaseQuantity`
-method in the quantity class.
-
-It is implemented this way to adhere to Single Responsibility Principle (SRP), such that the
-ProductList class will only handle the product involved in quantity increase, whereas the
-Quantity class will be responsible for updating the quantities.
-
-**Attributes**
-* pid: The unique Product ID for each product
-* quantity: The amount of quantity to increase product by
-
-**Methods**
-* `InflowCommand`: Constructor for creating a new instance of the InflowCommand class.
-* `execute`: Method to increase quantity of the specified product.
-  * `execute` calls `increaseAmount` in the ProductList class.
-  * `increaseAmount` will call `updateIncreaseQuantity` in the Quantity class.
-
-The following sequence diagram shows how the InflowCommand works.
+The following sequence diagram shows how the InflowCommand works. <br><br>
 ![InflowCommand Class](images/InflowCommandSequence.png)
 
-### OutflowCommand Feature
 
-**API** : [`OutflowCommand.java`](https://github.com/AY2324S2-CS2113T-T09-3/tp/blob/master/src/main/java/seedu/stockpal/commands/OutflowCommand.java)
+
+### OutflowCommand Feature
 
 The `OutflowCommand` class is used to decrease the quantity of a specific product in the inventory.
 This could represent scenarios like selling products and updating inventory with new updated quantities.
 
+### Implementation
+The outflow product feature is facilitated by `OutflowCommand` which extends `Command`.
+
+Specific validations are still carried out within the `OutflowCommand`.
+1. Checking if the product ID (PID) belongs to an existing product.
+2. Checking if the outflow quantity is larger than the existing quantity.
+
+Once all validations are completed, decreasing a product quantity is done by calling `ProductList#decreaseAmountCaller()`.
+
+The following sequence diagram shows how the InflowCommand works. <br><br>
 ![OutflowCommand Class](images/OutflowCommandSequence.png)
 
-**Implementation of OutflowCommand**
 
-The OutflowCommand class is called in this format: `OutflowCommand(pid, amountToDecrease)`
-When the OutflowCommand is called, similar to the InflowCommand class, a new instance of the
-OutflowCommand initialised with pid and amountToDecrease would be created.
 
-The execute method will call `decreaseAmount` which is a method of the ProductList class.
-In the ProductList class, the `decreaseAmount` method will call a `updatedDecreaseQuantity`
-method in the quantity class.
 
-It is implemented this way to adhere to Single Responsibility Principle (SRP), such that the
-ProductList class will only handle the product involved in quantity increase, whereas the
-Quantity class will be responsible for updating the quantities.
-
-**Attributes**
-* pid: The unique Product ID for each product
-* quantity: The amount of quantity to decrease product by
-
-**Methods**
-* `OutflowCommand`: Constructor for creating a new instance of the InflowCommand class.
-* `execute`: Method to increase quantity of the specified product.
-  * `execute` calls `decreaseAmount` in the ProductList class.
-  * `decreaseAmount` in ProductList class will call `updateDecreaseQuantity` in the Quantity class.
-
-The following sequence diagram shows how the OutflowCommand works.
-![OutflowCommand Class](images/OutflowCommandSequence.png)
 
 ### Delete product feature
 
@@ -316,28 +291,13 @@ user has a `product` with `pid` of 2 in `StockPal`'s `productList`.
 Step 1. The user executes `delete 2` command to delete a specific `product` with `pid` of 2.
 Step 2. The product is successfully deleted from the inventory list.
 
-The following sequence diagram summarizes what happens when a user inputs a valid `delete` command.
 
-<img src="images/DeleteCommandSequence.png" alt=""/>
 
 ### Find product feature
 
 The FindCommand class is responsible for finding a new product to the inventory in the StockPal application.
 
-#### Class diagram of FindCommand:
-<img src="images/FindCommandClass.png" alt=""/>
 
-
-**Attributes**
-* keyword: The name of the product to look for.
-
-**Methods**
-* `FindCommand`: Constructor for creating a new instance of the FindCommand class.
-* `execute`: Method to find the keyword in the productList
-
-
-The following sequence diagram shows how a find operation works when the user inputs a valid `find` command:
-<img src="images/FindCommandSequence.png" alt="FindCommandSequence.png"/>
 
 The following sequence diagram details how `FindCommand#execute()` functions.
 <img src="images/FindCommandExecuteSequenceDiagram.png" alt="FindCommandExecuteSequenceDiagram.png"/>
@@ -347,21 +307,6 @@ The following sequence diagram details how `FindCommand#execute()` functions.
 
 The HistoryCommand class is responsible for finding any inflows or outflows for a particular
 PID in the StockPal application.
-
-#### Class diagram of HistoryCommand:
-<img src="images/HistoryCommandClass.png" alt=""/>
-
-
-**Attributes**
-* pid: The pid of the product to look for.
-
-**Methods**
-* `HistoryCommand`: Constructor for creating a new instance of the HistoryCommand class.
-* `execute`: Method to find the list of transactions for the particular pid
-
-
-The following sequence diagram shows how a find operation works when the user inputs a valid `history` command:
-<img src="images/HistoryCommandSequence.png" alt="HistoryCommandSequence.png"/>
 
 The following sequence diagram details how `HistoryCommand#execute()` functions.
 <img src="images/HistoryCommandExecuteSequenceDiagram.png" alt="HistoryCommandExecuteSequenceDiagram.png"/>
@@ -383,16 +328,17 @@ intuitive command-line commands, saving time and improving efficiency.
 
 ## User Stories
 
-| Version | As a ... | I want to ...                                  | So that I can ...                                                                             |
-|---------|----------|------------------------------------------------|-----------------------------------------------------------------------------------------------|
-| v1.0    | new user | see usage instructions                         | refer to them when I forget how to use the application                                        |
-| v1.0    | new user | add details of products easily                 | track my products' stock                                                                      |
-| v1.0    | new user | entered data to be saved                       | track all the products that I have entered                                                    |
-| v1.0    | user     | be able to edit details of the products easily | easily change the name / price / quantity /description of the products, if there is an error  |
-| v1.0    | user     | have a small manual page                       | be aware of the commands that I can enter                                                     |
-| v2.0    | user     | view at past inflow/outflows of a product      | keep track of sales data of the product and know which products are of higher demand          |
-| v2.0    | user     | find products' name that contain the keyword   | find my product, or want to get the product's PID in a long list of products                  |
-| v2.0    | user     | find my products' past transactions            | keep track of the changes in my products' quantity                                            |
+| Version | As a ...                              | I want to ...                                     | So that I can ...                                                                            |
+|---------|---------------------------------------|---------------------------------------------------|----------------------------------------------------------------------------------------------|
+| v1.0    | beginner user                         | have a small manual page                          | aware of the commands that I can enter                                                       |
+| v1.0    | forgetful user of StockPal            | see usage instructions                            | refer to them when I forget how to use the application                                       |
+| v1.0    | small business owner                  | add details of products easily                    | track my products' stock                                                                     |
+| v1.0    | user that makes mistakes              | be able to edit details of the products easily    | easily change the name / price / quantity /description of the products, if there is an error |
+| v1.0    | continuous user of StockPal           | have my entered data to be saved                  | track all the products that I have entered from past uses of the app                         |
+| v2.0    | business owner                        | view at past inflow/outflows of a product         | keep track of sales data of the product and know which products are of higher demand         |
+| v2.0    | user that owns a lot of products      | find products' name that contain the keyword      | find my product, or want to get the product's PID in a long list of products                 |
+| v2.0    | business owner doing a sales analysis | find my products' past transactions               | keep track of the changes in my products' quantity                                           |
+| v2.0    | business owner that is forgetful      | have a warning when my products have low quantity | restock them before they go out of stock.                                                    |
 
 ## Non-Functional Requirements
 
@@ -408,42 +354,64 @@ intuitive command-line commands, saving time and improving efficiency.
 ## **Appendix: Instructions for manual testing**
 
 ### Adding a Product
-1. No prerequisites needed.
+1. No prerequisites needed. <br><br>
 
-2. Test case: `new n/Drinking Cup q/20`<br>
+2. Test case 1: `new n/Drinking Cup q/20`
    Expected: The product will be added. Name of the product is `Drinking Cup`, 
-   Quantity of chocolate Milk stock is `20` units.
+   Quantity of chocolate Milk stock is `20` units. <br><br>
 
-3. Test case: `new n/Chocolate Milk q/100 p/2.00 d/Marigold HL Milk`<br>
+   Test case 2: `new n/Chocolate Milk q/100 p/2.00 d/Marigold HL Milk`
    Expected: The product will be added. Name of the product is `Chocolate Milk`,
    Quantity of chocolate Milk stock is `100 ` units
    Price of each unit is $`2.00`
    Description of the Chocolate Milk product is `Marigold HL Milk`, which is the brand.
 
 ### Editing Product Details
-1. Prerequisites: List all products using `list` command. There should be at least multiple products in the list.
+1. Prerequisites: List all products using `list` command. There should be at least multiple products in the list. <br><br>
 
-2. Test case: `edit 1 n/Updated name d/Updated description`<br> 
+2. Test case 1: `edit 1 n/Updated name d/Updated description` 
    Expected: The name and description of the product with Product ID (PID) 1 
-   will be changed to `Updated name` and `Updated description` respectively.
+   will be changed to `Updated name` and `Updated description` respectively. <br><br>
 
-3. Test case: `edit 1 q/100 p/0.99`<br>
+   Test case 2: `edit 1 q/100 p/0.99`
    Expected: The quantity and price of the product with Product ID (PID) 1
    will be changed to `100` and `0.99` respectively.
 
+### Increase Product Quantity
+1. Prerequisites: List all products using `list` command. There should be a particular product with `pid` 1 and `pid` 2.  
+   The product with `pid` 1 should have quantity 30 and `pid` 2 should have quantity 100. <br><br>
+
+2. Test case 1 : `inflow 1 a/20`
+   Expected: The quantity of the product with Product ID (PID) 1 will increase by 20.
+    - Do note that the Amount to increase must be less than INT_MAX.  <br><br>
+
+   Test case 2: `inflow 1 a/2147483650`
+   Expected: `Integer input exceeds largest integer allowed. Max integer is 2147483647` will be printed out.
+
+### Decrease Product Quantity
+1. Prerequisites: List all products using `list` command. There should be a particular product with `pid` 1 and `pid` 2.
+   The product with `pid` 1 should have quantity 30 and `pid` 2 should have quantity 100.  <br><br>
+
+2. Test case 1 : `outflow 1 a/20`
+   Expected: `Warning! This product is low in quantity.
+              Quantity updated. Quantity: 10`  <br><br>
+
+   Test case 2: `outflow 2 a/20`
+   Expected: `Quantity updated. Quantity: 80` will be printed out.
+
 ### Deleting a product
 1. Prerequisites: List all products using `list` command. There should be a particular product with `pid` of 1 and no 
-product with `pid` of 2.
+product with `pid` of 2. <br><br>
 
 2. Test case 1: `delete 1`. 
-   Expected: `product` with `pid` of 1 is deleted from the list. `"Product has been deleted"` is printed to the user.
+   Expected: `product` with `pid` of 1 is deleted from the list. `"Product has been deleted"` is printed to the user. <br><br>
 
    Test case 2: `delete 2`.
    Expected: `"Product with pid: 2 not found"`
 
 
 ### Finding a keyword in the Product list 
-1. No prerequisites needed.
+1. No prerequisites needed. <br><br>
 
 2. Test case: `find Cor`<br>
    Expected: A list of products will be printed out if there is a match, 
@@ -451,7 +419,7 @@ product with `pid` of 2.
 
 
 ### Finding all past transactions for a particular product in the Product list
-1. Prerequisites: List all products using `list` command. There should be at least multiple products in the list.
+1. Prerequisites: List all products using `list` command. There should be at least multiple products in the list. <br><br>
 
 2. Test case: `history 1`<br>
    Expected:

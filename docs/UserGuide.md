@@ -128,11 +128,11 @@ JSON (JavaScript Object Notation) - a file format for storing and transporting d
 </div>
 
 <!--- @@author Kobot7 --->
-## Viewing help: `help`
+## Viewing Help: `help`
 
 Provides command details for all or specific commands.
 
-### When to use?
+### When to Use?
 This is a useful command to start with if you are new to StockPal!
 
 Format: `help [COMMAND]`
@@ -166,11 +166,11 @@ INCREMENT_AMOUNT      Quantity of product to add
 <div style="page-break-after: always;"></div>
 
 <!--- @@author EdmundTangg --->
-## Adding a new product: `new`
+## Adding a New Product: `new`
 
 Creates a new product to the inventory and assigns a unique Product ID (PID) to it.
 
-### When to use?
+### When to Use?
 
 When starting as a new user of StockPal, use this command repeatedly to fill up your inventory to start tracking!
 Subsequently, when your business introduces new products, use this command to add them in too!
@@ -232,7 +232,7 @@ This command adds your product to the inventory. The product’s details are as 
 <div style="page-break-after: always;"></div>
 
 <!--- @@author wjunjie01 --->
-## Listing all products: `list`
+## Listing All Products: `list`
 Lists all products in inventory.
 
 Format: `list [-sn] [-sq]`
@@ -292,7 +292,7 @@ Description: A bunch of bananas.
 <div style="page-break-after: always;"></div>
 
 <!--- @@author Kobot7 --->
-## Editing product details: `edit`
+## Editing Product Details: `edit`
 
 Edits an existing product in the inventory at the specific PID by the input value(s).
 
@@ -314,12 +314,12 @@ edit PID [n/PRODUCT_NAME] [q/QUANTITY] [p/PRICE] [d/DESCRIPTION]
 
 <div style="padding: 15px; border: 1px solid transparent; margin-bottom: 20px; border-radius: 4px; color: #8a6d3b; background-color: #fcf8e3;">
 :bulb: <strong>Tip:</strong> If you are looking to increase or decrease the amount of stock of a particular product,
-use <a href="https://ay2324s2-cs2113t-t09-3.github.io/tp/UserGuide.html#increasing-a-product-quantity-inflow">inflow</a>
-or <a href="https://ay2324s2-cs2113t-t09-3.github.io/tp/UserGuide.html#decreasing-a-product-quantity-outflow">outflow</a> instead.
+use <code><a href="https://ay2324s2-cs2113t-t09-3.github.io/tp/UserGuide.html#increasing-a-product-quantity-inflow">inflow</a></code>
+or <code><a href="https://ay2324s2-cs2113t-t09-3.github.io/tp/UserGuide.html#decreasing-a-product-quantity-outflow">outflow</a></code> instead.
 
-It is strongly not recommended to use `edit` for incoming or outgoing stocks. Unlike `inflow` and `outflow`, the change
-in product quantity using the `edit` feature <i>will not be tracked</i> and hence will not appear under
-<a href="https://ay2324s2-cs2113t-t09-3.github.io/tp/UserGuide.html#viewing-past-inflow--outflow-of-existing-product-history">history</a>.
+It is strongly <strong>not recommended</strong> to use <code>edit</code> for incoming or outgoing stocks. Unlike <code>inflow</code> and <code>outflow</code>, the change
+in product quantity using the <code>edit</code> feature <i>will not be tracked</i> and hence will not appear under
+<code><a href="https://ay2324s2-cs2113t-t09-3.github.io/tp/UserGuide.html#viewing-past-inflow--outflow-of-existing-product-history">history</a></code>.
 
 </div>
 
@@ -366,15 +366,15 @@ Product details have been updated.
 <div style="page-break-after: always;"></div>
 
 <!--- @@author cheeseong2001 --->
-## Deleting a product and its details: `delete`
+## Deleting a Product and its Details: `delete`
 
 Deletes an existing product from the inventory.
 
 Format: `delete PID`
 
-| Parameter      | Representation                               | Constraints                                                                             |
-|----------------|----------------------------------------------|-----------------------------------------------------------------------------------------|
-| `PID`          | Product ID of the existing product           | Must be a valid Product ID of an existing product                                       |
+| Parameter | Representation                     | Constraints                                       |
+|-----------|------------------------------------|---------------------------------------------------|
+| `PID`     | Product ID of the existing product | Must be a valid Product ID of an existing product |
 
 
 ### Example 1
@@ -400,7 +400,7 @@ Output:
 <div style="page-break-after: always;"></div>
 
 <!--- @@author leongxingyu --->
-## Increasing a product quantity: `inflow`
+## Increasing a Product Quantity: `inflow`
 
 Increase the quantity of an existing product in the inventory at the specific PID.
 
@@ -409,10 +409,10 @@ Format:
 inflow PID a/QUANTITY
 ```
 
-| Parameter  | Representation                           | Constraints                                       |
-|------------|------------------------------------------|---------------------------------------------------|
-| `PID`      | Product ID of the existing product       | Must be a valid Product ID of an existing product |
-| `QUANTITY` | New quantity of the product to be edited | Must be an integer more than or equals to 0       |
+| Parameter  | Representation                      | Constraints                                       |
+|------------|-------------------------------------|---------------------------------------------------|
+| `PID`      | Product ID of the existing product  | Must be a valid Product ID of an existing product |
+| `QUANTITY` | Quantity of the product to be added | Must be an integer more than or equals to 0       |
 
 <div style="padding: 15px; border: 1px solid transparent; margin-bottom: 20px; border-radius: 4px; color: #8a6d3b; background-color: #fcf8e3;">
 :bulb: <strong>Tip:</strong> Use this command instead of <a href="https://ay2324s2-cs2113t-t09-3.github.io/tp/UserGuide.html#editing-product-details-edit">edit</a> 
@@ -439,7 +439,7 @@ Explanation:
 The `inflow` command will update the quantity of the product by performing addition
 of the current quantity and the inflow quantity.
 
-## Decreasing a product quantity: `outflow`
+## Decreasing a Product Quantity: `outflow`
 
 Decrease the quantity of an existing product in the inventory at the specific PID.
 
@@ -448,10 +448,10 @@ Format:
 outflow PID a/QUANTITY
 ```
 
-| Parameter  | Representation                           | Constraints                                       |
-|------------|------------------------------------------|---------------------------------------------------|
-| `PID`      | Product ID of the existing product       | Must be a valid Product ID of an existing product |
-| `QUANTITY` | New quantity of the product to be edited | Must be an integer more than or equals to 0       |
+| Parameter  | Representation                        | Constraints                                       |
+|------------|---------------------------------------|---------------------------------------------------|
+| `PID`      | Product ID of the existing product    | Must be a valid Product ID of an existing product |
+| `QUANTITY` | Quantity of the product to be removed | Must be an integer more than or equals to 0       |
 
 <div style="padding: 15px; border: 1px solid transparent; margin-bottom: 20px; border-radius: 4px; color: #8a6d3b; background-color: #fcf8e3;">
 :bulb: <strong>Tip:</strong> Use this command instead of <a href="https://ay2324s2-cs2113t-t09-3.github.io/tp/UserGuide.html#editing-product-details-edit">edit</a> 
@@ -480,6 +480,12 @@ Quantity updated. Quantity: 10
 below quantity of 20. All low quantity products will be displayed when you exit the program.
 </div>
 
+<div style="padding: 15px; border: 1px solid transparent; margin-bottom: 20px; border-radius: 4px; color: #8a6d3b; background-color: #fcf8e3;">
+:bulb: <strong>Tip:</strong> Do note that if you added a new product with a quantity lower than the threshold
+quantity, warning will also be raised. 
+</div>
+
+
 ### Example 2
 Context:
 - Product `Highlighter`'s Product ID (PID) is 23.
@@ -506,9 +512,10 @@ of the outflow quantity from the current quantity.
 
 <div style="page-break-after: always;"></div>
 
-## Viewing past inflow / outflow of existing product: `history`
+<!--- @@author EdmundTangg --->
+## Viewing Past Inflow / Outflow of Existing Product: `history`
 
-### When to use?
+### When to Use?
 When you want to check on the previous inflow or outflow of a product, use this command!
 
 
@@ -563,7 +570,7 @@ Increase the quantity of the product by 40 on 18th March 2024, at 10:00:00 hours
 <div style="page-break-after: always;"></div>
 
 <!--- @@author EdmundTangg --->
-## Find a keyword in the product list: `find`
+## Find a Keyword in the Product List: `find`
 ### When to use?
 This is a useful command for when you want to know if there is already an existing product that matches your keyword. 
 Or when you just want to get the product’s PID in a long list of products.
@@ -659,12 +666,12 @@ passed to the Exit command.
 <div style="page-break-after: always;"></div>
 
 <!--- @@author NgYaoDong --->
-## Saving the data
+## Saving the Data
 
 StockPal data is saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
 
-## Editing the data file
+## Editing the Data File
 
 StockPal inventory data is saved automatically as a CSV file `[JAR file location]/data/inventory.csv`, while the past transactions data is saved automatically as a JSON file `[JAR file location]/data/transactions.json`. Advanced users are welcome to update data directly by editing these data files, even though it is **highly not recommended**.
 

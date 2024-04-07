@@ -1,6 +1,6 @@
 package seedu.stockpal.data.product;
 
-import seedu.stockpal.common.CommandParameter;
+import seedu.stockpal.data.CommandParameter;
 import seedu.stockpal.ui.Ui;
 
 public class Description implements CommandParameter {
