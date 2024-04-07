@@ -234,31 +234,17 @@ This could represent scenarios like receiving new stock and updating inventory w
 
 ![Structure of the Storage Component](images/InflowCommandClass.png)
 
-**Implementation of InflowCommand**
+The `InflowCommand` class is used to increase the quantity of a specific product in the inventory.
+This could represent scenarios like receiving more stocks and updating inventory with new inflow quantities.
 
-The InflowCommand class is called in this format: `InflowCommand(pid, amountToIncrease)`
-When the InflowCommand is called, a new instance of the InflowCommand initialised with pid and
-amountToIncrease would be created.
+The inflow product feature is facilitated by `InflowCommand` which extends `Command`.
 
-The execute method will call `increaseAmount` which is a method of the ProductList class.
-In the ProductList class, the `increaseAmount` method will call a `updatedIncreaseQuantity`
-method in the quantity class.
+Specific validations are still carried out within the `InflowCommand`.
+1. Checking if the addition of inflow quantity and existing quantity will result in an integer overflow.
 
-It is implemented this way to adhere to Single Responsibility Principle (SRP), such that the
-ProductList class will only handle the product involved in quantity increase, whereas the
-Quantity class will be responsible for updating the quantities.
+Once all validation are completed, increasing a product quantity is done by calling `ProductList#increaseAmountCaller()`.
 
-**Attributes**
-* pid: The unique Product ID for each product
-* quantity: The amount of quantity to increase product by
-
-**Methods**
-* `InflowCommand`: Constructor for creating a new instance of the InflowCommand class.
-* `execute`: Method to increase quantity of the specified product.
-  * `execute` calls `increaseAmount` in the ProductList class.
-  * `increaseAmount` will call `updateIncreaseQuantity` in the Quantity class.
-
-The following sequence diagram shows how the InflowCommand works.
+The following sequence diagram shows how the InflowCommand works. <br><br>
 ![InflowCommand Class](images/InflowCommandSequence.png)
 
 ### OutflowCommand Feature
@@ -275,7 +261,7 @@ Specific validations are still carried out within the `OutflowCommand`.
 
 Once all validation are completed, decreasing a product quantity is done by calling `ProductList#decreaseAmountCaller()`.
 
-The following sequence diagram shows how the OutflowCommand works.
+The following sequence diagram shows how the OutflowCommand works. <br><br>
 ![OutflowCommand Class](images/OutflowCommandSequence.png)
 
 ### Delete product feature
