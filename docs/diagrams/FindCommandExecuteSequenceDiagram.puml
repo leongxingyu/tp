@@ -6,15 +6,19 @@ Participant ":FindCommand" as command COMMANDS_COLOR
 Participant ":ProductList" as productlist PRODUCTLIST_COLOR
 Participant ":UI" as ui UI_COLOR
 
-activate command COMMANDS_COLOR
 -> command : execute()
+activate command COMMANDS_COLOR
 
 command -> productlist : findKeyword(productList, keyword)
 activate productlist PRODUCTLIST_COLOR
-productlist --> productlist: MatchingProductList
-
 
 productlist -> ui : printListTasks(MatchingProductList)
+activate ui UI_COLOR
+ui --[UI_COLOR]> productlist
+deactivate ui UI_COLOR
+
+
+productlist --[PRODUCTLIST_COLOR]> command
 deactivate productlist
 
 @enduml

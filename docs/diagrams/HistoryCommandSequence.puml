@@ -9,12 +9,13 @@ Participant ":Parser" as parser PARSER_COLOR
 Participant ":HistoryCommand" as command COMMANDS_COLOR
 Participant ":Storage" as storage STORAGE_COLOR
 
-activate stockpal STOCKPAL_COLOR
+
 
 user -[USER_COLOR]> ui : "history 1"
 activate ui UI_COLOR
 
 ui -[UI_COLOR]> stockpal : "history 1"
+activate stockpal STOCKPAL_COLOR
 
 stockpal -[STOCKPAL_COLOR]> parser : parseCommand("history 1")
 activate parser PARSER_COLOR

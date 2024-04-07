@@ -497,6 +497,7 @@ of the outflow quantity from the current quantity.
 
 <div style="page-break-after: always;"></div>
 
+<!--- @@author EdmundTangg --->
 ## Viewing past inflow / outflow of existing product: `history`
 
 ### When to use?

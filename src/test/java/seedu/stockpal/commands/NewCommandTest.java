@@ -3,10 +3,13 @@ package seedu.stockpal.commands;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import seedu.stockpal.data.ProductList;
+import seedu.stockpal.data.product.Pid;
 import seedu.stockpal.exceptions.StockPalException;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+
 
 //@@author EdmundTangg
 public class NewCommandTest {
@@ -59,6 +62,45 @@ public class NewCommandTest {
         assertEquals("strawberry", productList.products.get(1).getName().getName());
         assertEquals(2, productList.products.get(1).getPid().getPid());
     }
+
+
+
+    @Test
+    void newCommand_duplicateItems_expectExecptionThrown() throws StockPalException {
+        NewCommand userInput = new NewCommand("chocolate", 100,
+                2.00, "ingredient");
+        userInput.execute(productList);
+
+        NewCommand duplicateInput = new NewCommand("chocolate", 100,
+                3.00, "ingredients");
+        //duplicateInput.execute(productList);
+
+        assertThrows(StockPalException.class, () -> duplicateInput.execute(productList));
+
+    }
+    @Test
+    void newCommand_withProductsDeleted_expectCorrectPidAllocation() throws StockPalException {
+        NewCommand userInput = new NewCommand("chocolate", 100,
+                2.00, "ingredient");
+        userInput.execute(productList);
+
+        NewCommand userInput2 = new NewCommand("banana", 100,
+                2.00, "ingredient");
+        userInput2.execute(productList);
+
+        Pid pid = productList.getProducts().get(0).getPid();
+
+        productList.deleteProduct(pid);
+
+        NewCommand userInput3 = new NewCommand("watermelon", 100,
+                2.00, "ingredient");
+        userInput3.execute(productList);
+
+        assertEquals(3, productList.products.get(1).getPid().getPid());
+
+    }
 }
+
+
 
 
