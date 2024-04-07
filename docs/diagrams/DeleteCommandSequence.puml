@@ -2,55 +2,38 @@
 !include style.puml
 skinparam ArrowFontStyle plain
 
-Actor User as user USER_COLOR
-Participant ":UI" as ui UI_COLOR
-Participant ":StockPal" as stockpal STOCKPAL_COLOR
-Participant ":Parser" as parser PARSER_COLOR
 Participant ":DeleteCommand" as command COMMANDS_COLOR
-Participant ":Storage" as storage STORAGE_COLOR
+Participant ":ProductList" as productlist PRODUCTLIST_COLOR
+Participant ":UI" as ui UI_COLOR
+Participant ":TransactionList" as transactionlist TRANSACTIONLIST_COLOR
 
-activate stockpal STOCKPAL_COLOR
+activate command COMMANDS_COLOR
+-> command : execute()
 
-user -[USER_COLOR]> ui : "delete 2"
+command -> productlist : deleteProduct(PID)
+activate productlist PRODUCTLIST_COLOR
+productlist -> productlist : findProductIndex(PID)
+activate productlist PRODUCTLIST_COLOR
+productlist --> productlist : productIndex: int
+deactivate productlist
+
+productlist -> productlist : products.remove(productIndex)
+activate productlist PRODUCTLIST_COLOR
+productlist --> productlist
+deactivate productlist
+
+command -> transactionlist : deleteTransactions(PID)
+activate transactionlist TRANSACTIONLIST_COLOR
+transactionlist --> command
+deactivate transactionlist
+
+command -> ui : printDeleteSuccessMessage()
 activate ui UI_COLOR
+ui --> command
+deactivate ui
 
-ui -[UI_COLOR]> stockpal : "delete 2"
 
-stockpal -[STOCKPAL_COLOR]> parser : parseCommand("delete 2")
-activate parser PARSER_COLOR
-
-create command
-parser -[PARSER_COLOR]> command : new DeleteCommand(pid)
-activate command COMMANDS_COLOR
-parser <--[COMMANDS_COLOR] command
+<-- command
 deactivate command
 
-parser --[PARSER_COLOR]> stockpal : command : DeleteCommand
-deactivate parser
-
-stockpal -[STOCKPAL_COLOR]> command : execute()
-activate command COMMANDS_COLOR
-
-note over command
-    Delete product from productList
-end note
-
-command -[COMMANDS_COLOR]> ui : printDeleteSuccessMessage()
-user <-[UI_COLOR] ui : "Product has been deleted."
-ui [UI_COLOR]--> command
-stockpal <--[COMMANDS_COLOR] command
-deactivate command
-
-stockpal -[STOCKPAL_COLOR]> storage : saveData(productList)
-activate storage STORAGE_COLOR
-
-storage -[STORAGE_COLOR]> storage : Save to file
-activate storage STORAGE_COLOR
-storage --[STORAGE_COLOR]> storage
-deactivate storage
-
-storage --[STORAGE_COLOR]> stockpal
-deactivate storage
-
-destroy command
 @enduml

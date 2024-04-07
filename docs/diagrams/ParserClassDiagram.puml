@@ -1,46 +1,20 @@
 @startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam classBackgroundColor UI_COLOR
 
-hide circles
-skinparam classAttributeIconSize 0
-
-class Parser {
-    + parseInput(input: String)
-    - parseInteger(intString: String)
-    - parsePrice(priceString: String)
-    - validatePrice(input: String)
-    - validatePid(input: String)
-    - validateAmount(input: String)
-    - validateQuantity(input: String)
-    - validateString(input: String)
-    - createExitCommand(input: String)
-    - createListCommand(input: String)
-    - createOutflowCommand(input: String)
-    - createInflowCommand(input: String)
-    - createDeleteCommand(input: String)
-    - createEditCommand(input: String)
-    - createNewCommand(input: String)
-    - createHistoryCommand(input: String)
-    - createHelpCommand(input: String)
-
+package Parser as ParserPackage {
+    Class "Parser" as Parser PARSER_COLOR
 }
 
-class StockPal
-class XYZCommand
-class Ui
+Class Ui UI_COLOR
+Class XYZCommand COMMANDS_COLOR
+Class StockPal STOCKPAL_COLOR
 
-XYZCommand : + execute()
-Ui : + getUserInput()
+StockPal ..> Ui : gets User Input from >
+StockPal -left.> Parser : passes User Input to >
+Parser -down.> XYZCommand : creates
 
-StockPal --> Parser: passes user input to >
-StockPal ..> Ui: gets user input from >
-Parser ..> XYZCommand: creates >
-
-note top of XYZCommand
-This is a placeholder command class
-for the specific commands
-
-Based on the type of command in user input,
-the corresponding Command will be created.
-end note
+note bottom of XYZCommand : Based on the type of command is passed to Parser,\n the corresponding Command object is created.
 
 @enduml
