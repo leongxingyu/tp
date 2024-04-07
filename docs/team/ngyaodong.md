@@ -44,6 +44,7 @@ Given below are my contributions to the project.
 
 * **Enhancements to existing features**:
     * Refactored code to reduce coupling between classes (Pull Request [#50](https://github.com/AY2324S2-CS2113T-T09-3/tp/pull/50))
+    * Added code to ensure deletion of transactions when products are deleted (Pull Request [#175](https://github.com/AY2324S2-CS2113T-T09-3/tp/pull/175))
 
 * **Documentation**:
     * User Guide:
