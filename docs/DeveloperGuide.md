@@ -268,31 +268,12 @@ The following sequence diagram shows how the InflowCommand works.
 The `OutflowCommand` class is used to decrease the quantity of a specific product in the inventory.
 This could represent scenarios like selling products and updating inventory with new updated quantities.
 
-![OutflowCommand Class](images/OutflowCommandSequence.png)
+The outflow product feature is facilitated by `OutflowCommand` which extends `Command`.
 
-**Implementation of OutflowCommand**
+Specific validations are still carried out within the `OutflowCommand`.
+1. Checking if the outflow quantity is smaller or equals to the existing quantity.
 
-The OutflowCommand class is called in this format: `OutflowCommand(pid, amountToDecrease)`
-When the OutflowCommand is called, similar to the InflowCommand class, a new instance of the
-OutflowCommand initialised with pid and amountToDecrease would be created.
-
-The execute method will call `decreaseAmount` which is a method of the ProductList class.
-In the ProductList class, the `decreaseAmount` method will call a `updatedDecreaseQuantity`
-method in the quantity class.
-
-It is implemented this way to adhere to Single Responsibility Principle (SRP), such that the
-ProductList class will only handle the product involved in quantity increase, whereas the
-Quantity class will be responsible for updating the quantities.
-
-**Attributes**
-* pid: The unique Product ID for each product
-* quantity: The amount of quantity to decrease product by
-
-**Methods**
-* `OutflowCommand`: Constructor for creating a new instance of the InflowCommand class.
-* `execute`: Method to increase quantity of the specified product.
-  * `execute` calls `decreaseAmount` in the ProductList class.
-  * `decreaseAmount` in ProductList class will call `updateDecreaseQuantity` in the Quantity class.
+Once all validation are completed, decreasing a product quantity is done by calling `ProductList#decreaseAmountCaller()`.
 
 The following sequence diagram shows how the OutflowCommand works.
 ![OutflowCommand Class](images/OutflowCommandSequence.png)
