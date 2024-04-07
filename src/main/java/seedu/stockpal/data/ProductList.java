@@ -2,6 +2,7 @@ package seedu.stockpal.data;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import seedu.stockpal.common.Messages;
 import seedu.stockpal.data.product.Product;
@@ -29,6 +30,22 @@ public class ProductList {
      */
     public void addProduct(Product toAdd) {
         products.add(toAdd);
+    }
+
+
+    public boolean checkForRepeated(ProductList productList, String name) {
+
+        for (int i = 0; i < productList.getSize(); i ++) {
+            List<Product> products = productList.getProducts();
+            Product product = products.get(i);
+
+            String objName = product.getName().getName();
+
+            if (Objects.equals(name, objName)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

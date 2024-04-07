@@ -9,6 +9,7 @@ import seedu.stockpal.exceptions.StockPalException;
 import java.util.logging.Level;
 
 import static seedu.stockpal.commands.EditCommand.logger;
+import static seedu.stockpal.common.Messages.DUPLICATE_MESSAGE;
 import static seedu.stockpal.ui.Ui.printToScreen;
 
 //@@author EdmundTangg
@@ -51,13 +52,17 @@ public class NewCommand extends ListActionCommand {
 
     @Override
     public void execute(ProductList productList) throws StockPalException {
-        Product toAdd = createProduct(productList, this.name, this.quantity, this.price, this.description);
+        boolean repeated = productList.checkForRepeated(productList, name);
+
+        if (repeated) {
+            throw new StockPalException(DUPLICATE_MESSAGE);
+        }
+
+        Product toAdd = createProduct(productList, name, quantity, price, description);
         productList.addProduct(toAdd);
         printToScreen(Messages.MESSAGE_ADDED);
 
-        if (productList.getSize() < 0) {
-            throw new AssertionError();
-        }
+        assert productList.getSize() > 0;
         logger.log(Level.INFO, Messages.MESSAGE_ADDED);
     }
 

@@ -147,32 +147,29 @@ Exceptions classes used by multiple components are in the `seedu.stockpal.except
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Implementation**
-
 This section describes some noteworthy details on how certain features are implemented.
+
+### Command feature
+The following sequence diagram summarizes what happens when a user inputs a valid command.
+<img src="images/CommandSequenceDiagram.png" alt="images/CommandSequenceDiagram.png"/>
+
+
+Validation of the user input is done in `Parser`, hence `XYZCommand` assumes that all fields provided upon creation
+of a `XYZCommand` object are properly formatted.
 
 ### Add product feature
 
 The NewCommand class is responsible for adding a new product to the inventory in the StockPal application.
 
-#### Class diagram of NewCommand:
-<img src="images/AddCommandClass.png" alt=""/>
+The add product feature is facilitated by `NewCommand` which extends `Command`.
 
+Specific validations are still carried out within `NewCommand`.
+1. Checking if the edited product name is the same as an existing product name
 
-**Attributes**
-* name: The name of the product.
-* quantity: The initial quantity of the product.
-* price: The price of the product.
-* description: The description of the product.
-
-**Methods**
-* `NewCommand`: Constructor for creating a new instance of the NewCommand class.
-* `execute`: Method to add the new product to the product list.
-* `createProduct`: Method to create a new product with a unique product ID.
-
-The following sequence diagram shows how an add operation works when the user inputs a valid `add` command:
-<img src="images/AddCommandSequence.png" alt="AddCommandSequence.png"/>
+Once all validation is completed, adding of product is done by calling `ProductList#addProduct()`.
 
 The following sequence diagram details how `AddCommand#execute()` functions.
+
 <img src="images/AddCommandExecuteSequenceDiagram.png" alt="AddCommandExecuteSequenceDiagram.png"/>
 
 
@@ -182,19 +179,10 @@ The `edit` command is used to edit product details such as name, quantity, price
 
 The edit product feature is facilitated by `EditCommand` which extends `Command`.
 
-The following sequence diagram summarizes what happens when a user inputs a valid `edit` command.
-<img src="images/EditCommandSequenceDiagram.png" alt="EditCommandSequenceDiagram.png"/>
-
-> INFO:
-> The lifeline for EditCommand should end at the destroy marker (X) but due to a limitation of PlantUML, 
-> the lifeline reaches the end of diagram.
-
-Validation of the user input is done in `Parser`, hence `EditCommand` assumes that all fields provided upon creation
-of a `EditCommand` object are properly formatted.
-
-Validation for other criteria are still carried out within `EditCommand`.
+Specific validations are still carried out within `EditCommand`.
 1. Checking if at least 1 field (name, quantity, price or description) is provided.
 2. Checking if the product ID (PID) belongs to an existing product.
+3. Checking if the edited product name is the same as an existing product name
 
 Once all validation is completed, updating of product details is done by calling `ProductList#updateProduct()`.
 
@@ -222,8 +210,6 @@ The ListCommand class is responsible for sorting and printing out the products i
 * `execute`: Method to list out the products in the product list.
 * `sortListAccordingly`: Method to sort the list according to the products' PID, products' name or products' quantity.
 
-The following sequence diagram shows how a list operation works, by calling `list`.
-<img src="images/ListCommandSequence.png" alt=""/>
 
 ### InflowCommand Feature
 
@@ -258,8 +244,7 @@ Quantity class will be responsible for updating the quantities.
   * `execute` calls `increaseAmount` in the ProductList class.
   * `increaseAmount` will call `updateIncreaseQuantity` in the Quantity class.
 
-The following sequence diagram shows how the InflowCommand works.
-![InflowCommand Class](images/InflowCommandSequence.png)
+
 
 ### OutflowCommand Feature
 
@@ -268,7 +253,7 @@ The following sequence diagram shows how the InflowCommand works.
 The `OutflowCommand` class is used to decrease the quantity of a specific product in the inventory.
 This could represent scenarios like selling products and updating inventory with new updated quantities.
 
-![OutflowCommand Class](images/OutflowCommandSequence.png)
+
 
 **Implementation of OutflowCommand**
 
@@ -294,8 +279,7 @@ Quantity class will be responsible for updating the quantities.
   * `execute` calls `decreaseAmount` in the ProductList class.
   * `decreaseAmount` in ProductList class will call `updateDecreaseQuantity` in the Quantity class.
 
-The following sequence diagram shows how the OutflowCommand works.
-![OutflowCommand Class](images/OutflowCommandSequence.png)
+
 
 ### Delete product feature
 
@@ -316,28 +300,13 @@ user has a `product` with `pid` of 2 in `StockPal`'s `productList`.
 Step 1. The user executes `delete 2` command to delete a specific `product` with `pid` of 2.
 Step 2. The product is successfully deleted from the inventory list.
 
-The following sequence diagram summarizes what happens when a user inputs a valid `delete` command.
 
-<img src="images/DeleteCommandSequence.png" alt=""/>
 
 ### Find product feature
 
 The FindCommand class is responsible for finding a new product to the inventory in the StockPal application.
 
-#### Class diagram of FindCommand:
-<img src="images/FindCommandClass.png" alt=""/>
 
-
-**Attributes**
-* keyword: The name of the product to look for.
-
-**Methods**
-* `FindCommand`: Constructor for creating a new instance of the FindCommand class.
-* `execute`: Method to find the keyword in the productList
-
-
-The following sequence diagram shows how a find operation works when the user inputs a valid `find` command:
-<img src="images/FindCommandSequence.png" alt="FindCommandSequence.png"/>
 
 The following sequence diagram details how `FindCommand#execute()` functions.
 <img src="images/FindCommandExecuteSequenceDiagram.png" alt="FindCommandExecuteSequenceDiagram.png"/>
@@ -347,21 +316,6 @@ The following sequence diagram details how `FindCommand#execute()` functions.
 
 The HistoryCommand class is responsible for finding any inflows or outflows for a particular
 PID in the StockPal application.
-
-#### Class diagram of HistoryCommand:
-<img src="images/HistoryCommandClass.png" alt=""/>
-
-
-**Attributes**
-* pid: The pid of the product to look for.
-
-**Methods**
-* `HistoryCommand`: Constructor for creating a new instance of the HistoryCommand class.
-* `execute`: Method to find the list of transactions for the particular pid
-
-
-The following sequence diagram shows how a find operation works when the user inputs a valid `history` command:
-<img src="images/HistoryCommandSequence.png" alt="HistoryCommandSequence.png"/>
 
 The following sequence diagram details how `HistoryCommand#execute()` functions.
 <img src="images/HistoryCommandExecuteSequenceDiagram.png" alt="HistoryCommandExecuteSequenceDiagram.png"/>

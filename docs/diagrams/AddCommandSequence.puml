@@ -9,14 +9,16 @@ Participant ":Parser" as parser PARSER_COLOR
 Participant ":NewCommand" as command COMMANDS_COLOR
 Participant ":Storage" as storage STORAGE_COLOR
 
-activate stockpal STOCKPAL_COLOR
+
 
 user -[USER_COLOR]> ui : "new n/Chocolate q/100 p/2.00 d/Tobelerone"
 activate ui UI_COLOR
 
-ui -[UI_COLOR]> stockpal : "new n/Chocolate q/100 p/2.00 d/Tobelerone"
+ui -[UI_COLOR]> stockpal : "new ..."
 
-stockpal -[STOCKPAL_COLOR]> parser : parseCommand("new n/Chocolate q/100 p/2.00 d/Tobelerone")
+activate stockpal STOCKPAL_COLOR
+
+stockpal -[STOCKPAL_COLOR]> parser : parseCommand("new ...")
 activate parser PARSER_COLOR
 
 
