@@ -29,19 +29,18 @@ transaction -left-|> command
 exit -up-|> command
 help -up-|> command
 help -down[hidden]-> new
-find -right[hidden]-> list
-find -up[hidden]-> delete
-delete -right[hidden]-> edit
+find -up[hidden]-> edit
 
-delete -up-|> action
 new -up-|> action
 edit -up-|> action
 find -up-|> action
 list -up-|> action
 
 inflow -up-|> transaction
-outflow -up-|> transaction
+delete -up-|> transaction
+delete -up[hidden]-|> inflow
 history -up-|> transaction
+outflow -up-|> transaction
 history -up[hidden]-> outflow
 
 @enduml
