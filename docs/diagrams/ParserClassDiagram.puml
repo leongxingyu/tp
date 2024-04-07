@@ -5,20 +5,23 @@ skinparam classAttributeIconSize 0
 
 class Parser {
     + parseInput(input: String)
-    - getCommandFromInput(input: String)
-    - validateStringInput(parsedString: String)
-    - validateIntegerInput(parsedInteger: String)
-    - validateDoubleInput(parsedDouble: String)
-    - validateAndCreateExitCommand(input: String)
-    - validateAndCreateListCommand(parsed: ArrayList<String>)
-    - validateAndCreateInflowCommand(parsed: ArrayList<String>)
-    - validateAndCreateOutflowCommand(parsed: ArrayList<String>)
-    - validateAndCreateDeleteCommand(parsed: ArrayList<String>)
-    - validateAndCreateEditCommand(parsed: ArrayList<String>)
-    - validateAndCreateNewCommand(parsed: ArrayList<String>)
-    - validateAndCreateFindCommand(parsed: ArrayList<String>)
-    - validateAndCreateHistoryCommand(parsed: ArrayList<String>)
-    - matchAndParseInput(input: String, pattern: Pattern, numOfArgs: int)
+    - parseInteger(intString: String)
+    - parsePrice(priceString: String)
+    - validatePrice(input: String)
+    - validatePid(input: String)
+    - validateAmount(input: String)
+    - validateQuantity(input: String)
+    - validateString(input: String)
+    - createExitCommand(input: String)
+    - createListCommand(input: String)
+    - createOutflowCommand(input: String)
+    - createInflowCommand(input: String)
+    - createDeleteCommand(input: String)
+    - createEditCommand(input: String)
+    - createNewCommand(input: String)
+    - createHistoryCommand(input: String)
+    - createHelpCommand(input: String)
+
 }
 
 class StockPal
@@ -35,6 +38,9 @@ Parser ..> XYZCommand: creates >
 note top of XYZCommand
 This is a placeholder command class
 for the specific commands
+
+Based on the type of command in user input,
+the corresponding Command will be created.
 end note
 
 @enduml
