@@ -156,12 +156,12 @@ In addition to saving products, the `Storage` component has a subcomponent `Tran
     * `JsonWriter` is responsible for handling the writing of transaction data to the JSON data file.
     * `JsonReader` is responsible for handling the reading of transaction data from the JSON data file.
 
-### Common classes
+### Common Classes
 
 Classes used by multiple components are in the `seedu.stockpal.common` package.
 The `common` package consists of 2 useful utility classes that are mainly used for printing of output to screen, as well as output messages.
 
-### Exception classes
+### Exception Classes
 
 Exceptions classes used by multiple components are in the `seedu.stockpal.exceptions` package.
 
@@ -170,7 +170,7 @@ Exceptions classes used by multiple components are in the `seedu.stockpal.except
 ## **Implementation**
 This section describes some noteworthy details on how certain features are implemented.
 
-### Command feature
+### Command Feature
 The following sequence diagram summarizes what happens when a user inputs a valid command.
 <img src="images/CommandSequenceDiagram.png" alt="images/CommandSequenceDiagram.png"/>
 
@@ -178,7 +178,7 @@ The following sequence diagram summarizes what happens when a user inputs a vali
 Validation of the user input is done in `Parser`, hence `XYZCommand` assumes that all fields provided upon creation
 of a `XYZCommand` object are properly formatted.
 
-### Add product feature
+### Add Product Feature
 
 The NewCommand class is responsible for adding a new product to the inventory in the StockPal application.
 
@@ -194,7 +194,7 @@ The following sequence diagram details how `AddCommand#execute()` functions.
 <img src="images/AddCommandExecuteSequenceDiagram.png" alt="AddCommandExecuteSequenceDiagram.png"/>
 
 
-### Edit product feature
+### Edit Product Feature
 #### Implementation
 The `edit` command is used to edit product details such as name, quantity, price and description.
 
@@ -220,7 +220,7 @@ The following sequence diagram details how `EditCommand#execute()` functions.
     - Pros: Implementing `EditCommand#execute()` will be very simple. Usage of throw/catch to handle errors.
     - Cons: `productList#updateProduct()` will be more lengthy. May require further abstraction.
 
-### List feature
+### List Feature
 The ListCommand class is responsible for sorting and printing out the products in the list. 
 
 **Attributes**
@@ -234,71 +234,41 @@ The ListCommand class is responsible for sorting and printing out the products i
 
 ### InflowCommand Feature
 
-**API** : [`InflowCommand.java`](https://github.com/AY2324S2-CS2113T-T09-3/tp/blob/master/src/main/java/seedu/stockpal/commands/InflowCommand.java)
-
 The `InflowCommand` class is used to increase the quantity of a specific product in the inventory.
 This could represent scenarios like receiving new stock and updating inventory with new quantities.
 
-![Structure of Inflow Command](images/InflowCommandClass.png)
+### Implementation
+The inflow product feature is facilitated by `InflowCommand` which extends `Command`.
 
-**Implementation of InflowCommand**
+Specific validations are still carried out within the `InflowCommand`.
+1. Checking if the product ID (PID) belongs to an existing product.
+2. Checking if the addition of inflow quantity and existing quantity will result in an integer overflow.
 
-The InflowCommand class is called in this format: `InflowCommand(pid, amountToIncrease)`
-When the InflowCommand is called, a new instance of the InflowCommand initialised with pid and
-amountToIncrease would be created.
+Once all validations are completed, increasing a product quantity is done by calling `ProductList#increaseAmountCaller()`.
 
-The execute method will call `increaseAmount` which is a method of the ProductList class.
-In the ProductList class, the `increaseAmount` method will call a `updatedIncreaseQuantity`
-method in the quantity class.
-
-It is implemented this way to adhere to Single Responsibility Principle (SRP), such that the
-ProductList class will only handle the product involved in quantity increase, whereas the
-Quantity class will be responsible for updating the quantities.
-
-**Attributes**
-* pid: The unique Product ID for each product
-* quantity: The amount of quantity to increase product by
-
-**Methods**
-* `InflowCommand`: Constructor for creating a new instance of the InflowCommand class.
-* `execute`: Method to increase quantity of the specified product.
-  * `execute` calls `increaseAmount` in the ProductList class.
-  * `increaseAmount` will call `updateIncreaseQuantity` in the Quantity class.
+The following sequence diagram shows how the InflowCommand works. <br><br>
+![InflowCommand Class](images/InflowCommandSequence.png)
 
 
 
 ### OutflowCommand Feature
 
-**API** : [`OutflowCommand.java`](https://github.com/AY2324S2-CS2113T-T09-3/tp/blob/master/src/main/java/seedu/stockpal/commands/OutflowCommand.java)
-
 The `OutflowCommand` class is used to decrease the quantity of a specific product in the inventory.
 This could represent scenarios like selling products and updating inventory with new updated quantities.
 
+### Implementation
+The outflow product feature is facilitated by `OutflowCommand` which extends `Command`.
+
+Specific validations are still carried out within the `OutflowCommand`.
+1. Checking if the product ID (PID) belongs to an existing product.
+2. Checking if the outflow quantity is larger than the existing quantity.
+
+Once all validations are completed, decreasing a product quantity is done by calling `ProductList#decreaseAmountCaller()`.
+
+The following sequence diagram shows how the InflowCommand works. <br><br>
+![OutflowCommand Class](images/OutflowCommandSequence.png)
 
 
-**Implementation of OutflowCommand**
-
-The OutflowCommand class is called in this format: `OutflowCommand(pid, amountToDecrease)`
-When the OutflowCommand is called, similar to the InflowCommand class, a new instance of the
-OutflowCommand initialised with pid and amountToDecrease would be created.
-
-The execute method will call `decreaseAmount` which is a method of the ProductList class.
-In the ProductList class, the `decreaseAmount` method will call a `updatedDecreaseQuantity`
-method in the quantity class.
-
-It is implemented this way to adhere to Single Responsibility Principle (SRP), such that the
-ProductList class will only handle the product involved in quantity increase, whereas the
-Quantity class will be responsible for updating the quantities.
-
-**Attributes**
-* pid: The unique Product ID for each product
-* quantity: The amount of quantity to decrease product by
-
-**Methods**
-* `OutflowCommand`: Constructor for creating a new instance of the InflowCommand class.
-* `execute`: Method to increase quantity of the specified product.
-  * `execute` calls `decreaseAmount` in the ProductList class.
-  * `decreaseAmount` in ProductList class will call `updateDecreaseQuantity` in the Quantity class.
 
 
 
@@ -384,42 +354,64 @@ intuitive command-line commands, saving time and improving efficiency.
 ## **Appendix: Instructions for manual testing**
 
 ### Adding a Product
-1. No prerequisites needed.
+1. No prerequisites needed. <br><br>
 
-2. Test case: `new n/Drinking Cup q/20`<br>
+2. Test case 1: `new n/Drinking Cup q/20`
    Expected: The product will be added. Name of the product is `Drinking Cup`, 
-   Quantity of chocolate Milk stock is `20` units.
+   Quantity of chocolate Milk stock is `20` units. <br><br>
 
-3. Test case: `new n/Chocolate Milk q/100 p/2.00 d/Marigold HL Milk`<br>
+   Test case 2: `new n/Chocolate Milk q/100 p/2.00 d/Marigold HL Milk`
    Expected: The product will be added. Name of the product is `Chocolate Milk`,
    Quantity of chocolate Milk stock is `100 ` units
    Price of each unit is $`2.00`
    Description of the Chocolate Milk product is `Marigold HL Milk`, which is the brand.
 
 ### Editing Product Details
-1. Prerequisites: List all products using `list` command. There should be at least multiple products in the list.
+1. Prerequisites: List all products using `list` command. There should be at least multiple products in the list. <br><br>
 
-2. Test case: `edit 1 n/Updated name d/Updated description`<br> 
+2. Test case 1: `edit 1 n/Updated name d/Updated description` 
    Expected: The name and description of the product with Product ID (PID) 1 
-   will be changed to `Updated name` and `Updated description` respectively.
+   will be changed to `Updated name` and `Updated description` respectively. <br><br>
 
-3. Test case: `edit 1 q/100 p/0.99`<br>
+   Test case 2: `edit 1 q/100 p/0.99`
    Expected: The quantity and price of the product with Product ID (PID) 1
    will be changed to `100` and `0.99` respectively.
 
+### Increase Product Quantity
+1. Prerequisites: List all products using `list` command. There should be a particular product with `pid` 1 and `pid` 2.  
+   The product with `pid` 1 should have quantity 30 and `pid` 2 should have quantity 100. <br><br>
+
+2. Test case 1 : `inflow 1 a/20`
+   Expected: The quantity of the product with Product ID (PID) 1 will increase by 20.
+    - Do note that the Amount to increase must be less than INT_MAX.  <br><br>
+
+   Test case 2: `inflow 1 a/2147483650`
+   Expected: `Integer input exceeds largest integer allowed. Max integer is 2147483647` will be printed out.
+
+### Decrease Product Quantity
+1. Prerequisites: List all products using `list` command. There should be a particular product with `pid` 1 and `pid` 2.
+   The product with `pid` 1 should have quantity 30 and `pid` 2 should have quantity 100.  <br><br>
+
+2. Test case 1 : `outflow 1 a/20`
+   Expected: `Warning! This product is low in quantity.
+              Quantity updated. Quantity: 10`  <br><br>
+
+   Test case 2: `outflow 2 a/20`
+   Expected: `Quantity updated. Quantity: 80` will be printed out.
+
 ### Deleting a product
 1. Prerequisites: List all products using `list` command. There should be a particular product with `pid` of 1 and no 
-product with `pid` of 2.
+product with `pid` of 2. <br><br>
 
 2. Test case 1: `delete 1`. 
-   Expected: `product` with `pid` of 1 is deleted from the list. `"Product has been deleted"` is printed to the user.
+   Expected: `product` with `pid` of 1 is deleted from the list. `"Product has been deleted"` is printed to the user. <br><br>
 
    Test case 2: `delete 2`.
    Expected: `"Product with pid: 2 not found"`
 
 
 ### Finding a keyword in the Product list 
-1. No prerequisites needed.
+1. No prerequisites needed. <br><br>
 
 2. Test case: `find Cor`<br>
    Expected: A list of products will be printed out if there is a match, 
@@ -427,7 +419,7 @@ product with `pid` of 2.
 
 
 ### Finding all past transactions for a particular product in the Product list
-1. Prerequisites: List all products using `list` command. There should be at least multiple products in the list.
+1. Prerequisites: List all products using `list` command. There should be at least multiple products in the list. <br><br>
 
 2. Test case: `history 1`<br>
    Expected:
