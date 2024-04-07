@@ -56,10 +56,10 @@ public class ListCommand extends ListActionCommand {
     private void sortListAccordingly(ProductList newList) {
         if (sortType != null) {
             switch (sortType) {
-            case " -sq":
+            case "-sq":
                 newList.products.sort(new SortByQuantity());
                 break;
-            case " -sn":
+            case "-sn":
                 newList.products.sort(new SortByName());
                 break;
             default:
