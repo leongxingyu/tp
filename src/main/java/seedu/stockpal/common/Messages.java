@@ -16,10 +16,10 @@ public class Messages {
     public static final String MESSAGE_ERROR_INVALID_PID_FORMAT = "PID is either missing or in wrong format" + "\n" +
             "Ensure that PID is a positive integer no larger than " + Integer.MAX_VALUE;
     public static final String MESSAGE_ERROR_INVALID_NAME_FORMAT = "Name is missing! Ensure that name entered is at" +
-            " most 50 characters long and only contains the following characters: a-z, A-Z, 0-9, (), [], -, _, comma " +
-            "and dot.";
-    public static final String MESSAGE_ERROR_INVALID_NAME_LENGTH = "Length of name is more than 50! Ensure that name " +
-            "entered is only at most 50 characters long.";
+            " most 50 characters long and " + "\n" + "only contains the following characters: a-z, A-Z, 0-9, ()," +
+            " [], -, _, comma and dot.";
+    public static final String MESSAGE_ERROR_INVALID_NAME_LENGTH = "Length of name is more than 50! " + "\n" +
+            "Ensure that name entered is only at most 50 characters long.";
     public static final String MESSAGE_ERROR_INVALID_QUANTITY_FORMAT = "Quantity is either missing or in the wrong " +
             "format!" + "\n" + "Ensure that quantity is a positive integer no larger than " + Integer.MAX_VALUE;
     public static final String MESSAGE_ERROR_INVALID_PRICE_FORMAT = "Dollars in the Price argument is too" +
@@ -29,11 +29,11 @@ public class Messages {
 
     public static final String MESSAGE_ERROR_INVALID_DESCRIPTION_LENGTH = "Length of description is more than 100!" +
             " Ensure that name entered is only at most 100 characters long.";
-
     public static final String MESSAGE_ERROR_INVALID_INFLOW_USAGE = "Inflow Command does not take in any more " +
             "other than PID and Amount to increase by!";
     public static final String MESSAGE_ERROR_INVALID_OUTFLOW_USAGE = "Outflow Command does not take in any more " +
             "arguments other than PID and Amount to decrease by!";
+    public static final String MESSAGE_ERROR_ZERO_AMOUNT = "Amount cannot be 0!";
     public static final String MESSAGE_ERROR_INVALID_DELETE_USAGE = "Delete Command does not take in any more " +
             "arguments other than PID!";
     public static final String MESSAGE_ERROR_INVALID_EXIT_USAGE = "Exit Command does not take in any extra arguments!";

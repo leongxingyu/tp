@@ -35,6 +35,7 @@ import static seedu.stockpal.common.Messages.MESSAGE_ERROR_INVALID_OUTFLOW_USAGE
 import static seedu.stockpal.common.Messages.MESSAGE_ERROR_INVALID_PID_FORMAT;
 import static seedu.stockpal.common.Messages.MESSAGE_ERROR_INVALID_PRICE_FORMAT;
 import static seedu.stockpal.common.Messages.MESSAGE_ERROR_INVALID_QUANTITY_FORMAT;
+import static seedu.stockpal.common.Messages.MESSAGE_ERROR_ZERO_AMOUNT;
 
 /**
  * The Parser class is responsible for parsing user input into its respective command's relevant fields.
@@ -45,7 +46,7 @@ public class Parser {
     public static final Pattern COMPULSORY_NAME_PATTERN =
             Pattern.compile("^n/([a-zA-Z0-9 ()\\[\\],.\\-_]+) q/(.*)");
     public static final Pattern OPTIONAL_NAME_PATTERN =
-            Pattern.compile("^n/([a-zA-Z0-9 ()\\[\\],.\\-_]+) (q/|p/|d/|.*)?");
+            Pattern.compile("^n/([a-zA-Z0-9 ()\\[\\],.\\-_]+)( q/.*| p/.*| d/.*)?");
     public static final Pattern QUANTITY_PATTERN = Pattern.compile("^q/(\\d+)(.*)?");
     public static final Pattern AMOUNT_PATTERN = Pattern.compile("^a/(\\d+)(.*)?");
     public static final Pattern PRICE_PATTERN = Pattern.compile("^p/(\\d+)\\.(\\d{2})(.*)?");
@@ -80,7 +81,7 @@ public class Parser {
             Integer dollars = parseInteger(dollarsString);
             Double cents = Double.parseDouble(centsString);
             return dollars + cents;
-        } catch (NumberFormatException nfe) {
+        } catch (UnsignedIntegerExceededException nfe) {
             throw new UnsignedIntegerExceededException(MESSAGE_ERROR_INVALID_PRICE_FORMAT);
         }
     }
@@ -167,6 +168,9 @@ public class Parser {
 
         String amountString = validateAmount(input);
         decreaseBy = parseInteger(amountString);
+        if (decreaseBy == 0) {
+            throw new InvalidFormatException(MESSAGE_ERROR_ZERO_AMOUNT);
+        }
 
         input = input.substring(amountString.length() + FLAG_LENGTH).stripLeading();
         if (!input.isEmpty()) {
@@ -189,6 +193,9 @@ public class Parser {
 
         String amountString = validateAmount(input);
         increaseBy = parseInteger(amountString);
+        if (increaseBy == 0) {
+            throw new InvalidFormatException(MESSAGE_ERROR_ZERO_AMOUNT);
+        }
 
         input = input.substring(amountString.length() + FLAG_LENGTH).stripLeading();
 
@@ -338,7 +345,7 @@ public class Parser {
 
         Matcher pidMatcher = PID_PATTERN.matcher(input);
         if (!pidMatcher.matches()) {
-            throw new InvalidFormatException("PID is in wrong format!");
+            throw new InvalidFormatException(MESSAGE_ERROR_INVALID_PID_FORMAT);
         }
         try {
             pid = Integer.parseUnsignedInt(pidMatcher.group(1));
@@ -359,6 +366,7 @@ public class Parser {
         if (input.isEmpty()) {
             return new HelpCommand();
         }
+
         return new HelpCommand(input);
     }
 
