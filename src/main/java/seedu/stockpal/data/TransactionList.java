@@ -1,6 +1,7 @@
 package seedu.stockpal.data;
 
 import seedu.stockpal.common.Messages;
+import seedu.stockpal.data.product.Pid;
 import seedu.stockpal.ui.Ui;
 
 import java.util.List;
@@ -71,4 +72,13 @@ public class TransactionList {
         return transactions.get(i);
     }
 
+    //@@author NgYaoDong
+    /**
+     * Delete Transactions related to the product getting deleted.
+     *
+     * @param pid PID of the product being deleted.
+     */
+    public void deleteTransactions(Pid pid) {
+        transactions.removeIf(transaction -> transaction.getPid() == pid.getPid());
+    }
 }

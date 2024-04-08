@@ -3,6 +3,7 @@ package seedu.stockpal.commands;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import seedu.stockpal.data.ProductList;
+import seedu.stockpal.data.TransactionList;
 import seedu.stockpal.data.product.Product;
 import seedu.stockpal.exceptions.PidNotFoundException;
 import seedu.stockpal.exceptions.StockPalException;
@@ -11,9 +12,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+//@@author cheeseong2001
 public class DeleteCommandTest {
     public ProductList testProductList;
     public ProductList expectedProductList;
+    public TransactionList transactionList;
 
     @BeforeEach
     public void setUp() {
@@ -22,6 +25,7 @@ public class DeleteCommandTest {
         Product testProduct3 = new Product("Test3", 3, null, null, 3);
         expectedProductList = new ProductList();
         testProductList = new ProductList();
+        transactionList = new TransactionList();
 
         testProductList.addProduct(testProduct1);
         testProductList.addProduct(testProduct2);
@@ -37,7 +41,7 @@ public class DeleteCommandTest {
             DeleteCommand testDeleteCommand = new DeleteCommand(pidToDelete);
             expectedProductList.addProduct(expectedProduct2);
             expectedProductList.addProduct(expectedProduct3);
-            testDeleteCommand.execute(testProductList);
+            testDeleteCommand.execute(testProductList, transactionList);
         } catch (StockPalException spe) {
             fail();
         }
@@ -62,6 +66,6 @@ public class DeleteCommandTest {
         expectedProductList.addProduct(expectedProduct1);
         expectedProductList.addProduct(expectedProduct2);
         expectedProductList.addProduct(expectedProduct3);
-        assertThrows(PidNotFoundException.class, () -> testDeleteCommand.execute(expectedProductList));
+        assertThrows(PidNotFoundException.class, () -> testDeleteCommand.execute(expectedProductList, transactionList));
     }
 }

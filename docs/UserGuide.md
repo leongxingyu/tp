@@ -123,18 +123,16 @@ JSON (JavaScript Object Notation) - a file format for storing and transporting d
         e.g. if the command specifies <code>n/PRODUCT_NAME q/INITIAL_QUANTITY</code>, <code>q/INITIAL_QUANTITY n/PRODUCT_NAME</code> is <strong>not</strong> acceptable.</li>
     <li>Commands are case-sensitive and must strictly follow case specified.<br>
         e.g. <code>HELP</code> would trigger an invalid command warning, as <code>help</code> is the proper command to be used.</li>
-    <li>Commands must strictly adhere to the correct format. Extra inputs (including whitespaces) are not allowed. <br>
-        e.g. <code>list     </code> would trigger an invalid command warning due to the extra whitespaces at the end. 
-        <code>list</code> should be the correct command to use.</li>
+    <li>Arguments have to be supplied immediately after the <code>/</code>. If this is not adhered to, errors could occur. e.g. use<code>`new n/new name q/123</code> instead of <code>new n/  new name q/  123</code></li>
 </ul>
 </div>
 
 <!--- @@author Kobot7 --->
-## Viewing help: `help`
+## Viewing Help: `help`
 
 Provides command details for all or specific commands.
 
-### When to use?
+### When to Use?
 This is a useful command to start with if you are new to StockPal!
 
 Format: `help [COMMAND]`
@@ -168,11 +166,11 @@ INCREMENT_AMOUNT      Quantity of product to add
 <div style="page-break-after: always;"></div>
 
 <!--- @@author EdmundTangg --->
-## Adding a new product: `new`
+## Adding a New Product: `new`
 
 Creates a new product to the inventory and assigns a unique Product ID (PID) to it.
 
-### When to use?
+### When to Use?
 
 When starting as a new user of StockPal, use this command repeatedly to fill up your inventory to start tracking!
 Subsequently, when your business introduces new products, use this command to add them in too!
@@ -185,10 +183,10 @@ new n/PRODUCT_NAME q/INITIAL_QUANTITY [p/PRICE] [d/DESCRIPTION]
 
 | Parameter          | Representation                             | Constraints                                                                             |
 |--------------------|--------------------------------------------|-----------------------------------------------------------------------------------------|
-| `PRODUCT_NAME`     | Name of new product to be added            | Limited to 100 characters                                                               |
+| `PRODUCT_NAME`     | Name of new product to be added            | Limited to 50 characters.<br/>Allowed characters:<br/>`a-zA-Z0-9 ()[],.-_`                                       |
 | `INITIAL_QUANTITY` | Quantity of the new product to be added    | Must be an integer more than or equal to 0                                              |
 | `PRICE`            | Price of the new product to be added       | - Must be a numeric value more than equal to 0<br/>- Must have exactly 2 decimal places |
-| `DESCRIPTION`      | Description of the new product to be added | Limited to 100 characters                                                               |
+| `DESCRIPTION`      | Description of the new product to be added | Limited to 100 characters<br/>Allowed characters:<br/>`a-zA-Z0-9 ()[],.-_`                                                               |
 
 ### Example 1
 Input:
@@ -234,7 +232,7 @@ This command adds your product to the inventory. The product’s details are as 
 <div style="page-break-after: always;"></div>
 
 <!--- @@author wjunjie01 --->
-## Listing all products: `list`
+## Listing All Products: `list`
 Lists all products in inventory.
 
 Format: `list [-sn] [-sq]`
@@ -294,7 +292,7 @@ Description: A bunch of bananas.
 <div style="page-break-after: always;"></div>
 
 <!--- @@author Kobot7 --->
-## Editing product details: `edit`
+## Editing Product Details: `edit`
 
 Edits an existing product in the inventory at the specific PID by the input value(s).
 
@@ -309,10 +307,10 @@ edit PID [n/PRODUCT_NAME] [q/QUANTITY] [p/PRICE] [d/DESCRIPTION]
 | Parameter      | Representation                               | Constraints                                                                             |
 |----------------|----------------------------------------------|-----------------------------------------------------------------------------------------|
 | `PID`          | Product ID of the existing product           | Must be a valid Product ID of an existing product                                       |
-| `PRODUCT_NAME` | New product name of the product to be edited | Limited to 100 characters                                                               |
+| `PRODUCT_NAME` | New product name of the product to be edited | Limited to 50 characters<br/>Allowed characters:<br/>`a-zA-Z0-9 ()[],.-_`                                                                |
 | `QUANTITY`     | New quantity of the product to be edited     | Must be an integer more than or equals to 0                                             |
 | `PRICE`        | New price of the product to be edited        | - Must be a numeric value more than equal to 0<br/>- Must have exactly 2 decimal places |
-| `DESCRIPTION`  | New description of the product to be edited  | Limited to 100 characters                                                               |
+| `DESCRIPTION`  | New description of the product to be edited  | Limited to 100 characters<br/>Allowed characters:<br/>`a-zA-Z0-9 ()[],.-_`                                                               |
 
 <div style="padding: 15px; border: 1px solid transparent; margin-bottom: 20px; border-radius: 4px; color: #8a6d3b; background-color: #fcf8e3;">
 :bulb: <strong>Tip:</strong> If you are looking to increase or decrease the amount of stock of a particular product,
@@ -368,7 +366,7 @@ Product details have been updated.
 <div style="page-break-after: always;"></div>
 
 <!--- @@author cheeseong2001 --->
-## Deleting a product and its details: `delete`
+## Deleting a Product and its Details: `delete`
 
 Deletes an existing product from the inventory.
 
@@ -402,7 +400,7 @@ Output:
 <div style="page-break-after: always;"></div>
 
 <!--- @@author leongxingyu --->
-## Increasing a product quantity: `inflow`
+## Increasing a Product Quantity: `inflow`
 
 Increase the quantity of an existing product in the inventory at the specific PID.
 
@@ -441,7 +439,7 @@ Explanation:
 The `inflow` command will update the quantity of the product by performing addition
 of the current quantity and the inflow quantity.
 
-## Decreasing a product quantity: `outflow`
+## Decreasing a Product Quantity: `outflow`
 
 Decrease the quantity of an existing product in the inventory at the specific PID.
 
@@ -482,6 +480,12 @@ Quantity updated. Quantity: 10
 below quantity of 20. All low quantity products will be displayed when you exit the program.
 </div>
 
+<div style="padding: 15px; border: 1px solid transparent; margin-bottom: 20px; border-radius: 4px; color: #8a6d3b; background-color: #fcf8e3;">
+:bulb: <strong>Tip:</strong> Do note that if you added a new product with a quantity lower than the threshold
+quantity, warning will also be raised. 
+</div>
+
+
 ### Example 2
 Context:
 - Product `Highlighter`'s Product ID (PID) is 23.
@@ -509,9 +513,9 @@ of the outflow quantity from the current quantity.
 <div style="page-break-after: always;"></div>
 
 <!--- @@author EdmundTangg --->
-## Viewing past inflow / outflow of existing product: `history`
+## Viewing Past Inflow / Outflow of Existing Product: `history`
 
-### When to use?
+### When to Use?
 When you want to check on the previous inflow or outflow of a product, use this command!
 
 
@@ -566,7 +570,7 @@ Increase the quantity of the product by 40 on 18th March 2024, at 10:00:00 hours
 <div style="page-break-after: always;"></div>
 
 <!--- @@author EdmundTangg --->
-## Find a keyword in the product list: `find`
+## Find a Keyword in the Product List: `find`
 ### When to use?
 This is a useful command for when you want to know if there is already an existing product that matches your keyword. 
 Or when you just want to get the product’s PID in a long list of products.
@@ -645,15 +649,31 @@ Exiting program, goodbye!
 Explanation:
 This command will exit the program. Our program will print a statement to bid you goodbye!
 
+### Example 2
+
+Input:
+```
+exit wrong usage
+```
+Output:
+```
+Exit Command does not take in any extra arguments!
+```
+Explanation:
+In example 2, the literal string input:`exit wrong usage` was entered by the user.
+
+To address possible typo issues caused by typing "exit" when you want to type "edit", ensure that no arguments should be
+passed to the Exit command.
+
 <div style="page-break-after: always;"></div>
 
 <!--- @@author NgYaoDong --->
-## Saving the data
+## Saving the Data
 
 StockPal data is saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
 
-## Editing the data file
+## Editing the Data File
 
 StockPal inventory data is saved automatically as a CSV file `[JAR file location]/data/inventory.csv`, while the past transactions data is saved automatically as a JSON file `[JAR file location]/data/transactions.json`. Advanced users are welcome to update data directly by editing these data files, even though it is **highly not recommended**.
 

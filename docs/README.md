@@ -1,7 +1,3 @@
----
-title: StockPal
----
-
 [![Java CI](https://github.com/AY2324S2-CS2113T-T09-3/tp/actions/workflows/gradle.yml/badge.svg?branch=master)](https://github.com/AY2324S2-CS2113T-T09-3/tp/actions/workflows/gradle.yml)
 
 ![Ui](images/Ui.png)
