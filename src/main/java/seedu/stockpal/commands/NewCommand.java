@@ -52,7 +52,7 @@ public class NewCommand extends ListActionCommand {
 
     @Override
     public void execute(ProductList productList) throws DuplicateProductNameException {
-        boolean repeated = productList.checkForRepeated(productList, name);
+        boolean repeated = productList.checkForRepeated(name);
 
         if (repeated) {
             throw new DuplicateProductNameException(DUPLICATE_MESSAGE);

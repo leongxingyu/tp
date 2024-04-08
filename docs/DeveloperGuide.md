@@ -185,7 +185,7 @@ The NewCommand class is responsible for adding a new product to the inventory in
 The add product feature is facilitated by `NewCommand` which extends `Command`.
 
 Specific validations are still carried out within `NewCommand`.
-1. Checking if the edited product name is the same as an existing product name
+1. Checking if the new product name is the same as an existing product name.
 
 Once all validation is completed, adding of product is done by calling `ProductList#addProduct()`.
 
@@ -200,25 +200,15 @@ The `edit` command is used to edit product details such as name, quantity, price
 
 The edit product feature is facilitated by `EditCommand` which extends `Command`.
 
-Specific validations are still carried out within `EditCommand`.
+Specific validations are still carried out when updating the product details.
 1. Checking if at least 1 field (name, quantity, price or description) is provided.
 2. Checking if the product ID (PID) belongs to an existing product.
-3. Checking if the edited product name is the same as an existing product name
+3. Checking if the edited product name is the same as an existing product name.
 
-Once all validation is completed, updating of product details is done by calling `ProductList#updateProduct()`.
+Updating of product details is done by calling `ProductList#updateProduct()`.
 
 The following sequence diagram details how `EditCommand#execute()` functions.
 <img src="images/EditCommandExecuteSequenceDiagram.png" alt="EditCommandExecuteSequenceDiagram.png"/>
-
-**Aspect: Validating parameters and handling errors**
-
-- Alternative 1 (current choice): Check parameters and handle errors within `EditCommand`.
-  - Pros: Easy to implement
-  - Cons: -
-  
-- Alternative 2: Handle validation of errors within `productList#updateProduct()`.
-    - Pros: Implementing `EditCommand#execute()` will be very simple. Usage of throw/catch to handle errors.
-    - Cons: `productList#updateProduct()` will be more lengthy. May require further abstraction.
 
 ### List Feature
 The ListCommand class is responsible for sorting and printing out the products in the list. 
