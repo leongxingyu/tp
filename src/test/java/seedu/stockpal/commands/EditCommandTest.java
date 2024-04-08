@@ -6,12 +6,15 @@ import seedu.stockpal.common.Messages;
 import seedu.stockpal.data.ProductList;
 import seedu.stockpal.data.product.Pid;
 import seedu.stockpal.data.product.Product;
+import seedu.stockpal.exceptions.DuplicateProductNameException;
+import seedu.stockpal.exceptions.InvalidFormatException;
 import seedu.stockpal.exceptions.StockPalException;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class EditCommandTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
@@ -110,5 +113,27 @@ public class EditCommandTest {
         EditCommand editCommand = new EditCommand(3, null, null, null, null);
         editCommand.execute(productList);
         assertEquals(Messages.MESSAGE_ERROR_MISSING_PARAMETERS + System.lineSeparator(), outContent.toString());
+    }
+
+    @Test
+    void editCommand_duplicateProductName_expectExceptionThrown() {
+        EditCommand editCommand = new EditCommand(3, "Corn", null, null, null);
+        try {
+            editCommand.execute();
+        } catch (DuplicateProductNameException exception) {
+            assertEquals(Messages.DUPLICATE_MESSAGE, exception.getMessage());
+        } catch (StockPalException exception) {
+            fail();
+        }
+    }
+
+    @Test
+    public void helpCommand_invalidCommand_showInvalidCommandMessage() {
+        try {
+            HelpCommand command = new HelpCommand("bleh");
+            fail();
+        } catch (InvalidFormatException exception) {
+            assertEquals(Messages.MESSAGE_ERROR_INVALID_COMMAND, exception.getMessage());
+        }
     }
 }
