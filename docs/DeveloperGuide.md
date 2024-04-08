@@ -10,18 +10,20 @@ title: Developer Guide
     * [Command component](#command-component)
     * [Data component](#data-component)
     * [Storage component](#storage-component)
-    * [Common classes](#common-classes)
-    * [Exception classes](#exception-classes)
+    * [Common Classes](#common-classes)
+    * [Exception Classes](#exception-classes)
   * [**Implementation**](#implementation)
-    * [Command feature](#command-feature)
-    * [Add product feature](#add-product-feature)
-    * [Edit product feature](#edit-product-feature)
+    * [Command Feature](#command-feature)
+    * [Add Product Feature](#add-product-feature)
+    * [Edit Product Feature](#edit-product-feature)
       * [Implementation](#implementation-1)
-    * [List feature](#list-feature)
+    * [List Feature](#list-feature)
     * [InflowCommand Feature](#inflowcommand-feature)
+    * [Implementation](#implementation-2)
     * [OutflowCommand Feature](#outflowcommand-feature)
+    * [Implementation](#implementation-3)
     * [Delete product feature](#delete-product-feature)
-      * [Implementation](#implementation-2)
+      * [Implementation](#implementation-4)
     * [Find product feature](#find-product-feature)
     * [History product feature](#history-product-feature)
   * [**Appendix: Requirements**](#appendix-requirements)
@@ -32,6 +34,8 @@ title: Developer Guide
   * [**Appendix: Instructions for manual testing**](#appendix-instructions-for-manual-testing)
     * [Adding a Product](#adding-a-product)
     * [Editing Product Details](#editing-product-details)
+    * [Increase Product Quantity](#increase-product-quantity)
+    * [Decrease Product Quantity](#decrease-product-quantity)
     * [Deleting a product](#deleting-a-product)
     * [Finding a keyword in the Product list](#finding-a-keyword-in-the-product-list-)
     * [Finding all past transactions for a particular product in the Product list](#finding-all-past-transactions-for-a-particular-product-in-the-product-list)
@@ -177,6 +181,40 @@ The following sequence diagram summarizes what happens when a user inputs a vali
 
 Validation of the user input is done in `Parser`, hence `XYZCommand` assumes that all fields provided upon creation
 of a `XYZCommand` object are properly formatted.
+
+### Help Feature
+
+The `help` command is used to display the help page for either all or individual commands.
+
+The `help` feature is facilitated by `HelpCommand` which extends `Command`.
+
+Details for individual commands are stored within the individual classes as static variables.
+The details are stored as 5 variables as follows.
+
+| Variable                  | What it represents                                    | Example                                                  |
+|---------------------------|-------------------------------------------------------|----------------------------------------------------------|
+| COMMAND_KEYWORD           | The keyword used to identify the command.             | "help"                                                   |
+| COMMAND_DESCRIPTION       | Description of the command.                           | "Provides command details for all or specific commands." |
+| COMMAND_USAGE             | The format of the command.                            | "help [COMMAND_KEYWORD]"                                 |
+| COMMAND_FLAGS             | Placeholder value used to denote command arguments.   | {"COMMAND_KEYWORD"}                                      |
+| COMMAND_FLAG_DESCRIPTIONS | Description of what the placeholder value represents. | {"Command to display details for"}                       |
+
+`FormatUtils#formatCommandDetails()` takes in these 5 variables as arguments and produces a formatted version of the details.
+
+Example of formatted version of details based on the 5 example variables above:
+```
+====================================================================================
+Command: help
+
+Description: Provides command details for all or specific commands.
+
+Usage: help [COMMAND_KEYWORD]
+
+Options:
+COMMAND_KEYWORD       Command to display details for
+====================================================================================
+```
+
 
 ### Add Product Feature
 
