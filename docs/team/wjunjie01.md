@@ -47,7 +47,7 @@ Added documentation details for list, and it's sorting features.
 
 ### Contributions to the DG
 Added documentation details for list, and it's sorting features.
-[]() to insert here after creating PR
+[#177](https://github.com/AY2324S2-CS2113T-T09-3/tp/pull/177) 
 
 ### Contributions to team-based tasks
 - Create base code to comply with Grade: [#27](https://github.com/AY2324S2-CS2113T-T09-3/tp/pull/27)
