@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import seedu.stockpal.data.ProductList;
 import seedu.stockpal.data.product.Pid;
+import seedu.stockpal.exceptions.DuplicateProductNameException;
 import seedu.stockpal.exceptions.StockPalException;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -75,7 +76,7 @@ public class NewCommandTest {
                 3.00, "ingredients");
         //duplicateInput.execute(productList);
 
-        assertThrows(StockPalException.class, () -> duplicateInput.execute(productList));
+        assertThrows(DuplicateProductNameException.class, () -> duplicateInput.execute(productList));
 
     }
     @Test

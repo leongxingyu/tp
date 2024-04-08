@@ -4,7 +4,7 @@ import seedu.stockpal.common.FormatUtils;
 import seedu.stockpal.common.Messages;
 import seedu.stockpal.data.ProductList;
 import seedu.stockpal.data.product.Product;
-import seedu.stockpal.exceptions.StockPalException;
+import seedu.stockpal.exceptions.DuplicateProductNameException;
 
 import java.util.logging.Level;
 
@@ -51,11 +51,11 @@ public class NewCommand extends ListActionCommand {
     }
 
     @Override
-    public void execute(ProductList productList) throws StockPalException {
+    public void execute(ProductList productList) throws DuplicateProductNameException {
         boolean repeated = productList.checkForRepeated(productList, name);
 
         if (repeated) {
-            throw new StockPalException(DUPLICATE_MESSAGE);
+            throw new DuplicateProductNameException(DUPLICATE_MESSAGE);
         }
 
         Product toAdd = createProduct(productList, name, quantity, price, description);

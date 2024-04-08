@@ -68,5 +68,5 @@ public class Messages {
     public static final String MESSAGE_HISTORY = "History command has ran.";
     public static final String MESSAGE_FIND = "Find command has ran.";
 
-    public static final String DUPLICATE_MESSAGE = "Duplicate item.";
+    public static final String DUPLICATE_MESSAGE = "Product name already exists. Please use a different product name";
 }

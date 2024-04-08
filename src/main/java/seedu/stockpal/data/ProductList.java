@@ -49,12 +49,12 @@ public class ProductList {
     }
 
     /**
-     * Finds product with a specific Pid and
-     * returns its index in the product list.
+     * Finds product with a specific Pid and returns its index in the product list.
      *
      * @param pid Product ID to search for.
      * @return Index of the product in the product list.
-     *     If product is not in the product list, return -1.
+     * @throws PidNotFoundException When product with specified PID
+     *     is not found in the productList.
      */
     public int findProductIndex(Pid pid) throws PidNotFoundException {
         for (int i = 0; i < products.size(); i++) {
