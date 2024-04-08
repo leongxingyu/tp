@@ -291,6 +291,13 @@ user has a `product` with `pid` of 2 in `StockPal`'s `productList`.
 Step 1. The user executes `delete 2` command to delete a specific `product` with `pid` of 2.
 Step 2. The product is successfully deleted from the inventory list.
 
+**Possible Exceptions that can be thrown**
+* PidNotFoundException: Thrown when user-supplied PID does not correspond to any of the products in the inventory
+currently.
+
+The following sequence diagram shows how `DeleteCommand#execute()` functions. The sequence diagram assumes that PID
+provided is valid. 
+![DeleteCommandSequenceDiagram](images/DeleteCommandSequence.png)
 
 
 ### Find product feature

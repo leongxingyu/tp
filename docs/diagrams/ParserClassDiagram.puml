@@ -1,27 +1,20 @@
 @startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam classBackgroundColor UI_COLOR
 
-hide circles
-skinparam classAttributeIconSize 0
-
-package "seedu.stockpal.parser" {
-    class Parser {
-        + parseInput(input: String)
-        - getCommandFromInput(input: String)
-        - validateStringInput(parsedString: String)
-        - validateIntegerInput(parsedInteger: String)
-        - validateDoubleInput(parsedDouble: String)
-        - createExitCommand()
-        - createNewCommand()
-        - createListCommand()
-        - validateAndCreateInflowCommand(parsed: ArrayList<String>)
-        - validateAndCreateOutflowCommand(parsed: ArrayList<String>)
-        - validateAndCreateDeleteCommand(parsed: ArrayList<String>)
-        - validateAndCreateEditCommand(parsed: ArrayList<String>)
-        - validateAndCreateNewCommand(parsed: ArrayList<String>)
-        - validateAndCreateFindCommand(parsed: ArrayList<String>)
-        - validateAndCreateHistoryCommand(parsed: ArrayList<String>)
-        - matchAndParseInput(input: String, pattern: Pattern, numOfArgs: int)
-    }
+package Parser as ParserPackage {
+    Class "Parser" as Parser PARSER_COLOR
 }
+
+Class Ui UI_COLOR
+Class XYZCommand COMMANDS_COLOR
+Class StockPal STOCKPAL_COLOR
+
+StockPal ..> Ui : gets User Input from >
+StockPal -left.> Parser : passes User Input to >
+Parser -down.> XYZCommand : creates
+
+note bottom of XYZCommand : Based on the type of command is passed to Parser,\n the corresponding Command object is created.
 
 @enduml

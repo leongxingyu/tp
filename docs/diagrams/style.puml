@@ -11,6 +11,8 @@
 
 !define PRODUCTLIST_COLOR #purple
 
+!define TRANSACTIONLIST_COLOR #midnightblue
+
 !define UI_COLOR #1D8900
 !define UI_COLOR_T1 #83E769
 !define UI_COLOR_T2 #3FC71B
@@ -37,7 +39,7 @@
 
 !define PRODUCT_COLOR #333333
 
-!define EXCEPTIONS_COLOR #purple
+!define EXCEPTIONS_COLOR #black
 
 !define COMMON_COLOR #magenta
 
