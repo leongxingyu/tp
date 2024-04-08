@@ -653,13 +653,15 @@ This command will exit the program. Our program will print a statement to bid yo
 
 Input:
 ```
-exit with some extra arguments
+exit wrong usage
 ```
 Output:
 ```
 Exit Command does not take in any extra arguments!
 ```
 Explanation:
+In example 2, the literal string input:`exit wrong usage` was entered by the user.
+
 To address possible typo issues caused by typing "exit" when you want to type "edit", ensure that no arguments should be
 passed to the Exit command.
 
