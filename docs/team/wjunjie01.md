@@ -50,7 +50,7 @@ Added documentation details for list, and it's sorting features.
 [#177](https://github.com/AY2324S2-CS2113T-T09-3/tp/pull/177) 
 
 ### Contributions to team-based tasks
-- Create base code to comply with Grade: [#27](https://github.com/AY2324S2-CS2113T-T09-3/tp/pull/27)
+- Create base code to comply with Gradle: [#27](https://github.com/AY2324S2-CS2113T-T09-3/tp/pull/27)
 - Updating UG and DG docs where appropriate
 
 ### Contributions beyond the project team
