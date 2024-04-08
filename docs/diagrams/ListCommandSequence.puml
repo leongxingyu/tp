@@ -1,37 +1,42 @@
 @startuml
 !include style.puml
+skinparam ArrowFontStyle plain
 
-Actor User as user USER_COLOR
+Participant ":ListCommand" as command COMMANDS_COLOR
 Participant ":UI" as ui UI_COLOR
-Participant ":StockPal" as stockpal STOCKPAL_COLOR
-Participant ":Parser" as parser PARSER_COLOR
-Participant "command:ListCommand" as commands COMMANDS_COLOR
+Participant ":ProductList" as productlist PRODUCTLIST_COLOR
 
-activate stockpal STOCKPAL_COLOR
+activate command COMMANDS_COLOR
+-> command : execute()
 
-user -[USER_COLOR]> ui : "list"
+alt Product list is empty
+command -> ui : printEmptyListMessage()
 activate ui UI_COLOR
+command <-- ui
+deactivate ui
+else
+    command -> command : sortListAccordingly(newList)
+    activate command COMMANDS_COLOR
+    alt Sort list by quantity
+        command -> productlist : products.sort(SortByQuantity())
+        activate productlist PRODUCTLIST_COLOR
+        command <-- productlist
+        deactivate productlist
+    else Sort list by name
+        command -> productlist : products.sort(SortByName())
+        activate productlist PRODUCTLIST_COLOR
+        command <-- productlist
+        deactivate productlist
+    else Sort list by PID by default
+    end
+    command --> command
+    deactivate command
+end
+command -> ui : printListTask(newList)
+activate ui UI_COLOR
+ui --> command
+deactivate ui
 
-ui -[UI_COLOR]> stockpal : "list"
-
-stockpal -[STOCKPAL_COLOR]> parser : parseCommand("list")
-activate parser PARSER_COLOR
-
-create commands
-parser -[PARSER_COLOR]> commands : new ListCommand(null)
-activate commands COMMANDS_COLOR
-commands --[COMMANDS_COLOR]> parser : command
-
-parser --[PARSER_COLOR]> stockpal : command
-deactivate parser
-
-stockpal -[STOCKPAL_COLOR]> commands : command.execute(productList:ProductList)
-commands -[COMMANDS_COLOR]> commands : sortListAccordingly(newList:ProductList))
-activate commands COMMANDS_COLOR
-commands --[COMMANDS_COLOR]> commands
-deactivate commands
-
-commands -[COMMANDS_COLOR]> ui : printListTasks(newList:ProductList)
-deactivate commands
-
+<-- command
+deactivate command
 @enduml
