@@ -21,10 +21,12 @@ public class ListCommand extends ListActionCommand {
     public static final String[] COMMAND_FLAG_DESCRIPTIONS = {};
     private static final Logger LOGGER = Logger.getLogger(ListCommand.class.getName());
 
-    private final String sortType;
+    private String sortType = null;
 
     public ListCommand(String sortType) {
-        this.sortType = sortType;
+        if (sortType != null) {
+            this.sortType = sortType.trim();
+        }
     }
 
     /**
@@ -56,10 +58,10 @@ public class ListCommand extends ListActionCommand {
     private void sortListAccordingly(ProductList newList) {
         if (sortType != null) {
             switch (sortType) {
-            case " -sq":
+            case "-sq":
                 newList.products.sort(new SortByQuantity());
                 break;
-            case " -sn":
+            case "-sn":
                 newList.products.sort(new SortByName());
                 break;
             default:
