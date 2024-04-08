@@ -11,10 +11,17 @@ import seedu.stockpal.data.product.Name;
 import seedu.stockpal.data.product.Quantity;
 import seedu.stockpal.data.product.Description;
 import seedu.stockpal.data.product.Price;
-import seedu.stockpal.exceptions.*;
+import seedu.stockpal.exceptions.DuplicateProductNameException;
+import seedu.stockpal.exceptions.InsufficientAmountException;
+import seedu.stockpal.exceptions.InventoryQuantityOverflowException;
+import seedu.stockpal.exceptions.NoLowQuantityException;
+import seedu.stockpal.exceptions.PidNotFoundException;
 import seedu.stockpal.ui.Ui;
 
-import static seedu.stockpal.common.Messages.*;
+
+import static seedu.stockpal.common.Messages.DUPLICATE_MESSAGE;
+import static seedu.stockpal.common.Messages.HORIZONTAL_LINE;
+import static seedu.stockpal.common.Messages.MESSAGE_ERROR_PID_NOT_FOUND;
 import static seedu.stockpal.ui.Ui.printToScreen;
 
 

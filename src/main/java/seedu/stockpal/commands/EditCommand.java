@@ -17,8 +17,6 @@ import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static seedu.stockpal.common.Messages.DUPLICATE_MESSAGE;
-
 //@@author Kobot7
 public class EditCommand extends ListActionCommand {
     public static final String COMMAND_KEYWORD = "edit";
