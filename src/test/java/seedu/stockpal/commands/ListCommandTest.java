@@ -76,7 +76,7 @@ public class ListCommandTest {
 
     @Test
     public void listSortQuantityTest() throws IOException {
-        ListCommand command = new ListCommand(" -sq");
+        ListCommand command = new ListCommand("-sq");
         command.execute(productList);
         String expected = new String(Files.readAllBytes(Paths.get(LIST_SORT_QUANTITY_TEST_FILE_TO_COMPARE)));
         assertEquals(expected, output.toString());
@@ -84,7 +84,7 @@ public class ListCommandTest {
 
     @Test
     public void listSortProductNameTest() throws IOException {
-        ListCommand command = new ListCommand(" -sn");
+        ListCommand command = new ListCommand("-sn");
         command.execute(productList);
         String expected = new String(Files.readAllBytes(Paths.get(LIST_SORT_PRODUCT_NAME_TEST_FILE_TO_COMPARE)));
         assertEquals(expected, output.toString());
