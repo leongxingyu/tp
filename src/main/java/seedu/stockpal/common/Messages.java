@@ -13,6 +13,7 @@ public class Messages {
     public static final String MESSAGE_ADDED = "Product has been added.";
     public static final String MESSAGE_REFER_TO_HELP = "For more information on the commands, use `help`.";
     public static final String MESSAGE_ERROR_INVALID_COMMAND = "Invalid command. " + MESSAGE_REFER_TO_HELP;
+    public static final String MESSAGE_ERROR_INVALID_LIST_SPECIFIER = "No such format specifier for List Command!";
     public static final String MESSAGE_ERROR_INVALID_PID_FORMAT = "PID is either missing or in wrong format" + "\n" +
             "Ensure that PID is a positive integer no larger than " + Integer.MAX_VALUE;
     public static final String MESSAGE_ERROR_INVALID_NAME_FORMAT = "Name is missing! Ensure that name entered is at" +
