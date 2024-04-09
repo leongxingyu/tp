@@ -23,11 +23,16 @@ import java.util.regex.Pattern;
 
 import static java.util.Objects.isNull;
 
+import static seedu.stockpal.common.Messages.EMPTY_STRING;
+import static seedu.stockpal.common.Messages.MESSAGE_ERROR_CENTS_EXCEED_LENGTH;
+import static seedu.stockpal.common.Messages.MESSAGE_ERROR_DOLLAR_EXCEED_MAX_INT;
+import static seedu.stockpal.common.Messages.MESSAGE_ERROR_EMPTY_AMOUNT;
 import static seedu.stockpal.common.Messages.MESSAGE_ERROR_EMPTY_DESCRIPTION;
 import static seedu.stockpal.common.Messages.MESSAGE_ERROR_EMPTY_NAME;
+import static seedu.stockpal.common.Messages.MESSAGE_ERROR_EMPTY_PRICE;
+import static seedu.stockpal.common.Messages.MESSAGE_ERROR_EMPTY_QUANTITY;
 import static seedu.stockpal.common.Messages.MESSAGE_ERROR_INPUT_INTEGER_EXCEEDED;
-import static seedu.stockpal.common.Messages.MESSAGE_ERROR_INVALID_AMOUNT_FORMAT;
-import static seedu.stockpal.common.Messages.MESSAGE_ERROR_INVALID_CENTS_FORMAT;
+import static seedu.stockpal.common.Messages.MESSAGE_ERROR_INT_PARSE_FAIL;
 import static seedu.stockpal.common.Messages.MESSAGE_ERROR_INVALID_COMMAND;
 import static seedu.stockpal.common.Messages.MESSAGE_ERROR_INVALID_DELETE_FORMAT;
 import static seedu.stockpal.common.Messages.MESSAGE_ERROR_INVALID_DESCRIPTION_LENGTH;
@@ -40,11 +45,12 @@ import static seedu.stockpal.common.Messages.MESSAGE_ERROR_INVALID_NEW_FORMAT;
 import static seedu.stockpal.common.Messages.MESSAGE_ERROR_INVALID_OUTFLOW_FORMAT;
 import static seedu.stockpal.common.Messages.MESSAGE_ERROR_INVALID_PID_FORMAT;
 import static seedu.stockpal.common.Messages.MESSAGE_ERROR_INVALID_PRICE_FORMAT;
-import static seedu.stockpal.common.Messages.MESSAGE_ERROR_INVALID_QUANTITY_FORMAT;
 import static seedu.stockpal.common.Messages.MESSAGE_ERROR_KEYWORD_ILLEGAL_CHAR;
+import static seedu.stockpal.common.Messages.MESSAGE_ERROR_MISSING_AMOUNT;
 import static seedu.stockpal.common.Messages.MESSAGE_ERROR_MISSING_AMOUNT_FLAG;
 import static seedu.stockpal.common.Messages.MESSAGE_ERROR_MISSING_NAME_FLAG;
 import static seedu.stockpal.common.Messages.MESSAGE_ERROR_MISSING_PRICE;
+import static seedu.stockpal.common.Messages.MESSAGE_ERROR_MISSING_QUANTITY;
 import static seedu.stockpal.common.Messages.MESSAGE_ERROR_MISSING_QUANTITY_FLAG;
 import static seedu.stockpal.common.Messages.MESSAGE_ERROR_NAME_ILLEGAL_CHAR;
 import static seedu.stockpal.common.Messages.MESSAGE_ERROR_DESCRIPTION_ILLEGAL_CHAR;
@@ -55,66 +61,89 @@ import static seedu.stockpal.common.Messages.MESSAGE_ERROR_ZERO_AMOUNT;
  */
 public class Parser {
     public static final String DIVIDER = " ";
-    public static final Pattern PID_PATTERN = Pattern.compile("^(\\d+)(.*)?");
+    public static final Pattern PID_PATTERN = Pattern.compile("^(\\d+)( .*)?");
     public static final Pattern NAME_PATTERN =
             Pattern.compile("^n/([a-zA-Z0-9 ()\\[\\],.\\-_]+)?( q/.*| p/.*| d/.*)?");
-    public static final Pattern QUANTITY_PATTERN = Pattern.compile("^q/((?:\\s+)?\\d+)?(.*)?");
-    public static final Pattern PRICE_PATTERN = Pattern.compile("^p/((?:\\s+)?\\d+)(\\.\\d+)?(.*)?");
-    public static final Pattern DESCRIPTION_PATTERN = Pattern.compile("^d/([a-zA-Z0-9 ()\\[\\],.\\-_]+)");
-    public static final Pattern AMOUNT_PATTERN = Pattern.compile("^a/((?:\\s+)?\\d+)(.*)?");
+    public static final Pattern QUANTITY_PATTERN = Pattern.compile("^q/(.+?)( p/.*| d/.*)?");
+    public static final Pattern PRICE_PATTERN = Pattern.compile("^p/(.+?)( d/.*)?");
+    public static final Pattern DESCRIPTION_PATTERN = Pattern.compile("^d/([a-zA-Z0-9 ()\\[\\],.\\-_]+)?");
+    public static final Pattern AMOUNT_PATTERN = Pattern.compile("^a/(.+)");
     public static final Pattern LIST_FLAG_PATTERN = Pattern.compile("(-sn|-sq)?");
     public static final Pattern KEYWORD_PATTERN = Pattern.compile("([a-zA-Z0-9 ()\\[\\],.\\-_]+)");
+    public static final Pattern INTEGER_PATTERN = Pattern.compile("(\\d+)");
+    public static final Pattern DOUBLE_PATTERN = Pattern.compile("(\\d+)(\\.\\d+)?");
     public static final int FLAG_LENGTH = 2;
     public static final int START_INDEX = 0;
     public static final int MAX_NAME_LENGTH = 50;
     public static final int MAX_DESCRIPTION_LENGTH = 100;
-    private static final Logger LOGGER = Logger.getLogger(Parser.class.getName());
+    public static final int ZERO_AMOUNT = 0;
     private static final String NAME_FLAG = "n/";
     private static final String QUANTITY_FLAG = "q/";
     private static final String PRICE_FLAG = "p/";
     private static final String DESCRIPTION_FLAG = "d/";
     private static final String AMOUNT_FLAG = "a/";
     private static final int DECIMAL_LENGTH = 3;
-    
+    private static final Logger LOGGER = Logger.getLogger(Parser.class.getName());
     private static String getCommandFromInput(String input) {
         if (!input.contains(DIVIDER)) {
             return input;
         }
 
-        return input.substring(START_INDEX, input.indexOf(DIVIDER));
+        return input.substring(START_INDEX, input.indexOf(DIVIDER)).toLowerCase();
     }
 
-    private Integer parseInteger(String intString) throws UnsignedIntegerExceededException {
+    private Integer parseInteger(String intString) throws InvalidFormatException, UnsignedIntegerExceededException {
+        Matcher intMatcher = INTEGER_PATTERN.matcher(intString);
+        if (!intMatcher.matches()) {
+            throw new InvalidFormatException(MESSAGE_ERROR_INT_PARSE_FAIL);
+        }
+
         try {
             return Integer.parseInt(intString);
         } catch (NumberFormatException nfe) {
             throw new UnsignedIntegerExceededException(MESSAGE_ERROR_INPUT_INTEGER_EXCEEDED);
         }
     }
-    private Double parsePrice(String matchedPrice) {
+    private Double parsePrice(String matchedPrice) throws InvalidFormatException {
+        Matcher doubleMatcher = DOUBLE_PATTERN.matcher(matchedPrice);
+        if (!doubleMatcher.matches()) {
+            throw new InvalidFormatException(MESSAGE_ERROR_INVALID_PRICE_FORMAT);
+        }
+
+        Integer dollar;
+
+        String dollarString = doubleMatcher.group(1);
+        String centsString = doubleMatcher.group(2);
+
+        try {
+            dollar = Integer.parseInt(dollarString);
+        } catch (NumberFormatException nfe) {
+            throw new InvalidFormatException(MESSAGE_ERROR_DOLLAR_EXCEED_MAX_INT);
+        }
+
+        if (isNull(centsString)) {
+            return Double.valueOf(dollar);
+        }
+
+        if (centsString.length() > DECIMAL_LENGTH) {
+            throw new InvalidFormatException(MESSAGE_ERROR_CENTS_EXCEED_LENGTH);
+        }
+
         return Double.parseDouble(matchedPrice);
     }
 
     private String matchPrice(String input) throws InvalidFormatException {
         Matcher priceMatcher = PRICE_PATTERN.matcher(input);
         if (!priceMatcher.matches()) {
-            throw new InvalidFormatException(MESSAGE_ERROR_INVALID_PRICE_FORMAT);
-        }
-
-        String dollarString = priceMatcher.group(1);
-        String centsString = priceMatcher.group(2);
-        if (isNull(dollarString) && isNull(centsString)) {
             throw new InvalidFormatException(MESSAGE_ERROR_MISSING_PRICE);
         }
-        if (isNull(centsString)) {
-            return dollarString;
-        }
 
-        if (centsString.length() > DECIMAL_LENGTH) {
-            throw new InvalidFormatException(MESSAGE_ERROR_INVALID_CENTS_FORMAT);
-        }
+        String matchedString = priceMatcher.group(1);
 
-        return dollarString + centsString;
+        if (matchedString.isBlank()) {
+            throw new InvalidFormatException(MESSAGE_ERROR_EMPTY_PRICE);
+        }
+        return matchedString;
     }
     private String matchPid(String input) throws InvalidFormatException {
         Matcher pidMatcher = PID_PATTERN.matcher(input);
@@ -128,22 +157,31 @@ public class Parser {
     private String matchAmount(String input) throws InvalidFormatException {
         Matcher amountMatcher = AMOUNT_PATTERN.matcher(input);
         if (!amountMatcher.matches()) {
-            throw new InvalidFormatException(MESSAGE_ERROR_INVALID_AMOUNT_FORMAT);
+            throw new InvalidFormatException(MESSAGE_ERROR_MISSING_AMOUNT);
+        }
+
+        String matchedAmount = amountMatcher.group(1);
+
+        if (matchedAmount.isBlank()) {
+            throw new InvalidFormatException(MESSAGE_ERROR_EMPTY_AMOUNT);
         }
         
-        return amountMatcher.group(1);
+        return matchedAmount;
     }
 
     private String matchQuantity(String input) throws InvalidFormatException {
         Matcher quantityMatcher = QUANTITY_PATTERN.matcher(input);
-        if (quantityMatcher.matches()) {
-            if (isNull(quantityMatcher.group(1))) {
-                throw new InvalidFormatException(MESSAGE_ERROR_INVALID_QUANTITY_FORMAT);
-            }
-            return quantityMatcher.group(1);
+        if (!quantityMatcher.matches()) {
+            throw new InvalidFormatException(MESSAGE_ERROR_MISSING_QUANTITY);
         }
-        
-        return null;
+
+        String matchedQuantity = quantityMatcher.group(1);
+
+        if (matchedQuantity.isBlank()) {
+            throw new InvalidFormatException(MESSAGE_ERROR_EMPTY_QUANTITY);
+        }
+
+        return matchedQuantity;
     }
 
     private String matchString(Pattern pattern, String input) {
@@ -153,7 +191,7 @@ public class Parser {
         }
         
         if (isNull(stringMatcher.group(1))) { //matched but is nothing is captured
-            return "";
+            return EMPTY_STRING;
         }
         
         return stringMatcher.group(1);
@@ -209,7 +247,6 @@ public class Parser {
     private OutflowCommand createOutflowCommand(String input)
             throws InvalidFormatException, UnsignedIntegerExceededException {
         Integer pid;
-        Integer decreaseBy;
 
         input = input.substring(OutflowCommand.COMMAND_KEYWORD.length()).stripLeading();
 
@@ -222,8 +259,8 @@ public class Parser {
         }
         
         String amountString = matchAmount(input);
-        decreaseBy = parseInteger(amountString);
-        if (decreaseBy == 0) {
+        Integer decreaseBy = parseInteger(amountString);
+        if (decreaseBy == ZERO_AMOUNT) {
             throw new InvalidFormatException(MESSAGE_ERROR_ZERO_AMOUNT);
         }
 
@@ -251,7 +288,7 @@ public class Parser {
         }
         String amountString = matchAmount(input);
         increaseBy = parseInteger(amountString);
-        if (increaseBy == 0) {
+        if (increaseBy == ZERO_AMOUNT) {
             throw new InvalidFormatException(MESSAGE_ERROR_ZERO_AMOUNT);
         }
 
@@ -307,7 +344,6 @@ public class Parser {
 
         if (input.startsWith(QUANTITY_FLAG)) {
             String matchedQuantity = matchQuantity(input);
-            assert matchedQuantity != null;
             quantity = parseInteger(matchedQuantity.strip());
             input = input.substring(matchedQuantity.length() + FLAG_LENGTH).stripLeading();
         }
@@ -355,16 +391,13 @@ public class Parser {
             throw new InvalidFormatException(MESSAGE_ERROR_MISSING_QUANTITY_FLAG);
         }
         String matchedQuantity = matchQuantity(input);
-        assert matchedQuantity != null;
         quantity = parseInteger(matchedQuantity.strip());
         input = input.substring(matchedQuantity.length() + FLAG_LENGTH).stripLeading();
 
         if (input.startsWith(PRICE_FLAG)) {
             String matchedPrice = matchPrice(input);
-            if (!isNull(matchedPrice)) {
-                price = parsePrice(matchedPrice.strip());
-                input = input.substring(matchedPrice.length() + FLAG_LENGTH).stripLeading();
-            }
+            price = parsePrice(matchedPrice.strip());
+            input = input.substring(matchedPrice.length() + FLAG_LENGTH).stripLeading();
         }
 
         if (input.startsWith(DESCRIPTION_FLAG)) {
