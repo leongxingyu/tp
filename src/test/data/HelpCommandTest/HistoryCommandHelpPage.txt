@@ -1,7 +1,7 @@
 ====================================================================================
 Command: history
 
-Description: Checks the history of inflow outflow commands of a particular PID
+Description: Displays the inflow and outflow history of a product.
 
 Usage: history PID
 

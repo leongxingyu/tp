@@ -9,28 +9,28 @@ Usage: new n/PRODUCT_NAME q/INITIAL_QUANTITY [p/PRICE] [d/DESCRIPTION]
 Options:
 PRODUCT_NAME          Name of the product
 INITIAL_QUANTITY      Quantity of the product
-PRICE                 Price of the product. Price must be in 2 decimal places.
+PRICE                 Price of the product
 DESCRIPTION           Description of the product
 ====================================================================================
 Command: edit
 
-Description: Edits an existing product in the inventory at the specific PID.
+Description: Edits an existing product in the inventory.
              Note that at least 1 flag is required when using the edit command.
 
 Usage: edit PID [n/PRODUCT_NAME] [q/QUANTITY] [p/PRICE] [d/DESCRIPTION]
 
 Options:
-PID                   Product ID of product to edit
+PID                   Product ID of product
 PRODUCT_NAME          Updated name of the product
 QUANTITY              Updated quantity of the product
-PRICE                 Updated price of the product. Price must be in 2 decimal places.
+PRICE                 Updated price of the product
 DESCRIPTION           Updated description of the product
 ====================================================================================
 Command: delete
 
 Description: Deletes an existing product from the inventory.
 
-Usage: Format: delete PID
+Usage: delete PID
 
 Options:
 PID                   Product ID of product
@@ -66,10 +66,13 @@ KEYWORD               Keyword to search for in product name. Keyword is case sen
 ====================================================================================
 Command: list
 
-Description: Lists each product in inventory.
+Description: List all products in inventory.
 
-Usage: list
+Usage: list [-sn|-sq]
 
+Options:
+-sn                   Use this flag to sort by product name (alphabetically from A to Z)
+-sq                   Use this flag to sort by product quantity (ascending)
 ====================================================================================
 Command: exit
 

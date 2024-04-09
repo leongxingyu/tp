@@ -16,7 +16,6 @@ import java.util.logging.Logger;
 public class OutflowCommand extends TransactionActionCommand {
     public static final String COMMAND_KEYWORD = "outflow";
     public static final String COMMAND_DESCRIPTION = "Decreases the quantity of a product from the existing amount.";
-
     public static final String COMMAND_USAGE = "outflow PID a/DECREMENT_AMOUNT";
 
     public static final String[] COMMAND_FLAGS = {

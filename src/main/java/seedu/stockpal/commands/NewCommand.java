@@ -31,7 +31,7 @@ public class NewCommand extends ListActionCommand {
     public static final String[] COMMAND_FLAG_DESCRIPTIONS = {
         "Name of the product"
         , "Quantity of the product"
-        , "Price of the product. Price must be in 2 decimal places."
+        , "Price of the product"
         , "Description of the product"
     };
 

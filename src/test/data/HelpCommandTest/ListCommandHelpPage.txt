@@ -1,8 +1,11 @@
 ====================================================================================
 Command: list
 
-Description: Lists each product in inventory.
+Description: List all products in inventory.
 
-Usage: list
+Usage: list [-sn|-sq]
 
+Options:
+-sn                   Use this flag to sort by product name (alphabetically from A to Z)
+-sq                   Use this flag to sort by product quantity (ascending)
 ====================================================================================
