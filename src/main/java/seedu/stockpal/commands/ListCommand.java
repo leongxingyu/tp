@@ -11,8 +11,6 @@ import java.util.Comparator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static seedu.stockpal.ui.Ui.printToScreen;
-
 public class ListCommand extends ListActionCommand {
     public static final String COMMAND_KEYWORD = "list";
     public static final String COMMAND_DESCRIPTION = "Lists each product in inventory.";
@@ -21,21 +19,25 @@ public class ListCommand extends ListActionCommand {
     public static final String[] COMMAND_FLAG_DESCRIPTIONS = {};
     private static final Logger LOGGER = Logger.getLogger(ListCommand.class.getName());
 
-    private final String sortType;
+    private String sortType = null;
 
     public ListCommand(String sortType) {
-        this.sortType = sortType;
+        if (sortType != null) {
+            this.sortType = sortType.trim();
+        }
     }
 
     /**
      * Prints out all products that are in the list.
      * It sorts the products to either the name, quantity or by default, it's PID.
      * If the list is empty, it tells the user that the list is empty.
+     *
+     * @param productList contains all the products in the inventory.
      */
     @Override
     public void execute(ProductList productList) {
         if (productList.isEmpty()) {
-            printToScreen(Messages.MESSAGE_EMPTY_LIST);
+            Ui.printEmptyListMessage();
             return;
         }
 

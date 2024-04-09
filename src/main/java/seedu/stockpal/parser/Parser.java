@@ -55,6 +55,7 @@ import static seedu.stockpal.common.Messages.MESSAGE_ERROR_MISSING_QUANTITY_FLAG
 import static seedu.stockpal.common.Messages.MESSAGE_ERROR_NAME_ILLEGAL_CHAR;
 import static seedu.stockpal.common.Messages.MESSAGE_ERROR_DESCRIPTION_ILLEGAL_CHAR;
 import static seedu.stockpal.common.Messages.MESSAGE_ERROR_ZERO_AMOUNT;
+import static seedu.stockpal.common.Messages.MESSAGE_ERROR_INVALID_LIST_SPECIFIER;
 
 /**
  * The Parser class is responsible for parsing user input into its respective command's relevant fields.
@@ -231,17 +232,19 @@ public class Parser {
         throw new InvalidFormatException(MESSAGE_ERROR_INVALID_EXIT_USAGE);
     }
 
-    private ListCommand createListCommand(String input) {
-        String flag = null;
-
-        input = input.substring(ListCommand.COMMAND_KEYWORD.length()).stripLeading();
+    private ListCommand createListCommand(String input) throws InvalidFormatException {
+        input = input.substring(ListCommand.COMMAND_KEYWORD.length()).strip();
         Matcher listFlagMatcher = LIST_FLAG_PATTERN.matcher(input);
 
-        if (listFlagMatcher.matches()) {
-            flag = listFlagMatcher.group(1);
+        if (input.isEmpty()) {
+            return new ListCommand(null);
         }
 
-        return new ListCommand(flag);
+        if (listFlagMatcher.matches()) {
+            return new ListCommand(listFlagMatcher.group(1));
+        }
+
+        throw new InvalidFormatException(MESSAGE_ERROR_INVALID_LIST_SPECIFIER);
     }
 
     private OutflowCommand createOutflowCommand(String input)

@@ -57,6 +57,11 @@ public class Product {
         return this.pid.equals(pid);
     }
 
+    /**
+     * Converts the product parameters to the default product string format.
+     *
+     * @return Product string format
+     */
     @Override
     public String toString() {
         String separator = "  |  ";

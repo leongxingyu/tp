@@ -18,25 +18,37 @@ deactivate command COMMANDS_COLOR
 alt hasAtLeastOneValidParameter == true
     command -> productlist : findProductIndex(PID)
     activate productlist PRODUCTLIST_COLOR
+
+    note over productlist
+        Throws PidNotFoundException
+        if PID is not found in product list
+    end note
+
     command <-- productlist : productIndex
     deactivate productlist
 
-    alt productIndex != -1
-        command -> productlist : updateProduct(productIndex, name, quantity, description, price)
-        activate productlist PRODUCTLIST_COLOR
-        command <-- productlist
-        deactivate productlist
+    command -> productlist : updateProduct(productIndex, name, quantity, description, price)
+    activate productlist PRODUCTLIST_COLOR
 
-        command -> ui : printEditSuccessMessage()
-        activate ui UI_COLOR
-        command <-- ui
-        deactivate ui
-    else productIndex == -1
-        command -> ui : printInvalidPidMessage()
-        activate ui UI_COLOR
-        command <-- ui
-        deactivate ui
-    end
+    productlist -> productlist : checkForRepeated(name)
+    activate productlist PRODUCTLIST_COLOR
+
+    note over productlist
+        Throws DuplicateProductNameException
+        if name is already exists in product list
+    end note
+
+    productlist --> productlist
+    deactivate productlist
+
+    command <-- productlist
+    deactivate productlist
+
+    command -> ui : printEditSuccessMessage()
+    activate ui UI_COLOR
+    command <-- ui
+    deactivate ui
+
 else hasAtLeastOneValidParameter == false
     command -> ui : printMissingParametersMessage()
     activate ui UI_COLOR

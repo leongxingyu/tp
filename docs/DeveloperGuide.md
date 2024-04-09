@@ -10,18 +10,20 @@ title: Developer Guide
     * [Command component](#command-component)
     * [Data component](#data-component)
     * [Storage component](#storage-component)
-    * [Common classes](#common-classes)
-    * [Exception classes](#exception-classes)
+    * [Common Classes](#common-classes)
+    * [Exception Classes](#exception-classes)
   * [**Implementation**](#implementation)
-    * [Command feature](#command-feature)
-    * [Add product feature](#add-product-feature)
-    * [Edit product feature](#edit-product-feature)
+    * [Command Feature](#command-feature)
+    * [Add Product Feature](#add-product-feature)
+    * [Edit Product Feature](#edit-product-feature)
       * [Implementation](#implementation-1)
-    * [List feature](#list-feature)
+    * [List Feature](#list-feature)
     * [InflowCommand Feature](#inflowcommand-feature)
+    * [Implementation](#implementation-2)
     * [OutflowCommand Feature](#outflowcommand-feature)
+    * [Implementation](#implementation-3)
     * [Delete product feature](#delete-product-feature)
-      * [Implementation](#implementation-2)
+      * [Implementation](#implementation-4)
     * [Find product feature](#find-product-feature)
     * [History product feature](#history-product-feature)
   * [**Appendix: Requirements**](#appendix-requirements)
@@ -32,6 +34,8 @@ title: Developer Guide
   * [**Appendix: Instructions for manual testing**](#appendix-instructions-for-manual-testing)
     * [Adding a Product](#adding-a-product)
     * [Editing Product Details](#editing-product-details)
+    * [Increase Product Quantity](#increase-product-quantity)
+    * [Decrease Product Quantity](#decrease-product-quantity)
     * [Deleting a product](#deleting-a-product)
     * [Finding a keyword in the Product list](#finding-a-keyword-in-the-product-list-)
     * [Finding all past transactions for a particular product in the Product list](#finding-all-past-transactions-for-a-particular-product-in-the-product-list)
@@ -180,6 +184,40 @@ The following sequence diagram summarizes what happens when a user inputs a vali
 Validation of the user input is done in `Parser`, hence `XYZCommand` assumes that all fields provided upon creation
 of a `XYZCommand` object are properly formatted.
 
+### Help Feature
+
+The `help` command is used to display the help page for either all or individual commands.
+
+The `help` feature is facilitated by `HelpCommand` which extends `Command`.
+
+Details for individual commands are stored within the individual classes as static variables.
+The details are stored as 5 variables as follows.
+
+| Variable                  | What it represents                                    | Example                                                  |
+|---------------------------|-------------------------------------------------------|----------------------------------------------------------|
+| COMMAND_KEYWORD           | The keyword used to identify the command.             | "help"                                                   |
+| COMMAND_DESCRIPTION       | Description of the command.                           | "Provides command details for all or specific commands." |
+| COMMAND_USAGE             | The format of the command.                            | "help [COMMAND_KEYWORD]"                                 |
+| COMMAND_FLAGS             | Placeholder value used to denote command arguments.   | {"COMMAND_KEYWORD"}                                      |
+| COMMAND_FLAG_DESCRIPTIONS | Description of what the placeholder value represents. | {"Command to display details for"}                       |
+
+`FormatUtils#formatCommandDetails()` takes in these 5 variables as arguments and produces a formatted version of the details.
+
+Example of formatted version of details based on the 5 example variables above:
+```
+====================================================================================
+Command: help
+
+Description: Provides command details for all or specific commands.
+
+Usage: help [COMMAND_KEYWORD]
+
+Options:
+COMMAND_KEYWORD       Command to display details for
+====================================================================================
+```
+
+
 ### Add Product Feature
 
 The NewCommand class is responsible for adding a new product to the inventory in the StockPal application.
@@ -187,7 +225,7 @@ The NewCommand class is responsible for adding a new product to the inventory in
 The add product feature is facilitated by `NewCommand` which extends `Command`.
 
 Specific validations are still carried out within `NewCommand`.
-1. Checking if the edited product name is the same as an existing product name
+1. Checking if the new product name is the same as an existing product name.
 
 Once all validation is completed, adding of product is done by calling `ProductList#addProduct()`.
 
@@ -202,25 +240,15 @@ The `edit` command is used to edit product details such as name, quantity, price
 
 The edit product feature is facilitated by `EditCommand` which extends `Command`.
 
-Specific validations are still carried out within `EditCommand`.
+Specific validations are still carried out when updating the product details.
 1. Checking if at least 1 field (name, quantity, price or description) is provided.
 2. Checking if the product ID (PID) belongs to an existing product.
-3. Checking if the edited product name is the same as an existing product name
+3. Checking if the edited product name is the same as an existing product name.
 
-Once all validation is completed, updating of product details is done by calling `ProductList#updateProduct()`.
+Updating of product details is done by calling `ProductList#updateProduct()`.
 
 The following sequence diagram details how `EditCommand#execute()` functions.
 <img src="images/EditCommandExecuteSequenceDiagram.png" alt="EditCommandExecuteSequenceDiagram.png"/>
-
-**Aspect: Validating parameters and handling errors**
-
-- Alternative 1 (current choice): Check parameters and handle errors within `EditCommand`.
-  - Pros: Easy to implement
-  - Cons: -
-  
-- Alternative 2: Handle validation of errors within `productList#updateProduct()`.
-    - Pros: Implementing `EditCommand#execute()` will be very simple. Usage of throw/catch to handle errors.
-    - Cons: `productList#updateProduct()` will be more lengthy. May require further abstraction.
 
 ### List Feature
 The ListCommand class is responsible for sorting and printing out the products in the list. 
@@ -233,6 +261,8 @@ The ListCommand class is responsible for sorting and printing out the products i
 * `execute`: Method to list out the products in the product list.
 * `sortListAccordingly`: Method to sort the list according to the products' PID, products' name or products' quantity.
 
+The following sequence diagram illustrates how `ListCommand#execute()` functions
+<img src="images/ListCommandExecuteSequenceDiagram.png" alt="ListCommandExecuteSequenceDiagram.png"/>
 
 ### InflowCommand Feature
 

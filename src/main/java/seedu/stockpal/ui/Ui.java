@@ -94,6 +94,10 @@ public final class Ui {
         Ui.printToScreen(Messages.MESSAGE_ERROR_MISSING_PARAMETERS);
     }
 
+    public static void printEmptyListMessage() {
+        printToScreen(Messages.MESSAGE_EMPTY_LIST);
+    }
+
     public static void printDeleteSuccessMessage() {
         printToScreen(Messages.MESSAGE_DELETE_SUCCESS);
     }

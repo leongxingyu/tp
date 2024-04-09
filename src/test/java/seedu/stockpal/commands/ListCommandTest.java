@@ -17,6 +17,10 @@ import static seedu.stockpal.common.Messages.MESSAGE_EMPTY_LIST;
 
 public class ListCommandTest {
     private static final String LIST_TEST_FILE_TO_COMPARE = "src/test/data/ListCommandTest/ListTest.txt";
+    private static final String LIST_SORT_QUANTITY_TEST_FILE_TO_COMPARE
+            = "src/test/data/ListCommandTest/ListSortQuantityTest.txt";
+    private static final String LIST_SORT_PRODUCT_NAME_TEST_FILE_TO_COMPARE
+            = "src/test/data/ListCommandTest/ListSortProductNameTest.txt";
     private final ProductList emptyProductList = new ProductList();
     private final ByteArrayOutputStream output = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
@@ -67,6 +71,22 @@ public class ListCommandTest {
         ListCommand command = new ListCommand(null);
         command.execute(productList);
         String expected = new String(Files.readAllBytes(Paths.get(LIST_TEST_FILE_TO_COMPARE)));
+        assertEquals(expected, output.toString());
+    }
+
+    @Test
+    public void listSortQuantityTest() throws IOException {
+        ListCommand command = new ListCommand("-sq");
+        command.execute(productList);
+        String expected = new String(Files.readAllBytes(Paths.get(LIST_SORT_QUANTITY_TEST_FILE_TO_COMPARE)));
+        assertEquals(expected, output.toString());
+    }
+
+    @Test
+    public void listSortProductNameTest() throws IOException {
+        ListCommand command = new ListCommand("-sn");
+        command.execute(productList);
+        String expected = new String(Files.readAllBytes(Paths.get(LIST_SORT_PRODUCT_NAME_TEST_FILE_TO_COMPARE)));
         assertEquals(expected, output.toString());
     }
 }

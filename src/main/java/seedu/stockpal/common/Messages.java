@@ -20,7 +20,7 @@ public class Messages {
     public static final String MESSAGE_INFO_AMOUNT_FORMAT =
             "Ensure that Amount entered is an integer and is at most " + Integer.MAX_VALUE;
 
-    // Error Messages
+    // ------------------------Start of Parser errors---------------------------------------------------
     public static final String MESSAGE_ERROR_INVALID_COMMAND = "Invalid command. " + MESSAGE_REFER_TO_HELP;
 
     // Invalid Format
@@ -39,6 +39,7 @@ public class Messages {
             "Delete Command takes in only PID.";
     public static final String MESSAGE_ERROR_INVALID_EXIT_USAGE = MESSAGE_ERROR_INVALID_FORMAT +
             "Exit Command does not take in any extra arguments!";
+    public static final String MESSAGE_ERROR_INVALID_LIST_SPECIFIER = "No such format specifier for List Command!";
 
 
     // Missing compulsory flags
@@ -125,8 +126,8 @@ public class Messages {
     // Amount is zero
     public static final String MESSAGE_ERROR_ZERO_AMOUNT = "Amount cannot be 0!";
 
+    // ---------------------------------End of parser errors-----------------------------------------------
 
-    // End of parser errors
     public static final String MESSAGE_ERROR_MISSING_PARAMETERS = "Please ensure that there is " +
             "at least 1 parameter provided.";
     public static final String MESSAGE_ERROR_PID_NOT_FOUND = "Product with the following PID is not found: ";
@@ -155,5 +156,5 @@ public class Messages {
     public static final String MESSAGE_HISTORY = "History command has ran.";
     public static final String MESSAGE_FIND = "Find command has ran.";
 
-    public static final String DUPLICATE_MESSAGE = "Duplicate item.";
+    public static final String DUPLICATE_MESSAGE = "Product name already exists. Please use a different product name";
 }
