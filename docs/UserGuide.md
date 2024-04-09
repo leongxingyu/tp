@@ -121,15 +121,10 @@ JSON (JavaScript Object Notation) - a file format for storing and transporting d
         e.g. <code>n/PRODUCT_NAME q/INITIAL_QUANTITY [p/PRICE]</code> can be used as <code>n/Math Textbook q/100 p/20.00</code> or as <code>n/Math Textbook q/100</code>.</li>
     <li>Parameters must be in the specified order.<br>
         e.g. if the command specifies <code>n/PRODUCT_NAME q/INITIAL_QUANTITY</code>, <code>q/INITIAL_QUANTITY n/PRODUCT_NAME</code> is <strong>not</strong> acceptable.</li>
-<<<<<<< HEAD
     <li>Commands are not case-sensitive but flags are.<br>
         e.g. <code>HELP</code> would not trigger an invalid command warning, but it is recommended to use <code>help</code>.<br>
         e.g. <code>inflow 1 A/100</code> would trigger a missing Amount flag error. Use <code>inflow 1 a/100</code> instead.</li>
-=======
-    <li>Commands are case-sensitive and must strictly follow case specified.<br>
-        e.g. <code>HELP</code> would trigger an invalid command warning, as <code>help</code> is the proper command to be used.</li>
-    <li>Arguments have to be supplied immediately after the <code>/</code>. If this is not adhered to, errors could occur. e.g. use<code>new n/new name q/123</code> instead of <code>new n/  new name q/  123</code></li>
->>>>>>> master
+
 </ul>
 </div>
 
