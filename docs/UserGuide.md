@@ -121,9 +121,9 @@ JSON (JavaScript Object Notation) - a file format for storing and transporting d
         e.g. <code>n/PRODUCT_NAME q/INITIAL_QUANTITY [p/PRICE]</code> can be used as <code>n/Math Textbook q/100 p/20.00</code> or as <code>n/Math Textbook q/100</code>.</li>
     <li>Parameters must be in the specified order.<br>
         e.g. if the command specifies <code>n/PRODUCT_NAME q/INITIAL_QUANTITY</code>, <code>q/INITIAL_QUANTITY n/PRODUCT_NAME</code> is <strong>not</strong> acceptable.</li>
-    <li>Commands are case-sensitive and must strictly follow case specified.<br>
-        e.g. <code>HELP</code> would trigger an invalid command warning, as <code>help</code> is the proper command to be used.</li>
-    <li>Arguments have to be supplied immediately after the <code>/</code>. If this is not adhered to, errors could occur. e.g. use<code>`new n/new name q/123</code> instead of <code>new n/  new name q/  123</code></li>
+    <li>Commands are not case-sensitive but flags are.<br>
+        e.g. <code>HELP</code> would not trigger an invalid command warning, but it is recommended to use <code>help</code>.<br>
+        e.g. <code>inflow 1 A/100</code> would trigger a missing Amount flag error. Use <code>inflow 1 a/100</code> instead.</li>
 </ul>
 </div>
 
@@ -181,12 +181,12 @@ Format:
 new n/PRODUCT_NAME q/INITIAL_QUANTITY [p/PRICE] [d/DESCRIPTION]
 ```
 
-| Parameter          | Representation                             | Constraints                                                                             |
-|--------------------|--------------------------------------------|-----------------------------------------------------------------------------------------|
-| `PRODUCT_NAME`     | Name of new product to be added            | Limited to 50 characters.<br/>Allowed characters:<br/>`a-zA-Z0-9 ()[],.-_`                                       |
-| `INITIAL_QUANTITY` | Quantity of the new product to be added    | Must be an integer more than or equal to 0                                              |
-| `PRICE`            | Price of the new product to be added       | - Must be a numeric value more than equal to 0<br/>- Must have exactly 2 decimal places |
-| `DESCRIPTION`      | Description of the new product to be added | Limited to 100 characters<br/>Allowed characters:<br/>`a-zA-Z0-9 ()[],.-_`                                                               |
+| Parameter          | Representation                             | Constraints                                                                            |
+|--------------------|--------------------------------------------|----------------------------------------------------------------------------------------|
+| `PRODUCT_NAME`     | Name of new product to be added            | Limited to 50 characters.<br/>Allowed characters:<br/>`a-zA-Z0-9 ()[],.-_`             |
+| `INITIAL_QUANTITY` | Quantity of the new product to be added    | Must be an integer more than or equal to 0                                             |
+| `PRICE`            | Price of the new product to be added       | - Must be a numeric value more than equal to 0<br/>- Can have at most 2 decimal places |
+| `DESCRIPTION`      | Description of the new product to be added | Limited to 100 characters<br/>Allowed characters:<br/>`a-zA-Z0-9 ()[],.-_`             |
 
 ### Example 1
 Input:
