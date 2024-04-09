@@ -26,7 +26,7 @@ public class Messages {
     // Invalid Format
     public static final String MESSAGE_ERROR_INVALID_FORMAT =
             "Formatting issue found!\n" +
-            "Ensure no extra arguments and characters are supplied within and after the command.";
+            "Ensure no extra arguments and characters are supplied within and after the command.\n";
     public static final String MESSAGE_ERROR_INVALID_NEW_FORMAT = MESSAGE_ERROR_INVALID_FORMAT +
             "New Command takes in only Name, Quantity, Price and Description.";
     public static final String MESSAGE_ERROR_INVALID_EDIT_FORMAT = MESSAGE_ERROR_INVALID_FORMAT +
@@ -37,6 +37,8 @@ public class Messages {
             "Outflow Command takes in only PID and Amount.";
     public static final String MESSAGE_ERROR_INVALID_DELETE_FORMAT = MESSAGE_ERROR_INVALID_FORMAT +
             "Delete Command takes in only PID.";
+    public static final String MESSAGE_ERROR_INVALID_HISTORY_FORMAT = MESSAGE_ERROR_INVALID_FORMAT +
+            "History Command takes in only PID.";
     public static final String MESSAGE_ERROR_INVALID_EXIT_USAGE = MESSAGE_ERROR_INVALID_FORMAT +
             "Exit Command does not take in any extra arguments!";
     public static final String MESSAGE_ERROR_INVALID_LIST_SPECIFIER = "No such format specifier for List Command!";
@@ -44,21 +46,21 @@ public class Messages {
 
     // Missing compulsory flags
     public static final String MESSAGE_ERROR_MISSING_NAME_FLAG =
-            "n/ flag is missing!\n" +
-            "Ensure that name is entered using n/<Name>";
+            "n/ flag cannot be detected!\n" +
+            "Ensure n/ flag is entered immediately after 'new', using n/<Name>";
     public static final String MESSAGE_ERROR_MISSING_QUANTITY_FLAG =
-            "q/ is missing!\n" +
-            "Ensure that quantity is entered using q/<Quantity>";
+            "q/ flag cannot be detected!\n" +
+            "Ensure that q/ flag is entered immediately after NAME, using q/<Quantity>";
 
     public static final String MESSAGE_ERROR_MISSING_AMOUNT_FLAG =
-            "a/ is missing!\n" +
-            "Ensure that quantity is entered using a/<amount>";
+            "a/ flag cannot be detected!\n" +
+            "Ensure that amount is entered immediately after PID, using a/<amount>";
 
 
     // Flag present and input is only whitespaces
     public static final String MESSAGE_ERROR_EMPTY_NAME =
             "Name is empty!\n" +
-            " Ensure that Name entered is at most 50 characters long and\n" +
+            " nsure that Name entered is at most 50 characters long and\n" +
             "only contains the following characters: " + ALLOWED_CHARACTERS;
     public static final String MESSAGE_ERROR_EMPTY_QUANTITY =
             "Quantity is empty!\n" + MESSAGE_INFO_QUANTITY_FORMAT;
@@ -86,7 +88,7 @@ public class Messages {
             "Ensure that Name entered is only at most 50 characters long.";
     public static final String MESSAGE_ERROR_INVALID_DESCRIPTION_LENGTH =
             "Length of description is more than 100!\n" +
-                    "Ensure that name entered is only at most 100 characters long.";
+            "Ensure that name entered is only at most 100 characters long.";
 
     // No input at all (with or without flags)
     public static final String MESSAGE_ERROR_MISSING_QUANTITY =
@@ -111,9 +113,6 @@ public class Messages {
             "Ensure that PID is a positive integer no larger than " + Integer.MAX_VALUE;
     public static final String MESSAGE_ERROR_INVALID_PRICE_FORMAT =
             "Price is in wrong format!\n" + MESSAGE_INFO_PRICE_FORMAT;
-    public static final String MESSAGE_ERROR_INVALID_AMOUNT_FORMAT =
-            "Amount is in wrong format\n" +
-                    "Ensure that Amount is a positive integer no larger than " + Integer.MAX_VALUE;
 
     // Integer entered too large
     public static final String MESSAGE_ERROR_DOLLAR_EXCEED_MAX_INT =

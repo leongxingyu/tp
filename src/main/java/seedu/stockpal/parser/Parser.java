@@ -39,6 +39,7 @@ import static seedu.stockpal.common.Messages.MESSAGE_ERROR_INVALID_DESCRIPTION_L
 import static seedu.stockpal.common.Messages.MESSAGE_ERROR_INVALID_EDIT_FORMAT;
 import static seedu.stockpal.common.Messages.MESSAGE_ERROR_INVALID_EXIT_USAGE;
 import static seedu.stockpal.common.Messages.MESSAGE_ERROR_INVALID_FIND_FORMAT;
+import static seedu.stockpal.common.Messages.MESSAGE_ERROR_INVALID_HISTORY_FORMAT;
 import static seedu.stockpal.common.Messages.MESSAGE_ERROR_INVALID_INFLOW_FORMAT;
 import static seedu.stockpal.common.Messages.MESSAGE_ERROR_INVALID_NAME_LENGTH;
 import static seedu.stockpal.common.Messages.MESSAGE_ERROR_INVALID_NEW_FORMAT;
@@ -70,7 +71,7 @@ public class Parser {
     public static final Pattern DESCRIPTION_PATTERN = Pattern.compile("^d/([a-zA-Z0-9 ()\\[\\],.\\-_]+)?");
     public static final Pattern AMOUNT_PATTERN = Pattern.compile("^a/(.+)");
     public static final Pattern LIST_FLAG_PATTERN = Pattern.compile("(-sn|-sq)?");
-    public static final Pattern KEYWORD_PATTERN = Pattern.compile("([a-zA-Z0-9 ()\\[\\],.\\-_]+)");
+    public static final Pattern KEYWORD_PATTERN = Pattern.compile("([a-zA-Z0-9 ()\\[\\],.\\-_]+)?");
     public static final Pattern INTEGER_PATTERN = Pattern.compile("(\\d+)");
     public static final Pattern DOUBLE_PATTERN = Pattern.compile("(\\d+)(\\.\\d+)?");
     public static final int FLAG_LENGTH = 2;
@@ -224,6 +225,16 @@ public class Parser {
         }
     }
 
+    private static void validateFindKeyword(String keyword) throws InvalidFormatException {
+        if (isNull(keyword)) {
+            throw new InvalidFormatException(MESSAGE_ERROR_KEYWORD_ILLEGAL_CHAR);
+        }
+
+        if (keyword.isBlank()) {
+            throw new InvalidFormatException(MESSAGE_ERROR_INVALID_FIND_FORMAT);
+        }
+    }
+
     private ExitCommand createExitCommand(String input) throws InvalidFormatException {
         input = input.strip();
         if (input.equals(ExitCommand.COMMAND_KEYWORD)) {
@@ -249,25 +260,23 @@ public class Parser {
 
     private OutflowCommand createOutflowCommand(String input)
             throws InvalidFormatException, UnsignedIntegerExceededException {
-        Integer pid;
-
         input = input.substring(OutflowCommand.COMMAND_KEYWORD.length()).stripLeading();
 
         String pidString = matchPid(input);
-        pid = parseInteger(pidString);
+        Integer pid = parseInteger(pidString);
         input = input.substring(pidString.length()).stripLeading();
 
         if (!input.startsWith(AMOUNT_FLAG)) {
             throw new InvalidFormatException(MESSAGE_ERROR_MISSING_AMOUNT_FLAG);
         }
-        
         String amountString = matchAmount(input);
+        assert amountString != null;
         Integer decreaseBy = parseInteger(amountString);
         if (decreaseBy == ZERO_AMOUNT) {
             throw new InvalidFormatException(MESSAGE_ERROR_ZERO_AMOUNT);
         }
-
         input = input.substring(amountString.length() + FLAG_LENGTH).stripLeading();
+
         if (!input.isEmpty()) {
             throw new InvalidFormatException(MESSAGE_ERROR_INVALID_OUTFLOW_FORMAT);
         }
@@ -277,24 +286,21 @@ public class Parser {
 
     private InflowCommand createInflowCommand(String input)
             throws InvalidFormatException, UnsignedIntegerExceededException {
-        Integer pid;
-        Integer increaseBy;
-
         input = input.substring(InflowCommand.COMMAND_KEYWORD.length()).stripLeading();
 
         String pidString = matchPid(input);
-        pid = parseInteger(pidString);
+        Integer pid = parseInteger(pidString);
         input = input.substring(pidString.length()).stripLeading();
 
         if (!input.startsWith(AMOUNT_FLAG)) {
             throw new InvalidFormatException(MESSAGE_ERROR_MISSING_AMOUNT_FLAG);
         }
         String amountString = matchAmount(input);
-        increaseBy = parseInteger(amountString);
+        assert amountString != null;
+        Integer increaseBy = parseInteger(amountString);
         if (increaseBy == ZERO_AMOUNT) {
             throw new InvalidFormatException(MESSAGE_ERROR_ZERO_AMOUNT);
         }
-
         input = input.substring(amountString.length() + FLAG_LENGTH).stripLeading();
 
         if (!input.isEmpty()) {
@@ -307,14 +313,12 @@ public class Parser {
 
     private DeleteCommand createDeleteCommand(String input)
             throws InvalidFormatException, UnsignedIntegerExceededException {
-        Integer pid;
-
         input = input.substring(DeleteCommand.COMMAND_KEYWORD.length()).stripLeading();
 
         String pidString = matchPid(input);
-        pid = parseInteger(pidString);
-
+        Integer pid = parseInteger(pidString);
         input = input.substring(pidString.length()).stripLeading();
+
         if (!input.isEmpty()) {
             throw new InvalidFormatException(MESSAGE_ERROR_INVALID_DELETE_FORMAT);
         }
@@ -347,12 +351,14 @@ public class Parser {
 
         if (input.startsWith(QUANTITY_FLAG)) {
             String matchedQuantity = matchQuantity(input);
+            assert matchedQuantity != null;
             quantity = parseInteger(matchedQuantity.strip());
             input = input.substring(matchedQuantity.length() + FLAG_LENGTH).stripLeading();
         }
 
         if (input.startsWith(PRICE_FLAG)) {
             String matchedPrice = matchPrice(input);
+            assert matchedPrice != null;
             price = parsePrice(matchedPrice.strip());
             input = input.substring(matchedPrice.length() + FLAG_LENGTH).stripLeading();
         }
@@ -394,11 +400,13 @@ public class Parser {
             throw new InvalidFormatException(MESSAGE_ERROR_MISSING_QUANTITY_FLAG);
         }
         String matchedQuantity = matchQuantity(input);
+        assert matchedQuantity != null;
         quantity = parseInteger(matchedQuantity.strip());
         input = input.substring(matchedQuantity.length() + FLAG_LENGTH).stripLeading();
 
         if (input.startsWith(PRICE_FLAG)) {
             String matchedPrice = matchPrice(input);
+            assert matchedPrice != null;
             price = parsePrice(matchedPrice.strip());
             input = input.substring(matchedPrice.length() + FLAG_LENGTH).stripLeading();
         }
@@ -420,38 +428,23 @@ public class Parser {
 
     private FindCommand createFindCommand(String input) throws InvalidFormatException {
         input = input.substring(FindCommand.COMMAND_KEYWORD.length()).strip();
-        if (input.isEmpty()) {
-            throw new InvalidFormatException(MESSAGE_ERROR_INVALID_FIND_FORMAT);
-        }
 
-        Matcher keywordMatcher = KEYWORD_PATTERN.matcher(input);
-        if (!keywordMatcher.matches()) {
-            throw new InvalidFormatException(MESSAGE_ERROR_KEYWORD_ILLEGAL_CHAR);
-        }
-        String keyword = keywordMatcher.group(1);
-
+        String keyword = matchString(KEYWORD_PATTERN, input);
+        validateFindKeyword(keyword);
+        assert keyword != null;
         return new FindCommand(keyword);
     }
 
     private HistoryCommand createHistoryCommand(String input)
             throws InvalidFormatException, UnsignedIntegerExceededException {
-        Integer pid;
-
         input = input.substring(HistoryCommand.COMMAND_KEYWORD.length()).strip();
 
-        Matcher pidMatcher = PID_PATTERN.matcher(input);
-        if (!pidMatcher.matches()) {
-            throw new InvalidFormatException(MESSAGE_ERROR_INVALID_PID_FORMAT);
-        }
-        try {
-            pid = Integer.parseInt(pidMatcher.group(1));
-            input = input.substring(pidMatcher.group(1).length()).stripLeading();
-        } catch (NumberFormatException nfe) {
-            throw new UnsignedIntegerExceededException(MESSAGE_ERROR_INPUT_INTEGER_EXCEEDED);
-        }
+        String pidString = matchPid(input);
+        Integer pid = parseInteger(pidString);
+        input = input.substring(pidString.length()).stripLeading();
 
         if (!input.isEmpty()) {
-            throw new InvalidFormatException("History Command does not take in any extra arguments other than PID!");
+            throw new InvalidFormatException(MESSAGE_ERROR_INVALID_HISTORY_FORMAT);
         }
 
         return new HistoryCommand(pid);
