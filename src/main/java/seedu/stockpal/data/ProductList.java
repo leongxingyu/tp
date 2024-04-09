@@ -11,15 +11,18 @@ import seedu.stockpal.data.product.Name;
 import seedu.stockpal.data.product.Quantity;
 import seedu.stockpal.data.product.Description;
 import seedu.stockpal.data.product.Price;
+import seedu.stockpal.exceptions.DuplicateProductNameException;
 import seedu.stockpal.exceptions.InsufficientAmountException;
 import seedu.stockpal.exceptions.InventoryQuantityOverflowException;
 import seedu.stockpal.exceptions.NoLowQuantityException;
 import seedu.stockpal.exceptions.PidNotFoundException;
 import seedu.stockpal.ui.Ui;
 
+
+import static seedu.stockpal.common.Messages.DUPLICATE_MESSAGE;
+import static seedu.stockpal.common.Messages.HORIZONTAL_LINE;
 import static seedu.stockpal.common.Messages.MESSAGE_ERROR_PID_NOT_FOUND;
 import static seedu.stockpal.ui.Ui.printToScreen;
-import static seedu.stockpal.common.Messages.HORIZONTAL_LINE;
 
 
 public class ProductList {
@@ -32,11 +35,8 @@ public class ProductList {
         products.add(toAdd);
     }
 
-
-    public boolean checkForRepeated(ProductList productList, String name) {
-
-        for (int i = 0; i < productList.getSize(); i ++) {
-            List<Product> products = productList.getProducts();
+    public boolean checkForRepeated(String name) {
+        for (int i = 0; i < products.size(); i ++) {
             Product product = products.get(i);
 
             String objName = product.getName().getName();
@@ -49,12 +49,12 @@ public class ProductList {
     }
 
     /**
-     * Finds product with a specific Pid and
-     * returns its index in the product list.
+     * Finds product with a specific Pid and returns its index in the product list.
      *
      * @param pid Product ID to search for.
      * @return Index of the product in the product list.
-     *     If product is not in the product list, return -1.
+     * @throws PidNotFoundException When product with specified PID
+     *     is not found in the productList.
      */
     public int findProductIndex(Pid pid) throws PidNotFoundException {
         for (int i = 0; i < products.size(); i++) {
@@ -71,11 +71,27 @@ public class ProductList {
         products.remove(productIndex);
     }
 
+    /**
+     * Updates the product at the specified index with new details.
+     * Only fields with non-null parameter values will be updated.
+     *
+     * @param productIndex Index of the product within Product List
+     * @param newName New name to assign to the product.
+     * @param newQuantity New quantity to assign to the product.
+     * @param newDescription New description to assign to the product.
+     * @param newPrice New price to assign to the product.
+     * @throws DuplicateProductNameException When an existing product is already using the new name given.
+     */
     public void updateProduct(int productIndex, Name newName, Quantity newQuantity
-            , Description newDescription, Price newPrice) {
+            , Description newDescription, Price newPrice) throws DuplicateProductNameException {
         Product updatedProduct = products.get(productIndex);
 
         if (!newName.isNull()) {
+            boolean repeated = checkForRepeated(newName.getName());
+
+            if (repeated) {
+                throw new DuplicateProductNameException(DUPLICATE_MESSAGE);
+            }
             updatedProduct.setName(newName);
         }
         if (!newQuantity.isNull()) {

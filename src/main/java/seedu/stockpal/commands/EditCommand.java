@@ -9,14 +9,13 @@ import seedu.stockpal.data.product.Name;
 import seedu.stockpal.data.product.Quantity;
 import seedu.stockpal.data.product.Description;
 import seedu.stockpal.data.product.Price;
+import seedu.stockpal.exceptions.DuplicateProductNameException;
+import seedu.stockpal.exceptions.PidNotFoundException;
 import seedu.stockpal.ui.Ui;
-import seedu.stockpal.exceptions.StockPalException;
 
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import static seedu.stockpal.common.Messages.DUPLICATE_MESSAGE;
 
 //@@author Kobot7
 public class EditCommand extends ListActionCommand {
@@ -74,19 +73,13 @@ public class EditCommand extends ListActionCommand {
     }
 
     @Override
-    public void execute(ProductList productList) throws StockPalException {
+    public void execute(ProductList productList) throws DuplicateProductNameException, PidNotFoundException {
         if (!atLeastOneValidParameter()) {
             Ui.printMissingParametersMessage();
             return;
         }
         int productIndex = productList.findProductIndex(this.pid);
         assert productList.getSize() > 0;
-
-        boolean repeated = productList.checkForRepeated(productList, name.getName());
-
-        if (repeated) {
-            throw new StockPalException(DUPLICATE_MESSAGE);
-        }
 
         productList.updateProduct(productIndex, name, quantity, description, price);
         logger.log(Level.INFO, Messages.MESSAGE_EDIT_SUCCESS);

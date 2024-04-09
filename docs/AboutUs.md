@@ -9,71 +9,66 @@ Unfortunately, we currently do not offer any means to contacting us, however, yo
 
 ## StockPal's team (CS2113T-T09-3)
 
-### John Doe
+### Ng Yao Dong
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/portrait_placeholder.png" width="50px">
 
-[[github](https://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
-
-* Role: Project Advisor
-
-### Jane Doe
-
-<img src="images/johndoe.png" width="200px">
-
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
-
-* Role: Team Lead
-* Responsibilities: UI
-
-### Johnny Doe
-
-<img src="images/johndoe.png" width="200px">
-
-[[github](http://github.com/johndoe)] 
-[[portfolio](team/johndoe.md)]
+[[github](https://github.com/NgYaoDong)]
+[[portfolio](team/NgYaoDong.md)]
 
 * Role: Developer
-* Responsibilities: Data
 
-### Jean Doe
+### Leong Xing Yu
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/portrait_placeholder.png" width="50px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
-
-* Role: Developer
-* Responsibilities: Dev Ops + Threading
-
-### James Doe
-
-<img src="images/johndoe.png" width="200px">
-
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/leongxingyu)]
+[[portfolio](team/leongxingyu.md)]
 
 * Role: Developer
-* Responsibilities: UI
 
-### Jake Doe
+### Edmund Tang
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/portrait_placeholder.png" width="50px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/edmundtangg)] 
+[[portfolio](team/edmundtangg.md)]
 
 * Role: Developer
-* Responsibilities: Logic
+
+### Ko Jia Ling
+
+<img src="images/portrait_placeholder.png" width="50px">
+
+[[github](http://github.com/Kobot7)]
+[[portfolio](team/kobot7.md)]
+
+* Role: Developer
+
+### Wong Jun Jie
+
+<img src="images/portrait_placeholder.png" width="50px">
+
+[[github](http://github.com/wjunjie01)]
+[[portfolio](team/wjunjie01.md)]
+
+* Role: Developer
+
+### Luan Chee Seong
+
+<img src="images/portrait_placeholder.png" width="50px">
+
+[[github](http://github.com/cheeseong2001)]
+[[portfolio](team/cheeseong2001.md)]
+
+* Role: Developer
 
 
-Display |    Name     |             Github Profile             | Portfolio 
---------|:-----------:|:--------------------------------------:|:---------:
-![](https://via.placeholder.com/100.png?text=Photo) | Ng Yao Dong | [Github](https://github.com/NgYaoDong) | [Portfolio](team/ngyaodong.md)
-![](https://via.placeholder.com/100.png?text=Photo) | Leong Xing Yu | [Github](https://github.com/leongxingyu) | [Portfolio](team/leongxingyu.md)
-![](https://via.placeholder.com/100.png?text=Photo) | Edmund | [Github](https://github.com/) | [Portfolio](team/johndoe.md)
-![](https://via.placeholder.com/100.png?text=Photo) | Ko Jia Ling | [Github](https://github.com/kobot7) | [Portfolio](team/johndoe.md)
-![](https://via.placeholder.com/100.png?text=Photo) | Wong Jun Jie | [Github](https://github.com/wjunjie01) | [Portfolio](team/wjunjie01.md) 
-![](https://via.placeholder.com/100.png?text=Photo) | Luan Chee Seong | [Github](https://github.com/cheeseong2001) | [Portfolio](team/johndoe.md)
+Display |      Name       |             Github Profile             | Portfolio 
+--------|:---------------:|:--------------------------------------:|:---------:
+![](https://via.placeholder.com/100.png?text=Photo) |   Ng Yao Dong   | [Github](https://github.com/NgYaoDong) | [Portfolio](team/ngyaodong.md)
+![](https://via.placeholder.com/100.png?text=Photo) |  Leong Xing Yu  | [Github](https://github.com/leongxingyu) | [Portfolio](team/leongxingyu.md)
+![](https://via.placeholder.com/100.png?text=Photo) |   Edmund Tang   | [Github](https://github.com/edmundtangg) | [Portfolio](team/edmundtangg.md)
+![](https://via.placeholder.com/100.png?text=Photo) |   Ko Jia Ling   | [Github](https://github.com/kobot7) | [Portfolio](team/kobot7.md)
+![](https://via.placeholder.com/100.png?text=Photo) |  Wong Jun Jie   | [Github](https://github.com/wjunjie01) | [Portfolio](team/wjunjie01.md) 
+![](https://via.placeholder.com/100.png?text=Photo) | Luan Chee Seong | [Github](https://github.com/cheeseong2001) | [Portfolio](team/cheeseong2001.md)
