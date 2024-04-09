@@ -14,7 +14,7 @@ Unfortunately, we currently do not offer any means to contacting us, however, yo
 <img src="images/portrait_placeholder.png" width="50px">
 
 [[github](https://github.com/NgYaoDong)]
-[[portfolio](team/NgYaoDong.md)]
+[[portfolio](team/ngyaodong.md)]
 
 * Role: Developer
 

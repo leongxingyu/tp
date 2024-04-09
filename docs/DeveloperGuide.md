@@ -108,7 +108,9 @@ How the parsing works:
 1. When user inputs, the input is passed to the `Parser`.
 2. `Parser` first extracts the command.
 3. Using the extracted command, `Parser` will perform different validation checks on the arguments supplied in the
-input.
+input, iteratively. 
+
+    For example `edit 1 n/newName q/100` will be checked in the order: Command name: `edit`, PID: `1`, Name: `newName`, Quantity: `100`, Price: `null`, and lastly Description: `null`. 
 4. Arguments (mainly the `pid`, `name`, `quantity`, `price`, `description`, `amount` fields) are validated. 
 Exceptions are thrown when the fields do not pass their respective type checks.
 5. Once validation passes, `Parser` uses the validated arguments to creates an instance of that particular command. 
