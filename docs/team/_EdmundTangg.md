@@ -22,10 +22,11 @@ This feature added the ability to add a product into the inventory.
 A unique Product ID (PID) is assigned to it as well.
 
 Justification:
-This feature is the core of the application.
-A user needs to be able to add a product in into the application before any further commands can run.
+This is the core feature of the application.
+A user needs to be able to add a product into the application before any further commands can run.
 
 <br/>
+
 
 **2. Find command Feature**
 [#52](https://github.com/AY2324S2-CS2113T-T09-3/tp/pull/52)
@@ -38,7 +39,7 @@ This feature is critical to the user's experience as a whole.
 In the event that the user only remember certain keywords of the product's name, 
 the user can use this command to obtain more information about the product.
 In addition, most commands require the PID of the product to run. 
-Tis command allows the user to obtain the PID of the product that they want
+This command allows the user to obtain the PID of the product that they want
 
 
 <br/>

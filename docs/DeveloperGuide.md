@@ -381,7 +381,7 @@ PID in the StockPal application.
 
 The history product feature is facilitated by `HistoryCommand` which extends `Command`.
 
-Finding of transactionsis done by calling `ProductList#FindTransactions()`.
+Finding of transactions is done by calling `ProductList#FindTransactions()`.
 
 
 The following sequence diagram details how `HistoryCommand#execute()` functions.
