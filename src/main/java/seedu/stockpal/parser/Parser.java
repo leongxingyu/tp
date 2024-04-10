@@ -63,32 +63,40 @@ import static seedu.stockpal.common.Messages.MESSAGE_ERROR_INVALID_LIST_SPECIFIE
  */
 public class Parser {
     public static final String DIVIDER = " ";
-    public static final Pattern PID_PATTERN = Pattern.compile("^(\\d+)( .*)?");
-    public static final Pattern NAME_PATTERN =
-            Pattern.compile("^n/([a-zA-Z0-9 ()\\[\\],.\\-_]+)?( q/.*| p/.*| d/.*)?");
-    public static final Pattern QUANTITY_PATTERN = Pattern.compile("^q/(.+?)( p/.*| d/.*)?");
-    public static final Pattern PRICE_PATTERN = Pattern.compile("^p/(.+?)( d/.*)?");
-    public static final Pattern DESCRIPTION_PATTERN = Pattern.compile("^d/([a-zA-Z0-9 ()\\[\\],.\\-_]+)?");
-    public static final Pattern AMOUNT_PATTERN = Pattern.compile("^a/(.+)");
-    public static final Pattern LIST_FLAG_PATTERN = Pattern.compile("(-sn|-sq)?");
-    public static final Pattern KEYWORD_PATTERN = Pattern.compile("([a-zA-Z0-9 ()\\[\\],.\\-_]+)?");
-    public static final Pattern INTEGER_PATTERN = Pattern.compile("(\\d+)");
-    public static final Pattern DOUBLE_PATTERN = Pattern.compile("(\\d+)(\\.\\d+)?");
-    public static final int FLAG_LENGTH = 2;
-    public static final int START_INDEX = 0;
-    public static final int MAX_NAME_LENGTH = 50;
-    public static final int MAX_DESCRIPTION_LENGTH = 100;
-    public static final int ZERO_AMOUNT = 0;
     private static final String NAME_FLAG = "n/";
     private static final String QUANTITY_FLAG = "q/";
     private static final String PRICE_FLAG = "p/";
     private static final String DESCRIPTION_FLAG = "d/";
     private static final String AMOUNT_FLAG = "a/";
+    private static final String ARG_GROUP = "ARG";
+    private static final String INTEGER_GROUP = "INT";
+    private static final String FRACTIONAL_GROUP = "FRAC";
+    private static final Pattern PID_PATTERN = Pattern.compile("^(?<" + ARG_GROUP + ">\\d+)( .*)?");
+    private static final Pattern NAME_PATTERN =
+            Pattern.compile("^(n/|N/)(?<" + ARG_GROUP + ">[a-zA-Z0-9 ()\\[\\],.\\-_]+)?" +
+            "( (q/|Q/).*| (p/|P/).*| (d/|D/).*)?");
+    private static final Pattern QUANTITY_PATTERN =
+            Pattern.compile("^(q/|Q/)(?<"+ ARG_GROUP +">.+?)( (p/|P/).*| (d/|D/).*)?");
+    private static final Pattern PRICE_PATTERN = Pattern.compile("^(p/|P/)(?<"+ ARG_GROUP + ">.+?)( (d/|D/).*)?");
+    private static final Pattern DESCRIPTION_PATTERN =
+            Pattern.compile("^(d/|D/)(?<" + ARG_GROUP + ">[a-zA-Z0-9 ()\\[\\],.\\-_]+)?");
+    private static final Pattern AMOUNT_PATTERN = Pattern.compile("^(a/|A/)(?<" + ARG_GROUP + ">.+)");
+    private static final Pattern LIST_FLAG_PATTERN = Pattern.compile("(?<" + ARG_GROUP + ">-sn|-sq)?");
+    private static final Pattern KEYWORD_PATTERN =
+            Pattern.compile("(?<" + ARG_GROUP + ">[a-zA-Z0-9 ()\\[\\],.\\-_]+)?");
+    private static final Pattern INTEGER_PATTERN = Pattern.compile("\\d+");
+    private static final Pattern DOUBLE_PATTERN =
+            Pattern.compile("(?<" + INTEGER_GROUP + ">\\d+)(?<" + FRACTIONAL_GROUP + ">\\.\\d+)?");
+    private static final int FLAG_LENGTH = 2;
+    private static final int START_INDEX = 0;
+    private static final int MAX_NAME_LENGTH = 50;
+    private static final int MAX_DESCRIPTION_LENGTH = 100;
+    private static final int ZERO_AMOUNT = 0;
     private static final int DECIMAL_LENGTH = 3;
     private static final Logger LOGGER = Logger.getLogger(Parser.class.getName());
     private static String getCommandFromInput(String input) {
         if (!input.contains(DIVIDER)) {
-            return input;
+            return input.toLowerCase();
         }
 
         return input.substring(START_INDEX, input.indexOf(DIVIDER)).toLowerCase();
@@ -114,8 +122,8 @@ public class Parser {
 
         Integer dollar;
 
-        String dollarString = doubleMatcher.group(1);
-        String centsString = doubleMatcher.group(2);
+        String dollarString = doubleMatcher.group(INTEGER_GROUP);
+        String centsString = doubleMatcher.group(FRACTIONAL_GROUP);
 
         try {
             dollar = Integer.parseInt(dollarString);
@@ -140,7 +148,7 @@ public class Parser {
             throw new InvalidFormatException(MESSAGE_ERROR_MISSING_PRICE);
         }
 
-        String matchedString = priceMatcher.group(1);
+        String matchedString = priceMatcher.group(ARG_GROUP);
 
         if (matchedString.isBlank()) {
             throw new InvalidFormatException(MESSAGE_ERROR_EMPTY_PRICE);
@@ -153,7 +161,7 @@ public class Parser {
             throw new InvalidFormatException(MESSAGE_ERROR_INVALID_PID_FORMAT);
         }
         
-        return pidMatcher.group(1);
+        return pidMatcher.group(ARG_GROUP);
     }
 
     private String matchAmount(String input) throws InvalidFormatException {
@@ -162,7 +170,7 @@ public class Parser {
             throw new InvalidFormatException(MESSAGE_ERROR_MISSING_AMOUNT);
         }
 
-        String matchedAmount = amountMatcher.group(1);
+        String matchedAmount = amountMatcher.group(ARG_GROUP);
 
         if (matchedAmount.isBlank()) {
             throw new InvalidFormatException(MESSAGE_ERROR_EMPTY_AMOUNT);
@@ -177,7 +185,7 @@ public class Parser {
             throw new InvalidFormatException(MESSAGE_ERROR_MISSING_QUANTITY);
         }
 
-        String matchedQuantity = quantityMatcher.group(1);
+        String matchedQuantity = quantityMatcher.group(ARG_GROUP);
 
         if (matchedQuantity.isBlank()) {
             throw new InvalidFormatException(MESSAGE_ERROR_EMPTY_QUANTITY);
@@ -192,11 +200,11 @@ public class Parser {
             return null;
         }
         
-        if (isNull(stringMatcher.group(1))) { //matched but is nothing is captured
+        if (isNull(stringMatcher.group(ARG_GROUP))) { //matched but is nothing is captured
             return EMPTY_STRING;
         }
         
-        return stringMatcher.group(1);
+        return stringMatcher.group(ARG_GROUP);
     }
 
     private static void validateName(String matchedName) throws InvalidFormatException {
@@ -245,14 +253,14 @@ public class Parser {
 
     private ListCommand createListCommand(String input) throws InvalidFormatException {
         input = input.substring(ListCommand.COMMAND_KEYWORD.length()).strip();
-        Matcher listFlagMatcher = LIST_FLAG_PATTERN.matcher(input);
+        Matcher listSpecifierMatcher = LIST_FLAG_PATTERN.matcher(input.toLowerCase());
 
         if (input.isEmpty()) {
             return new ListCommand(null);
         }
 
-        if (listFlagMatcher.matches()) {
-            return new ListCommand(listFlagMatcher.group(1));
+        if (listSpecifierMatcher.matches()) {
+            return new ListCommand(listSpecifierMatcher.group(ARG_GROUP));
         }
 
         throw new InvalidFormatException(MESSAGE_ERROR_INVALID_LIST_SPECIFIER);
@@ -266,7 +274,7 @@ public class Parser {
         Integer pid = parseInteger(pidString);
         input = input.substring(pidString.length()).stripLeading();
 
-        if (!input.startsWith(AMOUNT_FLAG)) {
+        if (!input.toLowerCase().startsWith(AMOUNT_FLAG)) {
             throw new InvalidFormatException(MESSAGE_ERROR_MISSING_AMOUNT_FLAG);
         }
         String amountString = matchAmount(input);
@@ -292,7 +300,7 @@ public class Parser {
         Integer pid = parseInteger(pidString);
         input = input.substring(pidString.length()).stripLeading();
 
-        if (!input.startsWith(AMOUNT_FLAG)) {
+        if (!input.toLowerCase().startsWith(AMOUNT_FLAG)) {
             throw new InvalidFormatException(MESSAGE_ERROR_MISSING_AMOUNT_FLAG);
         }
         String amountString = matchAmount(input);
@@ -341,7 +349,7 @@ public class Parser {
 
         input = input.substring(pidString.length()).stripLeading();
 
-        if (input.startsWith(NAME_FLAG)) {
+        if (input.toLowerCase().startsWith(NAME_FLAG)) {
             String matchedName = matchString(NAME_PATTERN, input);
             validateName(matchedName);
             assert matchedName != null;
@@ -349,21 +357,21 @@ public class Parser {
             input = input.substring(matchedName.length() + FLAG_LENGTH).stripLeading();
         }
 
-        if (input.startsWith(QUANTITY_FLAG)) {
+        if (input.toLowerCase().startsWith(QUANTITY_FLAG)) {
             String matchedQuantity = matchQuantity(input);
             assert matchedQuantity != null;
             quantity = parseInteger(matchedQuantity.strip());
             input = input.substring(matchedQuantity.length() + FLAG_LENGTH).stripLeading();
         }
 
-        if (input.startsWith(PRICE_FLAG)) {
+        if (input.toLowerCase().startsWith(PRICE_FLAG)) {
             String matchedPrice = matchPrice(input);
             assert matchedPrice != null;
             price = parsePrice(matchedPrice.strip());
             input = input.substring(matchedPrice.length() + FLAG_LENGTH).stripLeading();
         }
 
-        if (input.startsWith(DESCRIPTION_FLAG)) {
+        if (input.toLowerCase().startsWith(DESCRIPTION_FLAG)) {
             String matchedDescription = matchString(DESCRIPTION_PATTERN, input);
             validateDescription(matchedDescription);
             assert matchedDescription != null;
@@ -387,7 +395,7 @@ public class Parser {
 
         input = input.substring(NewCommand.COMMAND_KEYWORD.length()).stripLeading();
 
-        if (!input.startsWith(NAME_FLAG)) {
+        if (!input.toLowerCase().startsWith(NAME_FLAG)) {
             throw new InvalidFormatException(MESSAGE_ERROR_MISSING_NAME_FLAG);
         }
         String matchedName = matchString(NAME_PATTERN, input);
@@ -396,7 +404,8 @@ public class Parser {
         name = matchedName.strip();
         input = input.substring(matchedName.length() + FLAG_LENGTH).stripLeading();
 
-        if (!input.startsWith(QUANTITY_FLAG)) {
+
+        if (!input.toLowerCase().startsWith(QUANTITY_FLAG)) {
             throw new InvalidFormatException(MESSAGE_ERROR_MISSING_QUANTITY_FLAG);
         }
         String matchedQuantity = matchQuantity(input);
@@ -404,14 +413,14 @@ public class Parser {
         quantity = parseInteger(matchedQuantity.strip());
         input = input.substring(matchedQuantity.length() + FLAG_LENGTH).stripLeading();
 
-        if (input.startsWith(PRICE_FLAG)) {
+        if (input.toLowerCase().startsWith(PRICE_FLAG)) {
             String matchedPrice = matchPrice(input);
             assert matchedPrice != null;
             price = parsePrice(matchedPrice.strip());
             input = input.substring(matchedPrice.length() + FLAG_LENGTH).stripLeading();
         }
 
-        if (input.startsWith(DESCRIPTION_FLAG)) {
+        if (input.toLowerCase().startsWith(DESCRIPTION_FLAG)) {
             String matchedDescription = matchString(DESCRIPTION_PATTERN, input);
             validateDescription(matchedDescription);
             assert matchedDescription != null;
@@ -425,6 +434,7 @@ public class Parser {
 
         return new NewCommand(name, quantity, price, description);
     }
+
 
     private FindCommand createFindCommand(String input) throws InvalidFormatException {
         input = input.substring(FindCommand.COMMAND_KEYWORD.length()).strip();
