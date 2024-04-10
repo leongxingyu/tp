@@ -52,7 +52,6 @@ public class TransactionList {
     }
 
     /**
-     *
      * @return the size of the transaction list.
      */
     public int getSize() {
@@ -61,7 +60,6 @@ public class TransactionList {
 
 
     /**
-     *
      * @return the transaction list object.
      */
     public List<Transaction> getTransactions() {
@@ -70,7 +68,6 @@ public class TransactionList {
 
 
     /**
-     *
      * @return true if the transaction object does not have any transactions.
      */
     public boolean isEmpty() {
