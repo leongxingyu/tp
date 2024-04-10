@@ -121,9 +121,8 @@ JSON (JavaScript Object Notation) - a file format for storing and transporting d
         e.g. <code>n/PRODUCT_NAME q/INITIAL_QUANTITY [p/PRICE]</code> can be used as <code>n/Math Textbook q/100 p/20.00</code> or as <code>n/Math Textbook q/100</code>.</li>
     <li>Parameters must be in the specified order.<br>
         e.g. if the command specifies <code>n/PRODUCT_NAME q/INITIAL_QUANTITY</code>, <code>q/INITIAL_QUANTITY n/PRODUCT_NAME</code> is <strong>not</strong> acceptable.</li>
-    <li>Commands are not case-sensitive but flags are.<br>
-        e.g. <code>HELP</code> would not trigger an invalid command warning, but it is recommended to use <code>help</code>.<br>
-        e.g. <code>inflow 1 A/100</code> would trigger a missing Amount flag error. Use <code>inflow 1 a/100</code> instead.</li>
+    <li>Commands, flags and specifiers are not case-sensitive.<br>
+        e.g. You may use <code>INFLOW A/100</code> or <code>LIST -SN</code>
 
 </ul>
 </div>
@@ -691,18 +690,18 @@ Furthermore, certain edits can cause StockPal to behave in unexpected ways (e.g.
 This section provides a quick overview of all the commands. For more detailed information on the command format, click on the `command` to be redirected to the command’s details under the [Features](#features) section.
 
 
-| **Command**                                                                                      | **Description**                                                                   |
-|--------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------|
-| [`help [COMMAND]`](#viewing-help-help)                                                           | Provides command details for all or specific commands                             |
-| [`new n/PRODUCT_NAME q/INITIAL_QUANTITY [p/PRICE] [d/DESCRIPTION]`](#adding-a-new-product-new)   | Creates a new product                                                             |
-| [`list [-sn|-sq]`](#listing-all-products-list)                                                 | Lists all products in the inventory                                                |
-| [`edit PID [n/PRODUCT_NAME] [q/QUANTITY] [d/DESCRIPTION] [p/PRICE]`](#editing-product-details-edit) | Edits an existing product’s field                                                 |
-| [`delete PID`](#deleting-a-product-and-its-details-delete)                                       | Deletes a product                                                                 |
-| [`inflow PID a/QUANTITY`](#increasing-a-product-quantity-inflow)                                 | Increases the quantity of an existing product in the inventory at the specific PID |
-| [`outflow PID a/QUANTITY`](#decreasing-a-product-quantity-outflow)                               | Decreases the quantity of an existing product in the inventory at the specific PID |
-| [`history PID`](#viewing-past-inflow--outflow-of-existing-product-history)                       | Finds the list of transactions for a particular product based on its PID          |
-| [`find KEYWORD`](#find-a-keyword-in-the-product-list-find)                                       | Finds the list of products that contains the keyword in their name                |
-| [`exit`](#exiting-the-program-exit)                                                              | Exits the program                                                                 |
+| **Command**                                                                                        | **Description**                                                                    |
+|----------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------|
+| [`help [COMMAND]`](#viewing-help-help)                                                             | Provides command details for all or specific commands                              |
+| [`new n/PRODUCT_NAME q/INITIAL_QUANTITY [p/PRICE] [d/DESCRIPTION]`](#adding-a-new-product-new)     | Creates a new product                                                              |
+| `list [-sn\|-sq]`](#listing-all-products-list)                                                     | Lists all products in the inventory                                                |
+| [`edit PID [n/PRODUCT_NAME] [q/QUANTITY] [d/DESCRIPTION] [p/PRICE]`](#editing-product-details-edit) | Edits an existing product’s field                                                  |
+| [`delete PID`](#deleting-a-product-and-its-details-delete)                                         | Deletes a product                                                                  |
+| [`inflow PID a/QUANTITY`](#increasing-a-product-quantity-inflow)                                   | Increases the quantity of an existing product in the inventory at the specific PID |
+| [`outflow PID a/QUANTITY`](#decreasing-a-product-quantity-outflow)                                 | Decreases the quantity of an existing product in the inventory at the specific PID |
+| [`history PID`](#viewing-past-inflow--outflow-of-existing-product-history)                         | Finds the list of transactions for a particular product based on its PID           |
+| [`find KEYWORD`](#find-a-keyword-in-the-product-list-find)                                         | Finds the list of products that contains the keyword in their name                 |
+| [`exit`](#exiting-the-program-exit)                                                                | Exits the program                                                                  |
 
 <div style="page-break-after: always;"></div>
 
