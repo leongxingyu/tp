@@ -6,8 +6,8 @@ Participant ":EditCommand" as command COMMANDS_COLOR
 Participant ":ProductList" as productlist PRODUCTLIST_COLOR
 Participant ":UI" as ui UI_COLOR
 
-activate command COMMANDS_COLOR
 -> command : execute()
+activate command COMMANDS_COLOR
 
 command -> command : atLeastOneValidParameter()
 activate command COMMANDS_COLOR

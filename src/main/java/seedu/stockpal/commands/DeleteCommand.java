@@ -20,7 +20,7 @@ public class DeleteCommand extends TransactionActionCommand {
 
     public static final String COMMAND_KEYWORD = "delete";
     public static final String COMMAND_DESCRIPTION = "Deletes an existing product from the inventory.";
-    public static final String COMMAND_USAGE = "Format: delete PID";
+    public static final String COMMAND_USAGE = "delete PID";
 
     public static final String[] COMMAND_FLAGS = {
         "PID"

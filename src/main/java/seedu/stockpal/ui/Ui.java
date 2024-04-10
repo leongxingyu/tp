@@ -10,21 +10,27 @@ import seedu.stockpal.data.product.Product;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
+import static seedu.stockpal.common.Messages.AFTER_USER_UNPUT;
+import static seedu.stockpal.common.Messages.BEFORE_USER_UNPUT;
 import static seedu.stockpal.common.Messages.HORIZONTAL_LINE;
 import static seedu.stockpal.common.Messages.LINE_SEPARATOR;
 
 public final class Ui {
     private static final Scanner scanner = new Scanner(System.in);
     private static final int WRAP_LENGTH = 81;
+    private static final String PROMPT_USER_INPUT = "Enter a command: ";
 
     public static String getUserInput() throws NoSuchElementException {
-        String input = "";
+        System.out.println(BEFORE_USER_UNPUT);
+        System.out.print(PROMPT_USER_INPUT);
+        String input = Messages.EMPTY_STRING;
         try {
             input = scanner.nextLine();
         } catch (NoSuchElementException exception) {
-            System.out.println("error");
+            System.out.println(Messages.ERROR_KEYBOARD_INTERRUPT);
             System.exit(0);
         }
+        System.out.println(AFTER_USER_UNPUT);
         return input;
     }
 

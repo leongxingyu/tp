@@ -5,6 +5,7 @@ Participant ":OutflowCommand" as command COMMANDS_COLOR
 Participant ":ProductList" as productlist PRODUCTLIST_COLOR
 Participant ":UI" as ui UI_COLOR
 
+-> command : execute()
 activate command COMMANDS_COLOR
 
 command -> productlist : decreaseAmountCaller(pid, decreaseAmt)
@@ -17,5 +18,9 @@ deactivate ui UI_COLOR
 
 productlist --[PRODUCTLIST_COLOR]> command
 deactivate productlist
+
+<-- command
+deactivate command
+
 
 @enduml

@@ -23,10 +23,9 @@ public class HelpCommand extends Command {
     protected static Logger logger = Logger.getLogger(seedu.stockpal.commands.HelpCommand.class.getName());
     private static final String CASE_PRINT_ALL_COMMANDS = "all";
     private static final Set<String> COMMAND_KEYWORDS = Set.of(NewCommand.COMMAND_KEYWORD
-            , EditCommand.COMMAND_KEYWORD , DeleteCommand.COMMAND_KEYWORD
-            , InflowCommand.COMMAND_KEYWORD , OutflowCommand.COMMAND_KEYWORD , FindCommand.COMMAND_KEYWORD
-            , ListCommand.COMMAND_KEYWORD , HistoryCommand.COMMAND_KEYWORD, ExitCommand.COMMAND_KEYWORD
-            , HelpCommand.COMMAND_KEYWORD);
+            , ListCommand.COMMAND_KEYWORD, EditCommand.COMMAND_KEYWORD , DeleteCommand.COMMAND_KEYWORD
+            , InflowCommand.COMMAND_KEYWORD , OutflowCommand.COMMAND_KEYWORD , HistoryCommand.COMMAND_KEYWORD
+            , FindCommand.COMMAND_KEYWORD, ExitCommand.COMMAND_KEYWORD, HelpCommand.COMMAND_KEYWORD);
     private final String command;
 
     public HelpCommand() {

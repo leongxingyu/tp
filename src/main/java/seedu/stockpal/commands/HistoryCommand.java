@@ -15,8 +15,7 @@ import static seedu.stockpal.commands.EditCommand.logger;
 public class HistoryCommand extends TransactionActionCommand {
     public static final String COMMAND_KEYWORD = "history";
     public static final String COMMAND_DESCRIPTION =
-        "Checks the history of inflow outflow commands" +
-        " of a particular PID";
+        "Displays the inflow and outflow history of a product.";
     public static final String COMMAND_USAGE =
         "history PID";
     public static final String[] COMMAND_FLAGS = {

@@ -185,7 +185,7 @@ Validation of the user input is done in `Parser`, hence `XYZCommand` assumes tha
 of a `XYZCommand` object are properly formatted.
 
 ### Help Feature
-
+#### Implementation
 The `help` command is used to display the help page for either all or individual commands.
 
 The `help` feature is facilitated by `HelpCommand` which extends `Command`.
@@ -217,6 +217,34 @@ COMMAND_KEYWORD       Command to display details for
 ====================================================================================
 ```
 
+Each command has a public static `commandDetails()`method that will return the formatted version of its command details.
+
+
+#### Design Considerations
+
+Aspect: Where to store the individual command details.
+
+- Alternative 1 (current choice): Command details are stored in each individual command. Access the details via a static `commandDetails` method.
+  - Pros: 
+    - Easy for developers to maintain the details for the command that they are working on.
+  - Cons:
+    - Declaring `commandDetails` method for all commands is quite repetitive.
+- Alternative 2: Command details are stored in each individual command. Access the details via an inherited `commandDetails` method (all commands inherits from `Command`).
+  - Pros:
+    - Easy for developers to maintain the details for the command that they are working on.
+    - Only need to implement `commandDetails` method once in the  parent class `Command`.
+    - Loop can be used to print all command details.
+  - Cons:
+    - Requires an instance of the command to be created to call the `commandDetails` method, hence all commands will require a constructor that takes in no parameters. 
+    - Must ensure that the command instance is solely used to call the `commandDetails` method. Otherwise, an error will occur.
+- Alternative 3:  Store all command details within `HelpCommand`
+  - Pros:
+    - Everything related to `help` will be in one file.
+  - Cons:
+    - Cluttered to have all command details on the same page.
+    - Harder for developers to maintain the details for the command that they are working on.
+    - Code looks very long and repetitive with `FormatUtils.formatCommandDetails(COMMAND_KEYWORD, COMMAND_DESCRIPTION
+      , COMMAND_USAGE, COMMAND_FLAGS, COMMAND_FLAG_DESCRIPTIONS)` being called for every single command.
 
 ### Add Product Feature
 

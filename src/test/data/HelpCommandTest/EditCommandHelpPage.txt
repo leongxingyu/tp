@@ -1,15 +1,15 @@
 ====================================================================================
 Command: edit
 
-Description: Edits an existing product in the inventory at the specific PID.
+Description: Edits an existing product in the inventory.
              Note that at least 1 flag is required when using the edit command.
 
 Usage: edit PID [n/PRODUCT_NAME] [q/QUANTITY] [p/PRICE] [d/DESCRIPTION]
 
 Options:
-PID                   Product ID of product to edit
+PID                   Product ID of product
 PRODUCT_NAME          Updated name of the product
 QUANTITY              Updated quantity of the product
-PRICE                 Updated price of the product. Price must be in 2 decimal places.
+PRICE                 Updated price of the product
 DESCRIPTION           Updated description of the product
 ====================================================================================

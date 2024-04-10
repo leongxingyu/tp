@@ -13,10 +13,15 @@ import java.util.logging.Logger;
 
 public class ListCommand extends ListActionCommand {
     public static final String COMMAND_KEYWORD = "list";
-    public static final String COMMAND_DESCRIPTION = "Lists each product in inventory.";
-    public static final String COMMAND_USAGE = "list";
-    public static final String[] COMMAND_FLAGS = {};
-    public static final String[] COMMAND_FLAG_DESCRIPTIONS = {};
+    public static final String COMMAND_DESCRIPTION = "List all products in inventory.";
+    public static final String COMMAND_USAGE = "list [-sn|-sq]";
+
+    public static final String[] COMMAND_FLAGS = {"-sn", "-sq"};
+
+    public static final String[] COMMAND_FLAG_DESCRIPTIONS = {
+        "Use this flag to sort by product name (alphabetically from A to Z)"
+        , "Use this flag to sort by product quantity (ascending)"
+    };
     private static final Logger LOGGER = Logger.getLogger(ListCommand.class.getName());
 
     private String sortType = null;
