@@ -22,10 +22,11 @@ This feature added the ability to add a product into the inventory.
 A unique Product ID (PID) is assigned to it as well.
 
 Justification:
-This feature is the core of the application.
-A user needs to be able to add a product in into the application before any further commands can run.
+This is the core feature of the application.
+A user needs to be able to add a product into the application before any further commands can run.
 
 <br/>
+
 
 **2. Find command Feature**
 [#52](https://github.com/AY2324S2-CS2113T-T09-3/tp/pull/52)
@@ -34,9 +35,12 @@ What it does:
 This feature added the ability to find a product's name based on a specific keyword.
 
 Justification:
+This feature is critical to the user's experience as a whole.
+In the event that the user only remember certain keywords of the product's name,
+the user can use this command to obtain more information about the product.
+In addition, most commands require the PID of the product to run.
+This command allows the user to obtain the PID of the product that they want.
 
-- This feature allows the owner to see which products' names matches the input keyword
-- This feature allows the owner to obtain the products' PID in a long list of products
 
 <br/>
 
@@ -47,43 +51,47 @@ What it does:
 This feature added the ability to check on any previous inflow or outflow of a product.
 
 Justification:
-This feature gives the owner insights on the details of change in quantity of the product (inflow/outflow)
-,which is important for the owner to know.
+This feature is critical to the user because it gives the user insights on the transactions that they made.
+Being an owner, they would definitely want to view the quantity changes to their products over time.
+This allows them to know how frequent their stock is changing.
+
 
 Highlights:
-Previously, we only had a main `Product` and `ProductList` class. 
+Previously, we only had a main `Product` and `ProductList` class.
 `History` command however tapped on a whole different class: `Transaction`.
-It requires an indepth analysis of how to incorporate it in our product because only `inflow`, `outflow` commands are affected. 
+It requires an indepth analysis of how to incorporate it in our product because only `inflow`, `outflow` commands are affected.
 
 
 <br/>
 
 ### Enhancements to existing features:
-Wrote tests for existing features, obtaining 100% tes coverage for all 3 features above.
-[#83](https://github.com/AY2324S2-CS2113T-T09-3/tp/pull/83)
-[#163](https://github.com/AY2324S2-CS2113T-T09-3/tp/pull/163)
+- Wrote tests for existing features, obtaining 100% test coverage for all 3 features above. [#83](https://github.com/AY2324S2-CS2113T-T09-3/tp/pull/83) [#163](https://github.com/AY2324S2-CS2113T-T09-3/tp/pull/163)
+- Updated find command to search for substrings instead of just pure matching of the products' names.  [#83](https://github.com/AY2324S2-CS2113T-T09-3/tp/pull/83)
+
 
 <br/>
 
 ### Contributions to the UG
-Added documentations for the features `add`, `find` and `history`.
+Added documentations details for the classes `new`, `find` and `history`.
 [#92](https://github.com/AY2324S2-CS2113T-T09-3/tp/pull/92)
 
 <br/>
 
 ### Contributions to the DG
-Added documentations details for the features `add`, `find` and `history`.
+Added documentations details for the classes `new`, `find` and `history`.
 [#92](https://github.com/AY2324S2-CS2113T-T09-3/tp/pull/92)
 
 <br/>
 
 ### Contributions to team-based tasks
 - Updating UG and DG docs: [#92](https://github.com/AY2324S2-CS2113T-T09-3/tp/pull/92)
-   - Helped with the overall formatting and documentation 
-   - Documentation of user stories 
-- Assigning of issues to respective group members when necessary 
+  - Helped with the overall formatting and documentation
+  - Documentation of user stories
+- Assigning of issues to respective group members when necessary
 
 <br/>
 
-### Contributions beyond the project team 
-- Reported an above-average number of bugs in the PE-D (9 bugs to be exact)
+### Contributions beyond the project team
+- Review group CS2113-W14-3 [PR](https://github.com/nus-cs2113-AY2324S2/tp/pull/58)
+  and [DG](https://ay2324s2-cs2113-w14-3.github.io/tp/DeveloperGuide.html)
+- Reported an above-average number of bugs in the [PE-D](https://github.com/edmundtangg/ped/issues)

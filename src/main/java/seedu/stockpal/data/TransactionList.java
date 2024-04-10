@@ -13,12 +13,20 @@ import static seedu.stockpal.ui.Ui.printToScreen;
 public class TransactionList {
     public List<Transaction> transactions = new ArrayList<>();
 
+    /**
+     * Add the new transaction into our transaction list
+     *
+     * @param toAdd new transaction to be added.
+     */
     public void addTransaction(Transaction toAdd) {
         transactions.add(toAdd);
     }
 
 
     /**
+     * Finds all inflow and outflow transactions for the particular product
+     * and prints them out.
+     *
      * @param transactionList TransactionList object.
      * @param inputPid Matching Pid to search for.
      */
@@ -44,21 +52,23 @@ public class TransactionList {
     }
 
     /**
-     * Obtain the size of the transaction list
+     * @return the size of the transaction list.
      */
     public int getSize() {
         return transactions.size();
     }
 
+
     /**
-     * Obtain the list of transactions from a Transaction object.
+     * @return the transaction list object.
      */
     public List<Transaction> getTransactions() {
         return transactions;
     }
 
+
     /**
-     * Check if the transaction list is empty.
+     * @return true if the transaction object does not have any transactions.
      */
     public boolean isEmpty() {
         return transactions.isEmpty();
@@ -66,7 +76,8 @@ public class TransactionList {
 
 
     /**
-     * Obtain each transaction object from the list.
+     * @param i Index of the transaction.
+     * @return the transaction.
      */
     public Transaction get(int i) {
         return transactions.get(i);

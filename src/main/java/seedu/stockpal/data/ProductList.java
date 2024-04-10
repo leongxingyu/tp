@@ -29,12 +29,21 @@ public class ProductList {
     public List<Product> products = new ArrayList<>();
 
     /**
-     * @param toAdd Add a product to our list.
+     * Add the new product into our product list
+     *
+     * @param toAdd new product to be added.
      */
     public void addProduct(Product toAdd) {
         products.add(toAdd);
     }
 
+
+    /**
+     * Checks for repeated items in the list.
+     *
+     * @param name name of the String to check.
+     * @return true if there is a repeated item in the list.
+     */
     public boolean checkForRepeated(String name) {
         for (int i = 0; i < products.size(); i ++) {
             Product product = products.get(i);

@@ -2,75 +2,50 @@
 !include style.puml
 skinparam ArrowFontStyle plain
 
-Participant ":AddCommand" as command COMMANDS_COLOR
+Participant ":NewCommand" as command COMMANDS_COLOR
+/'Participant ":Product" as product PRODUCT_COLOR'/
 Participant ":ProductList" as productlist PRODUCTLIST_COLOR
-Participant ":Product" as product PRODUCT_COLOR
 Participant ":UI" as ui UI_COLOR
 
-
-activate command COMMANDS_COLOR
 -> command : execute()
+activate command COMMANDS_COLOR
+
+command -> productlist
+activate productlist PRODUCTLIST_COLOR
 
 
- alt sizeOfArray == 0
-     command -> product: new Product(name, quantity, price, description, 1)
-     activate product PRODUCT_COLOR
-     product --> command: newProduct
-     deactivate product PRODUCT_COLOR
+productlist -> productlist : checkForRepeated(name)
+activate productlist PRODUCTLIST_COLOR
 
-     command -> productlist : addProduct(newProduct)
-     activate productlist PRODUCTLIST_COLOR
-     command <-- productlist
-     deactivate productlist
+note over productlist
+     Throws DuplicateProductNameException
+     if name already exists in product list
+end note
 
-     command -> ui : printAddSuccessMessage()
-     activate ui UI_COLOR
-     command <-- ui
-     deactivate ui
+productlist --> productlist
+deactivate productlist
 
- else sizeOfArray == productList.get(sizeOfArray - 1).getPid().getPid()
-     command -> product: getPidOfLastElement()
-     activate product PRODUCT_COLOR
-     product --> command: lastPid
-     deactivate product
+command <-- productlist
+deactivate productlist
 
-     command -> product: new Product(name, quantity, price, description, lastPid)
-     activate product PRODUCT_COLOR
-     product --> command: newProduct
-     deactivate product
+ command -> command : createProduct(name, quantity, price, description)
+ activate command COMMANDS_COLOR
 
-     command -> productlist : addProduct(newProduct)
-     activate productlist PRODUCTLIST_COLOR
-     command <-- productlist
-     deactivate productlist
+ command --> command : newProduct
+ deactivate command COMMANDS_COLOR
 
-     command -> ui : printAddSuccessMessage()
-     activate ui UI_COLOR
-     command <-- ui
-     deactivate ui
 
- else
-     command -> product: getPidOfLastElement()
-     activate product PRODUCT_COLOR
-     product --> command: lastPid
-     deactivate product
+ command -> productlist : addProduct(newProduct)
+ activate productlist PRODUCTLIST_COLOR
 
-     command -> product: new Product(name, quantity, price, description, lastPid + 1)
-     activate product PRODUCT_COLOR
-     product --> command: newProduct
-     deactivate product
 
-     command -> productlist : addProduct(newProduct)
-     activate productlist PRODUCTLIST_COLOR
-     command <-- productlist
-     deactivate productlist
+ command <-- productlist
+ deactivate productlist
 
-     command -> ui : printAddSuccessMessage()
-     activate ui UI_COLOR
-     command <-- ui
-     deactivate ui
- end
-
+ command -> ui : printAddSuccessMessage()
+ activate ui UI_COLOR
+ command <-- ui
+ deactivate ui
 
 
 <-- command
