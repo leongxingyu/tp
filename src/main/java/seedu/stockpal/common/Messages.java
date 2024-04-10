@@ -7,6 +7,10 @@ public class Messages {
     public static final String ALLOWED_CHARACTERS = "a-z, A-Z, 0-9, (), [], -, _, comma and dot.";
     public static final String HORIZONTAL_LINE =
             "====================================================================================";
+    public static final String BEFORE_USER_UNPUT =
+            ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>";
+    public static final String AFTER_USER_UNPUT =
+            "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<";
     public static final String MESSAGE_WELCOME = "Welcome to StockPal!";
     public static final String MESSAGE_GOODBYE = "Exiting program, goodbye!";
     public static final String MESSAGE_ADDED = "Product has been added.";

@@ -10,6 +10,8 @@ import seedu.stockpal.data.product.Product;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
+import static seedu.stockpal.common.Messages.AFTER_USER_UNPUT;
+import static seedu.stockpal.common.Messages.BEFORE_USER_UNPUT;
 import static seedu.stockpal.common.Messages.HORIZONTAL_LINE;
 import static seedu.stockpal.common.Messages.LINE_SEPARATOR;
 
@@ -19,6 +21,7 @@ public final class Ui {
     private static final String PROMPT_USER_INPUT = "Enter a command: ";
 
     public static String getUserInput() throws NoSuchElementException {
+        System.out.println(BEFORE_USER_UNPUT);
         System.out.print(PROMPT_USER_INPUT);
         String input = Messages.EMPTY_STRING;
         try {
@@ -27,6 +30,7 @@ public final class Ui {
             System.out.println(Messages.ERROR_KEYBOARD_INTERRUPT);
             System.exit(0);
         }
+        System.out.println(AFTER_USER_UNPUT);
         return input;
     }
 
