@@ -246,18 +246,18 @@ Aspect: Where to store the individual command details.
     - Code looks very long and repetitive with `FormatUtils.formatCommandDetails(COMMAND_KEYWORD, COMMAND_DESCRIPTION
       , COMMAND_USAGE, COMMAND_FLAGS, COMMAND_FLAG_DESCRIPTIONS)` being called for every single command.
 
-### Add Product Feature
+### New Product Feature
 
 The NewCommand class is responsible for adding a new product to the inventory in the StockPal application.
 
-The add product feature is facilitated by `NewCommand` which extends `Command`.
+The new product feature is facilitated by `NewCommand` which extends `Command`.
 
 Specific validations are still carried out within `NewCommand`.
 1. Checking if the new product name is the same as an existing product name.
 
-Once all validation is completed, adding of product is done by calling `ProductList#addProduct()`.
+Once all validation is completed, adding of product is done by calling `ProductList#newProduct()`.
 
-The following sequence diagram details how `AddCommand#execute()` functions.
+The following sequence diagram details how `NewCommand#execute()` functions.
 
 <img src="images/AddCommandExecuteSequenceDiagram.png" alt="AddCommandExecuteSequenceDiagram.png"/>
 
@@ -357,14 +357,18 @@ currently.
 
 The following sequence diagram shows how `DeleteCommand#execute()` functions. The sequence diagram assumes that PID
 provided is valid. 
+
 ![DeleteCommandSequenceDiagram](images/DeleteCommandSequence.png)
 
 
 ### Find product feature
 
-The FindCommand class is responsible for finding a new product to the inventory in the StockPal application.
+The FindCommand class is responsible for finding a particular keyword
+in a product's name in the StockPal application.
 
+The find product feature is facilitated by `FindCommand` which extends `Command`.
 
+Finding of keyword of product is done by calling `ProductList#FindKeyword()`.
 
 The following sequence diagram details how `FindCommand#execute()` functions.
 <img src="images/FindCommandExecuteSequenceDiagram.png" alt="FindCommandExecuteSequenceDiagram.png"/>
@@ -374,6 +378,11 @@ The following sequence diagram details how `FindCommand#execute()` functions.
 
 The HistoryCommand class is responsible for finding any inflows or outflows for a particular
 PID in the StockPal application.
+
+The history product feature is facilitated by `HistoryCommand` which extends `Command`.
+
+Finding of transactionsis done by calling `ProductList#FindTransactions()`.
+
 
 The following sequence diagram details how `HistoryCommand#execute()` functions.
 <img src="images/HistoryCommandExecuteSequenceDiagram.png" alt="HistoryCommandExecuteSequenceDiagram.png"/>

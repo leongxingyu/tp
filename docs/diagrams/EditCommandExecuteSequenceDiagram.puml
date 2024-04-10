@@ -35,7 +35,7 @@ alt hasAtLeastOneValidParameter == true
 
     note over productlist
         Throws DuplicateProductNameException
-        if name is already exists in product list
+        if name already exists in product list
     end note
 
     productlist --> productlist

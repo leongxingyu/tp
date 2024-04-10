@@ -14,11 +14,13 @@ activate productlist PRODUCTLIST_COLOR
 
 productlist -> ui : printListTasks(MatchingProductList)
 activate ui UI_COLOR
-ui --[UI_COLOR]> productlist
+
+productlist <-- ui
 deactivate ui UI_COLOR
 
 
-productlist --[PRODUCTLIST_COLOR]> command
+command <-- productlist
+
 deactivate productlist
 
 @enduml
