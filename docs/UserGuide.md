@@ -137,9 +137,9 @@ This is a useful command to start with if you are new to StockPal!
 
 Format: `help [COMMAND]`
 
-| Parameter | Representation                                          | Constraints                                                                                                                                                                                                                      |
-|-----------|---------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `COMMAND` | The command for which you wish to display the help page | - Must be a valid command keyword<br/>- List of valid command keywords: help, new, list, edit, delete, inflow, outflow, history, find, exit<br/>- If `COMMAND` is left empty, command details for all commands will be displayed |
+| Parameter | Representation                                          | Constraints                                                                                                                                                                                                                  |
+|-----------|---------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `COMMAND` | The command for which you wish to display the help page | Must be a valid command keyword.<br/>If `COMMAND` is left empty, command details for all commands will be displayed.<br/>List of valid command keywords: help, new, list, edit, delete, inflow, outflow, history, find, exit |
 
 ### Example 1
 Input:

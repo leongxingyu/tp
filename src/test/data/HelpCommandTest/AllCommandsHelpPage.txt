@@ -88,5 +88,9 @@ Description: Provides command details for all or specific commands.
 Usage: help [COMMAND_KEYWORD]
 
 Options:
-COMMAND_KEYWORD       Command to display details for
+COMMAND_KEYWORD       The command for which you wish to display the help page.
+                      Leaving this option empty will display the help page for
+                      all commands.
+                      Commands available are: help, new, list, edit, delete,
+                      inflow, outflow, history, find, exit
 ====================================================================================

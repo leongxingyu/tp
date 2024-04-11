@@ -18,7 +18,13 @@ public class HelpCommand extends Command {
     public static final String COMMAND_DESCRIPTION = "Provides command details for all or specific commands.";
     public static final String COMMAND_USAGE = "help [COMMAND_KEYWORD]";
     public static final String[] COMMAND_FLAGS = {"COMMAND_KEYWORD"};
-    public static final String[] COMMAND_FLAG_DESCRIPTIONS = {"Command to display details for"};
+    public static final String[] COMMAND_FLAG_DESCRIPTIONS = {
+        "The command for which you wish to display the help page.\n" +
+            "Leaving this option empty will display the help page for\n" +
+            "all commands.\n" +
+            "Commands available are: help, new, list, edit, delete,\n" +
+            "inflow, outflow, history, find, exit"
+    };
 
     protected static Logger logger = Logger.getLogger(seedu.stockpal.commands.HelpCommand.class.getName());
     private static final String CASE_PRINT_ALL_COMMANDS = "all";

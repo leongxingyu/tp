@@ -193,27 +193,28 @@ The `help` feature is facilitated by `HelpCommand` which extends `Command`.
 Details for individual commands are stored within the individual classes as static variables.
 The details are stored as 5 variables as follows.
 
-| Variable                  | What it represents                                    | Example                                                  |
-|---------------------------|-------------------------------------------------------|----------------------------------------------------------|
-| COMMAND_KEYWORD           | The keyword used to identify the command.             | "help"                                                   |
-| COMMAND_DESCRIPTION       | Description of the command.                           | "Provides command details for all or specific commands." |
-| COMMAND_USAGE             | The format of the command.                            | "help [COMMAND_KEYWORD]"                                 |
-| COMMAND_FLAGS             | Placeholder value used to denote command arguments.   | {"COMMAND_KEYWORD"}                                      |
-| COMMAND_FLAG_DESCRIPTIONS | Description of what the placeholder value represents. | {"Command to display details for"}                       |
+| Variable                  | What it represents                                    | Example                                                         |
+|---------------------------|-------------------------------------------------------|-----------------------------------------------------------------|
+| COMMAND_KEYWORD           | The keyword used to identify the command.             | "inflow"                                                        |
+| COMMAND_DESCRIPTION       | Description of the command.                           | "Increases the quantity of a product from the existing amount." |
+| COMMAND_USAGE             | The format of the command.                            | "inflow PID a/INCREMENT_AMOUNT"                                 |
+| COMMAND_FLAGS             | Placeholder value used to denote command arguments.   | {"PID", "INCREMENT_AMOUNT"}                                     |
+| COMMAND_FLAG_DESCRIPTIONS | Description of what the placeholder value represents. | {"Product ID of product", "Quantity of product to add"}         |
 
 `FormatUtils#formatCommandDetails()` takes in these 5 variables as arguments and produces a formatted version of the details.
 
 Example of formatted version of details based on the 5 example variables above:
 ```
 ====================================================================================
-Command: help
+Command: inflow
 
-Description: Provides command details for all or specific commands.
+Description: Increases the quantity of a product from the existing amount.
 
-Usage: help [COMMAND_KEYWORD]
+Usage: inflow PID a/INCREMENT_AMOUNT
 
 Options:
-COMMAND_KEYWORD       Command to display details for
+PID                   Product ID of product
+INCREMENT_AMOUNT      Quantity of product to add
 ====================================================================================
 ```
 
