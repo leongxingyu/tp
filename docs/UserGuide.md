@@ -142,7 +142,7 @@ Format: `help [COMMAND]`
 |-----------|---------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `COMMAND` | The command for which you wish to display the help page | - Must be a valid command keyword<br/>- List of valid command keywords: <code>help</code>, <code>new</code>, <code>list</code>, <code>edit</code>, <code>delete</code>, <code>inflow</code>, <code>outflow</code>, <code>history</code>, <code>find</code>, <code>exit</code>.<br/>- If `COMMAND` is left empty, command details for all commands will be displayed |
 
-<div id="commandFormat" style="padding: 15px; border: 1px solid transparent; margin-bottom: 20px; border-radius: 4px; color: #31708f; background-color: #d9edf7;">
+<div style="padding: 15px; border: 1px solid transparent; margin-bottom: 20px; border-radius: 4px; color: #31708f; background-color: #d9edf7;">
 :information_source: <strong>Note:</strong><br>
 <code>COMMAND</code> is case-insensitive.<br>
 e.g. <code>help</code> will be considered the same as <code>HELP</code> and <code>hELP</code>.
@@ -195,7 +195,7 @@ new n/PRODUCT_NAME q/INITIAL_QUANTITY [p/PRICE] [d/DESCRIPTION]
 | `PRICE`            | Price of the new product to be added.       | - Must be a numeric value more than equal to 0.<br/>- Can have at most 2 decimal places.                                                                                                           |
 | `DESCRIPTION`      | Description of the new product to be added. | - Limited to 100 characters<br/>- Allowed characters:<br/>`a-z`, `A-Z`, `0-9`, ` `, `()`, `[]`, `,`, `.`, `-`, `_`                                                                                 |
 
-<div id="commandFormat" style="padding: 15px; border: 1px solid transparent; margin-bottom: 20px; border-radius: 4px; color: #31708f; background-color: #d9edf7;">
+<div style="padding: 15px; border: 1px solid transparent; margin-bottom: 20px; border-radius: 4px; color: #31708f; background-color: #d9edf7;">
 :information_source: <strong>Note:</strong><br>
 <ol>
     <li><code>PRODUCT_NAME</code> is case-insensitive, which means a name in lowercase will be considered as having the same name as the name in uppercase.<br>e.g. <code>Pen</code> will be considered the same as <code>pen</code> and <code>PEN</code>.</li>
@@ -321,7 +321,7 @@ edit PID [n/PRODUCT_NAME] [q/QUANTITY] [p/PRICE] [d/DESCRIPTION]
 | `PRICE`        | New price of the product to be edited.        | - Must be a numeric value more than equal to 0<br/>- Can have at most 2 decimal places                                                                                                            |
 | `DESCRIPTION`  | New description of the product to be edited.  | - Limited to 100 characters<br/>- Allowed characters:<br/>`a-z`, `A-Z`, `0-9`, ` `, `()`, `[]`, `,`, `.`, `-`, `_`                                                                                |
 
-<div id="commandFormat" style="padding: 15px; border: 1px solid transparent; margin-bottom: 20px; border-radius: 4px; color: #31708f; background-color: #d9edf7;">
+<div style="padding: 15px; border: 1px solid transparent; margin-bottom: 20px; border-radius: 4px; color: #31708f; background-color: #d9edf7;">
 :information_source: <strong>Note:</strong><br>
 <ol>
     <li><code>PRODUCT_NAME</code> is case-insensitive, which means a name in lowercase will be considered as having the same name as the name in uppercase.<br>e.g. <code>Pen</code> will be considered the same as <code>pen</code> and <code>PEN</code>.</li>
