@@ -10,10 +10,13 @@ Provides a user-friendly and cost-effective solution for small business owners t
 * If you are interested about developing StockPal, the [**Developer Guide**](DeveloperGuide.md) is a good place to start.
 
 
+Useful links:
+* [User Guide](UserGuide.md)
+* [Developer Guide](DeveloperGuide.md)
+* [About the team](AboutUs.md)
+
 Project Repository:<br>
 [![Project Repository](images/github-icon.png)](https://github.com/AY2324S2-CS2113T-T09-3/tp)
-
-[About the team](AboutUs.md)
 
 **Acknowledgements**
 

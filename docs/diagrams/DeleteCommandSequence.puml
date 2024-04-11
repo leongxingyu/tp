@@ -4,8 +4,8 @@ skinparam ArrowFontStyle plain
 
 Participant ":DeleteCommand" as command COMMANDS_COLOR
 Participant ":ProductList" as productlist PRODUCTLIST_COLOR
-Participant ":UI" as ui UI_COLOR
 Participant ":TransactionList" as transactionlist TRANSACTIONLIST_COLOR
+Participant ":UI" as ui UI_COLOR
 
 -> command : execute()
 activate command COMMANDS_COLOR
@@ -21,6 +21,8 @@ productlist -> productlist : products.remove(productIndex)
 activate productlist PRODUCTLIST_COLOR
 productlist --> productlist
 deactivate productlist
+productlist --> command
+deactivate
 
 command -> transactionlist : deleteTransactions(PID)
 activate transactionlist TRANSACTIONLIST_COLOR

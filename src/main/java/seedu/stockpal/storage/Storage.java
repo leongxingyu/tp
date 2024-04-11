@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.FileHandler;
@@ -16,13 +17,17 @@ import seedu.stockpal.commands.HelpCommand;
 import seedu.stockpal.commands.NewCommand;
 import seedu.stockpal.data.ProductList;
 import seedu.stockpal.data.product.Product;
+import seedu.stockpal.exceptions.DuplicateProductNameException;
+import seedu.stockpal.exceptions.PidDuplicateException;
 import seedu.stockpal.exceptions.StockPalException;
 import seedu.stockpal.storage.exception.InvalidStorageFilePathException;
 import seedu.stockpal.storage.exception.StorageIOException;
 
+import static seedu.stockpal.common.Messages.DUPLICATE_MESSAGE_STORAGE;
+import static seedu.stockpal.common.Messages.DUPLICATE_PID_FOUND;
 import static seedu.stockpal.common.Messages.ERROR_MESSAGE_GENERAL;
 import static seedu.stockpal.common.Messages.WARNING_DATA_ERROR;
-import static seedu.stockpal.common.Messages.WARNING_INVALID_FILEPATH;
+import static seedu.stockpal.common.Messages.WARNING_INVALID_FILEPATH_CSV;
 
 /**
  * Represents the file storage of the StockPal application.
@@ -46,6 +51,7 @@ public class Storage {
 
     private final String path;
     private final boolean isAppend = true;
+    private final HashMap<Integer, Integer> pidMap = new HashMap<>();
     private CsvWriter csvWriter;
 
     /**
@@ -65,7 +71,7 @@ public class Storage {
      */
     public Storage(String filePath) throws InvalidStorageFilePathException {
         if (!isValidPath(filePath)) {
-            throw new InvalidStorageFilePathException(WARNING_INVALID_FILEPATH);
+            throw new InvalidStorageFilePathException(WARNING_INVALID_FILEPATH_CSV);
         }
         this.path = filePath;
         setupLogger();
@@ -121,17 +127,33 @@ public class Storage {
     }
 
     /**
+     * Checks for duplicated PIDs in the CSV file.
+     *
+     * @param productId PID of the product to be checked.
+     * @throws PidDuplicateException If there are two of the same PIDs found in the CSV file.
+     */
+    private void checkDuplicatePid(Integer productId) throws PidDuplicateException {
+        if (!pidMap.containsKey(productId)) {
+            pidMap.put(productId, 1);
+        } else {
+            throw new PidDuplicateException(DUPLICATE_PID_FOUND);
+        }
+    }
+
+    /**
      * Parses the data row by row and converts each row into a Product.
      *
      * @param productRow The Array containing the details of the saved Product in the data file.
      * @return The converted Product.
      * @throws NumberFormatException If any of the Strings does not contain a parsable Integer/Double.
      * @throws NullPointerException If the Price String is null.
+     * @throws PidDuplicateException If there are two of the same PIDs found in the CSV file.
      */
     private Product parseProductFromRow(String[] productRow)
-            throws NumberFormatException, NullPointerException {
+            throws NumberFormatException, NullPointerException, PidDuplicateException {
         LOGGER.entering(getClass().getName(), "parseProductFromRow");
         Integer productId = Integer.parseInt(productRow[PID_INDEX].trim());
+        checkDuplicatePid(productId);
         String productName = productRow[NAME_INDEX].trim();
         Integer productQty = Integer.parseInt(productRow[QTY_INDEX].trim());
         Double productPrice = isEmptyPrice(productRow)
@@ -145,19 +167,39 @@ public class Storage {
     }
 
     /**
+     * Checks for duplicated names in the CSV file.
+     *
+     * @param productList The ProductList to be populated from the data in the CSV file.
+     * @param parsedProduct The converted Product from CSV data file.
+     * @throws DuplicateProductNameException If there are two of the same Names of the product found in the CSV file.
+     */
+    private static void checkDuplicateName(ProductList productList, Product parsedProduct)
+            throws DuplicateProductNameException {
+        boolean isRepeatName = productList.checkForRepeated(parsedProduct.getName().getName());
+        if (isRepeatName) {
+            throw new DuplicateProductNameException(DUPLICATE_MESSAGE_STORAGE);
+        }
+    }
+
+    /**
      * Parses the entire data file and returns the data as a ProductList.
      *
      * @param csvData The List of String Arrays where each Array contains
      *                the entire row of data of a product.
      * @return Loaded ProductList with the previously saved products.
      * @throws StorageIOException If the data file contains any erroneous input.
+     * @throws PidDuplicateException If there are two of the same PIDs found in the CSV file.
+     * @throws DuplicateProductNameException If there are two of the same Names of product found in the CSV file.
      */
-    private ProductList parseInventory(List<String[]> csvData) throws StorageIOException {
+    private ProductList parseInventory(List<String[]> csvData)
+            throws StorageIOException, PidDuplicateException, DuplicateProductNameException {
         LOGGER.entering(getClass().getName(), "parseInventory");
         ProductList productList = new ProductList();
         for (String[] productRow : csvData) {
             try {
-                productList.addProduct(parseProductFromRow(productRow));
+                Product parsedProduct = parseProductFromRow(productRow);
+                checkDuplicateName(productList, parsedProduct);
+                productList.addProduct(parsedProduct);
             } catch (NullPointerException | NumberFormatException e) {
                 LOGGER.log(Level.SEVERE, "Error in data file", e);
                 throw new StorageIOException(WARNING_DATA_ERROR);
@@ -173,8 +215,9 @@ public class Storage {
      * @return Loaded ProductList with the previously saved products.
      * @throws StockPalException If an error occurred while creating the new save file.
      * @throws StorageIOException If the data file contains any erroneous input.
+     * @throws PidDuplicateException If there are two of the same PIDs found in the CSV file.
      */
-    public ProductList load() throws StockPalException, StorageIOException {
+    public ProductList load() throws StockPalException, StorageIOException, PidDuplicateException {
         LOGGER.entering(getClass().getName(), "load");
         Path filepath = Path.of(this.path);
         if (!Files.exists(filepath) || !Files.isRegularFile(filepath)) {

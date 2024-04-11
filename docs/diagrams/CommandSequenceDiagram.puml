@@ -39,32 +39,67 @@ deactivate command
 parser --[PARSER_COLOR]> stockpal : command : XYZCommand
 deactivate parser
 
-stockpal -[STOCKPAL_COLOR]> command : execute()
-activate command COMMANDS_COLOR
-
-note over command
-   Execute XYZ command
-end note
-
-stockpal <--[COMMANDS_COLOR] command
-deactivate command
-
 stockpal -> stockpal : checkCommandType(command)
 
 activate stockpal STOCKPAL_COLOR
 
-opt list or transaction command
-    stockpal -[STOCKPAL_COLOR]> storage : productList : ProductList
-    activate storage STORAGE_COLOR
+alt ListAction command
+    stockpal -[STOCKPAL_COLOR]> command : execute(productList)
+    activate command COMMANDS_COLOR
 
-    storage -[STORAGE_COLOR]> storage : Save to file
-    activate storage STORAGE_COLOR
+    note over command
+        Execute ListAction command
+    end note
 
-    storage --[STORAGE_COLOR]> storage
-    deactivate storage
+    stockpal <--[COMMANDS_COLOR] command
+    deactivate command
 
-    storage --[STORAGE_COLOR]> stockpal
-    deactivate storage
+    opt NewCommand or EditCommand
+        stockpal -[STOCKPAL_COLOR]> storage : saveData(productList)
+        activate storage STORAGE_COLOR
+        storage -[STORAGE_COLOR]> storage : Save to file
+        activate storage STORAGE_COLOR
+
+        storage --[STORAGE_COLOR]> storage
+        deactivate storage
+
+        storage --[STORAGE_COLOR]> stockpal
+        deactivate storage
+    end
+else TransactionAction command
+    stockpal -[STOCKPAL_COLOR]> command : execute(productList, transactionList)
+    activate command COMMANDS_COLOR
+
+    note over command
+       Execute TransactionAction command
+    end note
+
+    stockpal <--[COMMANDS_COLOR] command
+    deactivate command
+
+    opt DeleteCommand or InflowCommand or OutflowCommand
+        stockpal -[STOCKPAL_COLOR]> storage : saveData(productList), save(transactionList)
+        activate storage STORAGE_COLOR
+        storage -[STORAGE_COLOR]> storage : Save to file
+        activate storage STORAGE_COLOR
+
+        storage --[STORAGE_COLOR]> storage
+        deactivate storage
+
+        storage --[STORAGE_COLOR]> stockpal
+        deactivate storage
+    end
+else HelpCommand or ExitCommand
+    stockpal -[STOCKPAL_COLOR]> command : execute()
+    activate command COMMANDS_COLOR
+
+    note over command
+       Execute command
+    end note
+
+    stockpal <--[COMMANDS_COLOR] command
+    deactivate command
+
 end
 
 stockpal --> stockpal

@@ -50,7 +50,7 @@ public class ProductList {
 
             String objName = product.getName().getName();
 
-            if (Objects.equals(name, objName)) {
+            if (Objects.equals(name.toLowerCase(), objName.toLowerCase())) {
                 return true;
             }
         }
