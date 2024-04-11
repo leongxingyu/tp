@@ -140,7 +140,7 @@ Format: `help [COMMAND]`
 
 | Parameter | Representation                                          | Constraints                                                                                                                                                                                                                  |
 |-----------|---------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `COMMAND` | The command for which you wish to display the help page | Must be a valid command keyword.<br/>If `COMMAND` is left empty, command details for all commands will be displayed.<br/>List of valid command keywords: help, new, list, edit, delete, inflow, outflow, history, find, exit |
+| `COMMAND` | The command for which you wish to display the help page | Must be a valid command keyword.<br/>If `COMMAND` is left empty, command details for all commands will be displayed.<br/>List of valid command keywords: <code>help</code>, <code>new</code>, <code>list</code>, <code>edit</code>, <code>delete</code>, <code>inflow</code>, <code>outflow</code>, <code>history</code>, <code>find</code>, <code>exit</code> |
 
 <div style="padding: 15px; border: 1px solid transparent; margin-bottom: 20px; border-radius: 4px; color: #31708f; background-color: #d9edf7;">
 :information_source: <strong>Note:</strong><br>
