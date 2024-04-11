@@ -124,7 +124,7 @@ JSON (JavaScript Object Notation) - a file format for storing and transporting d
     <li>Parameters must be in the specified order.<br>
         e.g. if the command specifies <code>n/PRODUCT_NAME q/INITIAL_QUANTITY</code>, <code>q/INITIAL_QUANTITY n/PRODUCT_NAME</code> is <strong>not</strong> acceptable.</li>
     <li>Commands and flags are not case-sensitive.<br>
-        e.g. Both commands <code>LIST -SN</code> and <code>List -sn</code> will present the same output.
+        e.g. Both commands <code>LIST -SN</code> and <code>List -sn</code> will present the same output.</li>
 </ul>
 </div>
 
