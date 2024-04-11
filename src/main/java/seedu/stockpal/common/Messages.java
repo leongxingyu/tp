@@ -7,9 +7,9 @@ public class Messages {
     public static final String ALLOWED_CHARACTERS = "a-z, A-Z, 0-9, (), [], -, _, comma and dot.";
     public static final String HORIZONTAL_LINE =
             "====================================================================================";
-    public static final String BEFORE_USER_UNPUT =
+    public static final String BEFORE_USER_INPUT =
             ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>";
-    public static final String AFTER_USER_UNPUT =
+    public static final String AFTER_USER_INPUT =
             "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<";
     public static final String MESSAGE_WELCOME = "Welcome to StockPal!";
     public static final String MESSAGE_GOODBYE = "Exiting program, goodbye!";
@@ -62,7 +62,7 @@ public class Messages {
     // Flag present and input is only whitespaces
     public static final String MESSAGE_ERROR_EMPTY_NAME =
             "Name is empty!\n" +
-            " nsure that Name entered is at most 50 characters long and\n" +
+            "Ensure that Name entered is at most 50 characters long and\n" +
             "only contains the following characters: " + ALLOWED_CHARACTERS;
     public static final String MESSAGE_ERROR_EMPTY_QUANTITY =
             "Quantity is empty!\n" + MESSAGE_INFO_QUANTITY_FORMAT;
@@ -135,13 +135,26 @@ public class Messages {
     public static final String MESSAGE_EDIT_SUCCESS = "Product details have been updated.";
 
     public static final String ERROR_MESSAGE_GENERAL = "OOPS!!! Error Occurred: ";
-    public static final String WARNING_INVALID_FILEPATH = "OOPS!!! Storage file should end with '.csv'";
-    public static final String WARNING_DATA_ERROR = "OOPS!!! Data file contains erroneous input!";
-    public static final String WARNING_READ_DATA_ERROR = "OOPS!!! Error reading data file";
-    public static final String WARNING_DATA_FILE_FORMAT_ERROR = "OOPS!! Error in data file format!";
-    public static final String WARNING_CLOSE_WRITER_ERROR = "OOPS!! Error in closing save file writer!";
+    public static final String WARNING_INVALID_FILEPATH_CSV = "OOPS!!! Inventory storage file should end with '.csv'." +
+            " Please edit the file extension before starting up StockPal again!";
+    public static final String WARNING_INVALID_FILEPATH_JSON = "OOPS!!!" +
+            " Transactions storage file should end with '.json'." +
+            " Please edit the file extension before starting up StockPal again!";
+    public static final String WARNING_DATA_ERROR = "OOPS!!! Data file contains erroneous input! " +
+            " Please rectify the inputs in the save file before starting up StockPal again!";
+    public static final String WARNING_READ_DATA_ERROR = "OOPS!!! Error reading data file!" +
+            " Please rectify the inputs in the save file before starting up StockPal again!";
+    public static final String WARNING_DATA_FILE_FORMAT_ERROR = "OOPS!! Error in data file format!" +
+            " You are advised to make a copy of the data in the data file, delete the data file," +
+            " start up StockPal again, then paste the copied data into the newly created data file.";
+    public static final String WARNING_CLOSE_WRITER_ERROR = "OOPS!! Error in closing save file writer!" +
+            " Please try again later!";
     public static final String MESSAGE_FILE_ALR_CREATED = "A non-existent file scenario is already handled earlier.";
-  
+    public static final String DUPLICATE_PID_FOUND = "OOPS!! Duplicate PIDs found in CSV file," +
+            " Please edit the PIDs back before starting up StockPal again!";
+    public static final String DUPLICATE_MESSAGE_STORAGE = "OOPS!! Product name already exists in inventory.csv." +
+            " Please edit the product names in the data file before starting up StockPal again!";
+
     public static final String MESSAGE_DELETE_SUCCESS = "Product has been deleted.";
     public static final String MESSAGE_INFLOW_SUCCESS = "Product quantity has been increased successfully.";
     public static final String MESSAGE_OUTFLOW_SUCCESS = "Product quantity has been decreased successfully.";

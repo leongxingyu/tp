@@ -36,7 +36,7 @@ command --[COMMANDS_COLOR]> ui
 deactivate command
 ui --[UI_COLOR]> user : "Product has been deleted."
 
-stockpal -[STOCKPAL_COLOR]> storage : save(productList), save(transactionList)
+stockpal -[STOCKPAL_COLOR]> storage : saveData(productList), save(transactionList)
 activate storage STORAGE_COLOR
 
 storage -[STORAGE_COLOR]> storage : Save to file

@@ -2,6 +2,8 @@
 title: Ng Yao Dong's Project Portfolio Page
 ---
 
+# Ng Yao Dong's Project Portfolio Page
+
 ## Project: StockPal
 
 ### Overview

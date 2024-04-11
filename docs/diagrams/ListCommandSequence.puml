@@ -14,7 +14,7 @@ command -> ui : printEmptyListMessage()
 activate ui UI_COLOR
 command <-- ui
 deactivate ui
-else
+else Product list not empty
     command -> command : sortListAccordingly(newList)
     activate command COMMANDS_COLOR
     alt Sort list by quantity
@@ -31,11 +31,11 @@ else
     end
     command --> command
     deactivate command
+    command -> ui : printListTask(newList)
+    activate ui UI_COLOR
+    ui --> command
+    deactivate ui
 end
-command -> ui : printListTask(newList)
-activate ui UI_COLOR
-ui --> command
-deactivate ui
 
 <-- command
 deactivate command

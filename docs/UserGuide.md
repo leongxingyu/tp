@@ -2,6 +2,8 @@
 title: User Guide
 ---
 
+# StockPal's User Guide
+
 # Introduction
 StockPal is a command line interface (CLI) application designed to help small E-commerce business owners who are 
 just starting up to manage their stock-taking effectively. Users would mostly interact with StockPal via text commands.
@@ -20,13 +22,13 @@ Not sure where to begin? Start by learning [how to utilize this user guide](#usi
 - [Features](#features)
     - [Notes about the Command Format](#commandFormat)
     - [Viewing help: `help`](#viewing-help-help)
-    - [Adding new product: `new`](#adding-a-new-product-new)
+    - [Adding a new product: `new`](#adding-a-new-product-new)
     - [Listing all products: `list`](#listing-all-products-list)
     - [Editing product details: `edit`](#editing-product-details-edit)
-    - [Deleting a product and its details: `delete`](#deleting-a-product-and-its-details-delete)
     - [Increasing quantity of existing product: `inflow`](#increasing-a-product-quantity-inflow)
     - [Decreasing quantity of existing product: `outflow`](#decreasing-a-product-quantity-outflow)
     - [Viewing past inflow/outflow of existing product: `history`](#viewing-past-inflow--outflow-of-existing-product-history)
+    - [Deleting a product and its details: `delete`](#deleting-a-product-and-its-details-delete)
     - [Find a keyword in the Product list: `find`](#find-a-keyword-in-the-product-list-find)
     - [Exiting the program: `exit`](#exiting-the-program-exit)
     - [Saving the data](#saving-the-data)
@@ -55,10 +57,10 @@ Below are the symbols used in this guide and the meaning of these symbols.
 
 1.  Ensure you have [Java 11](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html) or above installed in your computer.
 
-2.  Download the latest `stockpal.jar` from [here](https://github.com/AY2324S2-CS2113T-T09-3/tp/releases).
+2.  Download the latest `StockPal.jar` from [here](https://github.com/AY2324S2-CS2113T-T09-3/tp/releases).
 
 3.  Copy the file to the folder you want to use as the home folder for
-    the application. For example,`C:\Users\setupuser\Documents\StockPal\stockpal.jar`.
+    the application. For example,`C:\Users\setupuser\Documents\StockPal\StockPal.jar`.
 
 ## Running StockPal
 
@@ -77,11 +79,11 @@ Below are the symbols used in this guide and the meaning of these symbols.
 
     <img src="images/Mac-find-cmd.png" alt="images/Mac-find-cmd.png" width="450px"/>
     <br><br>
-<!--- @@author Kobot7 --->
-2.  Determine the file path to the home folder of `stockpal.jar`. You can
-    do so by navigating to `stockpal.jar` in File Explorer (Windows) or Finder (MAC). For example,
+    <!--- @@author Kobot7 --->
+2.  Determine the file path to the home folder of `StockPal.jar`. You can
+    do so by navigating to `StockPal.jar` in File Explorer (Windows) or Finder (MAC). For example,
     the image below shows that the file path to the home folder of
-    `stockpal.jar` is `C:\Users\setupuser\Documents\StockPal`.<br>
+    `StockPal.jar` is `C:\Users\setupuser\Documents\StockPal`.<br>
 
     <img src="images/Windows-home-folder.png" alt="images/Windows-home-folder.png" width="600px"/>
     <br><br>
@@ -93,14 +95,14 @@ Below are the symbols used in this guide and the meaning of these symbols.
     <img src="images/cmd-navigate-to-home-folder.png" alt="images/cmd-navigate-to-home-folder.png" width="700px"/>
     <br><br>
 
-4.  In the command prompt terminal, run StockPal using the command `java
-    -jar ./stockpal.jar`.
+4.  In the command prompt terminal, run StockPal using the command `java -jar ./StockPal.jar`.
 
 <div style="page-break-after: always;"></div>
     
 # Glossary
+The following is a collection of frequently used terms in the User Guide and their meanings.
 
-PID (Product ID) - a number that we use to keep track of the products.
+PID (Product ID) - a unique number assigned to each product for identification purposes.
 
 CLI (Command Line Interface) - a text-based interface used to interact with our program by entering commands into a terminal.
 
@@ -121,9 +123,8 @@ JSON (JavaScript Object Notation) - a file format for storing and transporting d
         e.g. <code>n/PRODUCT_NAME q/INITIAL_QUANTITY [p/PRICE]</code> can be used as <code>n/Math Textbook q/100 p/20.00</code> or as <code>n/Math Textbook q/100</code>.</li>
     <li>Parameters must be in the specified order.<br>
         e.g. if the command specifies <code>n/PRODUCT_NAME q/INITIAL_QUANTITY</code>, <code>q/INITIAL_QUANTITY n/PRODUCT_NAME</code> is <strong>not</strong> acceptable.</li>
-    <li>Commands, flags and specifiers are not case-sensitive.<br>
-        e.g. You may use <code>INFLOW A/100</code> or <code>LIST -SN</code>
-
+    <li>Commands and flags are not case-sensitive.<br>
+        e.g. Both commands <code>LIST -SN</code> and <code>List -sn</code> will present the same output.
 </ul>
 </div>
 
@@ -137,9 +138,15 @@ This is a useful command to start with if you are new to StockPal!
 
 Format: `help [COMMAND]`
 
-| Parameter | Representation                                          | Constraints                                                                                                                                                                                                                      |
-|-----------|---------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `COMMAND` | The command for which you wish to display the help page | - Must be a valid command keyword<br/>- List of valid command keywords: help, new, list, edit, delete, inflow, outflow, history, find, exit<br/>- If `COMMAND` is left empty, command details for all commands will be displayed |
+| Parameter | Representation                                          | Constraints                                                                                                                                                                                                                                                                                                                                                         |
+|-----------|---------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `COMMAND` | The command for which you wish to display the help page | - Must be a valid command keyword<br/>- List of valid command keywords: <code>help</code>, <code>new</code>, <code>list</code>, <code>edit</code>, <code>delete</code>, <code>inflow</code>, <code>outflow</code>, <code>history</code>, <code>find</code>, <code>exit</code>.<br/>- If `COMMAND` is left empty, command details for all commands will be displayed |
+
+<div style="padding: 15px; border: 1px solid transparent; margin-bottom: 20px; border-radius: 4px; color: #31708f; background-color: #d9edf7;">
+:information_source: <strong>Note:</strong><br>
+<code>COMMAND</code> is case-insensitive.<br>
+e.g. <code>help</code> will be considered the same as <code>HELP</code> and <code>hELP</code>.
+</div>
 
 ### Example 1
 Input:
@@ -172,8 +179,8 @@ Creates a new product to the inventory and assigns a unique Product ID (PID) to 
 
 ### When to Use?
 
-When starting as a new user of StockPal, use this command repeatedly to fill up your inventory to start tracking!
-Subsequently, when your business introduces new products, use this command to add them in too!
+* When starting as a new user of StockPal, use this command repeatedly to fill up your inventory to start tracking!
+* Subsequently, when your business introduces new products, use this command to add them in too!
 
 
 Format:
@@ -181,19 +188,26 @@ Format:
 new n/PRODUCT_NAME q/INITIAL_QUANTITY [p/PRICE] [d/DESCRIPTION]
 ```
 
-| Parameter          | Representation                             | Constraints                                                                                                                                              |
-|--------------------|--------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `PRODUCT_NAME`     | Name of new product to be added            | Limited to 50 characters.<br/>Allowed characters:<br/>`a-zA-Z0-9 ()[],.-_`<br/>Name must be unique, i.e. no existing product with the same product name. |
-| `INITIAL_QUANTITY` | Quantity of the new product to be added    | Must be an integer more than or equal to 0                                                                                                               |
-| `PRICE`            | Price of the new product to be added       | Must be a numeric value more than equal to 0<br/>Can have at most 2 decimal places                                                                       |
-| `DESCRIPTION`      | Description of the new product to be added | Limited to 100 characters<br/>Allowed characters:<br/>`a-zA-Z0-9 ()[],.-_`                                                                               |
+| Parameter          | Representation                              | Constraints                                                                                                                                                                                        |
+|--------------------|---------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `PRODUCT_NAME`     | Name of new product to be added.            | - Limited to 50 characters.<br/>- Allowed characters:<br/>`a-z`, `A-Z`, `0-9`, ` `, `()`, `[]`, `,`, `.`, `-`, `_`<br/>- Name must be unique, i.e. no existing product with the same product name. |
+| `INITIAL_QUANTITY` | Quantity of the new product to be added.    | Must be an integer more than or equal to 0.                                                                                                                                                        |
+| `PRICE`            | Price of the new product to be added.       | - Must be a numeric value more than equal to 0.<br/>- Can have at most 2 decimal places.                                                                                                           |
+| `DESCRIPTION`      | Description of the new product to be added. | - Limited to 100 characters<br/>- Allowed characters:<br/>`a-z`, `A-Z`, `0-9`, ` `, `()`, `[]`, `,`, `.`, `-`, `_`                                                                                 |
 
+<div style="padding: 15px; border: 1px solid transparent; margin-bottom: 20px; border-radius: 4px; color: #31708f; background-color: #d9edf7;">
+:information_source: <strong>Note:</strong><br>
+<ol>
+    <li><code>PRODUCT_NAME</code> is case-insensitive, which means a name in lowercase will be considered as having the same name as the name in uppercase.<br>e.g. <code>Pen</code> will be considered the same as <code>pen</code> and <code>PEN</code>.</li>
+    <li>When entering <code>0</code>, <code>0.0</code> or <code>0.00</code> for <code>PRICE</code>, StockPal will deem it as not having <code>PRICE</code> entered, and display <code>[X]</code> for <code>PRICE</code> when using <code>list</code> command.</li>
+</ol>
+</div>
 
 ### Example 1
 Input:
 
 ```
-new n/Drinking Cup q/20 
+new n/Pen q/40 
 ```
 
 Output:
@@ -205,15 +219,15 @@ Product has been added.
 Explanation:
 
 This command adds your product to the inventory. The product’s details are as follows:
-- Name of the product is `Drinking Cup`.
-- Quantity of Drinking Cup stock is `20` units.
+- Name of the product is `Pen`.
+- Quantity of `Pen` is `40` units.
 
 
 ### Example 2
 Input:
 
 ```
-new n/Chocolate Milk q/100 p/2.00 d/Marigold HL Milk
+new n/Ruler q/30 p/2.00 d/Curve Ruler
 ```
 
 Output:
@@ -225,10 +239,10 @@ Product has been added.
 Explanation:
 
 This command adds your product to the inventory. The product’s details are as follows:
-- Name of the product is `Chocolate Milk`.
-- Quantity of Chocolate Milk stock is `100` units.
+- Name of the product is `Ruler`.
+- Quantity of `Ruler` is `30` units.
 - Price of each unit is `$2.00`.
-- Description of the Chocolate Milk product is `Marigold HL Milk`, which is the brand.
+- Description of the `Ruler` product is `Curve Ruler`, which is the type of ruler.
 
 <div style="page-break-after: always;"></div>
 
@@ -258,14 +272,11 @@ Input: `list`
 Output:
 ```
 ====================================================================================
-1. PID: 1  |  Name: Milk  |  Quantity: 40  |  Price: $8.00
-Description: Made by happy cows!
+1. PID: 1  |  Name: Pen  |  Quantity: 40  |  Price: [X]
+Description: [X]
 ====================================================================================
-2. PID: 2  |  Name: Banana  |  Quantity: 50  |  Price: $5.00
-Description: A bunch of bananas.
-====================================================================================
-3. PID: 3  |  Name: Corn  |  Quantity: 30  |  Price: $1.00
-Description: It's corn!
+2. PID: 2  |  Name: Ruler  |  Quantity: 30  |  Price: $2.00
+Description: Curve Ruler
 ====================================================================================
 ```
 
@@ -279,14 +290,11 @@ Input: `list -sq`
 Output:
 ```
 ====================================================================================
-1. PID: 3  |  Name: Corn  |  Quantity: 30  |  Price: $1.00
-Description: It's corn!
+1. PID: 2  |  Name: Ruler  |  Quantity: 30  |  Price: $2.00
+Description: Curve Ruler
 ====================================================================================
-2. PID: 1  |  Name: Milk  |  Quantity: 40  |  Price: $8.00
-Description: Made by happy cows!
-====================================================================================
-3. PID: 2  |  Name: Banana  |  Quantity: 50  |  Price: $5.00
-Description: A bunch of bananas.
+2. PID: 1  |  Name: Pen |  Quantity: 40  |  Price: [X]
+Description: [X]
 ====================================================================================
 ```
 
@@ -302,16 +310,24 @@ Format:
 edit PID [n/PRODUCT_NAME] [q/QUANTITY] [p/PRICE] [d/DESCRIPTION]
 ```
 <div style="padding: 15px; border: 1px solid transparent; margin-bottom: 20px; border-radius: 4px; color: #31708f; background-color: #d9edf7;">
-:information_source: <strong>Note:</strong> At least one paramter must be provided.
+:information_source: <strong>Note:</strong> At least one parameter must be provided.
 </div>
 
-| Parameter      | Representation                               | Constraints                                                                                                                                             |
-|----------------|----------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `PID`          | Product ID of the existing product           | Must be a valid Product ID of an existing product                                                                                                       |
-| `PRODUCT_NAME` | New product name of the product to be edited | Limited to 50 characters<br/>Allowed characters:<br/>`a-zA-Z0-9 ()[],.-_`<br/>Name must be unique, i.e. no existing product with the same product name. |
-| `QUANTITY`     | New quantity of the product to be edited     | Must be an integer more than or equals to 0                                                                                                             |
-| `PRICE`        | New price of the product to be edited        | Must be a numeric value more than equal to 0<br/>Can have at most 2 decimal places                                                                      |
-| `DESCRIPTION`  | New description of the product to be edited  | Limited to 100 characters<br/>Allowed characters:<br/>`a-zA-Z0-9 ()[],.-_`                                                                              |
+| Parameter      | Representation                                | Constraints                                                                                                                                                                                       |
+|----------------|-----------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `PID`          | Product ID of the existing product.           | Must be a valid Product ID of an existing product.                                                                                                                                                |
+| `PRODUCT_NAME` | New product name of the product to be edited. | - Limited to 50 characters<br/>- Allowed characters:<br/>`a-z`, `A-Z`, `0-9`, ` `, `()`, `[]`, `,`, `.`, `-`, `_`<br/>- Name must be unique, i.e. no existing product with the same product name. |
+| `QUANTITY`     | New quantity of the product to be edited.     | Must be an integer more than or equal to 0                                                                                                                                                        |
+| `PRICE`        | New price of the product to be edited.        | - Must be a numeric value more than equal to 0<br/>- Can have at most 2 decimal places                                                                                                            |
+| `DESCRIPTION`  | New description of the product to be edited.  | - Limited to 100 characters<br/>- Allowed characters:<br/>`a-z`, `A-Z`, `0-9`, ` `, `()`, `[]`, `,`, `.`, `-`, `_`                                                                                |
+
+<div style="padding: 15px; border: 1px solid transparent; margin-bottom: 20px; border-radius: 4px; color: #31708f; background-color: #d9edf7;">
+:information_source: <strong>Note:</strong><br>
+<ol>
+    <li><code>PRODUCT_NAME</code> is case-insensitive, which means a name in lowercase will be considered as having the same name as the name in uppercase.<br>e.g. <code>Pen</code> will be considered the same as <code>pen</code> and <code>PEN</code>.</li>
+    <li>When entering <code>0</code>, <code>0.0</code> or <code>0.00</code> for <code>PRICE</code>, StockPal will deem it as not having <code>PRICE</code> entered, and display <code>[X]</code> for <code>PRICE</code> when using <code>list</code> command.</li>
+</ol>
+</div>
 
 <div style="padding: 15px; border: 1px solid transparent; margin-bottom: 20px; border-radius: 4px; color: #8a6d3b; background-color: #fcf8e3;">
 :bulb: <strong>Tip:</strong> If you are looking to increase or decrease the amount of stock of a particular product,
@@ -321,20 +337,19 @@ or <code><a href="https://ay2324s2-cs2113t-t09-3.github.io/tp/UserGuide.html#dec
 It is strongly <strong>not recommended</strong> to use <code>edit</code> for incoming or outgoing stocks. Unlike <code>inflow</code> and <code>outflow</code>, the change
 in product quantity using the <code>edit</code> feature <i>will not be tracked</i> and hence will not appear under
 <code><a href="https://ay2324s2-cs2113t-t09-3.github.io/tp/UserGuide.html#viewing-past-inflow--outflow-of-existing-product-history">history</a></code>.
-
 </div>
 
 ### Example 1
 Context:
-- Product `Sticky note`’s Product ID (PID) is 1.
-- You wish to change `Sticky note`'s information as follows.
-  - PRICE: $2.00
-  - DESCRIPTION: 100 pieces per stack
+- Product `Pen`’s Product ID (PID) is 1.
+- You wish to update `Pen`'s information as follows.
+  - PRICE: $1.50
+  - DESCRIPTION: Sarasa Blue Pen
 
 Input:
 
 ```
-edit 1 p/2.00 d/100 pieces per stack
+edit 1 p/1.50 d/Sarasa Blue Pen
 ```
 
 Output: 
@@ -345,17 +360,17 @@ Product details have been updated.
 
 ### Example 2
 Context
-- `Highlighter`’s Product ID (PID) is 23.
-- You wish to change `Highlighter`’s information as follows.
-  - PRODUCT_NAME: Neon highlighter
-  - QUANTITY: 200
-  - PRICE: $1.50
-  - DESCRIPTION: Erasable
+- `Ruler`’s Product ID (PID) is 2.
+- You wish to update `Ruler`’s information as follows.
+  - PRODUCT_NAME: Curve Ruler
+  - QUANTITY: 35
+  - PRICE: $2.50
+  - DESCRIPTION: Math Curve Ruler
 
 Input:
 
 ```
-edit 23 n/Neon highlighter q/200 p/1.50 d/Erasable
+edit 2 n/Curve Ruler q/35 p/2.50 d/Math Curve Ruler
 ```
 
 Output:
@@ -366,54 +381,20 @@ Product details have been updated.
 
 <div style="page-break-after: always;"></div>
 
-<!--- @@author cheeseong2001 --->
-## Deleting a Product and its Details: `delete`
-
-Deletes an existing product from the inventory.
-
-Format: `delete PID`
-
-| Parameter | Representation                     | Constraints                                       |
-|-----------|------------------------------------|---------------------------------------------------|
-| `PID`     | Product ID of the existing product | Must be a valid Product ID of an existing product |
-
-
-### Example 1
-Input:
-```
-delete 1
-```
-
-Output:
-```
-Product has been deleted.
-```
-
-### Example 2
-Suppose the product with PID 3 is not in the inventory. As such you should not be able to delete anything.
-
-Input:
-`delete 3`
-
-Output:
-`Product with the following PID is not found: 3`
-
-<div style="page-break-after: always;"></div>
-
 <!--- @@author leongxingyu --->
 ## Increasing a Product Quantity: `inflow`
 
-Increase the quantity of an existing product in the inventory at the specific PID.
+Increase the quantity of an existing product in the inventory at the specific PID by a specified amount.
 
 Format: 
 ```
 inflow PID a/QUANTITY
 ```
 
-| Parameter  | Representation                      | Constraints                                       |
-|------------|-------------------------------------|---------------------------------------------------|
-| `PID`      | Product ID of the existing product  | Must be a valid Product ID of an existing product |
-| `QUANTITY` | Quantity of the product to be added | Must be an integer more than or equals to 0       |
+| Parameter  | Representation                       | Constraints                                                                              |
+|------------|--------------------------------------|------------------------------------------------------------------------------------------|
+| `PID`      | Product ID of the existing product.  | Must be a valid Product ID of an existing product.                                       |
+| `QUANTITY` | Quantity of the product to be added. | Must be an integer more than or equal to 0 and smaller or equal to INT_MAX (2147483647). |
 
 <div style="padding: 15px; border: 1px solid transparent; margin-bottom: 20px; border-radius: 4px; color: #8a6d3b; background-color: #fcf8e3;">
 :bulb: <strong>Tip:</strong> Use this command instead of <a href="https://ay2324s2-cs2113t-t09-3.github.io/tp/UserGuide.html#editing-product-details-edit">edit</a> 
@@ -422,18 +403,34 @@ if you already have an existing product and just want to <i>increase</i> the qua
 
 ### Example 1
 Context: 
-- Product `Sticky note`'s Product ID (PID) is 1.
-- Current QUANTITY of `Sticky note` is 20.
-- Now, you have 10 new stocks for `Sticky note` and you wish to update the quantity.
+- Product `Pen`'s Product ID (PID) is 1.
+- Current `QUANTITY` of `Pen` is 40.
+- Now, you have 20 new incoming stocks for `Pen` and you wish to update the quantity.
 
 Input:
 ```
-inflow 1 a/10
+inflow 1 a/20
 ```
 
 Output:
 ```
-Quantity updated. Quantity: 30
+Quantity updated. Quantity: 60
+```
+
+### Example 2
+Context:
+- Product `Curve Ruler`'s Product ID (PID) is 2.
+- Current `QUANTITY` of `Curve Ruler` is 35.
+- Now, you have 10 new incoming stocks for `Curve Ruler` and you wish to update the quantity.
+
+  Input:
+```
+inflow 2 a/10
+```
+
+Output:
+```
+Quantity updated. Quantity: 45
 ```
 
 Explanation:
@@ -449,10 +446,10 @@ Format:
 outflow PID a/QUANTITY
 ```
 
-| Parameter  | Representation                        | Constraints                                       |
-|------------|---------------------------------------|---------------------------------------------------|
-| `PID`      | Product ID of the existing product    | Must be a valid Product ID of an existing product |
-| `QUANTITY` | Quantity of the product to be removed | Must be an integer more than or equals to 0       |
+| Parameter  | Representation                         | Constraints                                                                               |
+|------------|----------------------------------------|-------------------------------------------------------------------------------------------|
+| `PID`      | Product ID of the existing product.    | Must be a valid Product ID of an existing product.                                        |
+| `QUANTITY` | Quantity of the product to be removed. | Must be an integer more than or equals to 0 and smaller or equal to INT_MAX (2147483647). |
 
 <div style="padding: 15px; border: 1px solid transparent; margin-bottom: 20px; border-radius: 4px; color: #8a6d3b; background-color: #fcf8e3;">
 :bulb: <strong>Tip:</strong> Use this command instead of <a href="https://ay2324s2-cs2113t-t09-3.github.io/tp/UserGuide.html#editing-product-details-edit">edit</a> 
@@ -460,20 +457,20 @@ if you already have an existing product and just want to <i>decrease</i> the qua
 </div>
 
 ### Example 1
-Context: 
-- Product `Sticky note`'s Product ID (PID) is 1.
-- Current QUANTITY of `Sticky note` is 20.
-- Now, you sold 10 `Sticky note` and you wish to update the quantity.
+Context:
+- Product `Curve Ruler`'s Product ID (PID) is 2.
+- Current `QUANTITY` of `Curve Ruler` is 45.
+- Now, you sold 30 `Curve Ruler` and you wish to update the quantity.
 
 Input:
 ```
-outflow 1 a/10
+outflow 2 a/30
 ```
 
-Output: 
+Output:
 ```
-Warning! This product is low in quantity.
-Quantity updated. Quantity: 10
+Warning! This product is low in quality.
+Quantity updated. Quantity: 15
 ```
 
 <div style="padding: 15px; border: 1px solid transparent; margin-bottom: 20px; border-radius: 4px; color: #8a6d3b; background-color: #fcf8e3;">
@@ -486,21 +483,20 @@ below quantity of 20. All low quantity products will be displayed when you exit 
 quantity, warning will also be raised. 
 </div>
 
-
 ### Example 2
 Context:
-- Product `Highlighter`'s Product ID (PID) is 23.
-- Current QUANTITY of `Highlighter` is 50.
-- Now, you sold 11 `Highlighter` and you wish to update the quantity.
+- Product `Pen`'s Product ID (PID) is 1.
+- Current `QUANTITY` of `Pen` is 60.
+- Now, you sold 35 `Pen` and you wish to update the quantity.
 
 Input:
 ```
-outflow 23 a/11
+outflow 1 a/35
 ```
 
 Output:
 ```
-Quantity updated. Quantity: 39
+Quantity updated. Quantity: 25
 ```
 
 <div style="padding: 15px; border: 1px solid transparent; margin-bottom: 20px; border-radius: 4px; color: #8a6d3b; background-color: #fcf8e3;">
@@ -525,9 +521,9 @@ Format:
 history PID
 ```
 
-| Parameter  | Representation                           | Constraints                                       |
-|------------|------------------------------------------|---------------------------------------------------|
-| `PID`      | Product ID of the existing product       | Must be a valid Product ID of an existing product |
+| Parameter  | Representation                      | Constraints                                        |
+|------------|-------------------------------------|----------------------------------------------------|
+| `PID`      | Product ID of the existing product. | Must be a valid Product ID of an existing product. |
 
 
 ### Example 1
@@ -538,35 +534,67 @@ history 1
 
 Output:
 ```
-====================================================================================
-PID: 1  |  Change in quantity: 200  |  Date of inflow: 29-03-2024 16:47:31
-PID: 1  |  Change in quantity: -100  |  Date of outflow: 05-04-2024 10:00:00
+1. PID: 1  |  Change in quantity: 20  |  Date of inflow: 29-03-2024 17:27:24
+2. PID: 1  |  Change in quantity: -35  |  Date of outflow: 05-04-2024 17:33:40
 ```
 
 **Explanation:** <br>
-This command will find any inflow or outflow quantities of your product which has PID 1. <br>
-As seen, you tried to: <br>
-Increase the quantity of the product by 200 on 29th March 2024, at 16:47:31 hours <br>
-Decrease the quantity of the product by 100 on 5th April 2024, at 10:00:00 hours <br>
+This command will find any inflow or outflow quantities of your product which has PID 1, which is your `Pen` product. <br>
+As seen, you tried to: 
+* Increase the quantity of `Pen` by 20 on 29th March 2024, at 17:27:24 hours
+* Decrease the quantity of `Pen` by 35 on 5th April 2024, at 17:33:40 hours
 
 ### Example 2
 Input:
 ```
-history 3
+history 2
 ```
 
 Output:
 ```
-====================================================================================
-PID: 3  |  Change in quantity: -200  |  Date of outflow: 18-03-2024 08:00:31
-PID: 3  |  Change in quantity:  40 |  Date of inflow: 18-03-2024 10:00:00
+1. PID: 2  |  Change in quantity: 10  |  Date of inflow: 18-03-2024 08:00:31
+2. PID: 2  |  Change in quantity: -30  |  Date of outflow: 01-04-2024 10:00:00
 ```
 
 **Explanation:** <br>
-This command will find any inflow or outflow quantities of your product which has PID 3. <br>
-As seen, you tried to: <br>
-Decrease the quantity of the product by 200 on 18th March 2024, at 08:00:31 hours <br>
-Increase the quantity of the product by 40 on 18th March 2024, at 10:00:00 hours <br>
+This command will find any inflow or outflow quantities of your `Curve Ruler` which has PID 2. <br>
+As seen, you tried to:
+* Increase the quantity of `Curve Ruler` by 10 on 18th March 2024, at 08:00:31 hours 
+* Decrease the quantity of `Curve Ruler` by 30 on 1st April 2024, at 10:00:00 hours
+
+<div style="page-break-after: always;"></div>
+
+<!--- @@author cheeseong2001 --->
+## Deleting a Product and its Details: `delete`
+
+Deletes an existing product from the inventory.
+
+Format: `delete PID`
+
+| Parameter | Representation                      | Constraints                                        |
+|-----------|-------------------------------------|----------------------------------------------------|
+| `PID`     | Product ID of the existing product. | Must be a valid Product ID of an existing product. |
+
+
+### Example 1
+Input:
+```
+delete 1
+```
+
+Output:
+```
+Product has been deleted.
+```
+
+### Example 2
+Suppose the product with PID 3 is not in the inventory. As such you should not be able to delete anything.
+
+Input:
+`delete 3`
+
+Output:
+`Product with the following PID is not found: 3`
 
 <div style="page-break-after: always;"></div>
 
@@ -583,30 +611,26 @@ Format: `find KEYWORD`
 <ul>
     <li>Only the product name is searched.</li>
     <li>The search is case-insensitive. e.g “find apple” will match “Apple”.</li>
-    <li>Partial or full words will be matched e.g. “find Appl” will match “Apples”.</li>
+    <li>Partial or full words will be matched e.g. “find Pe” will match “Pen”.</li>
 </ul>
 </div>
 
 ### Example 1
 Input:
 ```
-find Cor
+find Ruler
 ```
 
 Output:
 ```
 ====================================================================================
-PID: 1  |  Name: Corn  |  Quantity: 50  |  Price: $1.00
-Description: It's corn!
-====================================================================================
-PID: 5  |  Name: Corn Cup |  Quantity: 100
-====================================================================================
-PID: 10  |  Name: coriander |  Quantity: 1000
+1. PID: 2  |  Name: Curve Ruler  |  Quantity: 15  |  Price: $2.50
+Description: Math Curve Ruler
 ====================================================================================
 ```
 
 **Explanation:** <br>
-This command will find any product name that contains Cor in the product’s name,
+This command will find any product name that contains `Ruler` in the product’s name,
 regardless of case sensitivity.
 
 ### Example 2
@@ -644,11 +668,15 @@ exit
 
 Output:
 ```
+These products have low quantity! Please top up!
+====================================================================================
+PID: 2  |  Name: Curve Ruler  |  Quantity: 15 
+====================================================================================
 Exiting program, goodbye!
 ```
 
 Explanation:
-This command will exit the program. Our program will print a statement to bid you goodbye!
+This command will exit the program and print out all the products that are low in quantity. Our program will print a statement to bid you goodbye!
 
 ### Example 2
 
@@ -678,10 +706,21 @@ StockPal data is saved in the hard disk automatically after any command that cha
 
 StockPal inventory data is saved automatically as a CSV file `[JAR file location]/data/inventory.csv`, while the past transactions data is saved automatically as a JSON file `[JAR file location]/data/transactions.json`. Advanced users are welcome to update data directly by editing these data files, even though it is **highly not recommended**.
 
+<div style="padding: 15px; border: 1px solid transparent; margin-bottom: 20px; border-radius: 4px; color: #31708f; background-color: #d9edf7;">
+:information_source: <strong>Note:</strong> Allowed characters to use when editing the data file:<br>
+<code>a-z</code>, <code>A-Z</code>, <code>0-9</code>, <code> </code>, <code>()</code>, <code>[]</code>, <code>,</code>, <code>.</code>, <code>-</code>, <code>_</code>
+</div>
+
 <div style="padding: 15px; border: 1px solid transparent; margin-bottom: 20px; border-radius: 4px; color: #a94442; background-color: #f2dede;">
 :exclamation:<strong>Caution:</strong>
 If your changes to the data file makes its format invalid, StockPal will not discard the data, but instead display an error that the data has erroneous input, and close the app thereafter. <br>
-Furthermore, certain edits can cause StockPal to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file <strong>only if</strong> you are confident that you can update it correctly, and it is <strong>recommended</strong> to make a backup of the file before editing it.
+Furthermore, certain edits can cause StockPal to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). For example,<br>
+<ul>
+    <li>When editing the data file, you should <strong>NOT</strong> be editing the <code>PID</code> or the <code>name</code> of the products directly, as it will most likely cause errors in the application itself, and StockPal will show errors if there are duplicate <code>PID</code>s or <code>name</code>s.</li>
+    <li>If you want to do an <code>inflow</code> or <code>outflow</code>, do not do it by editing the data file itself, as these edits will not be recorded in the transactions list of StockPal.</li>
+    <li>Do <strong>be careful</strong> when using the semicolon character (<code>;</code>) when editing <code>inventory.csv</code>, as that is the main separator of the CSV file, adding or removing them will likely cause data to be lost.</li>
+</ul>
+Therefore, edit the data file <strong>only if</strong> you are confident that you can update it correctly, as we would <strong>not</strong> be responsible for any errors caused by the manual editing of the data file, and it is <strong>recommended</strong> to make a backup of the file before editing it.
 </div>
 
 <div style="page-break-after: always;"></div>
@@ -690,18 +729,18 @@ Furthermore, certain edits can cause StockPal to behave in unexpected ways (e.g.
 This section provides a quick overview of all the commands. For more detailed information on the command format, click on the `command` to be redirected to the command’s details under the [Features](#features) section.
 
 
-| **Command**                                                                                        | **Description**                                                                    |
-|----------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------|
-| [`help [COMMAND]`](#viewing-help-help)                                                             | Provides command details for all or specific commands                              |
-| [`new n/PRODUCT_NAME q/INITIAL_QUANTITY [p/PRICE] [d/DESCRIPTION]`](#adding-a-new-product-new)     | Creates a new product                                                              |
-| `list [-sn\|-sq]`](#listing-all-products-list)                                                     | Lists all products in the inventory                                                |
+| **Command**                                                                                         | **Description**                                                                    |
+|-----------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------|
+| [`help [COMMAND]`](#viewing-help-help)                                                              | Provides command details for all or specific commands                              |
+| [`new n/PRODUCT_NAME q/INITIAL_QUANTITY [p/PRICE] [d/DESCRIPTION]`](#adding-a-new-product-new)      | Creates a new product                                                              |
+| [`list [-sn\|-sq]`](#listing-all-products-list)                                                     | Lists all products in the inventory                                                |
 | [`edit PID [n/PRODUCT_NAME] [q/QUANTITY] [d/DESCRIPTION] [p/PRICE]`](#editing-product-details-edit) | Edits an existing product’s field                                                  |
-| [`delete PID`](#deleting-a-product-and-its-details-delete)                                         | Deletes a product                                                                  |
-| [`inflow PID a/QUANTITY`](#increasing-a-product-quantity-inflow)                                   | Increases the quantity of an existing product in the inventory at the specific PID |
-| [`outflow PID a/QUANTITY`](#decreasing-a-product-quantity-outflow)                                 | Decreases the quantity of an existing product in the inventory at the specific PID |
-| [`history PID`](#viewing-past-inflow--outflow-of-existing-product-history)                         | Finds the list of transactions for a particular product based on its PID           |
-| [`find KEYWORD`](#find-a-keyword-in-the-product-list-find)                                         | Finds the list of products that contains the keyword in their name                 |
-| [`exit`](#exiting-the-program-exit)                                                                | Exits the program                                                                  |
+| [`inflow PID a/QUANTITY`](#increasing-a-product-quantity-inflow)                                    | Increases the quantity of an existing product in the inventory at the specific PID |
+| [`outflow PID a/QUANTITY`](#decreasing-a-product-quantity-outflow)                                  | Decreases the quantity of an existing product in the inventory at the specific PID |
+| [`history PID`](#viewing-past-inflow--outflow-of-existing-product-history)                          | Finds the list of transactions for a particular product based on its PID           |
+| [`delete PID`](#deleting-a-product-and-its-details-delete)                                          | Deletes a product                                                                  |
+| [`find KEYWORD`](#find-a-keyword-in-the-product-list-find)                                          | Finds the list of products that contains the keyword in their name                 |
+| [`exit`](#exiting-the-program-exit)                                                                 | Exits the program                                                                  |
 
 <div style="page-break-after: always;"></div>
 
@@ -709,6 +748,15 @@ This section provides a quick overview of all the commands. For more detailed in
 
 **Q**: How do I transfer my data to another computer?
 
-**A**: Install the app on the other computer and overwrite the empty `inventory.csv` and `transactions.json` files it creates with the files that contains the data of your previous StockPal home folder.
+**A**: There are 2 ways to transfer your StockPal data over to another device.<br>
+Method 1:
+1. Install StockPal on your new device.
+2. On your old device, locate `inventory.csv` and `transactions.json` in StockPal’s home folder. Copy over the 2 files to the home folder of StockPal on your new device.
+3. On your new device, run `StockPal.jar` (located within the home folder of StockPal).
+
+Method 2:
+1. On your old device, locate StockPal’s home folder.
+2. Copy the entire folder over to your new device.
+3. On your new device, run `StockPal.jar` (located in the copied folder from Step 2).
 
 
