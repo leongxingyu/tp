@@ -12,9 +12,9 @@ Class HiddenOutside #FFFFFF
 HiddenOutside ..> UI
 
 Class StockPal STOCKPAL_COLOR
-UI -left.> StockPal
+UI -left.> StockPal : Passes User Input >
 
 Class Command COMMANDS_COLOR
-UI -right..> Command
+Command -left[COMMANDS_COLOR]..> UI : Print Messages >
 
 @enduml

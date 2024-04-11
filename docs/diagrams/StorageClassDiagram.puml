@@ -23,10 +23,10 @@ HiddenOutside ..> Storage
 HiddenOuts .> TransactionStorage
 HiddenOuts -[hidden].> Storage
 
-Storage -down..> CsvWriter
-Storage -down..> CsvReader
+Storage -down..> CsvWriter : Uses >
+Storage -down..> CsvReader : Uses >
 
-TransactionStorage -down..> JsonWriter
-TransactionStorage -down..> JsonReader
+TransactionStorage -down..> JsonWriter : Uses >
+TransactionStorage -down..> JsonReader : Uses >
 
 @enduml

@@ -466,7 +466,7 @@ public class Parser {
             return new HelpCommand();
         }
 
-        return new HelpCommand(input);
+        return new HelpCommand(input.toLowerCase());
     }
 
     /**

@@ -3,7 +3,7 @@
 skinparam ArrowFontStyle plain
 
 Participant ":HistoryCommand" as command COMMANDS_COLOR
-Participant ":TransactionList" as transactionlist PRODUCTLIST_COLOR
+Participant ":TransactionList" as transactionlist TRANSACTIONLIST_COLOR
 Participant ":UI" as ui UI_COLOR
 
 
@@ -11,7 +11,7 @@ Participant ":UI" as ui UI_COLOR
 activate command COMMANDS_COLOR
 
 command -> transactionlist : findTransactions(transactionList, productIndex)
-activate transactionlist PRODUCTLIST_COLOR
+activate transactionlist TRANSACTIONLIST_COLOR
 
 transactionlist -> ui : printListTasks(PastTransactions)
 activate ui UI_COLOR

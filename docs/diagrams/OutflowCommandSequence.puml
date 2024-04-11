@@ -4,6 +4,7 @@
 Participant ":OutflowCommand" as command COMMANDS_COLOR
 Participant ":ProductList" as productlist PRODUCTLIST_COLOR
 Participant ":UI" as ui UI_COLOR
+Participant ":TransactionList" as transactionlist TRANSACTIONLIST_COLOR
 
 -> command : execute()
 activate command COMMANDS_COLOR
@@ -16,8 +17,15 @@ activate ui UI_COLOR
 ui --[UI_COLOR]> productlist
 deactivate ui UI_COLOR
 
-productlist --[PRODUCTLIST_COLOR]> command
+productlist --[PRODUCTLIST_COLOR]> command : updateSuccessful : boolean
 deactivate productlist
+
+opt updateSuccessful == true
+    command -> transactionlist : createtransaction()
+    activate transactionlist TRANSACTIONLIST_COLOR
+    transactionlist --> command
+    deactivate transactionlist
+end
 
 <-- command
 deactivate command

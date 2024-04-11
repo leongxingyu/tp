@@ -31,7 +31,7 @@ deactivate productlist
  command -> command : createProduct(name, quantity, price, description)
  activate command COMMANDS_COLOR
 
- command --> command : newProduct
+ command --> command : newProduct : Product
  deactivate command COMMANDS_COLOR
 
 

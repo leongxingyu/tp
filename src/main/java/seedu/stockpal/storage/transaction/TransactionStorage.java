@@ -21,7 +21,7 @@ import seedu.stockpal.storage.exception.StorageIOException;
 
 import static seedu.stockpal.common.Messages.ERROR_MESSAGE_GENERAL;
 import static seedu.stockpal.common.Messages.WARNING_DATA_ERROR;
-import static seedu.stockpal.common.Messages.WARNING_INVALID_FILEPATH;
+import static seedu.stockpal.common.Messages.WARNING_INVALID_FILEPATH_JSON;
 
 /**
  * Represents the transaction file storage of the StockPal application.
@@ -56,7 +56,7 @@ public class TransactionStorage {
      */
     public TransactionStorage(String filePath) throws StockPalException {
         if (!isValidPath(filePath)) {
-            throw new InvalidStorageFilePathException(WARNING_INVALID_FILEPATH);
+            throw new InvalidStorageFilePathException(WARNING_INVALID_FILEPATH_JSON);
         }
         this.path = filePath;
     }
