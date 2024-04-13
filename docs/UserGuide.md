@@ -146,8 +146,7 @@ Format: `help [COMMAND]`
 | `COMMAND` | The command for which you wish to display the help page | - Must be a valid command keyword.<br/>- If `COMMAND` is left empty, command details for all commands will be displayed.<br/>- List of valid command keywords: <code>help</code>, <code>new</code>, <code>list</code>, <code>edit</code>, <code>delete</code>, <code>inflow</code>, <code>outflow</code>, <code>history</code>, <code>find</code>, <code>exit</code> |
 
 <div style="padding: 15px; border: 1px solid transparent; margin-bottom: 20px; border-radius: 4px; color: #31708f; background-color: #d9edf7;">
-:information_source: <strong>Note:</strong><br>
-<code>COMMAND</code> is case-insensitive.<br>
+:information_source: <strong>Note:</strong> <code>COMMAND</code> is case-insensitive.<br>
 e.g. <code>help</code> will be considered the same as <code>HELP</code> and <code>hELP</code>.
 </div>
 
@@ -426,7 +425,7 @@ Context:
 - Current `QUANTITY` of `Curve Ruler` is 35.
 - Now, you have 10 new incoming stocks for `Curve Ruler` and you wish to update the quantity.
 
-  Input:
+Input:
 ```
 inflow 2 a/10
 ```
@@ -711,7 +710,7 @@ StockPal inventory data is saved automatically as a CSV file `[JAR file location
 
 <div style="padding: 15px; border: 1px solid transparent; margin-bottom: 20px; border-radius: 4px; color: #31708f; background-color: #d9edf7;">
 :information_source: <strong>Note:</strong> Allowed characters to use when editing the data file:<br>
-<code>a-z</code>, <code>A-Z</code>, <code>0-9</code>, <code> </code>, <code>()</code>, <code>[]</code>, <code>,</code>, <code>.</code>, <code>-</code>, <code>_</code>
+<code>a-z</code>, <code>A-Z</code>, <code>0-9</code>, <code>&nbsp;</code>, <code>()</code>, <code>[]</code>, <code>,</code>, <code>.</code>, <code>-</code>, <code>_</code>
 </div>
 
 <div style="padding: 15px; border: 1px solid transparent; margin-bottom: 20px; border-radius: 4px; color: #a94442; background-color: #f2dede;">
@@ -736,7 +735,7 @@ This section provides a quick overview of all the commands. For more detailed in
 |-----------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------|
 | [`help [COMMAND]`](#viewing-help-help)                                                              | Provides command details for all or specific commands                              |
 | [`new n/PRODUCT_NAME q/INITIAL_QUANTITY [p/PRICE] [d/DESCRIPTION]`](#adding-a-new-product-new)      | Creates a new product                                                              |
-| [`list [-sn\|-sq]`](#listing-all-products-list)                                                     | Lists all products in the inventory                                                |
+| [<code>list [-sn&#124;-sq]</code>](#listing-all-products-list)                                      | Lists all products in the inventory                                                |
 | [`edit PID [n/PRODUCT_NAME] [q/QUANTITY] [d/DESCRIPTION] [p/PRICE]`](#editing-product-details-edit) | Edits an existing product’s field                                                  |
 | [`inflow PID a/QUANTITY`](#increasing-a-product-quantity-inflow)                                    | Increases the quantity of an existing product in the inventory at the specific PID |
 | [`outflow PID a/QUANTITY`](#decreasing-a-product-quantity-outflow)                                  | Decreases the quantity of an existing product in the inventory at the specific PID |
