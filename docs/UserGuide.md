@@ -399,7 +399,7 @@ inflow PID a/QUANTITY
 | `QUANTITY` | Quantity of the product to be added. | Must be an integer more than 0 and smaller or equal to INT_MAX (2147483647). |
 
 <div style="padding: 15px; border: 1px solid transparent; margin-bottom: 20px; border-radius: 4px; color: #8a6d3b; background-color: #fcf8e3;">
-:bulb: <strong>Tip:</strong> Use this command instead of <a href="https://ay2324s2-cs2113t-t09-3.github.io/tp/UserGuide.html#editing-product-details-edit">edit</a> 
+:bulb: <strong>Tip:</strong> Use this command instead of <a href="https://ay2324s2-cs2113t-t09-3.github.io/tp/UserGuide.html#editing-product-details-edit"><code>edit</code></a> 
 if you already have an existing product and just want to <i>increase</i> the quantity when you have new stocks. 
 </div>
 
@@ -454,7 +454,7 @@ outflow PID a/QUANTITY
 | `QUANTITY` | Quantity of the product to be removed. | Must be an integer more than 0 and smaller or equal to INT_MAX (2147483647). |
 
 <div style="padding: 15px; border: 1px solid transparent; margin-bottom: 20px; border-radius: 4px; color: #8a6d3b; background-color: #fcf8e3;">
-:bulb: <strong>Tip:</strong> Use this command instead of <a href="https://ay2324s2-cs2113t-t09-3.github.io/tp/UserGuide.html#editing-product-details-edit">edit</a> 
+:bulb: <strong>Tip:</strong> Use this command instead of <a href="https://ay2324s2-cs2113t-t09-3.github.io/tp/UserGuide.html#editing-product-details-edit"><code>edit</code></a> 
 if you already have an existing product and just want to <i>decrease</i> the quantity when you sell your stocks. 
 </div>
 
@@ -719,7 +719,7 @@ If your changes to the data file makes its format invalid, StockPal will not dis
 Furthermore, certain edits can cause StockPal to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). For example,<br>
 <ul>
     <li>When editing the data file, you should <strong>NOT</strong> be editing the <code>PID</code> or the <code>name</code> of the products directly, as it will most likely cause errors in the application itself, and StockPal will show errors if there are duplicate <code>PID</code>s or <code>name</code>s.</li>
-    <li>If you want to do an <code>inflow</code> or <code>outflow</code>, do not do it by editing the data file itself, as these edits will not be recorded in the transactions list of StockPal.</li>
+    <li>If you want to do an <a href="https://ay2324s2-cs2113t-t09-3.github.io/tp/UserGuide.html#increasing-a-product-quantity-inflow"><code>inflow</code></a> or <a href="https://ay2324s2-cs2113t-t09-3.github.io/tp/UserGuide.html#decreasing-a-product-quantity-outflow"><code>outflow</code></a>, do not do it by editing the data file itself, as these edits will not be recorded in the transactions list of StockPal.</li>
     <li>Do <strong>be careful</strong> when using the semicolon character (<code>;</code>) when editing <code>inventory.csv</code>, as that is the main separator of the CSV file, adding or removing them will likely cause data to be lost.</li>
 </ul>
 Therefore, edit the data file <strong>only if</strong> you are confident that you can update it correctly, as we would <strong>not</strong> be responsible for any errors caused by the manual editing of the data file, and it is <strong>recommended</strong> to make a backup of the file before editing it.
