@@ -736,7 +736,7 @@ This section provides a quick overview of all the commands. For more detailed in
 |-----------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------|
 | [`help [COMMAND]`](#viewing-help-help)                                                              | Provides command details for all or specific commands                              |
 | [`new n/PRODUCT_NAME q/INITIAL_QUANTITY [p/PRICE] [d/DESCRIPTION]`](#adding-a-new-product-new)      | Creates a new product                                                              |
-| [`list [-sn\|-sq]`](#listing-all-products-list)                                                     | Lists all products in the inventory                                                |
+| [<code>list [-sn\|-sq]</code>](#listing-all-products-list)                                          | Lists all products in the inventory                                                |
 | [`edit PID [n/PRODUCT_NAME] [q/QUANTITY] [d/DESCRIPTION] [p/PRICE]`](#editing-product-details-edit) | Edits an existing product’s field                                                  |
 | [`inflow PID a/QUANTITY`](#increasing-a-product-quantity-inflow)                                    | Increases the quantity of an existing product in the inventory at the specific PID |
 | [`outflow PID a/QUANTITY`](#decreasing-a-product-quantity-outflow)                                  | Decreases the quantity of an existing product in the inventory at the specific PID |
