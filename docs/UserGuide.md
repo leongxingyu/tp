@@ -191,12 +191,12 @@ Format:
 new n/PRODUCT_NAME q/INITIAL_QUANTITY [p/PRICE] [d/DESCRIPTION]
 ```
 
-| Parameter          | Representation                              | Constraints                                                                                                                                                                                        |
-|--------------------|---------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `PRODUCT_NAME`     | Name of new product to be added.            | - Limited to 50 characters.<br/>- Allowed characters:<br/>`a-z`, `A-Z`, `0-9`, ` `, `()`, `[]`, `,`, `.`, `-`, `_`<br/>- Name must be unique, i.e. no existing product with the same product name. |
-| `INITIAL_QUANTITY` | Quantity of the new product to be added.    | Must be an integer more than or equal to 0 and smaller or equal to INT_MAX (2147483647).                                                                                                           |
-| `PRICE`            | Price of the new product to be added.       | - Must be a numeric value more than equal to 0.<br/>- Can have at most 2 decimal places.                                                                                                           |
-| `DESCRIPTION`      | Description of the new product to be added. | - Limited to 100 characters.<br/>- Allowed characters:<br/>`a-z`, `A-Z`, `0-9`, ` `, `()`, `[]`, `,`, `.`, `-`, `_`                                                                                |
+| Parameter          | Representation                              | Constraints                                                                                                                                                                                                        |
+|--------------------|---------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `PRODUCT_NAME`     | Name of new product to be added.            | - Limited to 50 characters.<br/>- Allowed characters:<br/>`a-z`, `A-Z`, `0-9`, <code>&nbsp;</code>, `()`, `[]`, `,`, `.`, `-`, `_`<br/>- Name must be unique, i.e. no existing product with the same product name. |
+| `INITIAL_QUANTITY` | Quantity of the new product to be added.    | Must be an integer more than or equal to 0 and smaller or equal to INT_MAX (2147483647).                                                                                                                           |
+| `PRICE`            | Price of the new product to be added.       | - Must be a numeric value more than equal to 0.<br/>- Can have at most 2 decimal places.                                                                                                                           |
+| `DESCRIPTION`      | Description of the new product to be added. | - Limited to 100 characters.<br/>- Allowed characters:<br/>`a-z`, `A-Z`, `0-9`, <code>&nbsp;</code>, `()`, `[]`, `,`, `.`, `-`, `_`                                                                                |
 
 <div style="padding: 15px; border: 1px solid transparent; margin-bottom: 20px; border-radius: 4px; color: #31708f; background-color: #d9edf7;">
 :information_source: <strong>Note:</strong><br>
@@ -316,13 +316,13 @@ edit PID [n/PRODUCT_NAME] [q/QUANTITY] [p/PRICE] [d/DESCRIPTION]
 :information_source: <strong>Note:</strong> At least one parameter must be provided.
 </div>
 
-| Parameter      | Representation                                | Constraints                                                                                                                                                                                        |
-|----------------|-----------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `PID`          | Product ID of the existing product.           | Must be a valid Product ID of an existing product.                                                                                                                                                 |
-| `PRODUCT_NAME` | New product name of the product to be edited. | - Limited to 50 characters.<br/>- Allowed characters:<br/>`a-z`, `A-Z`, `0-9`, ` `, `()`, `[]`, `,`, `.`, `-`, `_`<br/>- Name must be unique, i.e. no existing product with the same product name. |
-| `QUANTITY`     | New quantity of the product to be edited.     | Must be an integer more than or equal to 0, and smaller or equal to INT_MAX (2147483647).                                                                                                          |
-| `PRICE`        | New price of the product to be edited.        | - Must be a numeric value more than equal to 0.<br/>- Can have at most 2 decimal places.                                                                                                           |
-| `DESCRIPTION`  | New description of the product to be edited.  | - Limited to 100 characters.<br/>- Allowed characters:<br/>`a-z`, `A-Z`, `0-9`, ` `, `()`, `[]`, `,`, `.`, `-`, `_`                                                                                |
+| Parameter      | Representation                                | Constraints                                                                                                                                                                                                        |
+|----------------|-----------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `PID`          | Product ID of the existing product.           | Must be a valid Product ID of an existing product.                                                                                                                                                                 |
+| `PRODUCT_NAME` | New product name of the product to be edited. | - Limited to 50 characters.<br/>- Allowed characters:<br/>`a-z`, `A-Z`, `0-9`, <code>&nbsp;</code>, `()`, `[]`, `,`, `.`, `-`, `_`<br/>- Name must be unique, i.e. no existing product with the same product name. |
+| `QUANTITY`     | New quantity of the product to be edited.     | Must be an integer more than or equal to 0, and smaller or equal to INT_MAX (2147483647).                                                                                                                          |
+| `PRICE`        | New price of the product to be edited.        | - Must be a numeric value more than equal to 0.<br/>- Can have at most 2 decimal places.                                                                                                                           |
+| `DESCRIPTION`  | New description of the product to be edited.  | - Limited to 100 characters.<br/>- Allowed characters:<br/>`a-z`, `A-Z`, `0-9`, <code>&nbsp;</code>, `()`, `[]`, `,`, `.`, `-`, `_`                                                                                |
 
 <div style="padding: 15px; border: 1px solid transparent; margin-bottom: 20px; border-radius: 4px; color: #31708f; background-color: #d9edf7;">
 :information_source: <strong>Note:</strong><br>
