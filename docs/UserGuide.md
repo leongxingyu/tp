@@ -710,7 +710,7 @@ StockPal inventory data is saved automatically as a CSV file `[JAR file location
 
 <div style="padding: 15px; border: 1px solid transparent; margin-bottom: 20px; border-radius: 4px; color: #31708f; background-color: #d9edf7;">
 :information_source: <strong>Note:</strong> Allowed characters to use when editing the data file:<br>
-<code>a-z</code>, <code>A-Z</code>, <code>0-9</code>, <code> </code>, <code>()</code>, <code>[]</code>, <code>,</code>, <code>.</code>, <code>-</code>, <code>_</code>
+<code>a-z</code>, <code>A-Z</code>, <code>0-9</code>, <code>&nbsp;</code>, <code>()</code>, <code>[]</code>, <code>,</code>, <code>.</code>, <code>-</code>, <code>_</code>
 </div>
 
 <div style="padding: 15px; border: 1px solid transparent; margin-bottom: 20px; border-radius: 4px; color: #a94442; background-color: #f2dede;">
