@@ -41,8 +41,9 @@ Given below are my contributions to the project.
 * **Project management**:
     * Setup of GitHub team organisation + repository
     * Maintaining of the issue tracker
-    * Managed releases `v1.0` - `v2.0` (2 releases) on GitHub
+    * Managed releases `v1.0` - `v2.1` (3 releases) on GitHub
     * Updated [`README.md`](https://ay2324s2-cs2113t-t09-3.github.io/tp/) for GitHub pages website (Pull Request [#98](https://github.com/AY2324S2-CS2113T-T09-3/tp/pull/98))
+    * Updated [`README.md`](https://github.com/AY2324S2-CS2113T-T09-3/tp/blob/master/README.md) for GitHub repository (Pull Request [#168](https://github.com/AY2324S2-CS2113T-T09-3/tp/pull/168))
 
 * **Enhancements to existing features**:
     * Refactored code to reduce coupling between classes (Pull Request [#50](https://github.com/AY2324S2-CS2113T-T09-3/tp/pull/50))
@@ -59,7 +60,7 @@ Given below are my contributions to the project.
         * Added and edited Class diagrams for `Command`, `UI`, `Data` classes, and user stories. (Pull Request [#168](https://github.com/AY2324S2-CS2113T-T09-3/tp/pull/168))
 
 * **Community**:
-    * PRs reviewed (with non-trivial review comments): [#40](https://github.com/AY2324S2-CS2113T-T09-3/tp/pull/40), [#69](https://github.com/AY2324S2-CS2113T-T09-3/tp/pull/69), [\#163](https://github.com/AY2324S2-CS2113T-T09-3/tp/pull/163)
+    * PRs reviewed (with non-trivial review comments): [#40](https://github.com/AY2324S2-CS2113T-T09-3/tp/pull/40), [#69](https://github.com/AY2324S2-CS2113T-T09-3/tp/pull/69), [#163](https://github.com/AY2324S2-CS2113T-T09-3/tp/pull/163)
     * Reported an above-average number of bugs in PE-D (9 bugs in total) [Link to GitHub Repository](https://github.com/NgYaoDong/ped/issues)
 
 [//]: # (    * Reported bugs and suggestions for other teams in the class &#40;examples: [1]&#40;&#41;, [2]&#40;&#41;, [3]&#40;&#41;&#41;)
