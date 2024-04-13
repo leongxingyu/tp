@@ -425,7 +425,7 @@ Context:
 - Current `QUANTITY` of `Curve Ruler` is 35.
 - Now, you have 10 new incoming stocks for `Curve Ruler` and you wish to update the quantity.
 
-  Input:
+Input:
 ```
 inflow 2 a/10
 ```
