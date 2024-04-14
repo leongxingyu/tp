@@ -47,4 +47,4 @@ Given below are my contributions to the project.
 
 * **Community**:
   * PRs reviewed (with non-trivial review comments): [#89](https://github.com/AY2324S2-CS2113T-T09-3/tp/pull/89), [#45](https://github.com/AY2324S2-CS2113T-T09-3/tp/pull/45)
-  * Reported bugs and suggestions for other team's projects during PE Dry Run [Link to repo issues](https://github.com/cheeseong2001/ped/issues)
+  * Reported bugs and suggestions for other team's projects during PE Dry Run: [Link to repo issues](https://github.com/cheeseong2001/ped/issues)
