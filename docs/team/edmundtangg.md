@@ -59,8 +59,8 @@ It requires an indepth analysis of how to incorporate it in our product because 
 <br/>
 
 ### Enhancements to existing features:
-- Wrote tests for existing features, obtaining 100% test coverage for all 3 features above. [#83](https://github.com/AY2324S2-CS2113T-T09-3/tp/pull/83) [#163](https://github.com/AY2324S2-CS2113T-T09-3/tp/pull/163)
-- Updated find command to search for substrings instead of just pure matching of the products' names.  [#83](https://github.com/AY2324S2-CS2113T-T09-3/tp/pull/83)
+- Wrote tests for existing features, obtaining 100% test coverage for all 3 features above [#83](https://github.com/AY2324S2-CS2113T-T09-3/tp/pull/83) [#163](https://github.com/AY2324S2-CS2113T-T09-3/tp/pull/163)
+- Updated find command to search for substrings instead of just pure matching of the products' names  [#83](https://github.com/AY2324S2-CS2113T-T09-3/tp/pull/83)
 
 <br/>
 
