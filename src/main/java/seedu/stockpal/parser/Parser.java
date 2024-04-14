@@ -279,7 +279,7 @@ public class Parser {
         }
         String amountString = matchAmount(input);
         assert amountString != null;
-        Integer decreaseBy = parseInteger(amountString);
+        Integer decreaseBy = parseInteger(amountString.stripLeading());
         if (decreaseBy == ZERO_AMOUNT) {
             throw new InvalidFormatException(MESSAGE_ERROR_ZERO_AMOUNT);
         }
@@ -305,7 +305,7 @@ public class Parser {
         }
         String amountString = matchAmount(input);
         assert amountString != null;
-        Integer increaseBy = parseInteger(amountString);
+        Integer increaseBy = parseInteger(amountString.stripLeading());
         if (increaseBy == ZERO_AMOUNT) {
             throw new InvalidFormatException(MESSAGE_ERROR_ZERO_AMOUNT);
         }
