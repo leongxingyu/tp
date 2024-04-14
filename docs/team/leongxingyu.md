@@ -64,6 +64,7 @@ Added documentations for the features `inflow` and `outflow`
 ### Contributions to Team-based Tasks
 - Updating UG and DG documents
     - Helped with updating Product Scope.
+- Created Demo Video to showcase project features
 
 ### Contribution Beyond the Project Team
 - Reported a high number of bugs in the PE-D (Top 10%)
