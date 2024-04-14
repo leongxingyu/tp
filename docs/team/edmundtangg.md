@@ -25,9 +25,6 @@ Justification:
 This is the core feature of the application.
 A user needs to be able to add a product into the application before any further commands can run.
 
-<br/>
-
-
 **2. Find command Feature**
 [#52](https://github.com/AY2324S2-CS2113T-T09-3/tp/pull/52)
 
@@ -40,9 +37,6 @@ In the event that the user only remember certain keywords of the product's name,
 the user can use this command to obtain more information about the product.
 In addition, most commands require the PID of the product to run.
 This command allows the user to obtain the PID of the product that they want.
-
-
-<br/>
 
 **3. History command Feature**
 [#69](https://github.com/AY2324S2-CS2113T-T09-3/tp/pull/69)
@@ -65,21 +59,15 @@ It requires an indepth analysis of how to incorporate it in our product because 
 <br/>
 
 ### Enhancements to existing features:
-- Wrote tests for existing features, obtaining 100% test coverage for all 3 features above. [#83](https://github.com/AY2324S2-CS2113T-T09-3/tp/pull/83) [#163](https://github.com/AY2324S2-CS2113T-T09-3/tp/pull/163)
-- Updated find command to search for substrings instead of just pure matching of the products' names.  [#83](https://github.com/AY2324S2-CS2113T-T09-3/tp/pull/83)
-
-
-<br/>
-
-### Contributions to the UG
-Added documentations details for the classes `new`, `find` and `history`.
-[#92](https://github.com/AY2324S2-CS2113T-T09-3/tp/pull/92)
+- Wrote tests for existing features, obtaining 100% test coverage for all 3 features above [#83](https://github.com/AY2324S2-CS2113T-T09-3/tp/pull/83) [#163](https://github.com/AY2324S2-CS2113T-T09-3/tp/pull/163)
+- Updated find command to search for substrings instead of just pure matching of the products' names  [#83](https://github.com/AY2324S2-CS2113T-T09-3/tp/pull/83)
 
 <br/>
 
-### Contributions to the DG
-Added documentations details for the classes `new`, `find` and `history`.
-[#92](https://github.com/AY2324S2-CS2113T-T09-3/tp/pull/92)
+### Documentations
+UG: Added documentations details for the classes `new`, `find` and `history`. [#92](https://github.com/AY2324S2-CS2113T-T09-3/tp/pull/92)
+
+DG: Added documentations details for the classes `new`, `find` and `history`. [#92](https://github.com/AY2324S2-CS2113T-T09-3/tp/pull/92)
 
 <br/>
 
